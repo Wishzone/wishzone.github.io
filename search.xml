@@ -5,6 +5,7 @@
     <url>/2022/12/18/Android/</url>
     <content><![CDATA[<h1 id="adb调试"><a href="#adb调试" class="headerlink" title="adb调试"></a>adb调试</h1><h2 id="有线调试"><a href="#有线调试" class="headerlink" title="有线调试"></a>有线调试</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb device #查看adb设备</span><br><span class="line">adb shell #连接adb设备</span><br><span class="line">adb root #以管理员身份连接adb设备</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h2 id="无线调试"><a href="#无线调试" class="headerlink" title="无线调试"></a>无线调试</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb tcpip 5555 #给设备指定端口，其他端口也可以</span><br><span class="line">adb connect 192.168.31.196:5555 #连接设备</span><br><span class="line">adb devices #查看设备是否连接</span><br><span class="line">adb shell #连接设备</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
 <h2 id="设置开机启动无线调试"><a href="#设置开机启动无线调试" class="headerlink" title="设置开机启动无线调试"></a>设置开机启动无线调试</h2><pre><code>在手机的/system/build.prop中增加一行配置:service.adb.tcp.port=5555（同样可以指定为其他值）即可，因此可以先将/system/build.prop从手机中pull出来，修改后再push进去
 </code></pre><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb pull /system/build.prop #将build.prop文件拉出</span><br><span class="line">nano build.prop #编辑build.prop文件，添加上述代码</span><br><span class="line">adb remount</span><br><span class="line">adb push build.prop /system/ #将build.prop文件放回</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h2 id="其他常见命令"><a href="#其他常见命令" class="headerlink" title="其他常见命令"></a>其他常见命令</h2><h3 id="adb-基础指令"><a href="#adb-基础指令" class="headerlink" title="adb 基础指令"></a>adb 基础指令</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">//启动 adb 服务</span><br><span class="line">adb start-server</span><br><span class="line"></span><br><span class="line">//关闭 adb 服务</span><br><span class="line">adb kill-server</span><br><span class="line"></span><br><span class="line">//获取 adb 帮助信息</span><br><span class="line">adb help</span><br><span class="line"></span><br><span class="line">//获取 adb 当前版本</span><br><span class="line">adb version</span><br><span class="line"></span><br><span class="line">//重启设备</span><br><span class="line">adb reboot</span><br><span class="line"></span><br><span class="line">//获取设备 IP</span><br><span class="line">adb shell ifconfig</span><br><span class="line">  </span><br><span class="line">//断开设备</span><br><span class="line">adb disconnect</span><br></pre></td></tr></table></figure>
@@ -113,6 +114,7 @@
     <url>/2022/12/13/LINUX-in-ARM64/</url>
     <content><![CDATA[<h1 id="编程开发"><a href="#编程开发" class="headerlink" title="编程开发"></a>编程开发</h1><h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><h3 id="一、查看环境变量"><a href="#一、查看环境变量" class="headerlink" title="一、查看环境变量"></a>一、查看环境变量</h3><p>env</p>
 <h3 id="二、查看PATH"><a href="#二、查看PATH" class="headerlink" title="二、查看PATH"></a>二、查看PATH</h3><p>export<br>或者单独查看PATH环境变量<br>echo $PATH</p>
+<span id="more"></span>
 <h3 id="三、修改PATH"><a href="#三、修改PATH" class="headerlink" title="三、修改PATH"></a>三、修改PATH</h3><p>1.直接用export命令：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export PATH=$PATH:你的路径</span><br></pre></td></tr></table></figure>
 <p>2.修改profile文件(对系统里所有用户都有效)：</p>
@@ -131,7 +133,6 @@
 <li>IIS</li>
 <li>Ethernet</li>
 </ul>
-<span id="more"></span>
 <h3 id="近距离"><a href="#近距离" class="headerlink" title="近距离"></a>近距离</h3><ul>
 <li>RFID</li>
 <li>Bluetooth</li>
@@ -309,127 +310,6 @@
       </categories>
       <tags>
         <tag>LINUX</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ZYNQ-in-7010</title>
-    <url>/2022/12/13/ZYNQ-in-7010/</url>
-    <content><![CDATA[<h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><ol>
-<li><a href="https://github.com/LeiWang1999/FPGA">FPGA资料大全</a></li>
-<li><a href="https://www.runoob.com/w3cnote/verilog-tutorial.html">菜鸟教程Verilog 教程</a></li>
-<li><a href="https://verilogoj.ustc.edu.cn/oj/">https://verilogoj.ustc.edu.cn/oj/</a></li>
-<li><a href="https://www.zhihu.com/answer/2291310107">知乎</a></li>
-<li><p>正点原子视频教程</p>
-<ul>
-<li>启明星V2第一期：<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a href="https://www.bilibili.com/video/BV1XU4y1M7nw/?spm_id_from=333.788.video.desc.click">BV1XU4y1M7nw</a>?spm_id_from=333.999.0.0</li>
-<li>领航者V2第一期：<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a href="https://www.bilibili.com/video/BV1hP4y1L73N/?spm_id_from=333.788.video.desc.click">BV1hP4y1L73N</a>?spm_id_from=333.999.0.0</li>
-<li>第二期：<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a href="https://www.bilibili.com/video/BV1Hq4y1u7qH/?spm_id_from=333.788.video.desc.click">BV1Hq4y1u7qH</a>?spm_id_from=333.999.0.0</li>
-<li>第三期：<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a href="https://www.bilibili.com/video/BV1qz4y1d7pF/?spm_id_from=333.788.video.desc.click">BV1qz4y1d7pF</a>?spm_id_from=333.999.0.0</li>
-</ul>
-</li>
-<li><a href="https://zhuanlan.zhihu.com/c_1131528588117385216">Verilog练习网站HDLBits</a></li>
-</ol>
-<span id="more"></span>
-<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ol>
-<li><a href="https://www.jianshu.com/p/e3695489a958">VMware ubuntu压缩虚拟磁盘</a></li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install open-vm-tools</span><br><span class="line">sudo vmware-toolbox-cmd disk shrink /</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#虚拟机</span></span><br><span class="line"><span class="comment">#开启自动扩容时禁用</span></span><br><span class="line"><span class="built_in">cat</span> /dev/zero &gt; zero.fill</span><br><span class="line"><span class="built_in">rm</span> -f zero.fill</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">主机</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如我的VMware安装在F盘，在windows的命令行中：</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">F:\&gt;<span class="built_in">cd</span> VMware</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">F:\VMware&gt;vmware-vdiskmanager.exe -k <span class="string">&quot;F:\UbuntuVMware\Ubuntu1804\Ubuntu 64-bit.vmdk&quot;</span></span></span><br></pre></td></tr></table></figure>
-<ol>
-<li><a href="https://blog.csdn.net/u011198687/article/details/121713992">VMware虚拟机扩展Ubuntu系统磁盘空间</a></li>
-<li><a href="https://blog.csdn.net/weixin_45787652/article/details/109525269">完美解决虚拟机占用硬盘越来越大、删除快照出现内存不足错误</a></li>
-<li><a href="https://www.freesion.com/article/8548584805/">PETALINUX安装过程中遇到的坑【PETALINUX2018.3基于UBUNTU16.04.4（64-BIT）】</a></li>
-<li><a href="https://blog.csdn.net/weixin_44882546/article/details/116068157">使用vitis开发Linux应用程序</a></li>
-</ol>
-<h1 id="Vivado"><a href="#Vivado" class="headerlink" title="Vivado"></a>Vivado</h1><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
-<li><a href="https://zhuanlan.zhihu.com/p/365805011">FPGA Develop Support 使用手册-version 0.1.18</a></li>
-<li><p><a href="https://zhuanlan.zhihu.com/p/378739805">用Vscode代替Vivado原生编辑器</a></p>
-<blockquote>
-<p>D:/Program Files/Microsoft VS Code/Code.exe -g [file name]:[line number]</p>
-<p>D:/Program Files/Microsoft VS Code/Code.exe —disable-features=CalculateNativeWinOcclusion -g [file name]:[line number]</p>
-<p>D:/Program Files/Sublime Text/sublime_text.exe [file name] -l[line number]</p>
-</blockquote>
-</li>
-<li><a href="https://blog.csdn.net/weixin_42905573/article/details/106247887">【超实用】一分钟学会如何用最小存储空间保存Vivado工程！</a></li>
-<li><p><a href="https://blog.csdn.net/jingjiankai5228/article/details/113074220">vivado工程保存为tcl脚本及用tcl脚本恢复vivado工程</a></p>
-<figure class="highlight tcl"><table><tr><td class="code"><pre><span class="line"><span class="comment">#导出工程</span></span><br><span class="line">write_project_tcl D:/Study/FPGA/Backup/backup.tcl</span><br><span class="line"></span><br><span class="line"><span class="comment">#打开工程</span></span><br><span class="line"><span class="keyword">cd</span> D:/Study/FPGA/Backup/</span><br><span class="line"><span class="comment">#source ./backup.tcl</span></span><br><span class="line"><span class="comment">#vivado -mode tcl -source FZ3B_board.tcl -tclargs --origin_dir &quot;origin_dir地址&quot;</span></span><br><span class="line">tcl -<span class="keyword">source</span> FZ3B_board.tcl -tclargs --origin_dir <span class="string">&quot;origin_dir地址&quot;</span></span><br></pre></td></tr></table></figure>
-<p><strong>注意</strong></p>
-<blockquote>
-<p>Please note that by default, the file path for the project source files were set wth respect to the ‘origin_dir’ variable in the<br>generated script. When this script is executed from the output directory, these source files will be referenced with respect to this ‘origin_dir’ path value.<br>In case this script was later moved to a different directory, the ‘origin_dir’ value must be set manually in the script with the path<br>relative to the new output directory to make sure that the source files are referenced correctly from the original project. You can also set the<br>‘origin_dir’ automatically by setting the ‘origin_dir_loc’ variable in the tcl shell before sourcing this generated script. The ‘origin_dir_loc’<br>variable should be set to the path relative to the new output directory. Alternatively, if you are sourcing the script from the Vivado command line,<br>then set the origin dir using ‘-tclargs —origin_dir ’. For example, ‘vivado -mode tcl -source FZ3B_board.tcl -tclargs —origin_dir “…”</p>
-</blockquote>
-</li>
-<li>创建自定义<a href="https://www.xilinx.com/support/documentation/sw_manuals/xilinx2020_1/ug895-vivado-system-level-design-entry.pdf#page=98">Board FIle</a><br><a href="https://www.hackster.io/mindaugas2/creating-xilinx-vivado-board-files-for-ebaz4205-a7b120">Creating Xilinx Vivado board files for EBAZ4205</a></li>
-<li>vscode插件：<a href="https://github.com/ericsonj/verilog-format">verilog-format</a></li>
-<li><a href="https://blog.csdn.net/qq_41894385/article/details/124410959">Vivado使用VSCode编辑器的各种配置：功能加持</a></li>
-<li>sublime text 插件：SublimeLinter-contrib-xsim</li>
-</ol>
-<h2 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h2><ol>
-<li><p><a href="https://blog.csdn.net/yihuajack/article/details/120830612">Xilinx Vivado卡在Initializing Language Server的解决方法</a></p>
-<blockquote>
-<p>打开 Tools -&gt; Settings -&gt; Tool Settings -&gt; Text Editor -&gt; Syntax Checking，将 Syntax checking 从 Sigasi 改为 Vivado：</p>
-</blockquote>
-</li>
-<li><p>自定义board_file:</p>
-<ol>
-<li><a href="https://www.hackster.io/mindaugas2/creating-xilinx-vivado-board-files-for-ebaz4205-a7b120">reating Xilinx Vivado board files for EBAZ4205</a></li>
-</ol>
-</li>
-<li><p><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20220117205826811.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="image-20220117205826811"></a>红框的作用参见<a href="https://www.xilinx.com/html_docs/xilinx2020_2/vitis_doc/embeddedplatforms.html">https://www.xilinx.com/html_docs/xilinx2020_2/vitis_doc/embeddedplatforms.html</a></p>
-<ul>
-<li>以前的流程<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/jek1570655725669-16424245406714.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a></li>
-<li>勾选后的流程<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/owe1570656810984-16424245992777.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/owe1570656810984-16424245992777.image" alt="img"></a></li>
-<li>区别图<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/smt1570656691809.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a><blockquote>
-<ul>
-<li>not checking the box “project is an extensible vitis platform”, you get the standard flow from previous versions of Vivado.</li>
-<li>check the box, you will be met with a radically changed flow when you try to export the platform (Export -&gt; Export Platform).</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><a href="https://blog.csdn.net/weixin_59105807/article/details/119975287">【FPGA】Vivado综合停滞、死机（PID Not Specified）解决方法</a></li>
-<li><a href="https://mp.weixin.qq.com/s?__biz=MzAxNTM2NzA0Nw==&amp;mid=2247484080&amp;idx=1&amp;sn=9b5834c1d5c5be32fac62a4089a49aac&amp;chksm=9b846c58acf3e54ee7386bb34250ad50407b3a297ba17a77f9a7cde8288e2555cbee477d358c&amp;scene=21#wechat_redirect">Modelsim安装，及其Vivado2021库编译</a></li>
-<li>Vivado添加资源一直卡进度条 <a href="https://support.xilinx.com/s/question/0D52E00006ihQm9SAE/never-ending-adding-source?language=en_US">Never ending adding source…</a></li>
-<li><a href="https://www.bilibili.com/read/cv13288042/">解决 重新启动 Vivado 设置 （文本编辑器）无法保存 会初始化</a><br><a href="https://www.bilibili.com/read/cv11751032?from=articleDetail">用VSCode代替Vivado的文本编辑器进行编辑</a></li>
-<li><a href="https://blog.csdn.net/wangfei960/article/details/125941517">Vivado仿真卡在executing analysis and compilation step阶段</a><br><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20221029173636922.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img" title="image-20221029173636922"></a></li>
-<li><p><a href="https://blog.csdn.net/sinat_31206523/article/details/103866723">解决Vivado与modelsim仿真卡在Executing analysis and compilation step</a></p>
-<blockquote>
-<p><a href="https://so.csdn.net/so/search?q=Vivado&amp;spm=1001.2101.3001.7020">Vivado</a>仿真卡在Executing analysis and compilation step循环不出去，检查是否有vivado报不出来的低级语法错误，还是不行，把sim文件里的sim_1文件删了，重新跑就好了</p>
-</blockquote>
-</li>
-<li><ul>
-<li><a href="http://www.jyguagua.com/?p=9715">ModelSim出现Unable to checkout a viewer license</a></li>
-<li><a href="https://blog.csdn.net/qq_42341984/article/details/105082502">Modelsim关联VS Code</a></li>
-</ul>
-</li>
-</ol>
-<p><a href="https://shjdgwj.github.io/d8298fbe5fcd/pic_center.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a><a href="https://blog.csdn.net/weixin_42418557/article/details/89416368">移植linux到zedboard过程中杂项错误总结</a></p>
-<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><ol>
-<li>时序逻辑赋值用 <code>&lt;=</code>，组合逻辑赋值用 <code>=</code><blockquote>
-<p>1： 当为<strong>时序</strong>逻辑建模，使用“非阻塞赋值”。<br>2： 当为 <strong>锁存器</strong> (latch) 建模，使用“非阻塞赋值”。<br>3： 当用always块为<strong>组合</strong>逻辑建模，使用“阻塞赋值”<br>4： 当在同一个always块里面既为组合逻辑又为时序逻辑建模，使用“非阻塞赋值”。<br>5： 不要在同一个always块里面<strong>混合</strong>使用“阻塞赋值”和“非阻塞赋值”。<br>6： 不要在<strong>两个或两个以上</strong>always块里面对同一个变量进行赋值。<br>7： 使用$strobe以显示已被“非阻塞赋值”的值。<br>8： 不要使用＃0延迟的赋值。</p>
-</blockquote>
-</li>
-<li>敏感信号表:所有的右边表达式中的变量以及if,case条件中的变量</li>
-<li>if/else要配对以避免latch（锁存器）的产生，同样的case语句加default语句</li>
-<li>状态机（fsm）：<ol>
-<li>使用独热码，每个状态只有一个寄存器置位，译码逻辑简单</li>
-<li>三段式可以在组合逻辑后再增加一级寄存器来实现时序逻辑输出:<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20220116144516055.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img" title="image-20220116144516055"></a><ul>
-<li>可以有效地滤去组合逻辑输出的毛刺</li>
-<li>可以有效地进行时序计算与约束</li>
-<li>另外对于总线形式的输出信号来说，容易使总线数据对齐,从而减小总线数据间的偏移，减小接收端数据采样出错的频率。</li>
-</ul>
-</li>
-</ol>
-</li>
-</ol>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://shjdgwj.github.io/d8298fbe5fcd/">ZYNQ学习笔记</a></p>
-]]></content>
-      <categories>
-        <category>ZYNQ</category>
-      </categories>
-      <tags>
-        <tag>7010</tag>
       </tags>
   </entry>
   <entry>
@@ -723,6 +603,127 @@
       </categories>
       <tags>
         <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ZYNQ-in-7010</title>
+    <url>/2022/12/13/ZYNQ-in-7010/</url>
+    <content><![CDATA[<h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><ol>
+<li><a href="https://github.com/LeiWang1999/FPGA">FPGA资料大全</a></li>
+<li><a href="https://www.runoob.com/w3cnote/verilog-tutorial.html">菜鸟教程Verilog 教程</a></li>
+<li><a href="https://verilogoj.ustc.edu.cn/oj/">https://verilogoj.ustc.edu.cn/oj/</a></li>
+<li><a href="https://www.zhihu.com/answer/2291310107">知乎</a></li>
+<li><p>正点原子视频教程</p>
+<ul>
+<li>启明星V2第一期：<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a href="https://www.bilibili.com/video/BV1XU4y1M7nw/?spm_id_from=333.788.video.desc.click">BV1XU4y1M7nw</a>?spm_id_from=333.999.0.0</li>
+<li>领航者V2第一期：<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a href="https://www.bilibili.com/video/BV1hP4y1L73N/?spm_id_from=333.788.video.desc.click">BV1hP4y1L73N</a>?spm_id_from=333.999.0.0</li>
+<li>第二期：<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a href="https://www.bilibili.com/video/BV1Hq4y1u7qH/?spm_id_from=333.788.video.desc.click">BV1Hq4y1u7qH</a>?spm_id_from=333.999.0.0</li>
+<li>第三期：<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a href="https://www.bilibili.com/video/BV1qz4y1d7pF/?spm_id_from=333.788.video.desc.click">BV1qz4y1d7pF</a>?spm_id_from=333.999.0.0</li>
+</ul>
+</li>
+<li><a href="https://zhuanlan.zhihu.com/c_1131528588117385216">Verilog练习网站HDLBits</a></li>
+</ol>
+<span id="more"></span>
+<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ol>
+<li><a href="https://www.jianshu.com/p/e3695489a958">VMware ubuntu压缩虚拟磁盘</a></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install open-vm-tools</span><br><span class="line">sudo vmware-toolbox-cmd disk shrink /</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#虚拟机</span></span><br><span class="line"><span class="comment">#开启自动扩容时禁用</span></span><br><span class="line"><span class="built_in">cat</span> /dev/zero &gt; zero.fill</span><br><span class="line"><span class="built_in">rm</span> -f zero.fill</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">主机</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如我的VMware安装在F盘，在windows的命令行中：</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">F:\&gt;<span class="built_in">cd</span> VMware</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">F:\VMware&gt;vmware-vdiskmanager.exe -k <span class="string">&quot;F:\UbuntuVMware\Ubuntu1804\Ubuntu 64-bit.vmdk&quot;</span></span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><a href="https://blog.csdn.net/u011198687/article/details/121713992">VMware虚拟机扩展Ubuntu系统磁盘空间</a></li>
+<li><a href="https://blog.csdn.net/weixin_45787652/article/details/109525269">完美解决虚拟机占用硬盘越来越大、删除快照出现内存不足错误</a></li>
+<li><a href="https://www.freesion.com/article/8548584805/">PETALINUX安装过程中遇到的坑【PETALINUX2018.3基于UBUNTU16.04.4（64-BIT）】</a></li>
+<li><a href="https://blog.csdn.net/weixin_44882546/article/details/116068157">使用vitis开发Linux应用程序</a></li>
+</ol>
+<h1 id="Vivado"><a href="#Vivado" class="headerlink" title="Vivado"></a>Vivado</h1><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
+<li><a href="https://zhuanlan.zhihu.com/p/365805011">FPGA Develop Support 使用手册-version 0.1.18</a></li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/378739805">用Vscode代替Vivado原生编辑器</a></p>
+<blockquote>
+<p>D:/Program Files/Microsoft VS Code/Code.exe -g [file name]:[line number]</p>
+<p>D:/Program Files/Microsoft VS Code/Code.exe —disable-features=CalculateNativeWinOcclusion -g [file name]:[line number]</p>
+<p>D:/Program Files/Sublime Text/sublime_text.exe [file name] -l[line number]</p>
+</blockquote>
+</li>
+<li><a href="https://blog.csdn.net/weixin_42905573/article/details/106247887">【超实用】一分钟学会如何用最小存储空间保存Vivado工程！</a></li>
+<li><p><a href="https://blog.csdn.net/jingjiankai5228/article/details/113074220">vivado工程保存为tcl脚本及用tcl脚本恢复vivado工程</a></p>
+<figure class="highlight tcl"><table><tr><td class="code"><pre><span class="line"><span class="comment">#导出工程</span></span><br><span class="line">write_project_tcl D:/Study/FPGA/Backup/backup.tcl</span><br><span class="line"></span><br><span class="line"><span class="comment">#打开工程</span></span><br><span class="line"><span class="keyword">cd</span> D:/Study/FPGA/Backup/</span><br><span class="line"><span class="comment">#source ./backup.tcl</span></span><br><span class="line"><span class="comment">#vivado -mode tcl -source FZ3B_board.tcl -tclargs --origin_dir &quot;origin_dir地址&quot;</span></span><br><span class="line">tcl -<span class="keyword">source</span> FZ3B_board.tcl -tclargs --origin_dir <span class="string">&quot;origin_dir地址&quot;</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong></p>
+<blockquote>
+<p>Please note that by default, the file path for the project source files were set wth respect to the ‘origin_dir’ variable in the<br>generated script. When this script is executed from the output directory, these source files will be referenced with respect to this ‘origin_dir’ path value.<br>In case this script was later moved to a different directory, the ‘origin_dir’ value must be set manually in the script with the path<br>relative to the new output directory to make sure that the source files are referenced correctly from the original project. You can also set the<br>‘origin_dir’ automatically by setting the ‘origin_dir_loc’ variable in the tcl shell before sourcing this generated script. The ‘origin_dir_loc’<br>variable should be set to the path relative to the new output directory. Alternatively, if you are sourcing the script from the Vivado command line,<br>then set the origin dir using ‘-tclargs —origin_dir ’. For example, ‘vivado -mode tcl -source FZ3B_board.tcl -tclargs —origin_dir “…”</p>
+</blockquote>
+</li>
+<li>创建自定义<a href="https://www.xilinx.com/support/documentation/sw_manuals/xilinx2020_1/ug895-vivado-system-level-design-entry.pdf#page=98">Board FIle</a><br><a href="https://www.hackster.io/mindaugas2/creating-xilinx-vivado-board-files-for-ebaz4205-a7b120">Creating Xilinx Vivado board files for EBAZ4205</a></li>
+<li>vscode插件：<a href="https://github.com/ericsonj/verilog-format">verilog-format</a></li>
+<li><a href="https://blog.csdn.net/qq_41894385/article/details/124410959">Vivado使用VSCode编辑器的各种配置：功能加持</a></li>
+<li>sublime text 插件：SublimeLinter-contrib-xsim</li>
+</ol>
+<h2 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h2><ol>
+<li><p><a href="https://blog.csdn.net/yihuajack/article/details/120830612">Xilinx Vivado卡在Initializing Language Server的解决方法</a></p>
+<blockquote>
+<p>打开 Tools -&gt; Settings -&gt; Tool Settings -&gt; Text Editor -&gt; Syntax Checking，将 Syntax checking 从 Sigasi 改为 Vivado：</p>
+</blockquote>
+</li>
+<li><p>自定义board_file:</p>
+<ol>
+<li><a href="https://www.hackster.io/mindaugas2/creating-xilinx-vivado-board-files-for-ebaz4205-a7b120">reating Xilinx Vivado board files for EBAZ4205</a></li>
+</ol>
+</li>
+<li><p><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20220117205826811.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="image-20220117205826811"></a>红框的作用参见<a href="https://www.xilinx.com/html_docs/xilinx2020_2/vitis_doc/embeddedplatforms.html">https://www.xilinx.com/html_docs/xilinx2020_2/vitis_doc/embeddedplatforms.html</a></p>
+<ul>
+<li>以前的流程<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/jek1570655725669-16424245406714.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a></li>
+<li>勾选后的流程<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/owe1570656810984-16424245992777.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/owe1570656810984-16424245992777.image" alt="img"></a></li>
+<li>区别图<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/smt1570656691809.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a><blockquote>
+<ul>
+<li>not checking the box “project is an extensible vitis platform”, you get the standard flow from previous versions of Vivado.</li>
+<li>check the box, you will be met with a radically changed flow when you try to export the platform (Export -&gt; Export Platform).</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><a href="https://blog.csdn.net/weixin_59105807/article/details/119975287">【FPGA】Vivado综合停滞、死机（PID Not Specified）解决方法</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzAxNTM2NzA0Nw==&amp;mid=2247484080&amp;idx=1&amp;sn=9b5834c1d5c5be32fac62a4089a49aac&amp;chksm=9b846c58acf3e54ee7386bb34250ad50407b3a297ba17a77f9a7cde8288e2555cbee477d358c&amp;scene=21#wechat_redirect">Modelsim安装，及其Vivado2021库编译</a></li>
+<li>Vivado添加资源一直卡进度条 <a href="https://support.xilinx.com/s/question/0D52E00006ihQm9SAE/never-ending-adding-source?language=en_US">Never ending adding source…</a></li>
+<li><a href="https://www.bilibili.com/read/cv13288042/">解决 重新启动 Vivado 设置 （文本编辑器）无法保存 会初始化</a><br><a href="https://www.bilibili.com/read/cv11751032?from=articleDetail">用VSCode代替Vivado的文本编辑器进行编辑</a></li>
+<li><a href="https://blog.csdn.net/wangfei960/article/details/125941517">Vivado仿真卡在executing analysis and compilation step阶段</a><br><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20221029173636922.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img" title="image-20221029173636922"></a></li>
+<li><p><a href="https://blog.csdn.net/sinat_31206523/article/details/103866723">解决Vivado与modelsim仿真卡在Executing analysis and compilation step</a></p>
+<blockquote>
+<p><a href="https://so.csdn.net/so/search?q=Vivado&amp;spm=1001.2101.3001.7020">Vivado</a>仿真卡在Executing analysis and compilation step循环不出去，检查是否有vivado报不出来的低级语法错误，还是不行，把sim文件里的sim_1文件删了，重新跑就好了</p>
+</blockquote>
+</li>
+<li><ul>
+<li><a href="http://www.jyguagua.com/?p=9715">ModelSim出现Unable to checkout a viewer license</a></li>
+<li><a href="https://blog.csdn.net/qq_42341984/article/details/105082502">Modelsim关联VS Code</a></li>
+</ul>
+</li>
+</ol>
+<p><a href="https://shjdgwj.github.io/d8298fbe5fcd/pic_center.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a><a href="https://blog.csdn.net/weixin_42418557/article/details/89416368">移植linux到zedboard过程中杂项错误总结</a></p>
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><ol>
+<li>时序逻辑赋值用 <code>&lt;=</code>，组合逻辑赋值用 <code>=</code><blockquote>
+<p>1： 当为<strong>时序</strong>逻辑建模，使用“非阻塞赋值”。<br>2： 当为 <strong>锁存器</strong> (latch) 建模，使用“非阻塞赋值”。<br>3： 当用always块为<strong>组合</strong>逻辑建模，使用“阻塞赋值”<br>4： 当在同一个always块里面既为组合逻辑又为时序逻辑建模，使用“非阻塞赋值”。<br>5： 不要在同一个always块里面<strong>混合</strong>使用“阻塞赋值”和“非阻塞赋值”。<br>6： 不要在<strong>两个或两个以上</strong>always块里面对同一个变量进行赋值。<br>7： 使用$strobe以显示已被“非阻塞赋值”的值。<br>8： 不要使用＃0延迟的赋值。</p>
+</blockquote>
+</li>
+<li>敏感信号表:所有的右边表达式中的变量以及if,case条件中的变量</li>
+<li>if/else要配对以避免latch（锁存器）的产生，同样的case语句加default语句</li>
+<li>状态机（fsm）：<ol>
+<li>使用独热码，每个状态只有一个寄存器置位，译码逻辑简单</li>
+<li>三段式可以在组合逻辑后再增加一级寄存器来实现时序逻辑输出:<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20220116144516055.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img" title="image-20220116144516055"></a><ul>
+<li>可以有效地滤去组合逻辑输出的毛刺</li>
+<li>可以有效地进行时序计算与约束</li>
+<li>另外对于总线形式的输出信号来说，容易使总线数据对齐,从而减小总线数据间的偏移，减小接收端数据采样出错的频率。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://shjdgwj.github.io/d8298fbe5fcd/">ZYNQ学习笔记</a></p>
+]]></content>
+      <categories>
+        <category>ZYNQ</category>
+      </categories>
+      <tags>
+        <tag>7010</tag>
       </tags>
   </entry>
   <entry>
