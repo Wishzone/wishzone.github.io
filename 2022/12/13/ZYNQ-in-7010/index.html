@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=得意黑:300,300italic,400,400italic,700,700italic|Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"efault"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="个人关于ZYNQ的一些开发学习文档，以小熊猫的ZYNQ7010为例，不断更新ing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ZYNQ-in-7010">
+<meta property="og:url" content="http://example.com/2022/12/13/ZYNQ-in-7010/index.html">
+<meta property="og:site_name" content="Wishzone">
+<meta property="og:description" content="个人关于ZYNQ的一些开发学习文档，以小熊猫的ZYNQ7010为例，不断更新ing">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif">
+<meta property="og:image" content="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif">
+<meta property="og:image" content="https://shjdgwj.github.io/d8298fbe5fcd/owe1570656810984-16424245992777.image">
+<meta property="og:image" content="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif">
+<meta property="og:image" content="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif">
+<meta property="og:image" content="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif">
+<meta property="og:image" content="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif">
+<meta property="article:published_time" content="2022-12-13T10:12:43.000Z">
+<meta property="article:modified_time" content="2023-03-15T02:20:28.464Z">
+<meta property="article:author" content="Wishzone">
+<meta property="article:tag" content="7010">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif">
+
+<link rel="canonical" href="http://example.com/2022/12/13/ZYNQ-in-7010/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ZYNQ-in-7010 | Wishzone</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Wishzone" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Wishzone</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎来到Wishzone的小站</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/Wishzone" class="github-corner" title="Wishzone GitHub" aria-label="Wishzone GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/13/ZYNQ-in-7010/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/android-chrome-320x320.png">
+      <meta itemprop="name" content="Wishzone">
+      <meta itemprop="description" content="留点热情给旁边人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wishzone">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ZYNQ-in-7010
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-12-13 18:12:43" itemprop="dateCreated datePublished" datetime="2022-12-13T18:12:43+08:00">2022-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-03-15 10:20:28" itemprop="dateModified" datetime="2023-03-15T10:20:28+08:00">2023-03-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ZYNQ/" itemprop="url" rel="index"><span itemprop="name">ZYNQ</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>个人关于ZYNQ的一些开发学习文档，以小熊猫的ZYNQ7010为例，不断更新ing<br><span id="more"></span></p>
+<h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/LeiWang1999/FPGA">FPGA资料大全</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/verilog-tutorial.html">菜鸟教程Verilog 教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://verilogoj.ustc.edu.cn/oj/">https://verilogoj.ustc.edu.cn/oj/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/answer/2291310107">知乎</a></li>
+<li><p>正点原子视频教程</p>
+<ul>
+<li>启明星V2第一期：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1XU4y1M7nw/?spm_id_from=333.788.video.desc.click">BV1XU4y1M7nw</a>?spm_id_from=333.999.0.0</li>
+<li>领航者V2第一期：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1hP4y1L73N/?spm_id_from=333.788.video.desc.click">BV1hP4y1L73N</a>?spm_id_from=333.999.0.0</li>
+<li>第二期：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Hq4y1u7qH/?spm_id_from=333.788.video.desc.click">BV1Hq4y1u7qH</a>?spm_id_from=333.999.0.0</li>
+<li>第三期：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1qz4y1d7pF/?spm_id_from=333.788.video.desc.click">BV1qz4y1d7pF</a>?spm_id_from=333.999.0.0</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/c_1131528588117385216">Verilog练习网站HDLBits</a></li>
+</ol>
+<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e3695489a958">VMware ubuntu压缩虚拟磁盘</a></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install open-vm-tools</span><br><span class="line">sudo vmware-toolbox-cmd disk shrink /</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#虚拟机</span></span><br><span class="line"><span class="comment">#开启自动扩容时禁用</span></span><br><span class="line"><span class="built_in">cat</span> /dev/zero &gt; zero.fill</span><br><span class="line"><span class="built_in">rm</span> -f zero.fill</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">主机</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如我的VMware安装在F盘，在windows的命令行中：</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">F:\&gt;<span class="built_in">cd</span> VMware</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">F:\VMware&gt;vmware-vdiskmanager.exe -k <span class="string">&quot;F:\UbuntuVMware\Ubuntu1804\Ubuntu 64-bit.vmdk&quot;</span></span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u011198687/article/details/121713992">VMware虚拟机扩展Ubuntu系统磁盘空间</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45787652/article/details/109525269">完美解决虚拟机占用硬盘越来越大、删除快照出现内存不足错误</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.freesion.com/article/8548584805/">PETALINUX安装过程中遇到的坑【PETALINUX2018.3基于UBUNTU16.04.4（64-BIT）】</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44882546/article/details/116068157">使用vitis开发Linux应用程序</a></li>
+</ol>
+<h1 id="Vivado"><a href="#Vivado" class="headerlink" title="Vivado"></a>Vivado</h1><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/365805011">FPGA Develop Support 使用手册-version 0.1.18</a></li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/378739805">用Vscode代替Vivado原生编辑器</a></p>
+<blockquote>
+<p>D:/Program Files/Microsoft VS Code/Code.exe -g [file name]:[line number]</p>
+<p>D:/Program Files/Microsoft VS Code/Code.exe —disable-features=CalculateNativeWinOcclusion -g [file name]:[line number]</p>
+<p>D:/Program Files/Sublime Text/sublime_text.exe [file name] -l[line number]</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42905573/article/details/106247887">【超实用】一分钟学会如何用最小存储空间保存Vivado工程！</a></li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jingjiankai5228/article/details/113074220">vivado工程保存为tcl脚本及用tcl脚本恢复vivado工程</a></p>
+<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导出工程</span></span><br><span class="line">write_project_tcl D:/Study/FPGA/Backup/backup.tcl</span><br><span class="line"></span><br><span class="line"><span class="comment">#打开工程</span></span><br><span class="line"><span class="keyword">cd</span> D:/Study/FPGA/Backup/</span><br><span class="line"><span class="comment">#source ./backup.tcl</span></span><br><span class="line"><span class="comment">#vivado -mode tcl -source FZ3B_board.tcl -tclargs --origin_dir &quot;origin_dir地址&quot;</span></span><br><span class="line">tcl -<span class="keyword">source</span> FZ3B_board.tcl -tclargs --origin_dir <span class="string">&quot;origin_dir地址&quot;</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong></p>
+<blockquote>
+<p>Please note that by default, the file path for the project source files were set wth respect to the ‘origin_dir’ variable in the<br>generated script. When this script is executed from the output directory, these source files will be referenced with respect to this ‘origin_dir’ path value.<br>In case this script was later moved to a different directory, the ‘origin_dir’ value must be set manually in the script with the path<br>relative to the new output directory to make sure that the source files are referenced correctly from the original project. You can also set the<br>‘origin_dir’ automatically by setting the ‘origin_dir_loc’ variable in the tcl shell before sourcing this generated script. The ‘origin_dir_loc’<br>variable should be set to the path relative to the new output directory. Alternatively, if you are sourcing the script from the Vivado command line,<br>then set the origin dir using ‘-tclargs —origin_dir ’. For example, ‘vivado -mode tcl -source FZ3B_board.tcl -tclargs —origin_dir “…”</p>
+</blockquote>
+</li>
+<li>创建自定义<a target="_blank" rel="noopener" href="https://www.xilinx.com/support/documentation/sw_manuals/xilinx2020_1/ug895-vivado-system-level-design-entry.pdf#page=98">Board FIle</a><br><a target="_blank" rel="noopener" href="https://www.hackster.io/mindaugas2/creating-xilinx-vivado-board-files-for-ebaz4205-a7b120">Creating Xilinx Vivado board files for EBAZ4205</a></li>
+<li>vscode插件：<a target="_blank" rel="noopener" href="https://github.com/ericsonj/verilog-format">verilog-format</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41894385/article/details/124410959">Vivado使用VSCode编辑器的各种配置：功能加持</a></li>
+<li>sublime text 插件：SublimeLinter-contrib-xsim</li>
+</ol>
+<h2 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h2><ol>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yihuajack/article/details/120830612">Xilinx Vivado卡在Initializing Language Server的解决方法</a></p>
+<blockquote>
+<p>打开 Tools -&gt; Settings -&gt; Tool Settings -&gt; Text Editor -&gt; Syntax Checking，将 Syntax checking 从 Sigasi 改为 Vivado：</p>
+</blockquote>
+</li>
+<li><p>自定义board_file:</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://www.hackster.io/mindaugas2/creating-xilinx-vivado-board-files-for-ebaz4205-a7b120">reating Xilinx Vivado board files for EBAZ4205</a></li>
+</ol>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/d8298fbe5fcd/image-20220117205826811.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="image-20220117205826811"></a>红框的作用参见<a target="_blank" rel="noopener" href="https://www.xilinx.com/html_docs/xilinx2020_2/vitis_doc/embeddedplatforms.html">https://www.xilinx.com/html_docs/xilinx2020_2/vitis_doc/embeddedplatforms.html</a></p>
+<ul>
+<li>以前的流程<br><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/d8298fbe5fcd/jek1570655725669-16424245406714.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a></li>
+<li>勾选后的流程<br><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/d8298fbe5fcd/owe1570656810984-16424245992777.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/owe1570656810984-16424245992777.image" alt="img"></a></li>
+<li>区别图<br><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/d8298fbe5fcd/smt1570656691809.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a><blockquote>
+<ul>
+<li>not checking the box “project is an extensible vitis platform”, you get the standard flow from previous versions of Vivado.</li>
+<li>check the box, you will be met with a radically changed flow when you try to export the platform (Export -&gt; Export Platform).</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_59105807/article/details/119975287">【FPGA】Vivado综合停滞、死机（PID Not Specified）解决方法</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAxNTM2NzA0Nw==&amp;mid=2247484080&amp;idx=1&amp;sn=9b5834c1d5c5be32fac62a4089a49aac&amp;chksm=9b846c58acf3e54ee7386bb34250ad50407b3a297ba17a77f9a7cde8288e2555cbee477d358c&amp;scene=21#wechat_redirect">Modelsim安装，及其Vivado2021库编译</a></li>
+<li>Vivado添加资源一直卡进度条 <a target="_blank" rel="noopener" href="https://support.xilinx.com/s/question/0D52E00006ihQm9SAE/never-ending-adding-source?language=en_US">Never ending adding source…</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv13288042/">解决 重新启动 Vivado 设置 （文本编辑器）无法保存 会初始化</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv11751032?from=articleDetail">用VSCode代替Vivado的文本编辑器进行编辑</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/wangfei960/article/details/125941517">Vivado仿真卡在executing analysis and compilation step阶段</a><br><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/d8298fbe5fcd/image-20221029173636922.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img" title="image-20221029173636922"></a></li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_31206523/article/details/103866723">解决Vivado与modelsim仿真卡在Executing analysis and compilation step</a></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=Vivado&amp;spm=1001.2101.3001.7020">Vivado</a>仿真卡在Executing analysis and compilation step循环不出去，检查是否有vivado报不出来的低级语法错误，还是不行，把sim文件里的sim_1文件删了，重新跑就好了</p>
+</blockquote>
+</li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="http://www.jyguagua.com/?p=9715">ModelSim出现Unable to checkout a viewer license</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42341984/article/details/105082502">Modelsim关联VS Code</a></li>
+</ul>
+</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/d8298fbe5fcd/pic_center.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42418557/article/details/89416368">移植linux到zedboard过程中杂项错误总结</a></p>
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><ol>
+<li>时序逻辑赋值用 <code>&lt;=</code>，组合逻辑赋值用 <code>=</code><blockquote>
+<p>1： 当为<strong>时序</strong>逻辑建模，使用“非阻塞赋值”。<br>2： 当为 <strong>锁存器</strong> (latch) 建模，使用“非阻塞赋值”。<br>3： 当用always块为<strong>组合</strong>逻辑建模，使用“阻塞赋值”<br>4： 当在同一个always块里面既为组合逻辑又为时序逻辑建模，使用“非阻塞赋值”。<br>5： 不要在同一个always块里面<strong>混合</strong>使用“阻塞赋值”和“非阻塞赋值”。<br>6： 不要在<strong>两个或两个以上</strong>always块里面对同一个变量进行赋值。<br>7： 使用$strobe以显示已被“非阻塞赋值”的值。<br>8： 不要使用＃0延迟的赋值。</p>
+</blockquote>
+</li>
+<li>敏感信号表:所有的右边表达式中的变量以及if,case条件中的变量</li>
+<li>if/else要配对以避免latch（锁存器）的产生，同样的case语句加default语句</li>
+<li>状态机（fsm）：<ol>
+<li>使用独热码，每个状态只有一个寄存器置位，译码逻辑简单</li>
+<li>三段式可以在组合逻辑后再增加一级寄存器来实现时序逻辑输出:<br><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/d8298fbe5fcd/image-20220116144516055.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img" title="image-20220116144516055"></a><ul>
+<li>可以有效地滤去组合逻辑输出的毛刺</li>
+<li>可以有效地进行时序计算与约束</li>
+<li>另外对于总线形式的输出信号来说，容易使总线数据对齐,从而减小总线数据间的偏移，减小接收端数据采样出错的频率。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/d8298fbe5fcd/">ZYNQ学习笔记</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/7010/" rel="tag"># 7010</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/12/10/STM32/" rel="prev" title="STM32">
+      <i class="fa fa-chevron-left"></i> STM32
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/12/13/LINUX-in-ARM64/" rel="next" title="LINUX-in-ARM64">
+      LINUX-in-ARM64 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99"><span class="nav-number">1.</span> <span class="nav-text">学习资料</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux"><span class="nav-number">2.</span> <span class="nav-text">Linux</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">2.1.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vivado"><span class="nav-number">3.</span> <span class="nav-text">Vivado</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">3.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98-1"><span class="nav-number">3.2.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%94%E8%AE%B0"><span class="nav-number">3.3.</span> <span class="nav-text">笔记</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wishzone"
+      src="/images/android-chrome-320x320.png">
+  <p class="site-author-name" itemprop="name">Wishzone</p>
+  <div class="site-description" itemprop="description">留点热情给旁边人</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wishzone</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="true"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '069b787c0b99ba5c4d39',
+      clientSecret: '20a837ebd50ea05bbd4ac5b91d1785a4fc280bbc',
+      repo        : 'wishzone.github.io',
+      owner       : 'Wishzone',
+      admin       : ['wishzone'],
+      id          : '68c87d03faccc0ec421344305a1bf03e',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+    </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

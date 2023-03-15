@@ -1,0 +1,802 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Android</title>
+    <url>/2022/12/18/Android/</url>
+    <content><![CDATA[<p>一些安卓开发教程，不断更新ing<br><span id="more"></span></p>
+<h1 id="主要"><a href="#主要" class="headerlink" title="主要"></a>主要</h1><h1 id="adb调试"><a href="#adb调试" class="headerlink" title="adb调试"></a>adb调试</h1><h2 id="有线调试"><a href="#有线调试" class="headerlink" title="有线调试"></a>有线调试</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb device #查看adb设备</span><br><span class="line">adb shell #连接adb设备</span><br><span class="line">adb root #以管理员身份连接adb设备</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="无线调试"><a href="#无线调试" class="headerlink" title="无线调试"></a>无线调试</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb tcpip 5555 #给设备指定端口，其他端口也可以</span><br><span class="line">adb connect 192.168.31.196:5555 #连接设备</span><br><span class="line">adb devices #查看设备是否连接</span><br><span class="line">adb shell #连接设备</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="设置开机启动无线调试"><a href="#设置开机启动无线调试" class="headerlink" title="设置开机启动无线调试"></a>设置开机启动无线调试</h2><pre><code>在手机的/system/build.prop中增加一行配置:service.adb.tcp.port=5555（同样可以指定为其他值）即可，因此可以先将/system/build.prop从手机中pull出来，修改后再push进去
+</code></pre><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb pull /system/build.prop #将build.prop文件拉出</span><br><span class="line">nano build.prop #编辑build.prop文件，添加上述代码</span><br><span class="line">adb remount</span><br><span class="line">adb push build.prop /system/ #将build.prop文件放回</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="其他常见命令"><a href="#其他常见命令" class="headerlink" title="其他常见命令"></a>其他常见命令</h2><h3 id="adb-基础指令"><a href="#adb-基础指令" class="headerlink" title="adb 基础指令"></a>adb 基础指令</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">//启动 adb 服务</span><br><span class="line">adb start-server</span><br><span class="line"></span><br><span class="line">//关闭 adb 服务</span><br><span class="line">adb kill-server</span><br><span class="line"></span><br><span class="line">//获取 adb 帮助信息</span><br><span class="line">adb help</span><br><span class="line"></span><br><span class="line">//获取 adb 当前版本</span><br><span class="line">adb version</span><br><span class="line"></span><br><span class="line">//重启设备</span><br><span class="line">adb reboot</span><br><span class="line"></span><br><span class="line">//获取设备 IP</span><br><span class="line">adb shell ifconfig</span><br><span class="line">  </span><br><span class="line">//断开设备</span><br><span class="line">adb disconnect</span><br></pre></td></tr></table></figure>
+<h3 id="adb-设置权限"><a href="#adb-设置权限" class="headerlink" title="adb 设置权限"></a>adb 设置权限</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">//root 权限</span><br><span class="line">adb root</span><br><span class="line"></span><br><span class="line">//将 &#x27;/system&#x27; 部分置于可写入模式，需先 root，比如 push 前先执行 remount</span><br><span class="line">adb remount</span><br><span class="line"></span><br><span class="line">//remount 等同</span><br><span class="line">adb shell mount -o rw,remount,rw /system</span><br></pre></td></tr></table></figure>
+<h3 id="adb-安装卸载"><a href="#adb-安装卸载" class="headerlink" title="adb 安装卸载"></a>adb 安装卸载</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">//安装应用</span><br><span class="line">adb install launch.apk</span><br><span class="line"></span><br><span class="line">//安装带参，参数参考 adb help 注释</span><br><span class="line">adb install -r -t launch.apk</span><br><span class="line"></span><br><span class="line">//卸载应用</span><br><span class="line">adb uninstall com.google.launch</span><br></pre></td></tr></table></figure>
+<h3 id="adb-上传下载"><a href="#adb-上传下载" class="headerlink" title="adb 上传下载"></a>adb 上传下载</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">//上传(push local remote)</span><br><span class="line">adb push /Users/launch.apk /system/app</span><br><span class="line"></span><br><span class="line">//下载(pull remote local)</span><br><span class="line">adb pull /system/app/launch.apk /Users/Roy/Desktop/</span><br></pre></td></tr></table></figure>
+<h3 id="adb-截图录屏"><a href="#adb-截图录屏" class="headerlink" title="adb 截图录屏"></a>adb 截图录屏</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">//生成截图（screencap path)</span><br><span class="line">adb shell screencap /sdcard/screen.png</span><br><span class="line"></span><br><span class="line">//生成视频(screenrecord path)</span><br><span class="line">adb shell screenrecord /sdcard/demo.mp4</span><br></pre></td></tr></table></figure>
+<h3 id="adb-应用信息"><a href="#adb-应用信息" class="headerlink" title="adb 应用信息"></a>adb 应用信息</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">//获取所有应用信息</span><br><span class="line">adb shell pm list package</span><br><span class="line"></span><br><span class="line">//获取应用安装包路径</span><br><span class="line">adb shell pm path com.android.bluetooth</span><br></pre></td></tr></table></figure>
+<h3 id="adb-版本信息"><a href="#adb-版本信息" class="headerlink" title="adb 版本信息"></a>adb 版本信息</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">//获取应用 versionName</span><br><span class="line">adb shell dumpsys package com.xxx.xxx | grep versionName</span><br><span class="line"></span><br><span class="line">//获取应用 versionCode</span><br><span class="line">adb shell dumpsys package com.xxx.xxx | grep versionCode</span><br></pre></td></tr></table></figure>
+<h3 id="adb-进程信息"><a href="#adb-进程信息" class="headerlink" title="adb 进程信息"></a>adb 进程信息</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">//获取应用进程号</span><br><span class="line">adb shell ps | grep com.android.bluetooth</span><br><span class="line"></span><br><span class="line">//根据进程号杀掉应用进程</span><br><span class="line">adb shell kill -9 processid</span><br></pre></td></tr></table></figure>
+<h3 id="adb-属性信息"><a href="#adb-属性信息" class="headerlink" title="adb 属性信息"></a>adb 属性信息</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">//获取所有属性</span><br><span class="line">adb shell getprop</span><br><span class="line"></span><br><span class="line">//过滤特定属性</span><br><span class="line">adb shell getprop | grep vin</span><br><span class="line"></span><br><span class="line">//设置属性值</span><br><span class="line">adb shell setprop persisi.sys.vin 123456</span><br></pre></td></tr></table></figure>
+<h3 id="adb-焦点输入"><a href="#adb-焦点输入" class="headerlink" title="adb 焦点输入"></a>adb 焦点输入</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">//焦点在输入框，可直接将文本填充到输入框</span><br><span class="line">adb shell input text 123456</span><br></pre></td></tr></table></figure>
+<h3 id="adb-启动页面"><a href="#adb-启动页面" class="headerlink" title="adb 启动页面"></a>adb 启动页面</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">//启动设置页面</span><br><span class="line">adb shell am start com.android.settings/com.android.settings.Settings</span><br><span class="line"></span><br><span class="line">//启动设置页面，并计算启动时间</span><br><span class="line">adb shell am start -W -n com.android.settings/com.android.settings.Settings</span><br></pre></td></tr></table></figure>
+<h3 id="adb-修改屏幕分辨率密度"><a href="#adb-修改屏幕分辨率密度" class="headerlink" title="adb 修改屏幕分辨率密度"></a>adb 修改屏幕分辨率密度</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">//获取分辨率</span><br><span class="line">adb shell wm size </span><br><span class="line"></span><br><span class="line">//修改分辨率</span><br><span class="line">adb shell wm size 1920x600</span><br><span class="line"></span><br><span class="line">//重置分辨率</span><br><span class="line">adb shell wm size reset</span><br><span class="line"></span><br><span class="line">//获取屏幕密度</span><br><span class="line">adb shell wm density</span><br><span class="line"></span><br><span class="line">//修改屏幕密度</span><br><span class="line">adb shell wm density 240</span><br><span class="line"></span><br><span class="line">//重置屏幕密度</span><br><span class="line">adb shell wm density</span><br></pre></td></tr></table></figure>
+<h3 id="adb-获取日志"><a href="#adb-获取日志" class="headerlink" title="adb 获取日志"></a>adb 获取日志</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">//打印默认日志</span><br><span class="line">adb logcat</span><br><span class="line"></span><br><span class="line">//打印时间和默认日志</span><br><span class="line">adb logcat -v time</span><br><span class="line"></span><br><span class="line">//打印Error级别的信息</span><br><span class="line">adb logcat *:E</span><br><span class="line"></span><br><span class="line">//打印时间和Error级别的信息</span><br><span class="line">adb logcat -v time *E</span><br><span class="line"></span><br><span class="line">//日志保存到指定位置</span><br><span class="line">adb logcat -v time &gt; ~/Deskop/log.</span><br></pre></td></tr></table></figure>
+<h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><h2 id="执行-adb-remount-出错：“-remount-of-the-superblock-failed-Permission-denied”"><a href="#执行-adb-remount-出错：“-remount-of-the-superblock-failed-Permission-denied”" class="headerlink" title="执行 adb remount 出错：“ remount of the / superblock failed: Permission denied”"></a>执行 adb remount 出错：“ remount of the / superblock failed: Permission denied”</h2><p>先执行如下指令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb root</span><br><span class="line">adb disable-verity</span><br></pre></td></tr></table></figure>
+<p>再重启设备</p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LINUX-in-ARM64</title>
+    <url>/2022/12/13/LINUX-in-ARM64/</url>
+    <content><![CDATA[<p>关于arm64上的Linux指令与一些开发教程<br><span id="more"></span></p>
+<h1 id="编程开发"><a href="#编程开发" class="headerlink" title="编程开发"></a>编程开发</h1><h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><h3 id="一、查看环境变量"><a href="#一、查看环境变量" class="headerlink" title="一、查看环境变量"></a>一、查看环境变量</h3><p>env</p>
+<h3 id="二、查看PATH"><a href="#二、查看PATH" class="headerlink" title="二、查看PATH"></a>二、查看PATH</h3><p>export<br>或者单独查看PATH环境变量<br>echo $PATH</p>
+<h3 id="三、修改PATH"><a href="#三、修改PATH" class="headerlink" title="三、修改PATH"></a>三、修改PATH</h3><p>1.直接用export命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export PATH=$PATH:你的路径</span><br></pre></td></tr></table></figure>
+<p>2.修改profile文件(对系统里所有用户都有效)：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nano /etc/profile</span><br><span class="line">export PATH=&quot;$PATH:你的路径&quot;</span><br></pre></td></tr></table></figure>
+<p>3.修改.bashrc文件(只对该用户有用)：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nano /root/.bashrc</span><br><span class="line">export PATH=&quot;$PATH:你的路径&quot;</span><br></pre></td></tr></table></figure>
+<h1 id="传输协议"><a href="#传输协议" class="headerlink" title="传输协议"></a>传输协议</h1><h2 id="硬件层"><a href="#硬件层" class="headerlink" title="硬件层"></a>硬件层</h2><h3 id="有线通信"><a href="#有线通信" class="headerlink" title="有线通信"></a>有线通信</h3><ul>
+<li>MBus</li>
+<li>USB</li>
+<li>RS485</li>
+<li>RS232</li>
+<li>SPI</li>
+<li>CAN</li>
+<li>UART</li>
+<li>IIC</li>
+<li>IIS</li>
+<li>Ethernet</li>
+</ul>
+<h3 id="近距离"><a href="#近距离" class="headerlink" title="近距离"></a>近距离</h3><ul>
+<li>RFID</li>
+<li>Bluetooth</li>
+<li>NFC</li>
+<li>Dash7</li>
+<li>IRdA</li>
+<li>UWB</li>
+</ul>
+<h3 id="远距离非蜂窝通信"><a href="#远距离非蜂窝通信" class="headerlink" title="远距离非蜂窝通信"></a>远距离非蜂窝通信</h3><ul>
+<li>ZigBee</li>
+<li>WIFI</li>
+<li>wHART</li>
+<li>Z-Wave</li>
+<li>LoRa</li>
+</ul>
+<h3 id="远距离蜂窝通信"><a href="#远距离蜂窝通信" class="headerlink" title="远距离蜂窝通信"></a>远距离蜂窝通信</h3><ul>
+<li>2G</li>
+<li>3G</li>
+<li>4G</li>
+<li>5G</li>
+<li>NB-IOT</li>
+</ul>
+<h2 id="网络传输层"><a href="#网络传输层" class="headerlink" title="网络传输层"></a>网络传输层</h2><ul>
+<li>IP4V</li>
+<li>IP6V</li>
+<li>TCP</li>
+<li>UDP</li>
+<li>6LoWPAN</li>
+<li>RPL</li>
+</ul>
+<h2 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h2><ul>
+<li>MQTT</li>
+<li>CoAP</li>
+<li>DDS</li>
+<li>XMPP</li>
+<li>AMQP</li>
+<li>HTTP</li>
+<li>FTP</li>
+<li>SSH</li>
+<li>VNC</li>
+<li>RDP</li>
+<li>DHCP</li>
+<li>Telnet</li>
+<li>DNS</li>
+</ul>
+<h1 id="桌面"><a href="#桌面" class="headerlink" title="桌面"></a>桌面</h1><h2 id="常见桌面"><a href="#常见桌面" class="headerlink" title="常见桌面"></a>常见桌面</h2><h3 id="低资源桌面"><a href="#低资源桌面" class="headerlink" title="低资源桌面"></a>低资源桌面</h3><ul>
+<li>LxQt :(LXDE,GTK2),QT5,C++/QML</li>
+</ul>
+<h3 id="中资源桌面"><a href="#中资源桌面" class="headerlink" title="中资源桌面"></a>中资源桌面</h3><ul>
+<li>Budgie :GTK3,4</li>
+<li>MATE :GTK3,4</li>
+<li>XFCE :GTK3,4</li>
+<li>CINNAMON :GTK3,4</li>
+</ul>
+<h3 id="高资源桌面"><a href="#高资源桌面" class="headerlink" title="高资源桌面"></a>高资源桌面</h3><ul>
+<li>KDE :GTK3,4,C,wayland</li>
+<li>GNOME :QT5,C++/QML,wayland</li>
+</ul>
+<h2 id="传输协议-1"><a href="#传输协议-1" class="headerlink" title="传输协议"></a>传输协议</h2><h3 id="RDP远程桌面协议（TCP3389）"><a href="#RDP远程桌面协议（TCP3389）" class="headerlink" title="RDP远程桌面协议（TCP3389）"></a>RDP远程桌面协议（TCP3389）</h3><p>RDP（Remote Desktop Protocal）远程桌面协议，是一个多通道协议，用于终端服务器与终端服务器客户端之间的通信，让用户（即客户端）连上提供微软终端机服务的电脑。服务端听取送到TCP3389端口的数据，RDP被封装并在TCP加密。<br>RDP协议栈分为五个层次，自上向下分别为应用层、安全层、MCS层、ISO层和TCP/IP层。<br>基于RDP的应用一般包括三个部分：<br><em>终端服务器
+</em>用户界面传输协议<br>*客户端</p>
+<h3 id="SSH远程桌面协议-（TCP22）"><a href="#SSH远程桌面协议-（TCP22）" class="headerlink" title="SSH远程桌面协议 （TCP22）"></a>SSH远程桌面协议 （TCP22）</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>SSH（Secure Shell）是一种在不安全网络上用于安全远程登录和其他安全网络服务的协议。SSH 为建立在应用层基础上的安全协议，专为远程登录会话和其他网络服务提供安全性的协议。</p>
+<h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><ul>
+<li>第一种级别（基于口令的安全验证）</li>
+</ul>
+<p>只要你知道自己帐号和口令，就可以登录到远程主机。所有传输的数据都会被加密，但是不能保证你正在连接的服务器就是你想连接的服务器。可能会有别的服务器在冒充真正的服务器，也就是受到“中间人”这种方式的攻击。</p>
+<ul>
+<li>第二种级别（基于密匙的安全验证）</li>
+</ul>
+<p>需要依靠密匙，也就是你必须为自己创建一对密匙，并把公用密匙放在需要访问的服务器上。如果你要连接到SSH服务器上，客户端软件就会向服务器发出请求，请求用你的密匙进行安全验证。服务器收到请求之后，先在该服务器上你的主目录下寻找你的公用密匙，然后把它和你发送过来的公用密匙进行比较。如果两个密匙一致，服务器就用公用密匙加密“质询”（challenge）并把它发送给客户端软件。客户端软件收到“质询”之后就可以用你的私人密匙解密再把它发送给服务器。</p>
+<ul>
+<li>区别</li>
+</ul>
+<p>1.第二种级别不需要在网络上传送口令，但你必须知道自己密匙的口令</p>
+<p>2.第二种级别不仅加密所有传送的数据，而且“中间人”这种攻击方式也是不可能的（因为他没有你的私人密匙）。但是整个登录的过程可能需要10秒</p>
+<h3 id="VNC远程桌面协议（TCP5901）"><a href="#VNC远程桌面协议（TCP5901）" class="headerlink" title="VNC远程桌面协议（TCP5901）"></a>VNC远程桌面协议（TCP5901）</h3><p>VNC是虚拟网络控制台(Virtual Network Console)的缩写，是在基于类UNIX操作系统的免费的开源软件，远程控制管理功能强大，但是由于VNC协议自身的限制，无法提供文件上传下载的能力，因此用户在行云管家中使用VNC相关协议访问服务器时，同样也无法进行文件传输。建议有相关需求的用户，尽量使用RDP或者SSH协议访问服务器。</p>
+<h3 id="PCoIP远程桌面协议（VMware）"><a href="#PCoIP远程桌面协议（VMware）" class="headerlink" title="PCoIP远程桌面协议（VMware）"></a>PCoIP远程桌面协议（VMware）</h3><h3 id="SPICE远程桌面协议（redhat）"><a href="#SPICE远程桌面协议（redhat）" class="headerlink" title="SPICE远程桌面协议（redhat）"></a>SPICE远程桌面协议（redhat）</h3><h3 id="ICA-HDX远程桌面协议（citrix）"><a href="#ICA-HDX远程桌面协议（citrix）" class="headerlink" title="ICA/HDX远程桌面协议（citrix）"></a>ICA/HDX远程桌面协议（citrix）</h3><h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><h2 id="删除文件-rm"><a href="#删除文件-rm" class="headerlink" title="删除文件 rm"></a>删除文件 <code>rm</code></h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">完整命令：rm [options] name</span><br><span class="line"></span><br><span class="line">参数：</span><br><span class="line">1.  -i 删除前逐一询问确认</span><br><span class="line">2.  -f 无需确认，直接删除，即使文件属性是 &#x27;唯读&#x27;</span><br><span class="line">3.  -r 将目录及以下的内容全部删除</span><br><span class="line"></span><br><span class="line">删除当前目录下的所有内容</span><br><span class="line">命令： rm -r *</span><br></pre></td></tr></table></figure>
+<h2 id="复制文件-cp"><a href="#复制文件-cp" class="headerlink" title="复制文件 cp"></a>复制文件 <code>cp</code></h2><ul>
+<li>不管是 <code>cp</code> 还是 <code>scp</code> 、<code>rsync</code> 的上传或下载命令，他们的命令书写都遵循一个规则，就是从哪传到哪，前面是（从哪）源文件，后面是（到哪）目标文件</li>
+<li><em>复制源文件或目录到指定目录</em></li>
+<li><em>语法：cp +参数+源文件或目录+目标目录（可以改名）</em></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-r或-R：递归处理，将指定目录下的子文件和子目录一并处理（复制目录的时候使用）</span><br><span class="line">-f：强行复制文件或目录，不论目标文件或目录是否已存在</span><br><span class="line">-p：保留文件属性（所有者、所属组、文件权限、文件时间·····）</span><br><span class="line">-a：相当于-prd</span><br><span class="line">-i：覆盖既有文件时先询问用户。（默认-i）</span><br><span class="line">-l：对源文件建立硬连接，非复制文件。</span><br><span class="line">-S：在备份文件时，用指定的后缀“SUFFIX”代替文件的默认后缀。</span><br><span class="line">-b：覆盖已存在的文件目标前将目标文件备份。</span><br><span class="line">-v：详细显示命令执行的操作。</span><br><span class="line">-d:–no-dereference –preserv=links 复制符号连接加的选项</span><br><span class="line">注意：当复制目录的时候一定要加上选项-r，不然不能复制</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">实例：</span><br><span class="line">1. 复制并重命名</span><br><span class="line">cp a.txt b.txt  # 复制a.txt 到本目录下并命名为 b.txt</span><br><span class="line"></span><br><span class="line">2. 复制目录的时候必须加 -r  # 将test目录复制一份成 test2目录，注意：复制目录时，不能复制到他本身下</span><br><span class="line">cp -r test/ test2</span><br></pre></td></tr></table></figure>
+<h2 id="编辑文本文件-vim"><a href="#编辑文本文件-vim" class="headerlink" title="编辑文本文件 vim"></a>编辑文本文件 <code>vim</code></h2><ul>
+<li>打开并编辑文本文件</li>
+<li>共有三种模式：命令模式、输入模式、末行模式</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">1. 完整命令： &quot;vim 文件路径&quot;</span><br><span class="line"></span><br><span class="line">2. 简单介绍</span><br><span class="line"></span><br><span class="line">命令模式： 在文件中进行 查找、删除、复制、粘贴 操作</span><br><span class="line">输入模式： 就是正常的编辑文件</span><br><span class="line">末行模式： 对文件的操作进行 保存、退出vim等</span><br><span class="line"></span><br><span class="line">3. 三种模式之间的切换 </span><br><span class="line"></span><br><span class="line">命令模式 --&gt; 输入模式  # i、I、a、A、o、O、Insert 键</span><br><span class="line">输入模式 --&gt; 命令模式  # Esc 键</span><br><span class="line">命令模式 --&gt; 末行模式  # ： 键</span><br><span class="line">末行模式 --&gt; 命令模式  # Esc 键</span><br></pre></td></tr></table></figure>
+<h3 id="（1）命令模式"><a href="#（1）命令模式" class="headerlink" title="（1）命令模式"></a>（1）命令模式</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">命令模式： # 实际上看不到输入的命令</span><br><span class="line">默认处于命令模式，此模式下可以用方向键或者&quot; h、j、k、l &quot; 移动光标，还可以对文件进行复制、粘贴、替换、删除等操作</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">光标操作：</span></span><br><span class="line">跳转到行首： Home 键、 &quot;^&quot;键、数字&quot;0&quot;</span><br><span class="line">跳转到行尾： End 键、&quot;$&quot;键</span><br><span class="line">跳转到文件的首行： &quot;1G&quot;、&quot;gg&quot;</span><br><span class="line">跳转到文件的尾行： &quot;G&quot;</span><br><span class="line">跳转到文件的第n行： &quot;nG&quot;  # n为数字</span><br><span class="line">行号显示/不显示：   &quot;:set nu&quot;  &quot;:set nonu&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">文件内容操作</span></span><br><span class="line"></span><br><span class="line">删除： </span><br><span class="line"> 删除光标处的单个字符： &quot;x、X、Del&quot;键 </span><br><span class="line">    删除当前光标所在行： &quot;dd&quot;</span><br><span class="line">    删除从光标处开始的 n 行内容  &quot;ndd&quot;  # n为数字</span><br><span class="line">    删除从行首到光标的所有内容 &quot;d^&quot;</span><br><span class="line">    删除从行尾到光标的所有内容 &quot;d$&quot;</span><br><span class="line">复制：</span><br><span class="line"> 复制光标所在行的整行 &quot;yy&quot;</span><br><span class="line">    复制从光标往上的 n 行内容 &quot;nyy&quot;  # n为数字</span><br><span class="line">  </span><br><span class="line">粘贴：</span><br><span class="line"> 粘贴到光标之后 &quot;p&quot;  # 小写</span><br><span class="line">    粘贴到光标之前 &quot;P&quot;  # 大写</span><br><span class="line">  </span><br><span class="line">查找： # 能看到命令</span><br><span class="line"> 查找字符串  &quot;/word&quot;  # 从上而下查找&quot;word&quot;字符串</span><br><span class="line">    查找字符串  &quot;/word&quot;  # 从下而上查找&quot;word&quot;字符串</span><br></pre></td></tr></table></figure>
+<h3 id="（2）末行模式"><a href="#（2）末行模式" class="headerlink" title="（2）末行模式"></a>（2）末行模式</h3><ul>
+<li>主要是用来对文件进行保存、退出vim编辑器 等操作</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1. 保存文件</span><br><span class="line">:w</span><br><span class="line">:w 文件路径  # 另存为其他文件，如 :w /root/new_file/test.txt ，另存为/root/new_file目录下的test.txt</span><br><span class="line"></span><br><span class="line">2. 退出vim</span><br><span class="line">:q  # 未修改任何内容的情况下，退出vim</span><br><span class="line">:q!  # 放弃修改，退出vim</span><br><span class="line"></span><br><span class="line">3. 保存文件并退出vim</span><br><span class="line">:wq</span><br></pre></td></tr></table></figure>
+<h2 id="查看文件-cat"><a href="#查看文件-cat" class="headerlink" title="查看文件 cat"></a>查看文件 <code>cat</code></h2><ul>
+<li><a href="https://wenku.baidu.com/view/2a36e038b4360b4c2e3f5727a5e9856a561226bb.html">查看详情</a></li>
+<li><p><code>cat 命令</code> 两种用法</p>
+<ul>
+<li>显示文件内容，打印到终端</li>
+<li>也可以把几个文件内容附加到另一个文件中，即连接合并文件</li>
+</ul>
+</li>
+<li><p>基本使用：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1. 查看文件内容（会把内容全部打印到终端）</span><br><span class="line">cat [选项] 文件路径  # 不论文件内容有多少，都会一次性显示。如果文件非常大，那么文件开头的内容就看不到了不过 Linux 可以使用 PgUp+上箭头 组合键向上翻页，但是这种翻页是有极限的，如果文件足够长，那么还是无法看全文件的内容</span><br><span class="line"></span><br><span class="line">参数说明：</span><br><span class="line">-A 相当于 -vET 选项的整合，用于列出所有隐藏符号；</span><br><span class="line">-E 列出每行结尾的回车符 $；</span><br><span class="line">-n 对输出的所有行进行编号；</span><br><span class="line">-b 同 -n 不同，此选项表示只对非空行进行编号。</span><br><span class="line">-T 把 Tab 键 ^I 显示出来；</span><br><span class="line">-V 列出特殊字符；</span><br><span class="line">-s 当遇到有连续 2 行以上的空白行时，就替换为 1 行的空白行。</span><br><span class="line"></span><br><span class="line">2. 查找文件中的内容</span><br><span class="line">cat a.txt |grep **  # ** 即是要查找的内容</span><br><span class="line"></span><br><span class="line">3. 利用cat 创建文件</span><br><span class="line">若原来没有文件:</span><br><span class="line">cat &gt; b.txt &lt;&lt;EOF  </span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">你要输入的内容...</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">EOF</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">上面三行的意思是创建并打开一个 b.txt文件，并且以EOF为结束编辑并保存的结束语（也可以用自定义的结束语），中间输入自己要编辑的内容，最后输入EOF保存退出。</span></span><br><span class="line"></span><br><span class="line">4. 利用cat清空文件内容（实际就是利用cat的编辑模式，进行覆盖写，和python中的 w 模式相同）</span><br><span class="line">cat &gt;c.txt&lt;&lt;EOF</span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">EOF</span></span><br><span class="line"></span><br><span class="line">5. 像文件的尾部写入内容（追加写）</span><br><span class="line">命令与上面的覆盖写类似，只是把 &gt; 换成 &gt;&gt; 即可</span><br><span class="line">cat &gt;&gt; b.txt &lt;&lt;EOF  </span><br><span class="line"></span><br><span class="line">6. cat 可以实现调用变量，对关键字$的转义</span><br><span class="line">如 不转义$</span><br><span class="line">cat &gt;test.txt &lt;&lt;EOF</span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">DATE=$(<span class="built_in">date</span> + %Y%m%d)</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash"><span class="built_in">mkdir</span> /root/<span class="variable">$DATE</span></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">EOF</span></span><br><span class="line">cat test.txt</span><br><span class="line">结果为：</span><br><span class="line">DATE=20220620</span><br><span class="line">mkdir /root/</span><br><span class="line"></span><br><span class="line">转义 $</span><br><span class="line">cat &gt;test.txt &lt;&lt;EOF</span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">DATE=$(<span class="built_in">date</span> + %Y%m%d)</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash"><span class="built_in">mkdir</span> /root/\<span class="variable">$DATE</span></span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">EOF</span></span><br><span class="line">cat test.txt</span><br><span class="line">结果为：</span><br><span class="line">DATE=20220620</span><br><span class="line">mkdir /root/$DATE</span><br><span class="line"></span><br><span class="line">7. 合并文件的内容到一个新的文件中</span><br><span class="line">[root@localhost base]# ls</span><br><span class="line"></span><br><span class="line">file1.txt    file2.txt</span><br><span class="line"></span><br><span class="line">[root@localhost base]# cat file1.txt</span><br><span class="line"></span><br><span class="line">http://c.biancheng.net(file1.txt)</span><br><span class="line"></span><br><span class="line">[root@localhost base]# cat file2.txt</span><br><span class="line"></span><br><span class="line">is great(file2.txt)</span><br><span class="line"></span><br><span class="line">[root@localhost base]# cat file1.txt file2.txt &gt; file3.txt</span><br><span class="line"></span><br><span class="line">[root@localhost base]# more file3.txt</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">more 命令也可查看文件中的内容</span></span><br><span class="line"></span><br><span class="line">http://c.biancheng.net(file1.txt)</span><br><span class="line"></span><br><span class="line">is great(file2.txt)</span><br><span class="line"></span><br><span class="line">[root@localhost base]# ls</span><br><span class="line"></span><br><span class="line">file1.txt    file2.txt    file3.txt</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="后台执行程序"><a href="#后台执行程序" class="headerlink" title="后台执行程序"></a>后台执行程序</h2><h3 id="（1）后台执行"><a href="#（1）后台执行" class="headerlink" title="（1）后台执行"></a>（1）后台执行</h3><ul>
+<li><code>nohup 命令</code><ul>
+<li>英文全称  <em>no hang up</em> （不挂起），用于在系统后台不挂断地运行命令，退出终端不会影响程序的运行</li>
+<li>在默认情况下（非重定向时），会输出一个名叫 <code>nohup.out</code> 的文件到当前目录下，如果当前目录的 <code>nohup.out</code>文件不可写，输出重定向到 <code>$HOME/nohup.out</code> 文件中</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1. 完整命令：</span><br><span class="line"></span><br><span class="line">&quot; nohup Command [ Arg … ] [　&amp; ] &quot;</span><br><span class="line"></span><br><span class="line">参数说明：</span><br><span class="line"> Command：要执行的命令。</span><br><span class="line"></span><br><span class="line"> Arg：一些参数，可以指定输出文件。</span><br><span class="line"></span><br><span class="line"> &amp;：让命令在后台执行，终端退出后命令仍旧执行。</span><br><span class="line"></span><br><span class="line">2. 实例</span><br><span class="line"></span><br><span class="line">nohup python /opt/project/test.py  &amp;  # 以下命令在后台执行 /opt/project 目录下的 test.py 脚本，在终端如果看到以下输出说明运行成功 appending output to nohup.out</span><br><span class="line"></span><br><span class="line">nohup /root/runoob.sh &gt; runoob.log 2&gt;&amp;1 &amp;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">2&gt;</span><span class="language-bash">&amp;1 解释：</span></span><br><span class="line"><span class="meta prompt_"> # </span><span class="language-bash">将标准错误 2 重定向到标准输出 &amp;1 ，标准输出 &amp;1 再被重定向输入到 runoob.log 文件中</span></span><br><span class="line">    0 – stdin (standard input，标准输入)</span><br><span class="line"> 1 – stdout (standard output，标准输出)</span><br><span class="line"> 2 – stderr (standard error，标准错误输出)</span><br><span class="line">  </span><br><span class="line">3. 结束后台运行的程序</span><br><span class="line"> - 可以用杀死进程的方法实现</span><br><span class="line">    - 可以查看当前终端后台执行的任务，然后用 kill jobnum 命令来删除任务（这种不太推荐，终端断开或关闭之后，就差看不到之前的任务了）</span><br><span class="line"></span><br><span class="line">ps -aux | grep &quot;test.py&quot; </span><br><span class="line">ps -aux | grep &quot;runoob.sh&quot; </span><br><span class="line"></span><br><span class="line">参数说明：</span><br><span class="line">    a : 显示所有程序</span><br><span class="line">    u : 以用户为主的格式来显示</span><br><span class="line">    x : 显示所有程序，不区分终端机</span><br><span class="line"></span><br><span class="line">找到进程号PID之后，可以用 kill PID 命令来删除</span><br><span class="line">kill -9 进程号PID</span><br></pre></td></tr></table></figure>
+<h3 id="（2）前、后台任务切换"><a href="#（2）前、后台任务切换" class="headerlink" title="（2）前、后台任务切换"></a>（2）前、后台任务切换</h3><ul>
+<li><p>将后台执行的程序调到前台继续执行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">命令： fg</span><br><span class="line">将后台中的命令调至前台继续运行</span><br><span class="line"></span><br><span class="line">如果后台中有多个命令，可以先用jobs -l查看jobnun，然后用 fg jobnum 将选中的命令调出</span><br><span class="line"></span><br><span class="line">命令： Ctrl + z</span><br><span class="line">将一个正在前台执行的命令放到后台，并且处于暂停状态</span><br><span class="line"></span><br><span class="line">命令： bg</span><br><span class="line">将一个在后台暂停的命令，变成在后台继续执行</span><br><span class="line"></span><br><span class="line">如果后台中有多个命令，可以先用jobs查看jobnum，然后用 bg jobnum 将选中的命令调出继续执行</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="（3）nohup-out-维护"><a href="#（3）nohup-out-维护" class="headerlink" title="（3）nohup.out 维护"></a>（3）<code>nohup.out</code> 维护</h3><ul>
+<li><p><code>nohup.out</code>会一直增加内容，因此就有了不停止服务直接，清空 <code>nohup.out</code>文件的方法。<br>两个可以不用停止WEB服务就可以清空 <code>nohup.out</code>的命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">第一种：</span><br><span class="line"><span class="built_in">cp</span>  /dev/null nohup.out</span><br><span class="line"></span><br><span class="line">第二种：</span><br><span class="line"><span class="built_in">cat</span> /dev/null &gt; nohup.out</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="进程相关"><a href="#进程相关" class="headerlink" title="进程相关"></a>进程相关</h2><h3 id="（1）显示进程"><a href="#（1）显示进程" class="headerlink" title="（1）显示进程"></a>（1）显示进程</h3><ul>
+<li><a href="https://www.coonote.com/linux-note/linux-ps-cmd-use.html">查看详情</a></li>
+<li><p>显示进程常用命令</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ps -ef  # 显示所有进程信息</span><br><span class="line"></span><br><span class="line">ps -ef|grep ***  # 查找特定进程， *** 代表进程信息中包含的关键字，如 是什么程序python、java等，运行脚本的文件名等</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="（2）杀死进程"><a href="#（2）杀死进程" class="headerlink" title="（2）杀死进程"></a>（2）杀死进程</h3><ul>
+<li><a href="http://edu.jb51.net/linux/linux-comm-kill.html">查看详情</a></li>
+<li><p>杀进程常用命令</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kill PID  # 杀死某进程</span><br><span class="line">kill -9 PID  # 彻底杀死某进程</span><br><span class="line"></span><br><span class="line">杀死指定用户的所有进程</span><br><span class="line">kill -9 $(ps -ef | grep hnlinux)  # 方法一 过滤出hnlinux用户进程</span><br><span class="line">kill -u hnlinux  # 方法二</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="防火墙相关"><a href="#防火墙相关" class="headerlink" title="防火墙相关"></a>防火墙相关</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">一、打开/关闭某个端口</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看防火墙状态：（active (running) 即是开启状态）</span></span><br><span class="line">systemctl status firewalld</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看已开放端口：（8080和3306 即是已开放端口）</span></span><br><span class="line">firewall-cmd --list-all</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">防火墙开放端口：（以3306为例）</span></span><br><span class="line">firewall-cmd --zone=public --add-port=3306/tcp --permanent</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">关闭8080端口</span></span><br><span class="line">firewall-cmd --permanent --zone=public --remove-port=8080/tcp</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重启防火墙:</span></span><br><span class="line">systemctl restart firewalld.service</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新防火墙规则：</span> </span><br><span class="line">firewall-cmd --reload</span><br><span class="line"> </span><br><span class="line">命令含义：</span><br><span class="line"> </span><br><span class="line">–zone #作用域</span><br><span class="line"> </span><br><span class="line">–add-port=80/tcp #添加端口，格式为：端口/通讯协议</span><br><span class="line"> </span><br><span class="line">–permanent #永久生效，没有此参数重启后失效</span><br><span class="line"> </span><br><span class="line">firewall-cmd --reload 并不中断用户连接，即不丢失状态信息</span><br><span class="line"> </span><br><span class="line">firewalld的基本使用</span><br><span class="line"> </span><br><span class="line">二、常用操作命令</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动：</span> </span><br><span class="line">systemctl start firewalld</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">关闭：</span> </span><br><span class="line">systemctl stop firewalld</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看状态：</span> </span><br><span class="line">systemctl status firewalld</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开机禁用 ：</span> </span><br><span class="line">systemctl disable firewalld</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开机启用 ：</span> </span><br><span class="line">systemctl enable firewalld</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动一个服务：</span></span><br><span class="line">systemctl start firewalld.service</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">关闭一个服务：</span></span><br><span class="line">systemctl stop firewalld.service</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重启一个服务：</span></span><br><span class="line">systemctl restart firewalld.service</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">显示一个服务的状态：</span></span><br><span class="line">systemctl status firewalld.service</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在开机时启用一个服务：</span></span><br><span class="line">systemctl enable firewalld.service</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在开机时禁用一个服务：</span></span><br><span class="line">systemctl disable firewalld.service</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看服务是否开机启动：</span></span><br><span class="line">systemctl is-enabled firewalld.service</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看已启动的服务列表：</span></span><br><span class="line">systemctl list-unit-files|grep enabled</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看启动失败的服务列表：</span></span><br><span class="line">systemctl --failed</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">配置</span></span><br><span class="line">firewalld-cmd</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看版本：</span> </span><br><span class="line">firewall-cmd --version</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看帮助：</span> </span><br><span class="line">firewall-cmd --help</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">显示状态：</span> </span><br><span class="line">firewall-cmd --state</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看所有打开的端口：</span> </span><br><span class="line">firewall-cmd --zone=public --list-ports</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看区域信息:</span> </span><br><span class="line">firewall-cmd --get-active-zones</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看指定接口所属区域：</span> </span><br><span class="line">firewall-cmd --get-zone-of-interface=eth0</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">拒绝所有包：</span></span><br><span class="line">firewall-cmd --panic-on</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">取消拒绝状态：</span> </span><br><span class="line">firewall-cmd --panic-off</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看是否拒绝：</span> </span><br><span class="line">firewall-cmd --query-panic</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start firewalld.service    启动防火墙</span><br><span class="line"></span><br><span class="line">systemctl enable firewalld    自启动</span><br><span class="line"></span><br><span class="line">firewalld-cmd    后面跟命令行</span><br><span class="line"></span><br><span class="line">firewalld-cmd --help    查看一下有啥命令呗</span><br><span class="line"></span><br><span class="line">firewall-config     图形化配置，偷懒大法</span><br><span class="line"></span><br><span class="line">firewall-cmd --zone=block --add-source=192.168.100.0/24    添加一条规则，凡是来自192.168.100.0/24网段的信息就放到block中</span><br><span class="line"></span><br><span class="line">firewall-cmd --zone=block --remove-source=192.168.100.0/24    remove删了这条规则</span><br><span class="line"></span><br><span class="line">这个block 的zone 到这里的都给拒绝了，去别的机器ping就ping不通了</span><br><span class="line"></span><br><span class="line">firewall-cmd --zone=drop --add-source=192.168.100.0/24    这个drop比block还厉害，直接把你包给扔了都不告诉你</span><br><span class="line"></span><br><span class="line">一般用drop，别用block</span><br><span class="line"></span><br><span class="line">systemctl restart firewalld.service    重启以后临时规则就没了，永久规则还有</span><br><span class="line"></span><br><span class="line">firewall-cmd --permanent --zone=drop --add-source=192.168.100.0/24    使用--permanent永久规则，必须重启服务后生效</span><br><span class="line"></span><br><span class="line">firewall-cmd --list-all    列出规则，默认public</span><br></pre></td></tr></table></figure>
+<h2 id="用户-su-和-sudo"><a href="#用户-su-和-sudo" class="headerlink" title="用户 su 和 sudo"></a>用户 <code>su 和 sudo</code></h2><h3 id="（1）su介绍"><a href="#（1）su介绍" class="headerlink" title="（1）su介绍"></a>（1）<code>su</code>介绍</h3><ul>
+<li><p><code>su</code>的全称是switch user，用来切换当前用户。<code>su</code>的一般使用方法是 <code>su</code> 或者 <code>su -</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">su是切换到root用户的命令，主要用法如下：</span><br><span class="line">su  # 不带参数直接输入su将切换到root用户，需要输入root密码</span><br><span class="line">su -  # 等同于 su -l，切换到root用户并加载root的环境变量（等同于root身份登录），加入了 - 或 -l 参数表示同时切换到该用户的环境</span><br><span class="line">su username  # 切换到其他用户，需要输入该用户的密码</span><br><span class="line">su -c ‘commond’  # 以root用户执行命令，类似于sudo，不同之处是需要输入root密码</span><br><span class="line">su命令主要是用来切换root身份，前提是需要知道root密码</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="（2）sudo介绍"><a href="#（2）sudo介绍" class="headerlink" title="（2）sudo介绍"></a>（2）<code>sudo</code>介绍</h3><ul>
+<li>全称为super user do，即以超级用户root的身份执行命令</li>
+<li>使用 <code>sudo su -</code>，提供当前用户的密码，可以切换到root用户</li>
+<li>完整命令 <code>sudo &#39;要执行的commond&#39;</code></li>
+</ul>
+<h2 id="权限相关"><a href="#权限相关" class="headerlink" title="权限相关"></a>权限相关</h2><ul>
+<li><a href="https://www.136.la/nginx/show-64121.html">查看详情</a></li>
+</ul>
+<h3 id="（1）关键字解释"><a href="#（1）关键字解释" class="headerlink" title="（1）关键字解释"></a>（1）关键字解释</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">通过ll查看详细信息时，例如：</span><br><span class="line">-rwxrwxrwx. 1 root root 181 3月 15 15:34 test.txt</span><br><span class="line"></span><br><span class="line">从左往右：（r 为 读，w 为 写，x 为 可执行）</span><br><span class="line"></span><br><span class="line">-  # 表示类型 -表示普通文件 d表示目录</span><br><span class="line">rwx  # 第一组rwx：当前用户权限，某个权限没有就显示 - </span><br><span class="line">rwx  # 第二组rwx：当前用户组权限，某个权限没有就显示 - </span><br><span class="line">rwx  # 第三组rwx：其他用户权限，某个权限没有就显示 - </span><br></pre></td></tr></table></figure>
+<h3 id="（2）chmod-命令修改权限"><a href="#（2）chmod-命令修改权限" class="headerlink" title="（2）chmod 命令修改权限"></a>（2）<code>chmod 命令</code>修改权限</h3><ul>
+<li>完整命令 <code>chmod [options] mode 文件或目录名</code></li>
+<li><p>修改文件权限，共两种命令方式</p>
+<ul>
+<li>使用相加减表达权限，</li>
+<li>使用数字表达权限</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">权限介绍：4=可读 2=可写 1=可执行</span><br><span class="line">      7 7 7</span><br><span class="line">      第一个7 是 文件所有者的权限</span><br><span class="line">      第二个7 是 文件所属组的权限</span><br><span class="line">      第三个7 是 其他用户的权限</span><br><span class="line">      7 = 4+2+1 表示有可读可写可执行</span><br><span class="line">      6 = 4+2 表示有可读可写权限</span><br><span class="line">      5 = 4+1 表示有可读可执行</span><br><span class="line"></span><br><span class="line">[options]：</span><br><span class="line">    -c  # 若该文件权限确实已经更改，才显示其更改动作</span><br><span class="line">    -f  # 若该文件权限无法被更改也不要显示错误讯息</span><br><span class="line">    -v  # 显示权限变更的详细资料</span><br><span class="line">    -R  # 对目前目录下的所有文件与子目录进行相同的权限变更(即以递归的方式逐个变更)</span><br><span class="line"></span><br><span class="line">mode ：</span><br><span class="line"> u 表示该文件的拥有者，g 表示与该文件的拥有者属于同一个群体(group)者，o 表示其他以外的人，a 表示这三者皆是。u用户 g组 o其它  a 所有用户(默认)</span><br><span class="line"></span><br><span class="line"> + 表示增加权限、- 表示取消权限、= 表示唯一设定权限。</span><br><span class="line"></span><br><span class="line"> r 表示可读取，w 表示可写入，x 表示可执行，X 表示只有当该文件是个子目录或者该文件已经被设定过为可执行</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="（3）权限修改实例"><a href="#（3）权限修改实例" class="headerlink" title="（3）权限修改实例"></a>（3）权限修改实例</h3><h4 id="i）更改目录所有者（非-chmod-命令）"><a href="#i）更改目录所有者（非-chmod-命令）" class="headerlink" title="i）更改目录所有者（非 chmod 命令）"></a>i）更改目录所有者（非 <code>chmod 命令</code>）</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">&quot; chown -R 用户名称 目录名称 &quot;  </span><br></pre></td></tr></table></figure>
+<h4 id="ii）更改目录权限"><a href="#ii）更改目录权限" class="headerlink" title="ii）更改目录权限"></a>ii）更改目录权限</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1. chmod u+x file  # 给file的属主增加执行权限</span><br><span class="line">2. chmod 751 file  # 给file的属主分配读、写、执行(7)的权限，给file的所在组分配读、执行(5)的权限，给其他用户分配执行(1)的权限</span><br><span class="line">3. chmod u=rwx,g=rx,o=x file  # 同 2 效果一样</span><br><span class="line">4. chmod =r file  # 为所有用户分配读权限</span><br><span class="line">5. chmod 444 file  # 同 4 效果一样</span><br><span class="line">6. chmod a-wx,a+r file  # 同 4、5 效果一样</span><br><span class="line">7. chmod -R u+r directory  # 递归地给directory目录下所有文件和子目录的属主分配读的权限</span><br><span class="line">8. chmod 4755  # 设置用ID，给属主分配读、写和执行权限，给组和其他用户分配读、执行的权限。</span><br></pre></td></tr></table></figure>
+<h2 id="下载-wget"><a href="#下载-wget" class="headerlink" title="下载 wget"></a>下载 <code>wget</code></h2><h3 id="wget介绍"><a href="#wget介绍" class="headerlink" title="wget介绍"></a><code>wget</code>介绍</h3><ul>
+<li><a href="https://blog.csdn.net/qq_43842093/article/details/122030935">查看详情</a></li>
+<li><code>wget</code>命令是Linux系统用于从Web下载文件的命令行工具，支持 HTTP、HTTPS及FTP协议下载文件，而且 <code>wget</code>还提供了很多选项，例如下载多个文件、后台下载，使用代理等等</li>
+<li><p>完整命令 <code>wget [options] [url]</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[options]： 常用参数，&#x27;注意大小写&#x27;</span><br><span class="line"> -O  # 以其他名称保存下载的文件</span><br><span class="line"> -P  # 将文件下载到指定目录</span><br><span class="line">    -c  # 断点续传</span><br><span class="line">    -nc  # 不要重复下载已存在的文件</span><br><span class="line">    -b  # 在后台下载</span><br><span class="line">    -i  # 下载多个文件</span><br><span class="line">    -limit-rate  # 限制下载速度</span><br><span class="line">    -U  # 设定模拟下载</span><br><span class="line">    -t  # 增加重试次数</span><br><span class="line">实例：</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">该命令会下载文件到当前工作目录中，在下载过程中，会显示进度条、文件大小、下载速度等</span></span><br><span class="line">wget https://download.redis.io/releases/redis-6.0.8.tar.gz</span><br><span class="line"></span><br><span class="line">wget -O redis.tar.gz https://download.redis.io/releases/redis-6.0.8.tar.gz  </span><br><span class="line"></span><br><span class="line">wget -P /usr/software https://download.redis.io/releases/redis-6.0.8.tar.gz</span><br><span class="line"></span><br><span class="line">wget -c https://download.redis.io/releases/redis-6.0.8.tar.gz   </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果先要一次下载多个文件，首先需要创建一个文本文件，并将所有的url添加到该文件中，每个url都必须是单独的一行</span>  </span><br><span class="line">vim download_list.txt</span><br><span class="line">wget -i download_list.txt</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载速度限制为1m/s</span></span><br><span class="line">wget --limit-rate=1m https://download.redis.io/releases/redis-6.0.8.tar.gz</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果远程服务器阻止wget下载资源，我们可以通过-U选项模拟浏览器进行下载，例如下面模拟谷歌浏览器下载</span>  </span><br><span class="line">wget -U &#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.43 Safari/537.36&#x27; https://download.redis.io/releases/redis-6.0.8.tar.gz  </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置重试次数为40次</span>  </span><br><span class="line">wget --t=40 https://download.redis.io/releases/redis-6.0.8.tar.gz  </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">通过FTP下载如果要从受密码保护的FTP服务器下载文件，需要指定用户名和密码，格式如下</span>  </span><br><span class="line">wget --ftp-user=&lt;username&gt; --ftp-password=&lt;password&gt; url </span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="常见问题及解决办法"><a href="#常见问题及解决办法" class="headerlink" title="常见问题及解决办法"></a>常见问题及解决办法</h1><h2 id="由于没有公钥，无法验证下列签名：-NO-PUBKEY-76F1A20FF987672F"><a href="#由于没有公钥，无法验证下列签名：-NO-PUBKEY-76F1A20FF987672F" class="headerlink" title="由于没有公钥，无法验证下列签名： NO_PUBKEY 76F1A20FF987672F"></a>由于没有公钥，无法验证下列签名： NO_PUBKEY 76F1A20FF987672F</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $&#123;PUBLIC_KEY_SIGN&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LINUX</category>
+      </categories>
+      <tags>
+        <tag>LINUX</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RK3588_in_ROCK5</title>
+    <url>/2022/12/10/RK3588-in-ROCK5/</url>
+    <content><![CDATA[<p>以Rock5B为例的rk3588开发文档，不断更新ing<br><span id="more"></span></p>
+<h1 id="性能参考"><a href="#性能参考" class="headerlink" title="性能参考"></a>性能参考</h1><p><a href="https://browser.geekbench.com/v5/cpu/18817954">https://browser.geekbench.com/v5/cpu/18817954</a><br><a href="https://shjdgwj.github.io/14733f4e12d9/image-20221123144235521.png"><img src="https://shjdgwj.github.io/14733f4e12d9/image-20221123144235521.png" alt="img" title="image-20221123144235521"></a></p>
+<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><h2 id="抽奖"><a href="#抽奖" class="headerlink" title="抽奖"></a>抽奖</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for i in `seq 0 7`; do echo ========cpu$i;cat /sys/bus/cpu/devices/cpu$&#123;i&#125;/cpufreq/scaling_max_freq; done</span><br><span class="line">sudo sed -i &quot;s|focal|jammy|g&quot; /etc/apt/sources.list &amp;&amp; sudo apt update &amp;&amp; sudo apt dist-upgrade &amp;&amp; sudo reboot</span><br><span class="line">cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq</span><br><span class="line">lscpu | grep MHz #pytm-volt-sel 越大越好</span><br><span class="line">dmesg | grep -i pvtm</span><br><span class="line">dmesg | grep -E &#x27;pvtm|dmc&#x27; | grep sel</span><br></pre></td></tr></table></figure>
+<p>   <a href="https://shjdgwj.github.io/14733f4e12d9/image-20221026213053527.png"><img src="https://shjdgwj.github.io/14733f4e12d9/image-20221026213053527.png" alt="img" title="image-20221026213053527"></a></p>
+<h2 id="中文"><a href="#中文" class="headerlink" title="中文"></a>中文</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install locales</span><br><span class="line">sudo apt install  fonts-noto-cjk fonts-noto-cjk-extra</span><br><span class="line">sudo dpkg-reconfigure locales </span><br></pre></td></tr></table></figure>
+<p>   选 en_US UTF-8 和 zh_CN UTF, 设置默认locales 为 en_us</p>
+<h2 id="工具箱"><a href="#工具箱" class="headerlink" title="工具箱"></a>工具箱</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wget -O rockpi5.sh https://uwp.cc/s/board/rockpi5.sh </span><br><span class="line">sudo chmod +x rockpi5.sh</span><br><span class="line">sudo ./rockpi5.sh</span><br></pre></td></tr></table></figure>
+<h2 id="PD协商电压-温度"><a href="#PD协商电压-温度" class="headerlink" title="PD协商电压 温度"></a>PD协商电压 温度</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install lm-sensors</span><br><span class="line">sensors</span><br></pre></td></tr></table></figure>
+<h2 id="编译和网络校时"><a href="#编译和网络校时" class="headerlink" title="编译和网络校时"></a>编译和网络校时</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install build-essential #编译</span><br><span class="line">sudo apt install ntp#网络校时</span><br></pre></td></tr></table></figure>
+<h2 id="Armbian上使用3D加速驱动"><a href="#Armbian上使用3D加速驱动" class="headerlink" title="Armbian上使用3D加速驱动"></a>Armbian上使用3D加速驱动</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository ppa:liujianfeng1994/panfork-mesa</span><br><span class="line">sudo add-apt-repository ppa:liujianfeng1994/rockchip-multimedia</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt dist-upgrade</span><br></pre></td></tr></table></figure>
+<p>操作文档:<a href="https://launchpad.net/~liujianfeng1994/+archive/ubuntu/rockchip-multimedia">PPA description</a></p>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="查看温度"><a href="#查看温度" class="headerlink" title="查看温度"></a>查看温度</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">echo $[$(cat /sys/class/thermal/thermal_zone0/temp)/1000]°</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="Rock-5B-本地编译要点说明"><a href="#Rock-5B-本地编译要点说明" class="headerlink" title="Rock 5B 本地编译要点说明"></a>Rock 5B 本地编译要点说明</h2><p>   最重要的差别是 ： （阿超哥的方法 ）检测编译环境，如果是在 arm64上编译的话，就去掉ARCH 和 CROSS_COMPILE 交叉编译变量 build/board_configs.sh 最后面加上这几行：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">build on native arm64</span></span><br><span class="line">if [ &quot;X$(uname -m)&quot; == &quot;Xaarch64&quot; -a &quot;X$&#123;ARCH&#125;&quot; == &quot;Xarm64&quot; ]; then</span><br><span class="line">    unset ARCH</span><br><span class="line">    unset CROSS_COMPILE</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<ul>
+<li>主要参考是官方wiki：<a href="https://wiki.radxa.com/Rock5/guide/build-debian-from-debos-radxa">https://wiki.radxa.com/Rock5/guide/build-debian-from-debos-radxa</a> （这里原文是跨平台交叉编译）</li>
+<li>在工具链这里，不需要 安装跨平台工具链 gcc-arm-10.3<strong>*</strong> ，只要本地安装 gcc 及配套工具（ sudo apt-get install gcc xxx)</li>
+<li>其他按官方顺序执行命令<br>注意：u-boot 和kernel有配置好的config，只要按官方分别执行对应的 ./build/mk-uboot.sh rk3588-rock-5b 或 ./build/mk-kernel.sh rk3588-rock-5b</li>
+</ul>
+<h2 id="exFAT"><a href="#exFAT" class="headerlink" title="exFAT"></a>exFAT</h2><p>   安装exfat fuse</p>
+<h2 id="kubesphere-3-3-1"><a href="#kubesphere-3-3-1" class="headerlink" title="kubesphere 3.3.1"></a>kubesphere 3.3.1</h2><p>   步骤1：更换内核<br>   因为 Radxa 官方内核现在不支持，暂时需要更换内核：<br>   <a href="https://github.com/ihexon/rock5b_kernel/releases">https://github.com/ihexon/rock5b_kernel/releases</a><br>   步骤2：根据 KubeSphere 官方文档安装<br>   <a href="https://kubesphere.com.cn/docs/v3.3/quick-start/all-in-one-on-linux/">https://kubesphere.com.cn/docs/v3.3/quick-start/all-in-one-on-linux/</a><br>   步骤3：修补 KubeSphere 开源版暂不支持的 arm64 镜像</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">defaultbackend</span></span><br><span class="line">sudo docker pull playgali/defaultbackend</span><br><span class="line">sudo docker tag playgali/defaultbackend mirrorgooglecontainers/defaultbackend-amd64:1.4</span><br></pre></td></tr></table></figure>
+<h2 id="硬件驱动"><a href="#硬件驱动" class="headerlink" title="硬件驱动"></a>硬件驱动</h2><p>   <a href="https://github.com/happyme531/Adafruit_Blinka/commits/rk3588-rock-5">https://github.com/happyme531/Adafruit_Blinka/commits/rk3588-rock-5</a><br>   rock5 gpio i2c spi pwm 串口 adc 全部适配完成</p>
+<h2 id="wifi"><a href="#wifi" class="headerlink" title="wifi"></a>wifi</h2><pre><code>使用`nmtui`命令
+
+注意Security选择 WPA &amp; WPA2 Personal
+</code></pre><h2 id="KDE桌面"><a href="#KDE桌面" class="headerlink" title="KDE桌面"></a>KDE桌面</h2><p>   <a href="https://forum.armbian.com/topic/10526-using-different-desktop-environments-on-armbian/">Using different desktop environments on Armbian</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装KDE桌面</span></span><br><span class="line">sudo add-apt-repository ppa:kubuntu-ppa/backports</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y kubuntu-desktop</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改默认桌面</span></span><br><span class="line">cd /usr/share/xsessions</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">看到有ubuntu.desktop  ubuntu-xorg.desktop</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">后面还不会改</span></span><br></pre></td></tr></table></figure>
+<h2 id="安卓root"><a href="#安卓root" class="headerlink" title="安卓root"></a>安卓root</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">备份boot</span> </span><br><span class="line">dd if=/dev/block/nvme0n1p5 of=/storage/emulated/0/mod.img</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">刷入boot</span> </span><br><span class="line">dd if=/storage/emulated/0/mod.img of=dev/block/nvme0n1p5</span><br><span class="line"> sync</span><br><span class="line"> reboot</span><br></pre></td></tr></table></figure>
+<h2 id="EMMC镜像备份导出方法"><a href="#EMMC镜像备份导出方法" class="headerlink" title="EMMC镜像备份导出方法"></a>EMMC镜像备份导出方法</h2><p>用户基于我们发布是镜像系统，安装软件或进行其他配置之后，如果想备份系统，有很多方法可以实现，我这里提供一个比较简单的思路供大家参考。</p>
+<p>前置条件：</p>
+<p>假如您手边有一张已经做好系统的TF卡<br>各种改动后的EMMC系统<br>核心操作步骤：</p>
+<p>从EMMC启动系统，登陆桌面并打开终端命令行更改卷标</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">sudo su</span><br><span class="line">fatlabel /dev/mmcblk0p1 emmc-boot</span><br><span class="line">e2label /dev/mmcblk0p2 emmc-rootfs</span><br><span class="line"></span><br><span class="line">vim /boot/firmware/cmdline.txt</span><br><span class="line">将writable替换为emmc-rootfs  然后保存退出</span><br><span class="line"></span><br><span class="line">vim /etc/fstab</span><br><span class="line">将writable替换为emmc-rootfs  然后保存退出</span><br><span class="line"></span><br><span class="line">sync;</span><br></pre></td></tr></table></figure>
+<p>插入TF卡，重启系统</p>
+<p>默认优先从TF卡引导系统，进入系统之后，可以挂载EMMC分区进行备份压缩</p>
+<h2 id="Docker-运行openwrt"><a href="#Docker-运行openwrt" class="headerlink" title="Docker 运行openwrt"></a>Docker 运行openwrt</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">开启网卡混杂模式</span><br><span class="line">sudo ip link set eth0 promisc on</span><br><span class="line"></span><br><span class="line">创建docker网卡</span><br><span class="line">docker network create -d macvlan --subnet=192.168.1.0/24 --gateway=192.168.1.1 -o parent=eth0 macnet</span><br><span class="line"></span><br><span class="line">查看docker网卡</span><br><span class="line">docker network list</span><br><span class="line"></span><br><span class="line">项目地址https://github.com/SuLingGG/OpenWrt-Docker</span><br><span class="line">查看自己的系统的架构</span><br><span class="line">uname -a</span><br><span class="line"></span><br><span class="line">创建并启动docker镜像</span><br><span class="line">docker run --restart always --name openwrt -d --network macnet --privileged sulinggg/openwrt:armv8 /sbin/init</span><br><span class="line"></span><br><span class="line">docker给普通用户权限</span><br><span class="line">先查看一下默认这个文件/var/run/docker.sock的权限是啥</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo <span class="built_in">ls</span> -al /var/run/docker.sock</span></span><br><span class="line">srw-rw---- 1 root root 0 Feb 15 03:13 /var/run/docker.sock</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改文件权限</span></span><br><span class="line">sudo chmod 666 /var/run/docker.sock</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改后，再查看一下这个文件的权限</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo <span class="built_in">ls</span> -al /var/run/docker.sock</span></span><br><span class="line"></span><br><span class="line">srw-rw-rw- 1 root root 0 Feb 15 03:14 /var/run/docker.sock</span><br><span class="line"></span><br><span class="line">进入bash终端修改ip</span><br><span class="line">vim /etc/config/network</span><br><span class="line">将后面三项改成自己的ip</span><br><span class="line"></span><br><span class="line">重启openwrt网络</span><br><span class="line">/etc/init.d/network restart</span><br><span class="line"></span><br><span class="line">直接浏览器访问刚刚设置的ip</span><br><span class="line">密码默认passwd</span><br><span class="line"></span><br><span class="line">在网络LAN口中关闭桥接接口</span><br><span class="line"></span><br><span class="line">网络防火墙自定义规则中添加</span><br><span class="line">iptables -t nat -I POSTROUTING -j MASQUERADE</span><br><span class="line"></span><br><span class="line">在网络Turbo ACC网络加速中勾选DNS缓存</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h1><ol>
+<li><a href="http://www.zphj1987.com/rock5b-ke-yi-yun-xing-deuos-ca.html">rock5b uos</a></li>
+<li>rock5b专用内核：完美收官，对应源码已上传：<br><a href="https://github.com/unifreq/linux-rock5b">https://github.com/unifreq/linux-rock5b</a><br>允许全频率（电压超至1.1v, 默认未开）<br>开启方法：<br>nano /boot/armbianEnv.txt<br>把overlays=uart7-m2改为overlays=uart7-m2 [空格] full-cpufreq</li>
+<li>Rock5b Openwrt固件：采用5.10.149内核，并支持nvme（已测试）或usb启动（未测试）。<br>如果需要nvme或usb启动，必须要先刷入spi 的bootloader, 用前两天发的 bootloader包：<br>rock5b-bootloader_20221017.tar.gz<br><a href="https://t.me/openwrt_flippy/3464">https://t.me/openwrt_flippy/3464</a><br>用法：<ol>
+<li>先刷入TF卡启动成功后，把img镜像上传到 /mnt/mmcblk0p4</li>
+<li>进入TF卡里的openwrt,运行命令：<br>cd /mnt/mmcblk0p4<br>dd if=openwrt-xxxxxx.img of=/dev/nvme0n1 bs=1M conv=fsync</li>
+<li>然后关机，把TF卡拔掉再开机即可。</li>
+<li>用同一个镜像写的TF卡固件和nvme固件由于UUID相同，如果再重新插上TF卡启动会有问题，TF和nvme采用不同版本的固件就没问题。</li>
+</ol>
+</li>
+<li>官方镜像用户名密码 rock @rock</li>
+<li><blockquote>
+<p>目前我看到的并且我自己试过的各种镜像，我总结一下，咱们群里用的各种rock5b镜像主要是有四个来源：</p>
+<p>1、radxa官方发出的debian、ubuntu和安卓，已经有半个月没更新了，debian和ubuntu可以直接装obs，但没有mali驱动之类的，不能用gpu</p>
+<p>2、armbian官方社区发出的armbian，尤其是sid的那个，但armbian官方社区也已经有半个多月没更新了，我试过记得也可以直接装obs，但也没有mali驱动之类的，不能用gpu</p>
+<p>3、咱们群里有lost in utopia这位大佬，整合出来mali驱动，可以用gpu，并且这位大佬在3天前又发出自带mali驱动可以开箱即用的armbian镜像，桌面是gnome，doom3可以全特效平均跑40帧，但不能直接装obs</p>
+<p><a href="https://github.com/amazingfate/armbian-rock5b-images/releases">https://github.com/amazingfate/armbian-rock5b-images/releases</a></p>
+<p>4、咱们群里还有StatusHeadcrabed这位大佬， 也发出自带mali驱动可以开箱即用的armbian镜像，桌面是gnome和kde，doom3可以全特效平均跑40帧，但不能直接装obs</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="驱动"><a href="#驱动" class="headerlink" title="驱动"></a>驱动</h1><ol>
+<li>RTL8852be<br>下载<a href="https://github.com/armbian/firmware/blob/master/rtl8852bu_fw">rtl8852bu_fw.bin</a>放进/lib/firmware/realtek</li>
+<li><p>显卡GPU</p>
+<ul>
+<li><a href="https://icecream95.gitlab.io/fun-with-csf-firmware.html">Fun with CSF firmware</a></li>
+<li><p><a href="https://gitlab.com/panfork/mesa/">mesa</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository ppa:liujianfeng1994/panfork-mesa</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install libgl1-mesa-dri</span><br><span class="line">sudo apt-cache policy  libgl1-mesa-dri</span><br><span class="line">sudo apt install mesa*</span><br></pre></td></tr></table></figure></li>
+<li><a href="https://gitlab.com/panfork/panfwost">panfwost</a></li>
+</ul>
+</li>
+</ol>
+<h2 id="参考资料链接"><a href="#参考资料链接" class="headerlink" title="参考资料链接"></a>参考资料链接</h2>]]></content>
+      <categories>
+        <category>LINUX</category>
+      </categories>
+      <tags>
+        <tag>ROCK5B</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ZYNQ-in-7010</title>
+    <url>/2022/12/13/ZYNQ-in-7010/</url>
+    <content><![CDATA[<p>个人关于ZYNQ的一些开发学习文档，以小熊猫的ZYNQ7010为例，不断更新ing<br><span id="more"></span></p>
+<h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><ol>
+<li><a href="https://github.com/LeiWang1999/FPGA">FPGA资料大全</a></li>
+<li><a href="https://www.runoob.com/w3cnote/verilog-tutorial.html">菜鸟教程Verilog 教程</a></li>
+<li><a href="https://verilogoj.ustc.edu.cn/oj/">https://verilogoj.ustc.edu.cn/oj/</a></li>
+<li><a href="https://www.zhihu.com/answer/2291310107">知乎</a></li>
+<li><p>正点原子视频教程</p>
+<ul>
+<li>启明星V2第一期：<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a href="https://www.bilibili.com/video/BV1XU4y1M7nw/?spm_id_from=333.788.video.desc.click">BV1XU4y1M7nw</a>?spm_id_from=333.999.0.0</li>
+<li>领航者V2第一期：<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a href="https://www.bilibili.com/video/BV1hP4y1L73N/?spm_id_from=333.788.video.desc.click">BV1hP4y1L73N</a>?spm_id_from=333.999.0.0</li>
+<li>第二期：<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a href="https://www.bilibili.com/video/BV1Hq4y1u7qH/?spm_id_from=333.788.video.desc.click">BV1Hq4y1u7qH</a>?spm_id_from=333.999.0.0</li>
+<li>第三期：<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a href="https://www.bilibili.com/video/BV1qz4y1d7pF/?spm_id_from=333.788.video.desc.click">BV1qz4y1d7pF</a>?spm_id_from=333.999.0.0</li>
+</ul>
+</li>
+<li><a href="https://zhuanlan.zhihu.com/c_1131528588117385216">Verilog练习网站HDLBits</a></li>
+</ol>
+<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ol>
+<li><a href="https://www.jianshu.com/p/e3695489a958">VMware ubuntu压缩虚拟磁盘</a></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install open-vm-tools</span><br><span class="line">sudo vmware-toolbox-cmd disk shrink /</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#虚拟机</span></span><br><span class="line"><span class="comment">#开启自动扩容时禁用</span></span><br><span class="line"><span class="built_in">cat</span> /dev/zero &gt; zero.fill</span><br><span class="line"><span class="built_in">rm</span> -f zero.fill</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">主机</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如我的VMware安装在F盘，在windows的命令行中：</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">F:\&gt;<span class="built_in">cd</span> VMware</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">F:\VMware&gt;vmware-vdiskmanager.exe -k <span class="string">&quot;F:\UbuntuVMware\Ubuntu1804\Ubuntu 64-bit.vmdk&quot;</span></span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><a href="https://blog.csdn.net/u011198687/article/details/121713992">VMware虚拟机扩展Ubuntu系统磁盘空间</a></li>
+<li><a href="https://blog.csdn.net/weixin_45787652/article/details/109525269">完美解决虚拟机占用硬盘越来越大、删除快照出现内存不足错误</a></li>
+<li><a href="https://www.freesion.com/article/8548584805/">PETALINUX安装过程中遇到的坑【PETALINUX2018.3基于UBUNTU16.04.4（64-BIT）】</a></li>
+<li><a href="https://blog.csdn.net/weixin_44882546/article/details/116068157">使用vitis开发Linux应用程序</a></li>
+</ol>
+<h1 id="Vivado"><a href="#Vivado" class="headerlink" title="Vivado"></a>Vivado</h1><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
+<li><a href="https://zhuanlan.zhihu.com/p/365805011">FPGA Develop Support 使用手册-version 0.1.18</a></li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/378739805">用Vscode代替Vivado原生编辑器</a></p>
+<blockquote>
+<p>D:/Program Files/Microsoft VS Code/Code.exe -g [file name]:[line number]</p>
+<p>D:/Program Files/Microsoft VS Code/Code.exe —disable-features=CalculateNativeWinOcclusion -g [file name]:[line number]</p>
+<p>D:/Program Files/Sublime Text/sublime_text.exe [file name] -l[line number]</p>
+</blockquote>
+</li>
+<li><a href="https://blog.csdn.net/weixin_42905573/article/details/106247887">【超实用】一分钟学会如何用最小存储空间保存Vivado工程！</a></li>
+<li><p><a href="https://blog.csdn.net/jingjiankai5228/article/details/113074220">vivado工程保存为tcl脚本及用tcl脚本恢复vivado工程</a></p>
+<figure class="highlight tcl"><table><tr><td class="code"><pre><span class="line"><span class="comment">#导出工程</span></span><br><span class="line">write_project_tcl D:/Study/FPGA/Backup/backup.tcl</span><br><span class="line"></span><br><span class="line"><span class="comment">#打开工程</span></span><br><span class="line"><span class="keyword">cd</span> D:/Study/FPGA/Backup/</span><br><span class="line"><span class="comment">#source ./backup.tcl</span></span><br><span class="line"><span class="comment">#vivado -mode tcl -source FZ3B_board.tcl -tclargs --origin_dir &quot;origin_dir地址&quot;</span></span><br><span class="line">tcl -<span class="keyword">source</span> FZ3B_board.tcl -tclargs --origin_dir <span class="string">&quot;origin_dir地址&quot;</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong></p>
+<blockquote>
+<p>Please note that by default, the file path for the project source files were set wth respect to the ‘origin_dir’ variable in the<br>generated script. When this script is executed from the output directory, these source files will be referenced with respect to this ‘origin_dir’ path value.<br>In case this script was later moved to a different directory, the ‘origin_dir’ value must be set manually in the script with the path<br>relative to the new output directory to make sure that the source files are referenced correctly from the original project. You can also set the<br>‘origin_dir’ automatically by setting the ‘origin_dir_loc’ variable in the tcl shell before sourcing this generated script. The ‘origin_dir_loc’<br>variable should be set to the path relative to the new output directory. Alternatively, if you are sourcing the script from the Vivado command line,<br>then set the origin dir using ‘-tclargs —origin_dir ’. For example, ‘vivado -mode tcl -source FZ3B_board.tcl -tclargs —origin_dir “…”</p>
+</blockquote>
+</li>
+<li>创建自定义<a href="https://www.xilinx.com/support/documentation/sw_manuals/xilinx2020_1/ug895-vivado-system-level-design-entry.pdf#page=98">Board FIle</a><br><a href="https://www.hackster.io/mindaugas2/creating-xilinx-vivado-board-files-for-ebaz4205-a7b120">Creating Xilinx Vivado board files for EBAZ4205</a></li>
+<li>vscode插件：<a href="https://github.com/ericsonj/verilog-format">verilog-format</a></li>
+<li><a href="https://blog.csdn.net/qq_41894385/article/details/124410959">Vivado使用VSCode编辑器的各种配置：功能加持</a></li>
+<li>sublime text 插件：SublimeLinter-contrib-xsim</li>
+</ol>
+<h2 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h2><ol>
+<li><p><a href="https://blog.csdn.net/yihuajack/article/details/120830612">Xilinx Vivado卡在Initializing Language Server的解决方法</a></p>
+<blockquote>
+<p>打开 Tools -&gt; Settings -&gt; Tool Settings -&gt; Text Editor -&gt; Syntax Checking，将 Syntax checking 从 Sigasi 改为 Vivado：</p>
+</blockquote>
+</li>
+<li><p>自定义board_file:</p>
+<ol>
+<li><a href="https://www.hackster.io/mindaugas2/creating-xilinx-vivado-board-files-for-ebaz4205-a7b120">reating Xilinx Vivado board files for EBAZ4205</a></li>
+</ol>
+</li>
+<li><p><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20220117205826811.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="image-20220117205826811"></a>红框的作用参见<a href="https://www.xilinx.com/html_docs/xilinx2020_2/vitis_doc/embeddedplatforms.html">https://www.xilinx.com/html_docs/xilinx2020_2/vitis_doc/embeddedplatforms.html</a></p>
+<ul>
+<li>以前的流程<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/jek1570655725669-16424245406714.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a></li>
+<li>勾选后的流程<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/owe1570656810984-16424245992777.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/owe1570656810984-16424245992777.image" alt="img"></a></li>
+<li>区别图<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/smt1570656691809.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a><blockquote>
+<ul>
+<li>not checking the box “project is an extensible vitis platform”, you get the standard flow from previous versions of Vivado.</li>
+<li>check the box, you will be met with a radically changed flow when you try to export the platform (Export -&gt; Export Platform).</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><a href="https://blog.csdn.net/weixin_59105807/article/details/119975287">【FPGA】Vivado综合停滞、死机（PID Not Specified）解决方法</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzAxNTM2NzA0Nw==&amp;mid=2247484080&amp;idx=1&amp;sn=9b5834c1d5c5be32fac62a4089a49aac&amp;chksm=9b846c58acf3e54ee7386bb34250ad50407b3a297ba17a77f9a7cde8288e2555cbee477d358c&amp;scene=21#wechat_redirect">Modelsim安装，及其Vivado2021库编译</a></li>
+<li>Vivado添加资源一直卡进度条 <a href="https://support.xilinx.com/s/question/0D52E00006ihQm9SAE/never-ending-adding-source?language=en_US">Never ending adding source…</a></li>
+<li><a href="https://www.bilibili.com/read/cv13288042/">解决 重新启动 Vivado 设置 （文本编辑器）无法保存 会初始化</a><br><a href="https://www.bilibili.com/read/cv11751032?from=articleDetail">用VSCode代替Vivado的文本编辑器进行编辑</a></li>
+<li><a href="https://blog.csdn.net/wangfei960/article/details/125941517">Vivado仿真卡在executing analysis and compilation step阶段</a><br><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20221029173636922.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img" title="image-20221029173636922"></a></li>
+<li><p><a href="https://blog.csdn.net/sinat_31206523/article/details/103866723">解决Vivado与modelsim仿真卡在Executing analysis and compilation step</a></p>
+<blockquote>
+<p><a href="https://so.csdn.net/so/search?q=Vivado&amp;spm=1001.2101.3001.7020">Vivado</a>仿真卡在Executing analysis and compilation step循环不出去，检查是否有vivado报不出来的低级语法错误，还是不行，把sim文件里的sim_1文件删了，重新跑就好了</p>
+</blockquote>
+</li>
+<li><ul>
+<li><a href="http://www.jyguagua.com/?p=9715">ModelSim出现Unable to checkout a viewer license</a></li>
+<li><a href="https://blog.csdn.net/qq_42341984/article/details/105082502">Modelsim关联VS Code</a></li>
+</ul>
+</li>
+</ol>
+<p><a href="https://shjdgwj.github.io/d8298fbe5fcd/pic_center.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a><a href="https://blog.csdn.net/weixin_42418557/article/details/89416368">移植linux到zedboard过程中杂项错误总结</a></p>
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><ol>
+<li>时序逻辑赋值用 <code>&lt;=</code>，组合逻辑赋值用 <code>=</code><blockquote>
+<p>1： 当为<strong>时序</strong>逻辑建模，使用“非阻塞赋值”。<br>2： 当为 <strong>锁存器</strong> (latch) 建模，使用“非阻塞赋值”。<br>3： 当用always块为<strong>组合</strong>逻辑建模，使用“阻塞赋值”<br>4： 当在同一个always块里面既为组合逻辑又为时序逻辑建模，使用“非阻塞赋值”。<br>5： 不要在同一个always块里面<strong>混合</strong>使用“阻塞赋值”和“非阻塞赋值”。<br>6： 不要在<strong>两个或两个以上</strong>always块里面对同一个变量进行赋值。<br>7： 使用$strobe以显示已被“非阻塞赋值”的值。<br>8： 不要使用＃0延迟的赋值。</p>
+</blockquote>
+</li>
+<li>敏感信号表:所有的右边表达式中的变量以及if,case条件中的变量</li>
+<li>if/else要配对以避免latch（锁存器）的产生，同样的case语句加default语句</li>
+<li>状态机（fsm）：<ol>
+<li>使用独热码，每个状态只有一个寄存器置位，译码逻辑简单</li>
+<li>三段式可以在组合逻辑后再增加一级寄存器来实现时序逻辑输出:<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20220116144516055.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img" title="image-20220116144516055"></a><ul>
+<li>可以有效地滤去组合逻辑输出的毛刺</li>
+<li>可以有效地进行时序计算与约束</li>
+<li>另外对于总线形式的输出信号来说，容易使总线数据对齐,从而减小总线数据间的偏移，减小接收端数据采样出错的频率。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://shjdgwj.github.io/d8298fbe5fcd/">ZYNQ学习笔记</a></p>
+]]></content>
+      <categories>
+        <category>ZYNQ</category>
+      </categories>
+      <tags>
+        <tag>7010</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2022/12/09/hello-world/</url>
+    <content><![CDATA[<p>Welcome to MyBlog! If you get any problems , you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<span id="more"></span>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>WEB</category>
+      </categories>
+      <tags>
+        <tag>HEXO</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM32</title>
+    <url>/2022/12/10/STM32/</url>
+    <content><![CDATA[<p>STM32的个人开发文档，不断更新ing<br><span id="more"></span></p>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><ul>
+<li>vscode 插件 Keil Assistant</li>
+<li><p>keil启动vscode</p>
+<ul>
+<li>编码改为UTF-8，Tab-size为4</li>
+<li>在Edit-&gt;Configuration-&gt;Editor-&gt;File&amp;Project Handing里勾上了Automatic reload of externally modified files</li>
+<li>点击mdk菜单栏Tools-&gt;Customize Tools Menu，在弹出的对话框中新建一个外部编辑器，并指定其路径， <strong>注意Arguments要填上#E</strong> ，我的vscode路径：D:\Program Files\Microsoft VS CodeCode.exe</li>
+<li>点击确定后，点击mdk菜单栏Tools-&gt;VSCode，即可自动调用vscode打开当前文件</li>
+</ul>
+</li>
+<li><a href="https://blog.csdn.net/asdfghjkl1234567890p/article/details/125522052">Keil仿真监控数据导出到EXCEL图表显示的方法</a></li>
+<li><a href="https://blog.csdn.net/QXF0806/article/details/125687203">Keil5把变量的数据导出，可视化</a>经验</li>
+</ul>
+<ol>
+<li>switch -case语句中 case: 后面不能直接定义变量，但是可以先写一个；来解决这个问题</li>
+<li><a href="https://zhuanlan.zhihu.com/p/111723881">Nucleo-G474RE作为烧写器</a></li>
+<li><a href="http://t.zoukankan.com/juwan-p-13069102.html">理解 LCD 屏幕的驱动原理与调试过程，示例的驱动 IC 为 GC9308 ，展示整个屏幕的驱动过程。</a></li>
+</ol>
+<h1 id="时钟"><a href="#时钟" class="headerlink" title="时钟"></a>时钟</h1><h2 id="SysTick定时时间计算"><a href="#SysTick定时时间计算" class="headerlink" title="SysTick定时时间计算"></a>SysTick定时时间计算</h2><p>t = reload <em>(1/clk)<br>clk = 72m时 t = (72)</em>(1/72M) = 1us<br>clk = 72m时 t = (72000)* (1/72M) = 1ms<br>1s = 1000ms = 1000 000us = 1000 000 000ns<br>记得使用 <code>HAL_TIM_Base_Start(&amp;htim1);</code></p>
+<h1 id="keil-软件仿真"><a href="#keil-软件仿真" class="headerlink" title="keil 软件仿真"></a>keil 软件仿真</h1><h2 id="stm32f103VET6"><a href="#stm32f103VET6" class="headerlink" title="stm32f103VET6"></a>stm32f103VET6</h2><ol>
+<li>debug页面如下设置<br><a href="https://shjdgwj.github.io/e6640d881469/1.png"><img src="https://shjdgwj.github.io/e6640d881469/images/loading.gif" alt="KEIL_DEBUGKEIL_DEBUG"></a></li>
+<li>打开逻辑分析仪</li>
+<li>setup打开后如下设置<a href="https://shjdgwj.github.io/e6640d881469/2.png"><img src="https://shjdgwj.github.io/e6640d881469/images/loading.gif" alt=""></a><br>填 <code>PORTB.0</code>即可查看GPIOB pin0的输出<br><code>DisPlay Type</code> 选择 <code>Bit</code><br>之后就能输出PWM波形了</li>
+</ol>
+<h2 id="stm32f103C8T6"><a href="#stm32f103C8T6" class="headerlink" title="stm32f103C8T6"></a>stm32f103C8T6</h2><p><a href="https://blog.csdn.net/keygun/article/details/97619613">软件仿真配置</a><br>CPU<br>DLL：SARMCM3.DLL</p>
+<p>Dialog<br>DLL：DARMSTM.DLL Parameter:-pSTM32F103C8</p>
+<p>Driver<br>DLL SARMCM3.DLL</p>
+<p>Dalog<br>DLL:TARMSTM.DLL Parameter:-pSTM32F103C8</p>
+<h1 id="C相关"><a href="#C相关" class="headerlink" title="C相关"></a>C相关</h1><h2 id="STM32使用malloc函数"><a href="#STM32使用malloc函数" class="headerlink" title="STM32使用malloc函数"></a>STM32使用malloc函数</h2><p>对于malloc和free对内存堆栈块的空间操作，在keilMDK中需要满足下面几个条件：</p>
+<ol>
+<li>使用的代码文件中需要包含头文件 <code>#include &lt;stdlib.h&gt;</code></li>
+<li>在工程的属性设置中需要把 Use MicroLIB 选项勾选</li>
+<li>这时候原则上就可以使用空间申请和释放的两个操作函数了，但是由于STM32在startup_stm32f10x_hd.s中分配的堆空间只有0x00000200个字节，所以很多时候调用malloc函数时如果申请空间超过0X200则返回了NULL，这时候就需要到该文件对这个值进行设置。</li>
+</ol>
+<h2 id="单片机中的数据类型"><a href="#单片机中的数据类型" class="headerlink" title="单片机中的数据类型"></a>单片机中的数据类型</h2><p>u8——1个字节，无符号型（不能表达负数，如果用来当作负数的话，就出错了）<br>u16 ——2个字节，无符号型（参看前边STM32f10x.h中的定义）<br>u32——4个字节，无符号型<br>int——4个字节,有符号型，可以表达负整数<br>float ——4个字节，有符号型，可以表达负数/小数<br>double——8个字节，有符号弄，可以表达负数/小数</p>
+<h2 id="代码书写规范"><a href="#代码书写规范" class="headerlink" title="代码书写规范"></a>代码书写规范</h2><p>变量定义在.c 在.h中用extern供外部引用<br>宏定义直接define在.h最前面<br>函数定义在.c 在.h中再写一遍名字即可<br>结构体和枚举需要将类型名定义在 .h ，将变量定义在.c 在 .h中用extern引用</p>
+<h2 id="while-str-的含义"><a href="#while-str-的含义" class="headerlink" title="while(*str)的含义"></a>while(*str)的含义</h2><p>字符串是以 ‘\0’结束的 当 指针 s指向最后一个 即是 ‘\0’是 *s=’\0’ 也等于 0 即是假的 结束循环</p>
+<h2 id="判断char数组里是否是汉字"><a href="#判断char数组里是否是汉字" class="headerlink" title="判断char数组里是否是汉字"></a>判断char数组里是否是汉字</h2><p>百度说</p>
+<blockquote>
+<p>负数是为汉字，二个字节一个<br>gb2312 两个字节都是负的<br>如果是gbk，第一个字节还是负的，第二字节就不一定了</p>
+</blockquote>
+<p> <strong>但是</strong> ！不知道为什么，在keil中</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span>* str;</span><br><span class="line"><span class="keyword">while</span>(*str)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(*str &gt;= <span class="number">0</span>&amp;&amp;str&lt;<span class="number">128</span>)&#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//反正非汉字字符一定在0-127间</span></span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><code>str&lt;128</code>的部分会被keil提示成 <code>always true</code>,而实际仿真中，变量窗口识别str为uchar，也就是中文的值并非<0而是>127。。。<br>改进后：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>(*str)</span><br><span class="line">    &#123;</span><br><span class="line">  <span class="type">uint8_t</span> ch = *str;</span><br><span class="line">        <span class="keyword">if</span>(ch &gt;= <span class="number">0</span>&amp;&amp;ch&lt;<span class="number">128</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">showchar</span>(*str, color);</span><br><span class="line">            str++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span><span class="comment">//汉字2个char 第一个char&lt;0</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">char</span> s8[<span class="number">2</span>];</span><br><span class="line">   <span class="type">int16_t</span> *s16 ;</span><br><span class="line">   s16 = (<span class="type">int16_t</span>*)str;</span><br><span class="line">   str +=<span class="number">2</span>;</span><br><span class="line">            <span class="built_in">showChinese</span>(*s16, color);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>无符号与有符号数进行运算时，系统会自动将有符号数看成无符号数，然后进行比较。举例:<br>假定一个数是8位，一个字节表示<br>-1=11111111(补码)，相当于无符号数255<br>10=00001010，此时，-1&gt;10</p>
+<h1 id="外设"><a href="#外设" class="headerlink" title="外设"></a>外设</h1><h2 id="TIM定时器"><a href="#TIM定时器" class="headerlink" title="TIM定时器"></a>TIM定时器</h2><p>计数器时钟 CK_CNT = CK_PSC/(PSC+1)<br>计数一次的时间 1/CK_CNT<br>周期 1/CK_CNT*(ARR+1)</p>
+<h3 id="输入捕获"><a href="#输入捕获" class="headerlink" title="输入捕获"></a>输入捕获</h3><p><a href="https://blog.csdn.net/zj490044512/article/details/83754414">stm32f103输入捕获</a><br><a href="https://blog.csdn.net/as480133937/article/details/99407485">【STM32】HAL库 STM32CubeMX教程八—定时器输入捕获</a><br><a href="https://blog.csdn.net/yyx112358/article/details/78414594">使用 STM32 测量频率和占空比的几种方法</a><br><a href="https://blog.csdn.net/qq_17351161/article/details/107386857">STM32F1x HAL库学习笔记（11）定时器配置及中断（溢出中断，PWM输出，输入捕获）</a></p>
+<h3 id="输出比较"><a href="#输出比较" class="headerlink" title="输出比较"></a>输出比较</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* Blocking mode: Polling 轮询模式*/</span></span><br><span class="line"></span><br><span class="line"><span class="function">HAL_StatusTypeDef <span class="title">HAL_TIM_OC_Start</span><span class="params">(TIM_HandleTypeDef *htim, <span class="type">uint32_t</span> Channel)</span></span>;</span><br><span class="line"><span class="function">HAL_StatusTypeDef <span class="title">HAL_TIM_OC_Stop</span><span class="params">(TIM_HandleTypeDef htim, <span class="type">uint32_t</span> Channel)</span></span>;</span><br><span class="line"><span class="comment">/* Non-Blocking mode: Interrupt 中断模式 */</span></span><br><span class="line"></span><br><span class="line"><span class="function">HAL_StatusTypeDef <span class="title">HAL_TIM_OC_Start_IT</span><span class="params">(TIM_HandleTypeDef htim, <span class="type">uint32_t</span> Channel)</span></span>;</span><br><span class="line"><span class="function">HAL_StatusTypeDef <span class="title">HAL_TIM_OC_Stop_IT</span><span class="params">(TIM_HandleTypeDef htim, <span class="type">uint32_t</span> Channel)</span></span>;</span><br><span class="line"><span class="comment">/* Non-Blocking mode: DMA DMA模式*/</span></span><br><span class="line"></span><br><span class="line"><span class="function">HAL_StatusTypeDef <span class="title">HAL_TIM_OC_Start_DMA</span><span class="params">(TIM_HandleTypeDef *htim, <span class="type">uint32_t</span> Channel, <span class="type">uint32_t</span> *pData, <span class="type">uint16_t</span> Length)</span></span>;</span><br><span class="line"><span class="function">HAL_StatusTypeDef <span class="title">HAL_TIM_OC_Stop_DMA</span><span class="params">(TIM_HandleTypeDef *htim, <span class="type">uint32_t</span> Channel)</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="全速运行卡死在-HAL-TIM-Base-Start-IT函数"><a href="#全速运行卡死在-HAL-TIM-Base-Start-IT函数" class="headerlink" title="全速运行卡死在-HAL_TIM_Base_Start_IT函数"></a>全速运行卡死在-HAL_TIM_Base_Start_IT函数</h3><blockquote>
+<p>我没有猜错的话 你的是NVIC撞车了 都是 0 0 滴答定时器就阵亡了 修改一下分配的优先级就好了</p>
+</blockquote>
+<h3 id="HAL库微秒级延时"><a href="#HAL库微秒级延时" class="headerlink" title="HAL库微秒级延时"></a>HAL库微秒级延时</h3><h4 id="优选-获取系统时钟计时，非阻塞式延时"><a href="#优选-获取系统时钟计时，非阻塞式延时" class="headerlink" title="优选-获取系统时钟计时，非阻塞式延时"></a>优选-获取系统时钟计时，非阻塞式延时</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">delay_ms</span><span class="params">(<span class="type">int32_t</span> nms)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> <span class="type">int32_t</span> temp; </span><br><span class="line"> SysTick-&gt;LOAD = <span class="number">8000</span>*nms; </span><br><span class="line"> SysTick-&gt;VAL=<span class="number">0X00</span>;<span class="comment">//清空计数器 </span></span><br><span class="line"> SysTick-&gt;CTRL=<span class="number">0X01</span>;<span class="comment">//使能，减到零是无动作，采用外部时钟源 </span></span><br><span class="line"> <span class="keyword">do</span> </span><br><span class="line"> &#123; </span><br><span class="line">      temp=SysTick-&gt;CTRL;<span class="comment">//读取当前倒计数值 </span></span><br><span class="line"> &#125;</span><br><span class="line">    <span class="keyword">while</span>((temp&amp;<span class="number">0x01</span>)&amp;&amp;(!(temp&amp;(<span class="number">1</span>&lt;&lt;<span class="number">16</span>))));<span class="comment">//等待时间到达 </span></span><br><span class="line">  </span><br><span class="line">    SysTick-&gt;CTRL=<span class="number">0x00</span>; <span class="comment">//关闭计数器 </span></span><br><span class="line">    SysTick-&gt;VAL =<span class="number">0X00</span>; <span class="comment">//清空计数器 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Delay_us</span><span class="params">(<span class="type">int16_t</span> nus)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int32_t</span> temp; </span><br><span class="line">  SysTick-&gt;LOAD = nus*<span class="number">9</span>; <span class="comment">//72MHz</span></span><br><span class="line">  SysTick-&gt;VAL=<span class="number">0X00</span>;</span><br><span class="line">  SysTick-&gt;CTRL=<span class="number">0X01</span>;</span><br><span class="line">  <span class="keyword">do</span> </span><br><span class="line">  &#123; </span><br><span class="line">    temp=SysTick-&gt;CTRL;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span>((temp&amp;<span class="number">0x01</span>)&amp;&amp;(!(temp&amp;(<span class="number">1</span>&lt;&lt;<span class="number">16</span>))));</span><br><span class="line">   </span><br><span class="line">  SysTick-&gt;CTRL=<span class="number">0x00</span>; </span><br><span class="line">  SysTick-&gt;VAL =<span class="number">0X00</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="利用HAL-Delay"><a href="#利用HAL-Delay" class="headerlink" title="利用HAL_Delay"></a>利用HAL_Delay</h4><p><a href="https://blog.csdn.net/qq_34752070/article/details/82620374">STM32 HAL库学习 常使用的几种延时方式</a></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// HAL_RCC_GetHCLKFreq()/1000 1ms中断一次，即HAL_Delay函数延时基准为1ms</span></span><br><span class="line"><span class="comment">// HAL_RCC_GetHCLKFreq()/100000  10us中断一次，即HAL_Delay函数延时基准为10us</span></span><br><span class="line"><span class="comment">// HAL_RCC_GetHCLKFreq()/1000000 1us中断一次，即HAL_Delay函数延时基准为1us</span></span><br><span class="line"><span class="built_in">HAL_SYSTICK_Config</span>(<span class="built_in">HAL_RCC_GetHCLKFreq</span>()/<span class="number">1000000</span>);  <span class="comment">// 配置并启动系统滴答定时器</span></span><br></pre></td></tr></table></figure>
+<h4 id="利用TIM"><a href="#利用TIM" class="headerlink" title="利用TIM"></a>利用TIM</h4><p><a href="https://blog.csdn.net/qq_29506411/article/details/109070558">HAL库中同时实现微秒级us以及毫秒级ms延时</a></p>
+<p>tim6，中断不使能</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//72M  PSC=71</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Delay_us</span><span class="params">(<span class="type">uint16_t</span> us)</span> <span class="comment">//注意us变量的上限是65535</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">// uint16_t counter= us &amp; 0xffff;</span></span><br><span class="line"> </span><br><span class="line">  <span class="built_in">HAL_TIM_Base_Start</span>(&amp;htim6);</span><br><span class="line">  __HAL_TIM_SetCounter(&amp;htim6,<span class="number">0</span>);       <span class="comment">// 对上次延时产生的计数清零</span></span><br><span class="line"> </span><br><span class="line">  us = (us &gt; <span class="number">4</span>)?(us<span class="number">-2</span>):<span class="number">1</span>;    <span class="comment">// 对counter的改变是为了让短时长的延时更精确（通过示波器校正过，timer的时钟是72M）</span></span><br><span class="line"> </span><br><span class="line">  <span class="keyword">while</span>( us &gt; __HAL_TIM_GetCounter(&amp;htim6) ) &#123;&#125;;</span><br><span class="line"> </span><br><span class="line">  <span class="built_in">HAL_TIM_Base_Stop</span>(&amp;htim6);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="串口"><a href="#串口" class="headerlink" title="串口"></a>串口</h2><h3 id="串口重定向"><a href="#串口重定向" class="headerlink" title="串口重定向"></a>串口重定向</h3><p><a href="https://blog.csdn.net/morixinguan/article/details/103474643">STM32 HAL串口接收常用的几种方式</a><br><a href="https://blog.csdn.net/xinghunlove123/article/details/89503218">Stm32 HAL库 USART(发送+接收)全部采用DMA形式</a></p>
+<h3 id="UART成帧"><a href="#UART成帧" class="headerlink" title="[UART成帧]"></a>[UART成帧]</h3><p><a href="https://blog.csdn.net/WANGYONGZIXUE/article/details/121375351">UART成帧</a></p>
+<p>ESP8266 判断 UART 传来的数据时间间隔，若时间间隔大于 20ms， 则认为一帧结束；否则， 一直接收数据到上限值 2KB， 认为一帧结束。 ESP8266 模块判断UART 来的数据一帧结束后， 通过 WIFI 接口将数据转发出去。<br>成帧时间间隔为 20ms， 一帧上限值为 2KB。</p>
+<h2 id="SPI"><a href="#SPI" class="headerlink" title="SPI"></a>SPI</h2><p><a href="https://blog.csdn.net/weixin_41082463/article/details/104952605">STM32（HAL）——SPI通信</a><br><a href="https://blog.csdn.net/wanruiou/article/details/97236750">HAL库的学习 —— SPI配置和使用 发送16位和8位数据</a></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Full-Duplex Master</td>
+<td>全双工主模式</td>
+</tr>
+<tr>
+<td>Full-Duplex Slave</td>
+<td>全双工从模式</td>
+</tr>
+<tr>
+<td>Half-Duplex Master</td>
+<td>半双工主模式</td>
+</tr>
+<tr>
+<td>Half-Duplex Slave</td>
+<td>半双工从模式</td>
+</tr>
+<tr>
+<td>Receive Only Master</td>
+<td>仅接收主模式</td>
+</tr>
+<tr>
+<td>Receive Only Slave</td>
+<td>仅接收从模式</td>
+</tr>
+<tr>
+<td>Transmit Only Master</td>
+<td>仅发送主模式</td>
+</tr>
+<tr>
+<td>Transmit Only Slave</td>
+<td>仅发送从模式</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frame Format</td>
+<td>框架格式，有Motorola和TI两种</td>
+</tr>
+<tr>
+<td>Data Size</td>
+<td>数据长度，8bit和16bit两种</td>
+</tr>
+<tr>
+<td>First Bit</td>
+<td>对齐形式，高位先行和低位先行</td>
+</tr>
+<tr>
+<td>Prescaler</td>
+<td>预分频，用于控制波特率，波特率=16MHz/Prescaler</td>
+</tr>
+<tr>
+<td>Clock Polarity</td>
+<td>CPOL，前面有讲</td>
+</tr>
+<tr>
+<td>Clock Phase</td>
+<td>CPHA，前面有讲</td>
+</tr>
+<tr>
+<td>CRC Calculation</td>
+<td>是否启用CRC</td>
+</tr>
+<tr>
+<td>NSS Signal Type</td>
+<td>片选形式，硬件实现还是软件实现</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="ADC-amp-amp-DAC"><a href="#ADC-amp-amp-DAC" class="headerlink" title="ADC &amp;&amp; DAC"></a>ADC &amp;&amp; DAC</h2><p><strong>测量前用 <code>HAL_ADCEx_Calibration_Start();</code>校准!</strong><br><a href="https://blog.csdn.net/qq_38410730/article/details/80071349">【STM32】ADC的基本原理、寄存器（超基础、详细版）</a></p>
+<p><a href="https://blog.csdn.net/as480133937/article/details/99627062">【STM32】HAL库 STM32CubeMX教程九—ADC</a></p>
+<p><a href="https://blog.csdn.net/qq_43743762/article/details/100067558">STM32—ADC详解</a></p>
+<p><a href="https://blog.csdn.net/super828/article/details/79600395">STM32 HAL库学习系列第1篇 ADC配置 及 DAC配置</a></p>
+<p><a href="https://www.cnblogs.com/xingboy/p/10018749.html">STM32使用HAL库实现ADC单通道转换(中断和非中断都有代码)</a></p>
+<p><a href="https://wenku.baidu.com/view/7f69e2c081c758f5f61f67e2.html">用STM32内置的ADC实现数字示波器</a></p>
+<p><a href="https://blog.csdn.net/qq_38294949/article/details/106036394">Cube生成定时器2触发双ADC同步采集并用DMA传输</a></p>
+<p><a href="https://blog.csdn.net/weifengdq/article/details/121802176">STM32H743 ADC1+DMA1 ADC3+BDMA CubeMX配置使用</a></p>
+<blockquote>
+<p>要知道，转换后的数据是一个12位的二进制数，我们需要把这个二进制数代表的模拟量（电压）用数字表示出来。比如测量的电压范围是0~3.3V，转换后的二进制数是x，因为12位ADC在转换时将电压的范围大小（也就是3.3）分为4096（2^12）份，所以转换后的二进制数x代表的真实电压的计算方法就是：</p>
+<p>y=3.3* x / 4096</p>
+</blockquote>
+<h2 id="血泪教训"><a href="#血泪教训" class="headerlink" title="血泪教训"></a>血泪教训</h2><p>&amp;ensp&amp;ensp如果用定时器触发adc，无论怎样设置，最高就500khz，但是一旦选择连续采样模式，让adc自动一次接一次采样，由于我配置的adc 14mhz，14个周期，因此自然而然的就是1m的采样频率。<br>而使用定时器触发时，需要关闭连续转换模式，否则无法通过定时器控制adc的采样频率<br>然后又不知道咋回事，除了使能连续转换模式，定时器触发永远是500khz的上限，我暂时没有找到不使能连续转换模式的同时使adc速度大于500khz的方法</p>
+<h1 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h1><h2 id="AD9910"><a href="#AD9910" class="headerlink" title="AD9910"></a>AD9910</h2><p> <a href="https://blog.csdn.net/fraay/article/details/108687441">AD9910模块数据手册、使用方法详解</a></p>
+<h2 id="mpu6050"><a href="#mpu6050" class="headerlink" title="mpu6050"></a>mpu6050</h2><p><a href="https://blog.csdn.net/zj490044512/article/details/83745684">stm32f103与mpu6050通信详解</a></p>
+<h2 id="DHT11"><a href="#DHT11" class="headerlink" title="DHT11"></a>DHT11</h2><p><a href="https://blog.csdn.net/dingyc_ee/article/details/103530982">HAL库 DHT11 驱动</a></p>
+<h2 id="SSD1306-0-96OLED"><a href="#SSD1306-0-96OLED" class="headerlink" title="SSD1306 0.96OLED"></a>SSD1306 0.96OLED</h2><h3 id="驱动"><a href="#驱动" class="headerlink" title="驱动"></a>驱动</h3><ul>
+<li><a href="https://github.com/SL-RU/stm32libs">stm32libs 5年前的库 基于stm32f103</a></li>
+<li><a href="https://github.com/afiskon/stm32-ssd1306">stm32-ssd1306</a><blockquote>
+<p>STM32 library for working with OLEDs based on SSD1306, supports I2C and 4-wire SPI. It also works with SH1106, SH1107 and SSD1309 which are compatible with SSD1306.<br>Please see ssd1306/ssd1306_conf_template.h and examples directory for more details.</p>
+</blockquote>
+</li>
+<li><a href="https://github.com/4ilo/ssd1306-stm32HAL">ssd1306-stm32HAL</a><blockquote>
+<p>ssd1306 library for stm32 using stm32-hal library’s. This library works with i2c and is configured for 128x64 oled panels by default.<br>If you search 4-wire SPI support, you can find it in the afiskon/stm32-ssd1306 fork.</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="获取OLED的通信地址"><a href="#获取OLED的通信地址" class="headerlink" title="获取OLED的通信地址"></a>获取OLED的通信地址</h3><p>参考<a href="https://blog.csdn.net/qq_42860728/article/details/84310160">关于Arduino&amp;SSD1306OLED（IIC）显示的学习</a></p>
+<blockquote>
+<p><a href="https://shjdgwj.github.io/e6640d881469/4.png"><img src="https://shjdgwj.github.io/e6640d881469/images/loading.gif" alt=""></a><br>模块背面的IIC ADRESSSELECT表示该模块在IIC通信作为从机时的地址，当中间的脚用电阻和左边接起来时，地址为0x78，当和右边接起来时，地址为0x7A。</p>
+<p>图片所示的通信地址是0x78</p>
+</blockquote>
+<h3 id="显示与取模"><a href="#显示与取模" class="headerlink" title="显示与取模"></a>显示与取模</h3><p><a href="https://blog.csdn.net/u010858987/article/details/103362144">关于0.96OLED的显示过程详解（I2C通信方式）</a></p>
+<h2 id="ESP8266"><a href="#ESP8266" class="headerlink" title="ESP8266"></a>ESP8266</h2><p><a href="https://blog.csdn.net/zDavid_2018/article/details/108349593">【stm32】wifi ESP8266的AT指令</a></p>
+<ul>
+<li><code>__HAL_UART_ENABLE_IT(&amp;huart1, UART_IT_RXNE);</code>中断模式下使用此函数使能中断</li>
+</ul>
+<p><a href="https://dsx2016.com/?p=1510">arduino+ESP8266模块使用AT指令设置wifi</a></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">USART1_IRQHandler</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">/* USER CODE BEGIN USART1_IRQn 0 */</span></span><br><span class="line">  <span class="type">uint8_t</span> ch = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span> (__HAL_UART_GET_FLAG(&amp;huart1, UART_FLAG_RXNE) != RESET)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">//读寄存器</span></span><br><span class="line">    ch = (<span class="type">uint16_t</span>)<span class="built_in">READ_REG</span>(huart1.Instance-&gt;DR);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将串口1的数据 写入串口3（串口3将数据 -&gt; esp8266）</span></span><br><span class="line">    <span class="built_in">WRITE_REG</span>(huart3.Instance-&gt;DR, ch);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/* USER CODE END USART1_IRQn 0 */</span></span><br><span class="line">  <span class="built_in">HAL_UART_IRQHandler</span>(&amp;huart1);</span><br><span class="line">  <span class="comment">/* USER CODE BEGIN USART1_IRQn 1 */</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* USER CODE END USART1_IRQn 1 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">USART3_IRQHandler</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">/* USER CODE BEGIN USART3_IRQn 0 */</span></span><br><span class="line">  <span class="type">uint8_t</span> ch = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span> (__HAL_UART_GET_FLAG(&amp;huart3, UART_FLAG_RXNE) != RESET)</span><br><span class="line">  &#123;</span><br><span class="line">    ch = (<span class="type">uint16_t</span>)<span class="built_in">READ_REG</span>(huart3.Instance-&gt;DR);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//给串口1</span></span><br><span class="line">    <span class="built_in">WRITE_REG</span>(huart1.Instance-&gt;DR, ch);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* USER CODE END USART3_IRQn 0 */</span></span><br><span class="line">  <span class="built_in">HAL_UART_IRQHandler</span>(&amp;huart3);</span><br><span class="line">  <span class="comment">/* USER CODE BEGIN USART3_IRQn 1 */</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* USER CODE END USART3_IRQn 1 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="FFT"><a href="#FFT" class="headerlink" title="FFT"></a>FFT</h2><ol>
+<li><a href="https://blog.csdn.net/u013028442/article/details/88836515">matlab中fft运算后需要对幅值乘2除N</a></li>
+<li>矩形窗(Rectangular)：加矩形窗等于不加窗，因为在截取时域信号时本身就是采用矩形截取，所以矩形窗适用于瞬态变化的信号，只要采集的时间足够长，信号宽度基本可以覆盖整个有效的瞬态部分。<br>汉宁窗(Von Hann)：如果测试信号有多个频率分量，频谱表现的十分复杂，且测试的目的更多关注频率点而非能量的大小。在这种情况下，需要选择一个主瓣够窄的窗函数，汉宁窗是一个很好的选择。<br>flattop窗：如果测试的目的更多的关注某周期信号频率点的能量值，比如，更关心其EUpeak,EUpeak-peak,EUrms，那么其幅度的准确性则更加的重要，可以选择一个主瓣稍宽的窗，flattop窗在这样的情况下经常被使用。</li>
+<li><a href="https://blog.csdn.net/u013346007/article/details/54142981">【Get深一度】矩形窗/bartlett/Blackman/hamming/Hanning/kaiser -相控阵雷达原理</a></li>
+</ol>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><h2 id="STM32CUBEMX-BUG"><a href="#STM32CUBEMX-BUG" class="headerlink" title="STM32CUBEMX BUG"></a>STM32CUBEMX BUG</h2><ol>
+<li>版本6.5.0 stm32h743 配置ADC时无法配置其时钟。<br>版本6.3.0解决此问题</li>
+<li>STM32 DMA初始化代码要在ADC前面。</li>
+<li><a href="https://blog.csdn.net/weixin_49497012/article/details/118499056">STM32CubeMX生成代码时防止UTF-8乱码</a><br><strong>添加环境变量</strong><ul>
+<li>变量名称：JAVA_TOOL_OPTIONS</li>
+<li>变量值：-Dfile.encoding=UTF-8</li>
+</ul>
+</li>
+</ol>
+<h2 id="DMA循环模式导致hal-delay失效"><a href="#DMA循环模式导致hal-delay失效" class="headerlink" title="DMA循环模式导致hal_delay失效"></a>DMA循环模式导致hal_delay失效</h2><p><a href="https://blog.csdn.net/apple_2333/article/details/96962574">可能的原因</a><br>心态爆炸！<br>野火教程</p>
+<figure class="highlight scss"><table><tr><td class="code"><pre><span class="line">uint32_t adcData<span class="selector-attr">[5]</span>;</span><br><span class="line"><span class="built_in">HAL_ADCEx_MultiModeStart_DMA</span>(&amp;hadc1, (uint32_t *)&amp;adcData, <span class="built_in">sizeof</span>(adcData));</span><br></pre></td></tr></table></figure>
+<p>而实际上应该写</p>
+<figure class="highlight scss"><table><tr><td class="code"><pre><span class="line">uint32_t adcData<span class="selector-attr">[5]</span>;</span><br><span class="line"><span class="built_in">HAL_ADCEx_MultiModeStart_DMA</span>(&amp;hadc1, (uint32_t *)&amp;adcData, <span class="number">5</span>);</span><br><span class="line"><span class="comment">//HAL_ADC_Start_DMA(&amp;hadc1, (uint32_t *)&amp;adcData, 5)</span></span><br></pre></td></tr></table></figure>
+<p><code>HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef* hadc, uint32_t* pData, uint32_t Length)</code><br><code>HAL_StatusTypeDef HAL_ADC_Start_DMA(ADC_HandleTypeDef* hadc, uint32_t* pData, uint32_t Length)</code><br>Length的参数不应该是数据长度，应该是数据数量。<br><a href="https://shjdgwj.github.io/e6640d881469/5.png"><img src="https://shjdgwj.github.io/e6640d881469/images/loading.gif" alt=""></a><br>在此问题耗时6小时，特此纪念</p>
+<p>注/HAL_ADC_Start_DMA()的data变量为uint32_t的原因是hal为了程序方便移植，虽然f1只支持12位精度的adc，但是其他芯片支持更高精度的adc。</p>
+<h2 id="hal-根据exti获取触发中断的管脚"><a href="#hal-根据exti获取触发中断的管脚" class="headerlink" title="hal 根据exti获取触发中断的管脚"></a>hal 根据exti获取触发中断的管脚</h2><p>比如stm32f103c8t6 PA15和PC15都是EXTI15 那触发时我怎么知道是哪个脚触发？</p>
+<blockquote>
+<p><a href="https://zhidao.baidu.com/question/1642129457849988940.html">https://zhidao.baidu.com/question/1642129457849988940.html</a><br>比如，来自PA0的外部中断，可以通过库函数<br>(EXTI_GetITStatus(EXTI_Line0)!=RESET);<br>判断外部中断来源是不是来源于端口0（至于是PA0还是PB0可通过查询中断来源进行判断，但不建议这么用，所以设置外部中断的端口建议不要重复，比如使用了PA0，就不要使用PB0之类的）<br>另外要注意：端口0-4有自己独立的外部中断函数入口，5-9和10-15两组分别共用两个外部中断函数入口</p>
+</blockquote>
+<h2 id="HAL-GPIO-EXTI-Callback"><a href="#HAL-GPIO-EXTI-Callback" class="headerlink" title="HAL_GPIO_EXTI_Callback"></a>HAL_GPIO_EXTI_Callback</h2><p>HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) 里面一调用函数就锁死，直接写语句没问题</p>
+<blockquote>
+<p><a href="https://www.stm32cube.com/question/615">https://www.stm32cube.com/question/615</a><br>HAL_InitTick(uint32_t TickPriority)这个函数要重新定义下，把systick的主优先级定义为0x0000(最高），之前HAL库给出的宏参数TICK_INT_PRIORITY 0X000f(最低）。导致一进中断<br>HAL的时钟就停摆了。</p>
+</blockquote>
+<h2 id="“Insufficient-RAM-for-Flash-Algorithms”出错原因及解决方案"><a href="#“Insufficient-RAM-for-Flash-Algorithms”出错原因及解决方案" class="headerlink" title="“Insufficient RAM for Flash Algorithms”出错原因及解决方案"></a>“Insufficient RAM for Flash Algorithms”出错原因及解决方案</h2><p>Insufficient RAM for Flash Algorithms”错误一般会有一个“cannot load flash programming algorithm !”的提示窗口<br><a href="https://shjdgwj.github.io/e6640d881469/6.png"><img src="https://shjdgwj.github.io/e6640d881469/images/loading.gif" alt=""></a><br>如图更改为 <code>0x0000FFF4</code><br><a href="https://shjdgwj.github.io/e6640d881469/7.png"><img src="https://shjdgwj.github.io/e6640d881469/images/loading.gif" alt=""></a></p>
+<p>注：C++ include 添加 <code>Drivers\CMSIS\DSP\Include</code></p>
+<h2 id="stm32函数中大数组问题"><a href="#stm32函数中大数组问题" class="headerlink" title="stm32函数中大数组问题"></a>stm32函数中大数组问题</h2><blockquote>
+<p>在以stm32构建系统的时候，当用户自己编写函数时，发现函数出现意想不到的结果，其中一项你需要注意的是看你的函数中有没有大的数组，或者说查看你函数中临时变量的总量是不是超过了系统设置的堆栈的最大值这类问题编译器是不会给出错误的，相应的当出现程序不能给出想要的结果的时候，我们需要特别注意这类问题。对系统设置函栈最大值的宏一般放在系统的启动文件中，具体的是startup_stm32xxxx.s这个启动文件的Stack_Size这个宏</p>
+</blockquote>
+<h2 id="STM32H743-STM32CUBEMX6-3-0-ADC时钟为什么能配置为80MHz？"><a href="#STM32H743-STM32CUBEMX6-3-0-ADC时钟为什么能配置为80MHz？" class="headerlink" title="STM32H743 STM32CUBEMX6.3.0 ADC时钟为什么能配置为80MHz？"></a>STM32H743 STM32CUBEMX6.3.0 ADC时钟为什么能配置为80MHz？</h2><p><a href="https://community.st.com/s/question/0D53W000013pKvlSAE/clock-source-for-adc-of-the-stm32h7-cpu">Clock source for ADC of The STM32H7 CPU</a></p>
+<p>ADC 时钟配置成160MHz，12位可以达到12M采样率（ADC直连通道） 14位5M采样率</p>
+<p><a href="https://shjdgwj.github.io/e6640d881469/image-20220721150437943.png"><img src="https://shjdgwj.github.io/e6640d881469/images/loading.gif" alt="" title="image-20220721150437943"></a>## STM32F429 HAL 定时器触发DMA 内存到内存</p>
+<p><a href="https://blog.csdn.net/qq_38974298/article/details/118158575">https://blog.csdn.net/qq_38974298/article/details/118158575</a></p>
+<p><a href="http://www.efton.sk/STM32/bt.c">http://www.efton.sk/STM32/bt.c</a></p>
+<h2 id="Keil-MDK下如何设置非零初始化变量-基于Arm-Compiler-6"><a href="#Keil-MDK下如何设置非零初始化变量-基于Arm-Compiler-6" class="headerlink" title="Keil MDK下如何设置非零初始化变量 - 基于Arm Compiler 6"></a><a href="https://blog.csdn.net/zhzht19861011/article/details/124904070">Keil MDK下如何设置非零初始化变量 - 基于Arm Compiler 6</a></h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Arm Compiler 5 属性</th>
+<th>Arm Compiler 6 属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>__attribute__((at(address)))</code></td>
+<td><code>__attribute__((section(&quot;.ARM.__at_address&quot;)))</code></td>
+<td>Arm Compiler 6 中的 armlink 仍然支持以 <code>.ARM.__at_address</code> 的形式放置段</td>
+</tr>
+<tr>
+<td><code>__attribute__((at(address), zero_init))</code></td>
+<td><code>__attribute__((section(&quot;.bss.ARM.__at_address&quot;)))</code></td>
+<td>Arm Compiler 6 中的 armlink 支持以 <code>.bss.ARM.__at_address</code> 的形式放置零初始化段。 <code>.bss</code> 前缀区分大小写，并且必须全部小写。</td>
+</tr>
+<tr>
+<td><code>__attribute__((section(name), zero_init))</code></td>
+<td><code>__attribute__((section(&quot;.bss.name&quot;)))</code></td>
+<td><code>name</code> 是你选择的名字。 <code>.bss</code> 前缀区分大小写，并且必须全部小写。</td>
+</tr>
+<tr>
+<td><code>__attribute__((zero_init))</code></td>
+<td>不支持 默认将零初始化变量放在 <code>.bss</code> 段。</td>
+<td>如果变量具有初始值设定项，则 Arm Compiler 5 会生成错误。 否则，它将零初始化变量放在 <code>.bss</code>段。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<h3 id="5-Arm®-Compiler-5-如何防止未初始化变量被初始化为0"><a href="#5-Arm®-Compiler-5-如何防止未初始化变量被初始化为0" class="headerlink" title="5. Arm® Compiler 5 如何防止未初始化变量被初始化为0"></a>5. Arm® Compiler 5 如何防止未初始化变量被初始化为0</h3><ol>
+<li><p>定义变量时，使用编译器扩展属性 <code>__attribute__((section(&quot;name&quot;), zero_init))</code>来将变量放入指定段中。其中 <code>section(&quot;name&quot;)</code>选择一个指定的段，<code>zero_init</code>告诉编译器将变量放入ZI段。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">uint32_t</span> phy_link_init_flag __attribute__((section(<span class="string">&quot;NO_INIT&quot;</span>), zero_init));</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure></li>
+<li><p>在分散加载文件中，定义名为 <code>NO_INIT</code>的段。注意该段所在的可执行域要具有 <code>UNINIT</code>属性。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">LR_IROM1 <span class="number">0x00000000</span> <span class="number">0x00080000</span>  &#123;    ; load region size_region 从<span class="number">0</span>扇区开始</span><br><span class="line">  ER_IROM1 <span class="number">0x00000000</span> <span class="number">0x00080000</span>  &#123;  ; load address = execution address </span><br><span class="line">   *.o (RESET, +First)</span><br><span class="line">   *(InRoot$$Sections)</span><br><span class="line">   .ANY (+RO)</span><br><span class="line">  &#125;</span><br><span class="line">  RW_IRAM1 <span class="number">0x10000000</span> <span class="number">0x0000F000</span>  &#123;  ; RW data</span><br><span class="line">   .ANY (+RW +ZI)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  RW_IRAM2 <span class="number">0x1000F000</span> UNINIT <span class="number">0x00001000</span>  &#123;</span><br><span class="line">   .ANY (NO_INIT)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="number">1234567891011121314</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="6-Arm®-Compiler-6-如何防止未初始化变量被初始化为0"><a href="#6-Arm®-Compiler-6-如何防止未初始化变量被初始化为0" class="headerlink" title="6. Arm® Compiler 6 如何防止未初始化变量被初始化为0"></a>6. Arm® Compiler 6 如何防止未初始化变量被初始化为0</h3><ol>
+<li><p>定义变量时，使用编译器扩展属性 <code>__attribute__((section(&quot;name&quot;)))</code>来将变量放入指定段中。其中 <code>section(&quot;name&quot;)</code>选择一个指定的段。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">uint32_t</span> phy_link_init_flag __attribute__((section(<span class="string">&quot;.bss.NO_INIT&quot;</span>)));</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure></li>
+<li><p>在分散加载文件中，定义名为 <code>.bss.NO_INIT</code>的段，其中前缀 <code>.bss</code>是必须的，并且只能为小写。这个前缀表明该数据段具有ZI属性。注意该段所在的可执行域要具有 <code>UNINIT</code>属性</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">LR_IROM1 <span class="number">0x00000000</span> <span class="number">0x00080000</span>  &#123;    ; load region size_region 从<span class="number">0</span>扇区开始</span><br><span class="line">  ER_IROM1 <span class="number">0x00000000</span> <span class="number">0x00080000</span>  &#123;  ; load address = execution address </span><br><span class="line">   *.o (RESET, +First)</span><br><span class="line">   *(InRoot$$Sections)</span><br><span class="line">   .ANY (+RO)</span><br><span class="line">  &#125;</span><br><span class="line">  RW_IRAM1 <span class="number">0x10000000</span> <span class="number">0x0000F000</span>  &#123;  ; RW data</span><br><span class="line">   .ANY (+RW +ZI)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  RW_IRAM2 <span class="number">0x1000F000</span> UNINIT <span class="number">0x00001000</span>  &#123;</span><br><span class="line">   .ANY (.bss.NO_INIT)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<h2 id="定时器触发DMA控制GPIO"><a href="#定时器触发DMA控制GPIO" class="headerlink" title="定时器触发DMA控制GPIO"></a>定时器触发DMA控制GPIO</h2><p><a href="https://community.st.com/s/question/0D53W00000Eo9rLSAR/parallel-transmission-using-gpio-and-dma-like-an4666">Parallel transmission using GPIO and DMA (like AN4666)</a></p>
+<p><a href="https://metebalci.com/blog/stm32h7-gpio-toggling/">stm32h7-gpio-toggling</a></p>
+<h1 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h1><p><a href="https://shjdgwj.github.io/e6640d881469/">STM32学习笔记</a><br><a href="https://blog.csdn.net/qq_38410730/category_7511110.html">Yngz_Miao《嵌入式》STM32开发笔记</a><br><a href="https://blog.csdn.net/as480133937/category_9188655.html">Z小旋 STM32</a><br><a href="http://www.mculover666.cn/">mculover666</a></p>
+]]></content>
+      <categories>
+        <category>单片机</category>
+      </categories>
+      <tags>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>win11_update</title>
+    <url>/2023/01/20/win11-update/</url>
+    <content><![CDATA[<p>win11针对联想等机器的部分更新推送会被取消，且由于一些杀毒软件的系统修复功能，会导致win11无法获得更新，从而使得win11更新卡在某个版本。针对个人使用win11遇到的一些bug进行总结，不断更新ing</p>
+<span id="more"></span>
+<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><h2 id="查看系统版本"><a href="#查看系统版本" class="headerlink" title="查看系统版本"></a>查看系统版本</h2><p>cmd输入winver</p>
+<h2 id="查看文件MD5码"><a href="#查看文件MD5码" class="headerlink" title="查看文件MD5码"></a>查看文件MD5码</h2><p>certutil -hashfile 文件路径名称 MD5</p>
+<h2 id="win11安装系统应用"><a href="#win11安装系统应用" class="headerlink" title="win11安装系统应用"></a>win11安装系统应用</h2><p>1.以管理员运行powershell<br>2.输入Get-AppxPackage -allusers | Select Name, PackageFullName<br>3.找到需要安装的应用后面的应用版本<br>4输入Add-appxpackage -register “C:\Program Files\WindowsApps\【应用版本】\appxmanifest.xml” -disabledevelopmentmod即可</p>
+<h1 id="修复方法"><a href="#修复方法" class="headerlink" title="修复方法"></a>修复方法</h1><p>1.网站uupdump.net可以下载最新版本</p>
+<p>2.进入注册表<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\wuauserv\Parameters<br>找到ServiceDll<br>win11将数据改为%systemroot%\system32\wuauserv.dll，<br>win10将数据改为%systemroot%\system32\wuaueng.dll<br>如果还是找不到<br>进入”C:\WINDOWS\System32\wuauserv.dll”看是否存在wuauserv.dll或者wuaueng.dll，<br>如果不存在的话可能是其他软件删除了，需自行下载或者从别的电脑拷贝放进去就好了</p>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Win11</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>网络基础</title>
+    <url>/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<p>自己琢磨出的关于光猫与路由器设置的简单教程<br><span id="more"></span></p>
+<h1 id="光猫"><a href="#光猫" class="headerlink" title="光猫"></a>光猫</h1><h2 id="超级管理员密码"><a href="#超级管理员密码" class="headerlink" title="超级管理员密码"></a>超级管理员密码</h2><h3 id="电信"><a href="#电信" class="headerlink" title="电信"></a>电信</h3><p>用户名：useradmin<br>密码：nE7jA%5m</p>
+<h3 id="移动"><a href="#移动" class="headerlink" title="移动"></a>移动</h3><p>用户名：CMCCAdmin<br>密码：aDm8H%MdA</p>
+<h2 id="桥接和路由模式切换"><a href="#桥接和路由模式切换" class="headerlink" title="桥接和路由模式切换"></a>桥接和路由模式切换</h2><p>桥接模式：只进行一次NAT转换，让外接路由器拨号，效率更高</p>
+<p>路由模式：进行两次NAT转换，由光猫拨号进行一次NAT转换，再由路由器DHCP上网，再进行一次NAT转换，效率低，但可将光猫自带的AP功能用上</p>
+<p>但其实可以既用上光猫的AP功能，又使用桥接模式，只需要新建一个网络连接，将光猫自带的AP功能单独分到一个网络上面进行PPPoE拨号，再将其他的LAN口分到另一个网络进行桥接即可，就相当于有两个ip了，如果是申请的公网IP，就赚大了，但要知道怎么设置，或者是光猫默认设置里面就是这么分的，自己乱设置的往往没法上网</p>
+<p>连接光猫WIFI或LAN口，登录光猫后台，输入超级管理员密码，有的光猫默认将自带的AP功能分在一个网络下面，此时只需要将这个设备所在的网络设置为路由模式便可以白嫖一个地址，如果是给的公网地址的话，就相当于又多一个公网地址。</p>
+<h2 id="白嫖20-带宽"><a href="#白嫖20-带宽" class="headerlink" title="白嫖20%带宽"></a>白嫖20%带宽</h2><p>由于IPV4协议的原因，理论传输效率一般是94%多一点<br>宽带供应商考虑损耗往往提供的带宽是标称带宽的120%，也就是1000M宽带，往往能给到1200M。<br>但是由于宽带供应商送的光猫拨号和光带你转换性能不行，会有带宽损耗，所以采用桥接模式，让高性能路由器来进行拨号，带宽会有一定的提升<br>若要完全白嫖到那20%带宽，则可以根据光猫的类型使用gpon或者epon的光电转换棒猫棒，让软路由拨号。epon和gpon就像是两种方言，epon往往更贵。</p>
+<h1 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h1><h2 id="确定公网ip"><a href="#确定公网ip" class="headerlink" title="确定公网ip"></a>确定公网ip</h2><p>登录路由器后台，查看路由器获取到的ip地址，再使用设备连接到该路由器，然后在bing上搜索my ip或者在百度上面搜索ip查询，看查到的ip和路由器上面的ip是否一样，如果不一样，则不是公网ip，如果一样，则是公网ip。</p>
+<h2 id="公网访问内网（有公网IP）"><a href="#公网访问内网（有公网IP）" class="headerlink" title="公网访问内网（有公网IP）"></a>公网访问内网（有公网IP）</h2><h3 id="第一步：设置光猫"><a href="#第一步：设置光猫" class="headerlink" title="第一步：设置光猫"></a>第一步：设置光猫</h3><p>方式1：设置光猫为桥接模式<br>方式2：若使用路由模式，则将使用的路由器设置DMZ或者端口转发。</p>
+<h3 id="第二步：设置路由器"><a href="#第二步：设置路由器" class="headerlink" title="第二步：设置路由器"></a>第二步：设置路由器</h3><p>方式1：设置端口转发<br>    针对多个不同设备，但公网对80端口和443端口有限制，需要备案，可以转发成别的端口，如8080，或者4433，访问的时候，需要在域名后面缀上端口访问<br>方式2：设置DMZ<br>    针对单个设备，可以将设备的所有端口全部放在外网，但是风险较大，建议设置防火墙</p>
+<h3 id="第三步：设置动态域名解析DDNS"><a href="#第三步：设置动态域名解析DDNS" class="headerlink" title="第三步：设置动态域名解析DDNS"></a>第三步：设置动态域名解析DDNS</h3><p>由于家庭宽带给的公网IP地址都是动态的，一般每48小时变化一次，因此需要进行动态域名解析，以后只需要记住域名就可以访问了<br>若是企业专线网络的固定公网IP地址，则不需要这一步，直接记住IP访问就行了</p>
+<p>在路由器后台，要看不同的路由器支持哪家的，不同路由器支持的不一样，如果是软路由或者OP系统，往往可以自己设置，但往往对花生壳的动态域名解析支持的都比较好，电信光猫里面的DDNS就是采用的花生壳的动态域名解析</p>
+<h3 id="第四步：开放端口"><a href="#第四步：开放端口" class="headerlink" title="第四步：开放端口"></a>第四步：开放端口</h3><p>window系统可以在防火墙，防火墙高级设置，入站规则里面设置，新建规则，设置开放端口即可</p>
+<h2 id="公网访问内网（无公网IP）"><a href="#公网访问内网（无公网IP）" class="headerlink" title="公网访问内网（无公网IP）"></a>公网访问内网（无公网IP）</h2><h3 id="无获取到公网IP的服务器"><a href="#无获取到公网IP的服务器" class="headerlink" title="无获取到公网IP的服务器"></a>无获取到公网IP的服务器</h3><p>方式1：第三方内网穿透服务：花生壳等<br>方式2：虚拟组网：ZeroTier等</p>
+<h3 id="有获取到公网IP的服务器"><a href="#有获取到公网IP的服务器" class="headerlink" title="有获取到公网IP的服务器"></a>有获取到公网IP的服务器</h3><p>方式1：架设转发服务：Frp等<br>方式2：点对点透传</p>
+<h2 id="设置移动IPV6公网IP"><a href="#设置移动IPV6公网IP" class="headerlink" title="设置移动IPV6公网IP"></a>设置移动IPV6公网IP</h2><h3 id="第一步：设置光猫（需支持IPV6）"><a href="#第一步：设置光猫（需支持IPV6）" class="headerlink" title="第一步：设置光猫（需支持IPV6）"></a>第一步：设置光猫（需支持IPV6）</h3><p>登录光猫后台，设置网络为IPV4&amp;IPV6，关闭IPV6防火墙，便于外网访问内网</p>
+<h3 id="第二步：设置路由器（需支持IPV6）"><a href="#第二步：设置路由器（需支持IPV6）" class="headerlink" title="第二步：设置路由器（需支持IPV6）"></a>第二步：设置路由器（需支持IPV6）</h3><p>登录路由器后台，在基本设置里面开启IPV6即可。</p>
+<h3 id="第三步：验证"><a href="#第三步：验证" class="headerlink" title="第三步：验证"></a>第三步：验证</h3><p>1.电脑或手机连接路由器，设置DMZ。<br>2.打开浏览器输入test—ipv6.com即可</p>
+<h1 id="网路运营商"><a href="#网路运营商" class="headerlink" title="网路运营商"></a>网路运营商</h1><p>电信：提供IPV4公网IP，需要申请<br>移动：不提供IPV4公网IP，但提供IPV6公网地址，不需要申请，只需要手动配置一下就行，参照前面的教程</p>
+]]></content>
+      <categories>
+        <category>Web</category>
+      </categories>
+      <tags>
+        <tag>Web</tag>
+      </tags>
+  </entry>
+</search>
