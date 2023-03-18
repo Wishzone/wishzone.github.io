@@ -33,6 +33,109 @@
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/2022/12/09/Hello_World/</url>
+    <content><![CDATA[<p>Welcome to MyBlog! If you get any problems , you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<span id="more"></span>
+<h1 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h1><h2 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h2><h3 id="创建新标题"><a href="#创建新标题" class="headerlink" title="创建新标题"></a>创建新标题</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="运行网站"><a href="#运行网站" class="headerlink" title="运行网站"></a>运行网站</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="推送给远端服务器"><a href="#推送给远端服务器" class="headerlink" title="推送给远端服务器"></a>推送给远端服务器</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h1 id="问题及解决方法"><a href="#问题及解决方法" class="headerlink" title="问题及解决方法"></a>问题及解决方法</h1><h2 id="Error-Spawn-failed"><a href="#Error-Spawn-failed" class="headerlink" title="Error: Spawn failed"></a>Error: Spawn failed</h2><h3 id="问题如下："><a href="#问题如下：" class="headerlink" title="问题如下："></a>问题如下：</h3><p>fatal: unable to access ‘<a href="https://github.com/a956551943/a956551943.github.io/">https://github.com/a956551943/a956551943.github.io/</a>‘: Encountered end of file<br>FATAL {<br>  err: Error: Spawn failed<br>      at ChildProcess.<code>&lt;anonymous&gt;</code> (/usr/local/src/hexo/hanyubolg/node_modules/hexo-util/lib/spawn.js:51:21)<br>      at ChildProcess.emit (events.js:376:20)<br>      at Process.ChildProcess._handle.onexit (internal/child_process.js:277:12) {<br>    code: 128<br>  }<br>} Something’s wrong. Maybe you can find the solution here: %s <a href="https://hexo.io/docs/troubleshooting.html">https://hexo.io/docs/troubleshooting.html</a></p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">##进入站点根目录</span></span><br><span class="line"><span class="built_in">cd</span> /usr/local/src/hexo/hanyubolg/</span><br><span class="line"></span><br><span class="line"><span class="comment">##删除git提交内容文件夹</span></span><br><span class="line"><span class="built_in">rm</span> -rf .deploy_git/</span><br><span class="line"></span><br><span class="line"><span class="comment">##执行</span></span><br><span class="line">git config --global core.autocrlf <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##最后</span></span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>WEB</category>
+      </categories>
+      <tags>
+        <tag>HEXO</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RK3588_in_ROCK5</title>
+    <url>/2022/12/10/RK3588-in-ROCK5/</url>
+    <content><![CDATA[<p>以Rock5B为例的rk3588开发文档，不断更新ing<br><span id="more"></span></p>
+<h1 id="性能参考"><a href="#性能参考" class="headerlink" title="性能参考"></a>性能参考</h1><p><a href="https://browser.geekbench.com/v5/cpu/18817954">https://browser.geekbench.com/v5/cpu/18817954</a><br><a href="https://shjdgwj.github.io/14733f4e12d9/image-20221123144235521.png"><img src="https://shjdgwj.github.io/14733f4e12d9/image-20221123144235521.png" alt="img" title="image-20221123144235521"></a></p>
+<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><h2 id="抽奖"><a href="#抽奖" class="headerlink" title="抽奖"></a>抽奖</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for i in `seq 0 7`; do echo ========cpu$i;cat /sys/bus/cpu/devices/cpu$&#123;i&#125;/cpufreq/scaling_max_freq; done</span><br><span class="line">sudo sed -i &quot;s|focal|jammy|g&quot; /etc/apt/sources.list &amp;&amp; sudo apt update &amp;&amp; sudo apt dist-upgrade &amp;&amp; sudo reboot</span><br><span class="line">cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq</span><br><span class="line">lscpu | grep MHz #pytm-volt-sel 越大越好</span><br><span class="line">dmesg | grep -i pvtm</span><br><span class="line">dmesg | grep -E &#x27;pvtm|dmc&#x27; | grep sel</span><br></pre></td></tr></table></figure>
+<p>   <a href="https://shjdgwj.github.io/14733f4e12d9/image-20221026213053527.png"><img src="https://shjdgwj.github.io/14733f4e12d9/image-20221026213053527.png" alt="img" title="image-20221026213053527"></a></p>
+<h2 id="中文"><a href="#中文" class="headerlink" title="中文"></a>中文</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install locales</span><br><span class="line">sudo apt install  fonts-noto-cjk fonts-noto-cjk-extra</span><br><span class="line">sudo dpkg-reconfigure locales </span><br></pre></td></tr></table></figure>
+<p>   选 en_US UTF-8 和 zh_CN UTF, 设置默认locales 为 en_us</p>
+<h2 id="工具箱"><a href="#工具箱" class="headerlink" title="工具箱"></a>工具箱</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wget -O rockpi5.sh https://uwp.cc/s/board/rockpi5.sh </span><br><span class="line">sudo chmod +x rockpi5.sh</span><br><span class="line">sudo ./rockpi5.sh</span><br></pre></td></tr></table></figure>
+<h2 id="PD协商电压-温度"><a href="#PD协商电压-温度" class="headerlink" title="PD协商电压 温度"></a>PD协商电压 温度</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install lm-sensors</span><br><span class="line">sensors</span><br></pre></td></tr></table></figure>
+<h2 id="编译和网络校时"><a href="#编译和网络校时" class="headerlink" title="编译和网络校时"></a>编译和网络校时</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install build-essential #编译</span><br><span class="line">sudo apt install ntp#网络校时</span><br></pre></td></tr></table></figure>
+<h2 id="Armbian上使用3D加速驱动"><a href="#Armbian上使用3D加速驱动" class="headerlink" title="Armbian上使用3D加速驱动"></a>Armbian上使用3D加速驱动</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository ppa:liujianfeng1994/panfork-mesa</span><br><span class="line">sudo add-apt-repository ppa:liujianfeng1994/rockchip-multimedia</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt dist-upgrade</span><br></pre></td></tr></table></figure>
+<p>操作文档:<a href="https://launchpad.net/~liujianfeng1994/+archive/ubuntu/rockchip-multimedia">PPA description</a></p>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="查看温度"><a href="#查看温度" class="headerlink" title="查看温度"></a>查看温度</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">echo $[$(cat /sys/class/thermal/thermal_zone0/temp)/1000]°</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="Rock-5B-本地编译要点说明"><a href="#Rock-5B-本地编译要点说明" class="headerlink" title="Rock 5B 本地编译要点说明"></a>Rock 5B 本地编译要点说明</h2><p>   最重要的差别是 ： （阿超哥的方法 ）检测编译环境，如果是在 arm64上编译的话，就去掉ARCH 和 CROSS_COMPILE 交叉编译变量 build/board_configs.sh 最后面加上这几行：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">build on native arm64</span></span><br><span class="line">if [ &quot;X$(uname -m)&quot; == &quot;Xaarch64&quot; -a &quot;X$&#123;ARCH&#125;&quot; == &quot;Xarm64&quot; ]; then</span><br><span class="line">    unset ARCH</span><br><span class="line">    unset CROSS_COMPILE</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<ul>
+<li>主要参考是官方wiki：<a href="https://wiki.radxa.com/Rock5/guide/build-debian-from-debos-radxa">https://wiki.radxa.com/Rock5/guide/build-debian-from-debos-radxa</a> （这里原文是跨平台交叉编译）</li>
+<li>在工具链这里，不需要 安装跨平台工具链 gcc-arm-10.3<strong>*</strong> ，只要本地安装 gcc 及配套工具（ sudo apt-get install gcc xxx)</li>
+<li>其他按官方顺序执行命令<br>注意：u-boot 和kernel有配置好的config，只要按官方分别执行对应的 ./build/mk-uboot.sh rk3588-rock-5b 或 ./build/mk-kernel.sh rk3588-rock-5b</li>
+</ul>
+<h2 id="exFAT"><a href="#exFAT" class="headerlink" title="exFAT"></a>exFAT</h2><p>   安装exfat fuse</p>
+<h2 id="kubesphere-3-3-1"><a href="#kubesphere-3-3-1" class="headerlink" title="kubesphere 3.3.1"></a>kubesphere 3.3.1</h2><p>   步骤1：更换内核<br>   因为 Radxa 官方内核现在不支持，暂时需要更换内核：<br>   <a href="https://github.com/ihexon/rock5b_kernel/releases">https://github.com/ihexon/rock5b_kernel/releases</a><br>   步骤2：根据 KubeSphere 官方文档安装<br>   <a href="https://kubesphere.com.cn/docs/v3.3/quick-start/all-in-one-on-linux/">https://kubesphere.com.cn/docs/v3.3/quick-start/all-in-one-on-linux/</a><br>   步骤3：修补 KubeSphere 开源版暂不支持的 arm64 镜像</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">defaultbackend</span></span><br><span class="line">sudo docker pull playgali/defaultbackend</span><br><span class="line">sudo docker tag playgali/defaultbackend mirrorgooglecontainers/defaultbackend-amd64:1.4</span><br></pre></td></tr></table></figure>
+<h2 id="硬件驱动"><a href="#硬件驱动" class="headerlink" title="硬件驱动"></a>硬件驱动</h2><p>   <a href="https://github.com/happyme531/Adafruit_Blinka/commits/rk3588-rock-5">https://github.com/happyme531/Adafruit_Blinka/commits/rk3588-rock-5</a><br>   rock5 gpio i2c spi pwm 串口 adc 全部适配完成</p>
+<h2 id="wifi"><a href="#wifi" class="headerlink" title="wifi"></a>wifi</h2><pre><code>使用`nmtui`命令
+
+注意Security选择 WPA &amp; WPA2 Personal
+</code></pre><h2 id="KDE桌面"><a href="#KDE桌面" class="headerlink" title="KDE桌面"></a>KDE桌面</h2><p>   <a href="https://forum.armbian.com/topic/10526-using-different-desktop-environments-on-armbian/">Using different desktop environments on Armbian</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装KDE桌面</span></span><br><span class="line">sudo add-apt-repository ppa:kubuntu-ppa/backports</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y kubuntu-desktop</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改默认桌面</span></span><br><span class="line">cd /usr/share/xsessions</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">看到有ubuntu.desktop  ubuntu-xorg.desktop</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">后面还不会改</span></span><br></pre></td></tr></table></figure>
+<h2 id="安卓root"><a href="#安卓root" class="headerlink" title="安卓root"></a>安卓root</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">备份boot</span> </span><br><span class="line">dd if=/dev/block/nvme0n1p5 of=/storage/emulated/0/mod.img</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">刷入boot</span> </span><br><span class="line">dd if=/storage/emulated/0/mod.img of=dev/block/nvme0n1p5</span><br><span class="line"> sync</span><br><span class="line"> reboot</span><br></pre></td></tr></table></figure>
+<h2 id="EMMC镜像备份导出方法"><a href="#EMMC镜像备份导出方法" class="headerlink" title="EMMC镜像备份导出方法"></a>EMMC镜像备份导出方法</h2><p>用户基于我们发布是镜像系统，安装软件或进行其他配置之后，如果想备份系统，有很多方法可以实现，我这里提供一个比较简单的思路供大家参考。</p>
+<p>前置条件：</p>
+<p>假如您手边有一张已经做好系统的TF卡<br>各种改动后的EMMC系统<br>核心操作步骤：</p>
+<p>从EMMC启动系统，登陆桌面并打开终端命令行更改卷标</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">sudo su</span><br><span class="line">fatlabel /dev/mmcblk0p1 emmc-boot</span><br><span class="line">e2label /dev/mmcblk0p2 emmc-rootfs</span><br><span class="line"></span><br><span class="line">vim /boot/firmware/cmdline.txt</span><br><span class="line">将writable替换为emmc-rootfs  然后保存退出</span><br><span class="line"></span><br><span class="line">vim /etc/fstab</span><br><span class="line">将writable替换为emmc-rootfs  然后保存退出</span><br><span class="line"></span><br><span class="line">sync;</span><br></pre></td></tr></table></figure>
+<p>插入TF卡，重启系统</p>
+<p>默认优先从TF卡引导系统，进入系统之后，可以挂载EMMC分区进行备份压缩</p>
+<h2 id="Docker-运行openwrt"><a href="#Docker-运行openwrt" class="headerlink" title="Docker 运行openwrt"></a>Docker 运行openwrt</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">开启网卡混杂模式</span><br><span class="line">sudo ip link set eth0 promisc on</span><br><span class="line"></span><br><span class="line">创建docker网卡</span><br><span class="line">docker network create -d macvlan --subnet=192.168.1.0/24 --gateway=192.168.1.1 -o parent=eth0 macnet</span><br><span class="line"></span><br><span class="line">查看docker网卡</span><br><span class="line">docker network list</span><br><span class="line"></span><br><span class="line">项目地址https://github.com/SuLingGG/OpenWrt-Docker</span><br><span class="line">查看自己的系统的架构</span><br><span class="line">uname -a</span><br><span class="line"></span><br><span class="line">创建并启动docker镜像</span><br><span class="line">docker run --restart always --name openwrt -d --network macnet --privileged sulinggg/openwrt:armv8 /sbin/init</span><br><span class="line"></span><br><span class="line">docker给普通用户权限</span><br><span class="line">先查看一下默认这个文件/var/run/docker.sock的权限是啥</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo <span class="built_in">ls</span> -al /var/run/docker.sock</span></span><br><span class="line">srw-rw---- 1 root root 0 Feb 15 03:13 /var/run/docker.sock</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改文件权限</span></span><br><span class="line">sudo chmod 666 /var/run/docker.sock</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改后，再查看一下这个文件的权限</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo <span class="built_in">ls</span> -al /var/run/docker.sock</span></span><br><span class="line"></span><br><span class="line">srw-rw-rw- 1 root root 0 Feb 15 03:14 /var/run/docker.sock</span><br><span class="line"></span><br><span class="line">进入bash终端修改ip</span><br><span class="line">vim /etc/config/network</span><br><span class="line">将后面三项改成自己的ip</span><br><span class="line"></span><br><span class="line">重启openwrt网络</span><br><span class="line">/etc/init.d/network restart</span><br><span class="line"></span><br><span class="line">直接浏览器访问刚刚设置的ip</span><br><span class="line">密码默认passwd</span><br><span class="line"></span><br><span class="line">在网络LAN口中关闭桥接接口</span><br><span class="line"></span><br><span class="line">网络防火墙自定义规则中添加</span><br><span class="line">iptables -t nat -I POSTROUTING -j MASQUERADE</span><br><span class="line"></span><br><span class="line">在网络Turbo ACC网络加速中勾选DNS缓存</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h1><ol>
+<li><a href="http://www.zphj1987.com/rock5b-ke-yi-yun-xing-deuos-ca.html">rock5b uos</a></li>
+<li>rock5b专用内核：完美收官，对应源码已上传：<br><a href="https://github.com/unifreq/linux-rock5b">https://github.com/unifreq/linux-rock5b</a><br>允许全频率（电压超至1.1v, 默认未开）<br>开启方法：<br>nano /boot/armbianEnv.txt<br>把overlays=uart7-m2改为overlays=uart7-m2 [空格] full-cpufreq</li>
+<li>Rock5b Openwrt固件：采用5.10.149内核，并支持nvme（已测试）或usb启动（未测试）。<br>如果需要nvme或usb启动，必须要先刷入spi 的bootloader, 用前两天发的 bootloader包：<br>rock5b-bootloader_20221017.tar.gz<br><a href="https://t.me/openwrt_flippy/3464">https://t.me/openwrt_flippy/3464</a><br>用法：<ol>
+<li>先刷入TF卡启动成功后，把img镜像上传到 /mnt/mmcblk0p4</li>
+<li>进入TF卡里的openwrt,运行命令：<br>cd /mnt/mmcblk0p4<br>dd if=openwrt-xxxxxx.img of=/dev/nvme0n1 bs=1M conv=fsync</li>
+<li>然后关机，把TF卡拔掉再开机即可。</li>
+<li>用同一个镜像写的TF卡固件和nvme固件由于UUID相同，如果再重新插上TF卡启动会有问题，TF和nvme采用不同版本的固件就没问题。</li>
+</ol>
+</li>
+<li>官方镜像用户名密码 rock @rock</li>
+<li><blockquote>
+<p>目前我看到的并且我自己试过的各种镜像，我总结一下，咱们群里用的各种rock5b镜像主要是有四个来源：</p>
+<p>1、radxa官方发出的debian、ubuntu和安卓，已经有半个月没更新了，debian和ubuntu可以直接装obs，但没有mali驱动之类的，不能用gpu</p>
+<p>2、armbian官方社区发出的armbian，尤其是sid的那个，但armbian官方社区也已经有半个多月没更新了，我试过记得也可以直接装obs，但也没有mali驱动之类的，不能用gpu</p>
+<p>3、咱们群里有lost in utopia这位大佬，整合出来mali驱动，可以用gpu，并且这位大佬在3天前又发出自带mali驱动可以开箱即用的armbian镜像，桌面是gnome，doom3可以全特效平均跑40帧，但不能直接装obs</p>
+<p><a href="https://github.com/amazingfate/armbian-rock5b-images/releases">https://github.com/amazingfate/armbian-rock5b-images/releases</a></p>
+<p>4、咱们群里还有StatusHeadcrabed这位大佬， 也发出自带mali驱动可以开箱即用的armbian镜像，桌面是gnome和kde，doom3可以全特效平均跑40帧，但不能直接装obs</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="驱动"><a href="#驱动" class="headerlink" title="驱动"></a>驱动</h1><ol>
+<li>RTL8852be<br>下载<a href="https://github.com/armbian/firmware/blob/master/rtl8852bu_fw">rtl8852bu_fw.bin</a>放进/lib/firmware/realtek</li>
+<li><p>显卡GPU</p>
+<ul>
+<li><a href="https://icecream95.gitlab.io/fun-with-csf-firmware.html">Fun with CSF firmware</a></li>
+<li><p><a href="https://gitlab.com/panfork/mesa/">mesa</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository ppa:liujianfeng1994/panfork-mesa</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install libgl1-mesa-dri</span><br><span class="line">sudo apt-cache policy  libgl1-mesa-dri</span><br><span class="line">sudo apt install mesa*</span><br></pre></td></tr></table></figure></li>
+<li><a href="https://gitlab.com/panfork/panfwost">panfwost</a></li>
+</ul>
+</li>
+</ol>
+<h2 id="参考资料链接"><a href="#参考资料链接" class="headerlink" title="参考资料链接"></a>参考资料链接</h2>]]></content>
+      <categories>
+        <category>LINUX</category>
+      </categories>
+      <tags>
+        <tag>ROCK5B</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LINUX-in-ARM64</title>
     <url>/2022/12/13/LINUX-in-ARM64/</url>
     <content><![CDATA[<p>关于arm64上的Linux指令与一些开发教程<br><span id="more"></span></p>
@@ -236,86 +339,6 @@
       </tags>
   </entry>
   <entry>
-    <title>RK3588_in_ROCK5</title>
-    <url>/2022/12/10/RK3588-in-ROCK5/</url>
-    <content><![CDATA[<p>以Rock5B为例的rk3588开发文档，不断更新ing<br><span id="more"></span></p>
-<h1 id="性能参考"><a href="#性能参考" class="headerlink" title="性能参考"></a>性能参考</h1><p><a href="https://browser.geekbench.com/v5/cpu/18817954">https://browser.geekbench.com/v5/cpu/18817954</a><br><a href="https://shjdgwj.github.io/14733f4e12d9/image-20221123144235521.png"><img src="https://shjdgwj.github.io/14733f4e12d9/image-20221123144235521.png" alt="img" title="image-20221123144235521"></a></p>
-<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><h2 id="抽奖"><a href="#抽奖" class="headerlink" title="抽奖"></a>抽奖</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for i in `seq 0 7`; do echo ========cpu$i;cat /sys/bus/cpu/devices/cpu$&#123;i&#125;/cpufreq/scaling_max_freq; done</span><br><span class="line">sudo sed -i &quot;s|focal|jammy|g&quot; /etc/apt/sources.list &amp;&amp; sudo apt update &amp;&amp; sudo apt dist-upgrade &amp;&amp; sudo reboot</span><br><span class="line">cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq</span><br><span class="line">lscpu | grep MHz #pytm-volt-sel 越大越好</span><br><span class="line">dmesg | grep -i pvtm</span><br><span class="line">dmesg | grep -E &#x27;pvtm|dmc&#x27; | grep sel</span><br></pre></td></tr></table></figure>
-<p>   <a href="https://shjdgwj.github.io/14733f4e12d9/image-20221026213053527.png"><img src="https://shjdgwj.github.io/14733f4e12d9/image-20221026213053527.png" alt="img" title="image-20221026213053527"></a></p>
-<h2 id="中文"><a href="#中文" class="headerlink" title="中文"></a>中文</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install locales</span><br><span class="line">sudo apt install  fonts-noto-cjk fonts-noto-cjk-extra</span><br><span class="line">sudo dpkg-reconfigure locales </span><br></pre></td></tr></table></figure>
-<p>   选 en_US UTF-8 和 zh_CN UTF, 设置默认locales 为 en_us</p>
-<h2 id="工具箱"><a href="#工具箱" class="headerlink" title="工具箱"></a>工具箱</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wget -O rockpi5.sh https://uwp.cc/s/board/rockpi5.sh </span><br><span class="line">sudo chmod +x rockpi5.sh</span><br><span class="line">sudo ./rockpi5.sh</span><br></pre></td></tr></table></figure>
-<h2 id="PD协商电压-温度"><a href="#PD协商电压-温度" class="headerlink" title="PD协商电压 温度"></a>PD协商电压 温度</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install lm-sensors</span><br><span class="line">sensors</span><br></pre></td></tr></table></figure>
-<h2 id="编译和网络校时"><a href="#编译和网络校时" class="headerlink" title="编译和网络校时"></a>编译和网络校时</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install build-essential #编译</span><br><span class="line">sudo apt install ntp#网络校时</span><br></pre></td></tr></table></figure>
-<h2 id="Armbian上使用3D加速驱动"><a href="#Armbian上使用3D加速驱动" class="headerlink" title="Armbian上使用3D加速驱动"></a>Armbian上使用3D加速驱动</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository ppa:liujianfeng1994/panfork-mesa</span><br><span class="line">sudo add-apt-repository ppa:liujianfeng1994/rockchip-multimedia</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt dist-upgrade</span><br></pre></td></tr></table></figure>
-<p>操作文档:<a href="https://launchpad.net/~liujianfeng1994/+archive/ubuntu/rockchip-multimedia">PPA description</a></p>
-<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="查看温度"><a href="#查看温度" class="headerlink" title="查看温度"></a>查看温度</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">echo $[$(cat /sys/class/thermal/thermal_zone0/temp)/1000]°</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="Rock-5B-本地编译要点说明"><a href="#Rock-5B-本地编译要点说明" class="headerlink" title="Rock 5B 本地编译要点说明"></a>Rock 5B 本地编译要点说明</h2><p>   最重要的差别是 ： （阿超哥的方法 ）检测编译环境，如果是在 arm64上编译的话，就去掉ARCH 和 CROSS_COMPILE 交叉编译变量 build/board_configs.sh 最后面加上这几行：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">build on native arm64</span></span><br><span class="line">if [ &quot;X$(uname -m)&quot; == &quot;Xaarch64&quot; -a &quot;X$&#123;ARCH&#125;&quot; == &quot;Xarm64&quot; ]; then</span><br><span class="line">    unset ARCH</span><br><span class="line">    unset CROSS_COMPILE</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
-<ul>
-<li>主要参考是官方wiki：<a href="https://wiki.radxa.com/Rock5/guide/build-debian-from-debos-radxa">https://wiki.radxa.com/Rock5/guide/build-debian-from-debos-radxa</a> （这里原文是跨平台交叉编译）</li>
-<li>在工具链这里，不需要 安装跨平台工具链 gcc-arm-10.3<strong>*</strong> ，只要本地安装 gcc 及配套工具（ sudo apt-get install gcc xxx)</li>
-<li>其他按官方顺序执行命令<br>注意：u-boot 和kernel有配置好的config，只要按官方分别执行对应的 ./build/mk-uboot.sh rk3588-rock-5b 或 ./build/mk-kernel.sh rk3588-rock-5b</li>
-</ul>
-<h2 id="exFAT"><a href="#exFAT" class="headerlink" title="exFAT"></a>exFAT</h2><p>   安装exfat fuse</p>
-<h2 id="kubesphere-3-3-1"><a href="#kubesphere-3-3-1" class="headerlink" title="kubesphere 3.3.1"></a>kubesphere 3.3.1</h2><p>   步骤1：更换内核<br>   因为 Radxa 官方内核现在不支持，暂时需要更换内核：<br>   <a href="https://github.com/ihexon/rock5b_kernel/releases">https://github.com/ihexon/rock5b_kernel/releases</a><br>   步骤2：根据 KubeSphere 官方文档安装<br>   <a href="https://kubesphere.com.cn/docs/v3.3/quick-start/all-in-one-on-linux/">https://kubesphere.com.cn/docs/v3.3/quick-start/all-in-one-on-linux/</a><br>   步骤3：修补 KubeSphere 开源版暂不支持的 arm64 镜像</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">defaultbackend</span></span><br><span class="line">sudo docker pull playgali/defaultbackend</span><br><span class="line">sudo docker tag playgali/defaultbackend mirrorgooglecontainers/defaultbackend-amd64:1.4</span><br></pre></td></tr></table></figure>
-<h2 id="硬件驱动"><a href="#硬件驱动" class="headerlink" title="硬件驱动"></a>硬件驱动</h2><p>   <a href="https://github.com/happyme531/Adafruit_Blinka/commits/rk3588-rock-5">https://github.com/happyme531/Adafruit_Blinka/commits/rk3588-rock-5</a><br>   rock5 gpio i2c spi pwm 串口 adc 全部适配完成</p>
-<h2 id="wifi"><a href="#wifi" class="headerlink" title="wifi"></a>wifi</h2><pre><code>使用`nmtui`命令
-
-注意Security选择 WPA &amp; WPA2 Personal
-</code></pre><h2 id="KDE桌面"><a href="#KDE桌面" class="headerlink" title="KDE桌面"></a>KDE桌面</h2><p>   <a href="https://forum.armbian.com/topic/10526-using-different-desktop-environments-on-armbian/">Using different desktop environments on Armbian</a></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装KDE桌面</span></span><br><span class="line">sudo add-apt-repository ppa:kubuntu-ppa/backports</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y kubuntu-desktop</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改默认桌面</span></span><br><span class="line">cd /usr/share/xsessions</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">看到有ubuntu.desktop  ubuntu-xorg.desktop</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">后面还不会改</span></span><br></pre></td></tr></table></figure>
-<h2 id="安卓root"><a href="#安卓root" class="headerlink" title="安卓root"></a>安卓root</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">备份boot</span> </span><br><span class="line">dd if=/dev/block/nvme0n1p5 of=/storage/emulated/0/mod.img</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">刷入boot</span> </span><br><span class="line">dd if=/storage/emulated/0/mod.img of=dev/block/nvme0n1p5</span><br><span class="line"> sync</span><br><span class="line"> reboot</span><br></pre></td></tr></table></figure>
-<h2 id="EMMC镜像备份导出方法"><a href="#EMMC镜像备份导出方法" class="headerlink" title="EMMC镜像备份导出方法"></a>EMMC镜像备份导出方法</h2><p>用户基于我们发布是镜像系统，安装软件或进行其他配置之后，如果想备份系统，有很多方法可以实现，我这里提供一个比较简单的思路供大家参考。</p>
-<p>前置条件：</p>
-<p>假如您手边有一张已经做好系统的TF卡<br>各种改动后的EMMC系统<br>核心操作步骤：</p>
-<p>从EMMC启动系统，登陆桌面并打开终端命令行更改卷标</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">sudo su</span><br><span class="line">fatlabel /dev/mmcblk0p1 emmc-boot</span><br><span class="line">e2label /dev/mmcblk0p2 emmc-rootfs</span><br><span class="line"></span><br><span class="line">vim /boot/firmware/cmdline.txt</span><br><span class="line">将writable替换为emmc-rootfs  然后保存退出</span><br><span class="line"></span><br><span class="line">vim /etc/fstab</span><br><span class="line">将writable替换为emmc-rootfs  然后保存退出</span><br><span class="line"></span><br><span class="line">sync;</span><br></pre></td></tr></table></figure>
-<p>插入TF卡，重启系统</p>
-<p>默认优先从TF卡引导系统，进入系统之后，可以挂载EMMC分区进行备份压缩</p>
-<h2 id="Docker-运行openwrt"><a href="#Docker-运行openwrt" class="headerlink" title="Docker 运行openwrt"></a>Docker 运行openwrt</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">开启网卡混杂模式</span><br><span class="line">sudo ip link set eth0 promisc on</span><br><span class="line"></span><br><span class="line">创建docker网卡</span><br><span class="line">docker network create -d macvlan --subnet=192.168.1.0/24 --gateway=192.168.1.1 -o parent=eth0 macnet</span><br><span class="line"></span><br><span class="line">查看docker网卡</span><br><span class="line">docker network list</span><br><span class="line"></span><br><span class="line">项目地址https://github.com/SuLingGG/OpenWrt-Docker</span><br><span class="line">查看自己的系统的架构</span><br><span class="line">uname -a</span><br><span class="line"></span><br><span class="line">创建并启动docker镜像</span><br><span class="line">docker run --restart always --name openwrt -d --network macnet --privileged sulinggg/openwrt:armv8 /sbin/init</span><br><span class="line"></span><br><span class="line">docker给普通用户权限</span><br><span class="line">先查看一下默认这个文件/var/run/docker.sock的权限是啥</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo <span class="built_in">ls</span> -al /var/run/docker.sock</span></span><br><span class="line">srw-rw---- 1 root root 0 Feb 15 03:13 /var/run/docker.sock</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改文件权限</span></span><br><span class="line">sudo chmod 666 /var/run/docker.sock</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改后，再查看一下这个文件的权限</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo <span class="built_in">ls</span> -al /var/run/docker.sock</span></span><br><span class="line"></span><br><span class="line">srw-rw-rw- 1 root root 0 Feb 15 03:14 /var/run/docker.sock</span><br><span class="line"></span><br><span class="line">进入bash终端修改ip</span><br><span class="line">vim /etc/config/network</span><br><span class="line">将后面三项改成自己的ip</span><br><span class="line"></span><br><span class="line">重启openwrt网络</span><br><span class="line">/etc/init.d/network restart</span><br><span class="line"></span><br><span class="line">直接浏览器访问刚刚设置的ip</span><br><span class="line">密码默认passwd</span><br><span class="line"></span><br><span class="line">在网络LAN口中关闭桥接接口</span><br><span class="line"></span><br><span class="line">网络防火墙自定义规则中添加</span><br><span class="line">iptables -t nat -I POSTROUTING -j MASQUERADE</span><br><span class="line"></span><br><span class="line">在网络Turbo ACC网络加速中勾选DNS缓存</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h1><ol>
-<li><a href="http://www.zphj1987.com/rock5b-ke-yi-yun-xing-deuos-ca.html">rock5b uos</a></li>
-<li>rock5b专用内核：完美收官，对应源码已上传：<br><a href="https://github.com/unifreq/linux-rock5b">https://github.com/unifreq/linux-rock5b</a><br>允许全频率（电压超至1.1v, 默认未开）<br>开启方法：<br>nano /boot/armbianEnv.txt<br>把overlays=uart7-m2改为overlays=uart7-m2 [空格] full-cpufreq</li>
-<li>Rock5b Openwrt固件：采用5.10.149内核，并支持nvme（已测试）或usb启动（未测试）。<br>如果需要nvme或usb启动，必须要先刷入spi 的bootloader, 用前两天发的 bootloader包：<br>rock5b-bootloader_20221017.tar.gz<br><a href="https://t.me/openwrt_flippy/3464">https://t.me/openwrt_flippy/3464</a><br>用法：<ol>
-<li>先刷入TF卡启动成功后，把img镜像上传到 /mnt/mmcblk0p4</li>
-<li>进入TF卡里的openwrt,运行命令：<br>cd /mnt/mmcblk0p4<br>dd if=openwrt-xxxxxx.img of=/dev/nvme0n1 bs=1M conv=fsync</li>
-<li>然后关机，把TF卡拔掉再开机即可。</li>
-<li>用同一个镜像写的TF卡固件和nvme固件由于UUID相同，如果再重新插上TF卡启动会有问题，TF和nvme采用不同版本的固件就没问题。</li>
-</ol>
-</li>
-<li>官方镜像用户名密码 rock @rock</li>
-<li><blockquote>
-<p>目前我看到的并且我自己试过的各种镜像，我总结一下，咱们群里用的各种rock5b镜像主要是有四个来源：</p>
-<p>1、radxa官方发出的debian、ubuntu和安卓，已经有半个月没更新了，debian和ubuntu可以直接装obs，但没有mali驱动之类的，不能用gpu</p>
-<p>2、armbian官方社区发出的armbian，尤其是sid的那个，但armbian官方社区也已经有半个多月没更新了，我试过记得也可以直接装obs，但也没有mali驱动之类的，不能用gpu</p>
-<p>3、咱们群里有lost in utopia这位大佬，整合出来mali驱动，可以用gpu，并且这位大佬在3天前又发出自带mali驱动可以开箱即用的armbian镜像，桌面是gnome，doom3可以全特效平均跑40帧，但不能直接装obs</p>
-<p><a href="https://github.com/amazingfate/armbian-rock5b-images/releases">https://github.com/amazingfate/armbian-rock5b-images/releases</a></p>
-<p>4、咱们群里还有StatusHeadcrabed这位大佬， 也发出自带mali驱动可以开箱即用的armbian镜像，桌面是gnome和kde，doom3可以全特效平均跑40帧，但不能直接装obs</p>
-</blockquote>
-</li>
-</ol>
-<h1 id="驱动"><a href="#驱动" class="headerlink" title="驱动"></a>驱动</h1><ol>
-<li>RTL8852be<br>下载<a href="https://github.com/armbian/firmware/blob/master/rtl8852bu_fw">rtl8852bu_fw.bin</a>放进/lib/firmware/realtek</li>
-<li><p>显卡GPU</p>
-<ul>
-<li><a href="https://icecream95.gitlab.io/fun-with-csf-firmware.html">Fun with CSF firmware</a></li>
-<li><p><a href="https://gitlab.com/panfork/mesa/">mesa</a></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository ppa:liujianfeng1994/panfork-mesa</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install libgl1-mesa-dri</span><br><span class="line">sudo apt-cache policy  libgl1-mesa-dri</span><br><span class="line">sudo apt install mesa*</span><br></pre></td></tr></table></figure></li>
-<li><a href="https://gitlab.com/panfork/panfwost">panfwost</a></li>
-</ul>
-</li>
-</ol>
-<h2 id="参考资料链接"><a href="#参考资料链接" class="headerlink" title="参考资料链接"></a>参考资料链接</h2>]]></content>
-      <categories>
-        <category>LINUX</category>
-      </categories>
-      <tags>
-        <tag>ROCK5B</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ZYNQ-in-7010</title>
     <url>/2022/12/13/ZYNQ-in-7010/</url>
     <content><![CDATA[<p>个人关于ZYNQ的一些开发学习文档，以小熊猫的ZYNQ7010为例，不断更新ing<br><span id="more"></span></p>
@@ -434,27 +457,6 @@
       </categories>
       <tags>
         <tag>7010</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2022/12/09/hello-world/</url>
-    <content><![CDATA[<p>Welcome to MyBlog! If you get any problems , you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<span id="more"></span>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>WEB</category>
-      </categories>
-      <tags>
-        <tag>HEXO</tag>
       </tags>
   </entry>
   <entry>
