@@ -28,7 +28,7 @@
 <meta property="og:description" content="关于arm64上的Linux指令与一些开发教程">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-12-13T10:27:57.000Z">
-<meta property="article:modified_time" content="2023-03-15T02:07:25.380Z">
+<meta property="article:modified_time" content="2023-03-18T16:36:26.000Z">
 <meta property="article:author" content="Wishzone">
 <meta property="article:tag" content="LINUX">
 <meta name="twitter:card" content="summary">
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-15 10:07:25" itemprop="dateModified" datetime="2023-03-15T10:07:25+08:00">2023-03-15</time>
+                <time title="修改时间：2023-03-19 00:36:26" itemprop="dateModified" datetime="2023-03-19T00:36:26+08:00">2023-03-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -253,7 +253,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>关于arm64上的Linux指令与一些开发教程<br><span id="more"></span></p>
+        <p>关于arm64上的Linux指令与一些开发教程</p>
+<span id="more"></span>
 <h1 id="编程开发"><a href="#编程开发" class="headerlink" title="编程开发"></a>编程开发</h1><h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><h3 id="一、查看环境变量"><a href="#一、查看环境变量" class="headerlink" title="一、查看环境变量"></a>一、查看环境变量</h3><p>env</p>
 <h3 id="二、查看PATH"><a href="#二、查看PATH" class="headerlink" title="二、查看PATH"></a>二、查看PATH</h3><p>export<br>或者单独查看PATH环境变量<br>echo $PATH</p>
 <h3 id="三、修改PATH"><a href="#三、修改PATH" class="headerlink" title="三、修改PATH"></a>三、修改PATH</h3><p>1.直接用export命令：</p>
@@ -310,14 +311,18 @@
 <li>DDS</li>
 <li>XMPP</li>
 <li>AMQP</li>
-<li>HTTP</li>
-<li>FTP</li>
-<li>SSH</li>
-<li>VNC</li>
-<li>RDP</li>
-<li>DHCP</li>
-<li>Telnet</li>
-<li>DNS</li>
+<li>HTTP(Port80)</li>
+<li>HTTPS(Port443)</li>
+<li>FTP(Port21控制，Port20数据)表示为TCP端口</li>
+<li>SSH(Port22)</li>
+<li>VNC(Port5901)</li>
+<li>TFTP(Port69)表示为UDP端口</li>
+<li>RDP(Port3389)</li>
+<li>DHCP(Port68)</li>
+<li>Telnet(Port23)</li>
+<li>DNS(Port53)</li>
+<li>Samba(Port445)</li>
+<li>SSL(Port1001、1011)</li>
 </ul>
 <h1 id="桌面"><a href="#桌面" class="headerlink" title="桌面"></a>桌面</h1><h2 id="常见桌面"><a href="#常见桌面" class="headerlink" title="常见桌面"></a>常见桌面</h2><h3 id="低资源桌面"><a href="#低资源桌面" class="headerlink" title="低资源桌面"></a>低资源桌面</h3><ul>
 <li>LxQt :(LXDE,GTK2),QT5,C++/QML</li>

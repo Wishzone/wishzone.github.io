@@ -56,89 +56,10 @@
       </tags>
   </entry>
   <entry>
-    <title>RK3588_in_ROCK5</title>
-    <url>/2022/12/10/RK3588-in-ROCK5/</url>
-    <content><![CDATA[<p>以Rock5B为例的rk3588开发文档，不断更新ing<br><span id="more"></span></p>
-<h1 id="性能参考"><a href="#性能参考" class="headerlink" title="性能参考"></a>性能参考</h1><p><a href="https://browser.geekbench.com/v5/cpu/18817954">https://browser.geekbench.com/v5/cpu/18817954</a><br><a href="https://shjdgwj.github.io/14733f4e12d9/image-20221123144235521.png"><img src="https://shjdgwj.github.io/14733f4e12d9/image-20221123144235521.png" alt="img" title="image-20221123144235521"></a></p>
-<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><h2 id="抽奖"><a href="#抽奖" class="headerlink" title="抽奖"></a>抽奖</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for i in `seq 0 7`; do echo ========cpu$i;cat /sys/bus/cpu/devices/cpu$&#123;i&#125;/cpufreq/scaling_max_freq; done</span><br><span class="line">sudo sed -i &quot;s|focal|jammy|g&quot; /etc/apt/sources.list &amp;&amp; sudo apt update &amp;&amp; sudo apt dist-upgrade &amp;&amp; sudo reboot</span><br><span class="line">cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq</span><br><span class="line">lscpu | grep MHz #pytm-volt-sel 越大越好</span><br><span class="line">dmesg | grep -i pvtm</span><br><span class="line">dmesg | grep -E &#x27;pvtm|dmc&#x27; | grep sel</span><br></pre></td></tr></table></figure>
-<p>   <a href="https://shjdgwj.github.io/14733f4e12d9/image-20221026213053527.png"><img src="https://shjdgwj.github.io/14733f4e12d9/image-20221026213053527.png" alt="img" title="image-20221026213053527"></a></p>
-<h2 id="中文"><a href="#中文" class="headerlink" title="中文"></a>中文</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install locales</span><br><span class="line">sudo apt install  fonts-noto-cjk fonts-noto-cjk-extra</span><br><span class="line">sudo dpkg-reconfigure locales </span><br></pre></td></tr></table></figure>
-<p>   选 en_US UTF-8 和 zh_CN UTF, 设置默认locales 为 en_us</p>
-<h2 id="工具箱"><a href="#工具箱" class="headerlink" title="工具箱"></a>工具箱</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wget -O rockpi5.sh https://uwp.cc/s/board/rockpi5.sh </span><br><span class="line">sudo chmod +x rockpi5.sh</span><br><span class="line">sudo ./rockpi5.sh</span><br></pre></td></tr></table></figure>
-<h2 id="PD协商电压-温度"><a href="#PD协商电压-温度" class="headerlink" title="PD协商电压 温度"></a>PD协商电压 温度</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install lm-sensors</span><br><span class="line">sensors</span><br></pre></td></tr></table></figure>
-<h2 id="编译和网络校时"><a href="#编译和网络校时" class="headerlink" title="编译和网络校时"></a>编译和网络校时</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install build-essential #编译</span><br><span class="line">sudo apt install ntp#网络校时</span><br></pre></td></tr></table></figure>
-<h2 id="Armbian上使用3D加速驱动"><a href="#Armbian上使用3D加速驱动" class="headerlink" title="Armbian上使用3D加速驱动"></a>Armbian上使用3D加速驱动</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository ppa:liujianfeng1994/panfork-mesa</span><br><span class="line">sudo add-apt-repository ppa:liujianfeng1994/rockchip-multimedia</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt dist-upgrade</span><br></pre></td></tr></table></figure>
-<p>操作文档:<a href="https://launchpad.net/~liujianfeng1994/+archive/ubuntu/rockchip-multimedia">PPA description</a></p>
-<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="查看温度"><a href="#查看温度" class="headerlink" title="查看温度"></a>查看温度</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">echo $[$(cat /sys/class/thermal/thermal_zone0/temp)/1000]°</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="Rock-5B-本地编译要点说明"><a href="#Rock-5B-本地编译要点说明" class="headerlink" title="Rock 5B 本地编译要点说明"></a>Rock 5B 本地编译要点说明</h2><p>   最重要的差别是 ： （阿超哥的方法 ）检测编译环境，如果是在 arm64上编译的话，就去掉ARCH 和 CROSS_COMPILE 交叉编译变量 build/board_configs.sh 最后面加上这几行：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">build on native arm64</span></span><br><span class="line">if [ &quot;X$(uname -m)&quot; == &quot;Xaarch64&quot; -a &quot;X$&#123;ARCH&#125;&quot; == &quot;Xarm64&quot; ]; then</span><br><span class="line">    unset ARCH</span><br><span class="line">    unset CROSS_COMPILE</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
-<ul>
-<li>主要参考是官方wiki：<a href="https://wiki.radxa.com/Rock5/guide/build-debian-from-debos-radxa">https://wiki.radxa.com/Rock5/guide/build-debian-from-debos-radxa</a> （这里原文是跨平台交叉编译）</li>
-<li>在工具链这里，不需要 安装跨平台工具链 gcc-arm-10.3<strong>*</strong> ，只要本地安装 gcc 及配套工具（ sudo apt-get install gcc xxx)</li>
-<li>其他按官方顺序执行命令<br>注意：u-boot 和kernel有配置好的config，只要按官方分别执行对应的 ./build/mk-uboot.sh rk3588-rock-5b 或 ./build/mk-kernel.sh rk3588-rock-5b</li>
-</ul>
-<h2 id="exFAT"><a href="#exFAT" class="headerlink" title="exFAT"></a>exFAT</h2><p>   安装exfat fuse</p>
-<h2 id="kubesphere-3-3-1"><a href="#kubesphere-3-3-1" class="headerlink" title="kubesphere 3.3.1"></a>kubesphere 3.3.1</h2><p>   步骤1：更换内核<br>   因为 Radxa 官方内核现在不支持，暂时需要更换内核：<br>   <a href="https://github.com/ihexon/rock5b_kernel/releases">https://github.com/ihexon/rock5b_kernel/releases</a><br>   步骤2：根据 KubeSphere 官方文档安装<br>   <a href="https://kubesphere.com.cn/docs/v3.3/quick-start/all-in-one-on-linux/">https://kubesphere.com.cn/docs/v3.3/quick-start/all-in-one-on-linux/</a><br>   步骤3：修补 KubeSphere 开源版暂不支持的 arm64 镜像</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">defaultbackend</span></span><br><span class="line">sudo docker pull playgali/defaultbackend</span><br><span class="line">sudo docker tag playgali/defaultbackend mirrorgooglecontainers/defaultbackend-amd64:1.4</span><br></pre></td></tr></table></figure>
-<h2 id="硬件驱动"><a href="#硬件驱动" class="headerlink" title="硬件驱动"></a>硬件驱动</h2><p>   <a href="https://github.com/happyme531/Adafruit_Blinka/commits/rk3588-rock-5">https://github.com/happyme531/Adafruit_Blinka/commits/rk3588-rock-5</a><br>   rock5 gpio i2c spi pwm 串口 adc 全部适配完成</p>
-<h2 id="wifi"><a href="#wifi" class="headerlink" title="wifi"></a>wifi</h2><pre><code>使用`nmtui`命令
-
-注意Security选择 WPA &amp; WPA2 Personal
-</code></pre><h2 id="KDE桌面"><a href="#KDE桌面" class="headerlink" title="KDE桌面"></a>KDE桌面</h2><p>   <a href="https://forum.armbian.com/topic/10526-using-different-desktop-environments-on-armbian/">Using different desktop environments on Armbian</a></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装KDE桌面</span></span><br><span class="line">sudo add-apt-repository ppa:kubuntu-ppa/backports</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y kubuntu-desktop</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改默认桌面</span></span><br><span class="line">cd /usr/share/xsessions</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">看到有ubuntu.desktop  ubuntu-xorg.desktop</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">后面还不会改</span></span><br></pre></td></tr></table></figure>
-<h2 id="安卓root"><a href="#安卓root" class="headerlink" title="安卓root"></a>安卓root</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">备份boot</span> </span><br><span class="line">dd if=/dev/block/nvme0n1p5 of=/storage/emulated/0/mod.img</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">刷入boot</span> </span><br><span class="line">dd if=/storage/emulated/0/mod.img of=dev/block/nvme0n1p5</span><br><span class="line"> sync</span><br><span class="line"> reboot</span><br></pre></td></tr></table></figure>
-<h2 id="EMMC镜像备份导出方法"><a href="#EMMC镜像备份导出方法" class="headerlink" title="EMMC镜像备份导出方法"></a>EMMC镜像备份导出方法</h2><p>用户基于我们发布是镜像系统，安装软件或进行其他配置之后，如果想备份系统，有很多方法可以实现，我这里提供一个比较简单的思路供大家参考。</p>
-<p>前置条件：</p>
-<p>假如您手边有一张已经做好系统的TF卡<br>各种改动后的EMMC系统<br>核心操作步骤：</p>
-<p>从EMMC启动系统，登陆桌面并打开终端命令行更改卷标</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">sudo su</span><br><span class="line">fatlabel /dev/mmcblk0p1 emmc-boot</span><br><span class="line">e2label /dev/mmcblk0p2 emmc-rootfs</span><br><span class="line"></span><br><span class="line">vim /boot/firmware/cmdline.txt</span><br><span class="line">将writable替换为emmc-rootfs  然后保存退出</span><br><span class="line"></span><br><span class="line">vim /etc/fstab</span><br><span class="line">将writable替换为emmc-rootfs  然后保存退出</span><br><span class="line"></span><br><span class="line">sync;</span><br></pre></td></tr></table></figure>
-<p>插入TF卡，重启系统</p>
-<p>默认优先从TF卡引导系统，进入系统之后，可以挂载EMMC分区进行备份压缩</p>
-<h2 id="Docker-运行openwrt"><a href="#Docker-运行openwrt" class="headerlink" title="Docker 运行openwrt"></a>Docker 运行openwrt</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">开启网卡混杂模式</span><br><span class="line">sudo ip link set eth0 promisc on</span><br><span class="line"></span><br><span class="line">创建docker网卡</span><br><span class="line">docker network create -d macvlan --subnet=192.168.1.0/24 --gateway=192.168.1.1 -o parent=eth0 macnet</span><br><span class="line"></span><br><span class="line">查看docker网卡</span><br><span class="line">docker network list</span><br><span class="line"></span><br><span class="line">项目地址https://github.com/SuLingGG/OpenWrt-Docker</span><br><span class="line">查看自己的系统的架构</span><br><span class="line">uname -a</span><br><span class="line"></span><br><span class="line">创建并启动docker镜像</span><br><span class="line">docker run --restart always --name openwrt -d --network macnet --privileged sulinggg/openwrt:armv8 /sbin/init</span><br><span class="line"></span><br><span class="line">docker给普通用户权限</span><br><span class="line">先查看一下默认这个文件/var/run/docker.sock的权限是啥</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo <span class="built_in">ls</span> -al /var/run/docker.sock</span></span><br><span class="line">srw-rw---- 1 root root 0 Feb 15 03:13 /var/run/docker.sock</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改文件权限</span></span><br><span class="line">sudo chmod 666 /var/run/docker.sock</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改后，再查看一下这个文件的权限</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo <span class="built_in">ls</span> -al /var/run/docker.sock</span></span><br><span class="line"></span><br><span class="line">srw-rw-rw- 1 root root 0 Feb 15 03:14 /var/run/docker.sock</span><br><span class="line"></span><br><span class="line">进入bash终端修改ip</span><br><span class="line">vim /etc/config/network</span><br><span class="line">将后面三项改成自己的ip</span><br><span class="line"></span><br><span class="line">重启openwrt网络</span><br><span class="line">/etc/init.d/network restart</span><br><span class="line"></span><br><span class="line">直接浏览器访问刚刚设置的ip</span><br><span class="line">密码默认passwd</span><br><span class="line"></span><br><span class="line">在网络LAN口中关闭桥接接口</span><br><span class="line"></span><br><span class="line">网络防火墙自定义规则中添加</span><br><span class="line">iptables -t nat -I POSTROUTING -j MASQUERADE</span><br><span class="line"></span><br><span class="line">在网络Turbo ACC网络加速中勾选DNS缓存</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h1><ol>
-<li><a href="http://www.zphj1987.com/rock5b-ke-yi-yun-xing-deuos-ca.html">rock5b uos</a></li>
-<li>rock5b专用内核：完美收官，对应源码已上传：<br><a href="https://github.com/unifreq/linux-rock5b">https://github.com/unifreq/linux-rock5b</a><br>允许全频率（电压超至1.1v, 默认未开）<br>开启方法：<br>nano /boot/armbianEnv.txt<br>把overlays=uart7-m2改为overlays=uart7-m2 [空格] full-cpufreq</li>
-<li>Rock5b Openwrt固件：采用5.10.149内核，并支持nvme（已测试）或usb启动（未测试）。<br>如果需要nvme或usb启动，必须要先刷入spi 的bootloader, 用前两天发的 bootloader包：<br>rock5b-bootloader_20221017.tar.gz<br><a href="https://t.me/openwrt_flippy/3464">https://t.me/openwrt_flippy/3464</a><br>用法：<ol>
-<li>先刷入TF卡启动成功后，把img镜像上传到 /mnt/mmcblk0p4</li>
-<li>进入TF卡里的openwrt,运行命令：<br>cd /mnt/mmcblk0p4<br>dd if=openwrt-xxxxxx.img of=/dev/nvme0n1 bs=1M conv=fsync</li>
-<li>然后关机，把TF卡拔掉再开机即可。</li>
-<li>用同一个镜像写的TF卡固件和nvme固件由于UUID相同，如果再重新插上TF卡启动会有问题，TF和nvme采用不同版本的固件就没问题。</li>
-</ol>
-</li>
-<li>官方镜像用户名密码 rock @rock</li>
-<li><blockquote>
-<p>目前我看到的并且我自己试过的各种镜像，我总结一下，咱们群里用的各种rock5b镜像主要是有四个来源：</p>
-<p>1、radxa官方发出的debian、ubuntu和安卓，已经有半个月没更新了，debian和ubuntu可以直接装obs，但没有mali驱动之类的，不能用gpu</p>
-<p>2、armbian官方社区发出的armbian，尤其是sid的那个，但armbian官方社区也已经有半个多月没更新了，我试过记得也可以直接装obs，但也没有mali驱动之类的，不能用gpu</p>
-<p>3、咱们群里有lost in utopia这位大佬，整合出来mali驱动，可以用gpu，并且这位大佬在3天前又发出自带mali驱动可以开箱即用的armbian镜像，桌面是gnome，doom3可以全特效平均跑40帧，但不能直接装obs</p>
-<p><a href="https://github.com/amazingfate/armbian-rock5b-images/releases">https://github.com/amazingfate/armbian-rock5b-images/releases</a></p>
-<p>4、咱们群里还有StatusHeadcrabed这位大佬， 也发出自带mali驱动可以开箱即用的armbian镜像，桌面是gnome和kde，doom3可以全特效平均跑40帧，但不能直接装obs</p>
-</blockquote>
-</li>
-</ol>
-<h1 id="驱动"><a href="#驱动" class="headerlink" title="驱动"></a>驱动</h1><ol>
-<li>RTL8852be<br>下载<a href="https://github.com/armbian/firmware/blob/master/rtl8852bu_fw">rtl8852bu_fw.bin</a>放进/lib/firmware/realtek</li>
-<li><p>显卡GPU</p>
-<ul>
-<li><a href="https://icecream95.gitlab.io/fun-with-csf-firmware.html">Fun with CSF firmware</a></li>
-<li><p><a href="https://gitlab.com/panfork/mesa/">mesa</a></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository ppa:liujianfeng1994/panfork-mesa</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install libgl1-mesa-dri</span><br><span class="line">sudo apt-cache policy  libgl1-mesa-dri</span><br><span class="line">sudo apt install mesa*</span><br></pre></td></tr></table></figure></li>
-<li><a href="https://gitlab.com/panfork/panfwost">panfwost</a></li>
-</ul>
-</li>
-</ol>
-<h2 id="参考资料链接"><a href="#参考资料链接" class="headerlink" title="参考资料链接"></a>参考资料链接</h2>]]></content>
-      <categories>
-        <category>LINUX</category>
-      </categories>
-      <tags>
-        <tag>ROCK5B</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>LINUX-in-ARM64</title>
     <url>/2022/12/13/LINUX-in-ARM64/</url>
-    <content><![CDATA[<p>关于arm64上的Linux指令与一些开发教程<br><span id="more"></span></p>
+    <content><![CDATA[<p>关于arm64上的Linux指令与一些开发教程</p>
+<span id="more"></span>
 <h1 id="编程开发"><a href="#编程开发" class="headerlink" title="编程开发"></a>编程开发</h1><h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><h3 id="一、查看环境变量"><a href="#一、查看环境变量" class="headerlink" title="一、查看环境变量"></a>一、查看环境变量</h3><p>env</p>
 <h3 id="二、查看PATH"><a href="#二、查看PATH" class="headerlink" title="二、查看PATH"></a>二、查看PATH</h3><p>export<br>或者单独查看PATH环境变量<br>echo $PATH</p>
 <h3 id="三、修改PATH"><a href="#三、修改PATH" class="headerlink" title="三、修改PATH"></a>三、修改PATH</h3><p>1.直接用export命令：</p>
@@ -195,14 +116,18 @@
 <li>DDS</li>
 <li>XMPP</li>
 <li>AMQP</li>
-<li>HTTP</li>
-<li>FTP</li>
-<li>SSH</li>
-<li>VNC</li>
-<li>RDP</li>
-<li>DHCP</li>
-<li>Telnet</li>
-<li>DNS</li>
+<li>HTTP(Port80)</li>
+<li>HTTPS(Port443)</li>
+<li>FTP(Port21控制，Port20数据)表示为TCP端口</li>
+<li>SSH(Port22)</li>
+<li>VNC(Port5901)</li>
+<li>TFTP(Port69)表示为UDP端口</li>
+<li>RDP(Port3389)</li>
+<li>DHCP(Port68)</li>
+<li>Telnet(Port23)</li>
+<li>DNS(Port53)</li>
+<li>Samba(Port445)</li>
+<li>SSL(Port1001、1011)</li>
 </ul>
 <h1 id="桌面"><a href="#桌面" class="headerlink" title="桌面"></a>桌面</h1><h2 id="常见桌面"><a href="#常见桌面" class="headerlink" title="常见桌面"></a>常见桌面</h2><h3 id="低资源桌面"><a href="#低资源桌面" class="headerlink" title="低资源桌面"></a>低资源桌面</h3><ul>
 <li>LxQt :(LXDE,GTK2),QT5,C++/QML</li>
@@ -336,127 +261,6 @@
       </categories>
       <tags>
         <tag>LINUX</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ZYNQ-in-7010</title>
-    <url>/2022/12/13/ZYNQ-in-7010/</url>
-    <content><![CDATA[<p>个人关于ZYNQ的一些开发学习文档，以小熊猫的ZYNQ7010为例，不断更新ing<br><span id="more"></span></p>
-<h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><ol>
-<li><a href="https://github.com/LeiWang1999/FPGA">FPGA资料大全</a></li>
-<li><a href="https://www.runoob.com/w3cnote/verilog-tutorial.html">菜鸟教程Verilog 教程</a></li>
-<li><a href="https://verilogoj.ustc.edu.cn/oj/">https://verilogoj.ustc.edu.cn/oj/</a></li>
-<li><a href="https://www.zhihu.com/answer/2291310107">知乎</a></li>
-<li><p>正点原子视频教程</p>
-<ul>
-<li>启明星V2第一期：<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a href="https://www.bilibili.com/video/BV1XU4y1M7nw/?spm_id_from=333.788.video.desc.click">BV1XU4y1M7nw</a>?spm_id_from=333.999.0.0</li>
-<li>领航者V2第一期：<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a href="https://www.bilibili.com/video/BV1hP4y1L73N/?spm_id_from=333.788.video.desc.click">BV1hP4y1L73N</a>?spm_id_from=333.999.0.0</li>
-<li>第二期：<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a href="https://www.bilibili.com/video/BV1Hq4y1u7qH/?spm_id_from=333.788.video.desc.click">BV1Hq4y1u7qH</a>?spm_id_from=333.999.0.0</li>
-<li>第三期：<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a href="https://www.bilibili.com/video/BV1qz4y1d7pF/?spm_id_from=333.788.video.desc.click">BV1qz4y1d7pF</a>?spm_id_from=333.999.0.0</li>
-</ul>
-</li>
-<li><a href="https://zhuanlan.zhihu.com/c_1131528588117385216">Verilog练习网站HDLBits</a></li>
-</ol>
-<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ol>
-<li><a href="https://www.jianshu.com/p/e3695489a958">VMware ubuntu压缩虚拟磁盘</a></li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install open-vm-tools</span><br><span class="line">sudo vmware-toolbox-cmd disk shrink /</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#虚拟机</span></span><br><span class="line"><span class="comment">#开启自动扩容时禁用</span></span><br><span class="line"><span class="built_in">cat</span> /dev/zero &gt; zero.fill</span><br><span class="line"><span class="built_in">rm</span> -f zero.fill</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">主机</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如我的VMware安装在F盘，在windows的命令行中：</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">F:\&gt;<span class="built_in">cd</span> VMware</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">F:\VMware&gt;vmware-vdiskmanager.exe -k <span class="string">&quot;F:\UbuntuVMware\Ubuntu1804\Ubuntu 64-bit.vmdk&quot;</span></span></span><br></pre></td></tr></table></figure>
-<ol>
-<li><a href="https://blog.csdn.net/u011198687/article/details/121713992">VMware虚拟机扩展Ubuntu系统磁盘空间</a></li>
-<li><a href="https://blog.csdn.net/weixin_45787652/article/details/109525269">完美解决虚拟机占用硬盘越来越大、删除快照出现内存不足错误</a></li>
-<li><a href="https://www.freesion.com/article/8548584805/">PETALINUX安装过程中遇到的坑【PETALINUX2018.3基于UBUNTU16.04.4（64-BIT）】</a></li>
-<li><a href="https://blog.csdn.net/weixin_44882546/article/details/116068157">使用vitis开发Linux应用程序</a></li>
-</ol>
-<h1 id="Vivado"><a href="#Vivado" class="headerlink" title="Vivado"></a>Vivado</h1><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
-<li><a href="https://zhuanlan.zhihu.com/p/365805011">FPGA Develop Support 使用手册-version 0.1.18</a></li>
-<li><p><a href="https://zhuanlan.zhihu.com/p/378739805">用Vscode代替Vivado原生编辑器</a></p>
-<blockquote>
-<p>D:/Program Files/Microsoft VS Code/Code.exe -g [file name]:[line number]</p>
-<p>D:/Program Files/Microsoft VS Code/Code.exe —disable-features=CalculateNativeWinOcclusion -g [file name]:[line number]</p>
-<p>D:/Program Files/Sublime Text/sublime_text.exe [file name] -l[line number]</p>
-</blockquote>
-</li>
-<li><a href="https://blog.csdn.net/weixin_42905573/article/details/106247887">【超实用】一分钟学会如何用最小存储空间保存Vivado工程！</a></li>
-<li><p><a href="https://blog.csdn.net/jingjiankai5228/article/details/113074220">vivado工程保存为tcl脚本及用tcl脚本恢复vivado工程</a></p>
-<figure class="highlight tcl"><table><tr><td class="code"><pre><span class="line"><span class="comment">#导出工程</span></span><br><span class="line">write_project_tcl D:/Study/FPGA/Backup/backup.tcl</span><br><span class="line"></span><br><span class="line"><span class="comment">#打开工程</span></span><br><span class="line"><span class="keyword">cd</span> D:/Study/FPGA/Backup/</span><br><span class="line"><span class="comment">#source ./backup.tcl</span></span><br><span class="line"><span class="comment">#vivado -mode tcl -source FZ3B_board.tcl -tclargs --origin_dir &quot;origin_dir地址&quot;</span></span><br><span class="line">tcl -<span class="keyword">source</span> FZ3B_board.tcl -tclargs --origin_dir <span class="string">&quot;origin_dir地址&quot;</span></span><br></pre></td></tr></table></figure>
-<p><strong>注意</strong></p>
-<blockquote>
-<p>Please note that by default, the file path for the project source files were set wth respect to the ‘origin_dir’ variable in the<br>generated script. When this script is executed from the output directory, these source files will be referenced with respect to this ‘origin_dir’ path value.<br>In case this script was later moved to a different directory, the ‘origin_dir’ value must be set manually in the script with the path<br>relative to the new output directory to make sure that the source files are referenced correctly from the original project. You can also set the<br>‘origin_dir’ automatically by setting the ‘origin_dir_loc’ variable in the tcl shell before sourcing this generated script. The ‘origin_dir_loc’<br>variable should be set to the path relative to the new output directory. Alternatively, if you are sourcing the script from the Vivado command line,<br>then set the origin dir using ‘-tclargs —origin_dir ’. For example, ‘vivado -mode tcl -source FZ3B_board.tcl -tclargs —origin_dir “…”</p>
-</blockquote>
-</li>
-<li>创建自定义<a href="https://www.xilinx.com/support/documentation/sw_manuals/xilinx2020_1/ug895-vivado-system-level-design-entry.pdf#page=98">Board FIle</a><br><a href="https://www.hackster.io/mindaugas2/creating-xilinx-vivado-board-files-for-ebaz4205-a7b120">Creating Xilinx Vivado board files for EBAZ4205</a></li>
-<li>vscode插件：<a href="https://github.com/ericsonj/verilog-format">verilog-format</a></li>
-<li><a href="https://blog.csdn.net/qq_41894385/article/details/124410959">Vivado使用VSCode编辑器的各种配置：功能加持</a></li>
-<li>sublime text 插件：SublimeLinter-contrib-xsim</li>
-</ol>
-<h2 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h2><ol>
-<li><p><a href="https://blog.csdn.net/yihuajack/article/details/120830612">Xilinx Vivado卡在Initializing Language Server的解决方法</a></p>
-<blockquote>
-<p>打开 Tools -&gt; Settings -&gt; Tool Settings -&gt; Text Editor -&gt; Syntax Checking，将 Syntax checking 从 Sigasi 改为 Vivado：</p>
-</blockquote>
-</li>
-<li><p>自定义board_file:</p>
-<ol>
-<li><a href="https://www.hackster.io/mindaugas2/creating-xilinx-vivado-board-files-for-ebaz4205-a7b120">reating Xilinx Vivado board files for EBAZ4205</a></li>
-</ol>
-</li>
-<li><p><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20220117205826811.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="image-20220117205826811"></a>红框的作用参见<a href="https://www.xilinx.com/html_docs/xilinx2020_2/vitis_doc/embeddedplatforms.html">https://www.xilinx.com/html_docs/xilinx2020_2/vitis_doc/embeddedplatforms.html</a></p>
-<ul>
-<li>以前的流程<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/jek1570655725669-16424245406714.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a></li>
-<li>勾选后的流程<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/owe1570656810984-16424245992777.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/owe1570656810984-16424245992777.image" alt="img"></a></li>
-<li>区别图<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/smt1570656691809.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a><blockquote>
-<ul>
-<li>not checking the box “project is an extensible vitis platform”, you get the standard flow from previous versions of Vivado.</li>
-<li>check the box, you will be met with a radically changed flow when you try to export the platform (Export -&gt; Export Platform).</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><a href="https://blog.csdn.net/weixin_59105807/article/details/119975287">【FPGA】Vivado综合停滞、死机（PID Not Specified）解决方法</a></li>
-<li><a href="https://mp.weixin.qq.com/s?__biz=MzAxNTM2NzA0Nw==&amp;mid=2247484080&amp;idx=1&amp;sn=9b5834c1d5c5be32fac62a4089a49aac&amp;chksm=9b846c58acf3e54ee7386bb34250ad50407b3a297ba17a77f9a7cde8288e2555cbee477d358c&amp;scene=21#wechat_redirect">Modelsim安装，及其Vivado2021库编译</a></li>
-<li>Vivado添加资源一直卡进度条 <a href="https://support.xilinx.com/s/question/0D52E00006ihQm9SAE/never-ending-adding-source?language=en_US">Never ending adding source…</a></li>
-<li><a href="https://www.bilibili.com/read/cv13288042/">解决 重新启动 Vivado 设置 （文本编辑器）无法保存 会初始化</a><br><a href="https://www.bilibili.com/read/cv11751032?from=articleDetail">用VSCode代替Vivado的文本编辑器进行编辑</a></li>
-<li><a href="https://blog.csdn.net/wangfei960/article/details/125941517">Vivado仿真卡在executing analysis and compilation step阶段</a><br><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20221029173636922.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img" title="image-20221029173636922"></a></li>
-<li><p><a href="https://blog.csdn.net/sinat_31206523/article/details/103866723">解决Vivado与modelsim仿真卡在Executing analysis and compilation step</a></p>
-<blockquote>
-<p><a href="https://so.csdn.net/so/search?q=Vivado&amp;spm=1001.2101.3001.7020">Vivado</a>仿真卡在Executing analysis and compilation step循环不出去，检查是否有vivado报不出来的低级语法错误，还是不行，把sim文件里的sim_1文件删了，重新跑就好了</p>
-</blockquote>
-</li>
-<li><ul>
-<li><a href="http://www.jyguagua.com/?p=9715">ModelSim出现Unable to checkout a viewer license</a></li>
-<li><a href="https://blog.csdn.net/qq_42341984/article/details/105082502">Modelsim关联VS Code</a></li>
-</ul>
-</li>
-</ol>
-<p><a href="https://shjdgwj.github.io/d8298fbe5fcd/pic_center.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a><a href="https://blog.csdn.net/weixin_42418557/article/details/89416368">移植linux到zedboard过程中杂项错误总结</a></p>
-<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><ol>
-<li>时序逻辑赋值用 <code>&lt;=</code>，组合逻辑赋值用 <code>=</code><blockquote>
-<p>1： 当为<strong>时序</strong>逻辑建模，使用“非阻塞赋值”。<br>2： 当为 <strong>锁存器</strong> (latch) 建模，使用“非阻塞赋值”。<br>3： 当用always块为<strong>组合</strong>逻辑建模，使用“阻塞赋值”<br>4： 当在同一个always块里面既为组合逻辑又为时序逻辑建模，使用“非阻塞赋值”。<br>5： 不要在同一个always块里面<strong>混合</strong>使用“阻塞赋值”和“非阻塞赋值”。<br>6： 不要在<strong>两个或两个以上</strong>always块里面对同一个变量进行赋值。<br>7： 使用$strobe以显示已被“非阻塞赋值”的值。<br>8： 不要使用＃0延迟的赋值。</p>
-</blockquote>
-</li>
-<li>敏感信号表:所有的右边表达式中的变量以及if,case条件中的变量</li>
-<li>if/else要配对以避免latch（锁存器）的产生，同样的case语句加default语句</li>
-<li>状态机（fsm）：<ol>
-<li>使用独热码，每个状态只有一个寄存器置位，译码逻辑简单</li>
-<li>三段式可以在组合逻辑后再增加一级寄存器来实现时序逻辑输出:<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20220116144516055.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img" title="image-20220116144516055"></a><ul>
-<li>可以有效地滤去组合逻辑输出的毛刺</li>
-<li>可以有效地进行时序计算与约束</li>
-<li>另外对于总线形式的输出信号来说，容易使总线数据对齐,从而减小总线数据间的偏移，减小接收端数据采样出错的频率。</li>
-</ul>
-</li>
-</ol>
-</li>
-</ol>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://shjdgwj.github.io/d8298fbe5fcd/">ZYNQ学习笔记</a></p>
-]]></content>
-      <categories>
-        <category>ZYNQ</category>
-      </categories>
-      <tags>
-        <tag>7010</tag>
       </tags>
   </entry>
   <entry>
@@ -753,6 +557,207 @@
       </tags>
   </entry>
   <entry>
+    <title>RK3588_in_ROCK5</title>
+    <url>/2022/12/10/RK3588-in-ROCK5/</url>
+    <content><![CDATA[<p>以Rock5B为例的rk3588开发文档，不断更新ing<br><span id="more"></span></p>
+<h1 id="性能参考"><a href="#性能参考" class="headerlink" title="性能参考"></a>性能参考</h1><p><a href="https://browser.geekbench.com/v5/cpu/18817954">https://browser.geekbench.com/v5/cpu/18817954</a><br><a href="https://shjdgwj.github.io/14733f4e12d9/image-20221123144235521.png"><img src="https://shjdgwj.github.io/14733f4e12d9/image-20221123144235521.png" alt="img" title="image-20221123144235521"></a></p>
+<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><h2 id="抽奖"><a href="#抽奖" class="headerlink" title="抽奖"></a>抽奖</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for i in `seq 0 7`; do echo ========cpu$i;cat /sys/bus/cpu/devices/cpu$&#123;i&#125;/cpufreq/scaling_max_freq; done</span><br><span class="line">sudo sed -i &quot;s|focal|jammy|g&quot; /etc/apt/sources.list &amp;&amp; sudo apt update &amp;&amp; sudo apt dist-upgrade &amp;&amp; sudo reboot</span><br><span class="line">cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq</span><br><span class="line">lscpu | grep MHz #pytm-volt-sel 越大越好</span><br><span class="line">dmesg | grep -i pvtm</span><br><span class="line">dmesg | grep -E &#x27;pvtm|dmc&#x27; | grep sel</span><br></pre></td></tr></table></figure>
+<p>   <a href="https://shjdgwj.github.io/14733f4e12d9/image-20221026213053527.png"><img src="https://shjdgwj.github.io/14733f4e12d9/image-20221026213053527.png" alt="img" title="image-20221026213053527"></a></p>
+<h2 id="中文"><a href="#中文" class="headerlink" title="中文"></a>中文</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install locales</span><br><span class="line">sudo apt install  fonts-noto-cjk fonts-noto-cjk-extra</span><br><span class="line">sudo dpkg-reconfigure locales </span><br></pre></td></tr></table></figure>
+<p>   选 en_US UTF-8 和 zh_CN UTF, 设置默认locales 为 en_us</p>
+<h2 id="工具箱"><a href="#工具箱" class="headerlink" title="工具箱"></a>工具箱</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wget -O rockpi5.sh https://uwp.cc/s/board/rockpi5.sh </span><br><span class="line">sudo chmod +x rockpi5.sh</span><br><span class="line">sudo ./rockpi5.sh</span><br></pre></td></tr></table></figure>
+<h2 id="PD协商电压-温度"><a href="#PD协商电压-温度" class="headerlink" title="PD协商电压 温度"></a>PD协商电压 温度</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install lm-sensors</span><br><span class="line">sensors</span><br></pre></td></tr></table></figure>
+<h2 id="编译和网络校时"><a href="#编译和网络校时" class="headerlink" title="编译和网络校时"></a>编译和网络校时</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install build-essential #编译</span><br><span class="line">sudo apt install ntp#网络校时</span><br></pre></td></tr></table></figure>
+<h2 id="Armbian上使用3D加速驱动"><a href="#Armbian上使用3D加速驱动" class="headerlink" title="Armbian上使用3D加速驱动"></a>Armbian上使用3D加速驱动</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository ppa:liujianfeng1994/panfork-mesa</span><br><span class="line">sudo add-apt-repository ppa:liujianfeng1994/rockchip-multimedia</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt dist-upgrade</span><br></pre></td></tr></table></figure>
+<p>操作文档:<a href="https://launchpad.net/~liujianfeng1994/+archive/ubuntu/rockchip-multimedia">PPA description</a></p>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="查看温度"><a href="#查看温度" class="headerlink" title="查看温度"></a>查看温度</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">echo $[$(cat /sys/class/thermal/thermal_zone0/temp)/1000]°</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="Rock-5B-本地编译要点说明"><a href="#Rock-5B-本地编译要点说明" class="headerlink" title="Rock 5B 本地编译要点说明"></a>Rock 5B 本地编译要点说明</h2><p>   最重要的差别是 ： （阿超哥的方法 ）检测编译环境，如果是在 arm64上编译的话，就去掉ARCH 和 CROSS_COMPILE 交叉编译变量 build/board_configs.sh 最后面加上这几行：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">build on native arm64</span></span><br><span class="line">if [ &quot;X$(uname -m)&quot; == &quot;Xaarch64&quot; -a &quot;X$&#123;ARCH&#125;&quot; == &quot;Xarm64&quot; ]; then</span><br><span class="line">    unset ARCH</span><br><span class="line">    unset CROSS_COMPILE</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<ul>
+<li>主要参考是官方wiki：<a href="https://wiki.radxa.com/Rock5/guide/build-debian-from-debos-radxa">https://wiki.radxa.com/Rock5/guide/build-debian-from-debos-radxa</a> （这里原文是跨平台交叉编译）</li>
+<li>在工具链这里，不需要 安装跨平台工具链 gcc-arm-10.3<strong>*</strong> ，只要本地安装 gcc 及配套工具（ sudo apt-get install gcc xxx)</li>
+<li>其他按官方顺序执行命令<br>注意：u-boot 和kernel有配置好的config，只要按官方分别执行对应的 ./build/mk-uboot.sh rk3588-rock-5b 或 ./build/mk-kernel.sh rk3588-rock-5b</li>
+</ul>
+<h2 id="exFAT"><a href="#exFAT" class="headerlink" title="exFAT"></a>exFAT</h2><p>   安装exfat fuse</p>
+<h2 id="kubesphere-3-3-1"><a href="#kubesphere-3-3-1" class="headerlink" title="kubesphere 3.3.1"></a>kubesphere 3.3.1</h2><p>   步骤1：更换内核<br>   因为 Radxa 官方内核现在不支持，暂时需要更换内核：<br>   <a href="https://github.com/ihexon/rock5b_kernel/releases">https://github.com/ihexon/rock5b_kernel/releases</a><br>   步骤2：根据 KubeSphere 官方文档安装<br>   <a href="https://kubesphere.com.cn/docs/v3.3/quick-start/all-in-one-on-linux/">https://kubesphere.com.cn/docs/v3.3/quick-start/all-in-one-on-linux/</a><br>   步骤3：修补 KubeSphere 开源版暂不支持的 arm64 镜像</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">defaultbackend</span></span><br><span class="line">sudo docker pull playgali/defaultbackend</span><br><span class="line">sudo docker tag playgali/defaultbackend mirrorgooglecontainers/defaultbackend-amd64:1.4</span><br></pre></td></tr></table></figure>
+<h2 id="硬件驱动"><a href="#硬件驱动" class="headerlink" title="硬件驱动"></a>硬件驱动</h2><p>   <a href="https://github.com/happyme531/Adafruit_Blinka/commits/rk3588-rock-5">https://github.com/happyme531/Adafruit_Blinka/commits/rk3588-rock-5</a><br>   rock5 gpio i2c spi pwm 串口 adc 全部适配完成</p>
+<h2 id="wifi"><a href="#wifi" class="headerlink" title="wifi"></a>wifi</h2><pre><code>使用`nmtui`命令
+
+注意Security选择 WPA &amp; WPA2 Personal
+</code></pre><h2 id="KDE桌面"><a href="#KDE桌面" class="headerlink" title="KDE桌面"></a>KDE桌面</h2><p>   <a href="https://forum.armbian.com/topic/10526-using-different-desktop-environments-on-armbian/">Using different desktop environments on Armbian</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装KDE桌面</span></span><br><span class="line">sudo add-apt-repository ppa:kubuntu-ppa/backports</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y kubuntu-desktop</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改默认桌面</span></span><br><span class="line">cd /usr/share/xsessions</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">看到有ubuntu.desktop  ubuntu-xorg.desktop</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">后面还不会改</span></span><br></pre></td></tr></table></figure>
+<h2 id="安卓root"><a href="#安卓root" class="headerlink" title="安卓root"></a>安卓root</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">备份boot</span> </span><br><span class="line">dd if=/dev/block/nvme0n1p5 of=/storage/emulated/0/mod.img</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">刷入boot</span> </span><br><span class="line">dd if=/storage/emulated/0/mod.img of=dev/block/nvme0n1p5</span><br><span class="line"> sync</span><br><span class="line"> reboot</span><br></pre></td></tr></table></figure>
+<h2 id="EMMC镜像备份导出方法"><a href="#EMMC镜像备份导出方法" class="headerlink" title="EMMC镜像备份导出方法"></a>EMMC镜像备份导出方法</h2><p>用户基于我们发布是镜像系统，安装软件或进行其他配置之后，如果想备份系统，有很多方法可以实现，我这里提供一个比较简单的思路供大家参考。</p>
+<p>前置条件：</p>
+<p>假如您手边有一张已经做好系统的TF卡<br>各种改动后的EMMC系统<br>核心操作步骤：</p>
+<p>从EMMC启动系统，登陆桌面并打开终端命令行更改卷标</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">sudo su</span><br><span class="line">fatlabel /dev/mmcblk0p1 emmc-boot</span><br><span class="line">e2label /dev/mmcblk0p2 emmc-rootfs</span><br><span class="line"></span><br><span class="line">vim /boot/firmware/cmdline.txt</span><br><span class="line">将writable替换为emmc-rootfs  然后保存退出</span><br><span class="line"></span><br><span class="line">vim /etc/fstab</span><br><span class="line">将writable替换为emmc-rootfs  然后保存退出</span><br><span class="line"></span><br><span class="line">sync;</span><br></pre></td></tr></table></figure>
+<p>插入TF卡，重启系统</p>
+<p>默认优先从TF卡引导系统，进入系统之后，可以挂载EMMC分区进行备份压缩</p>
+<h2 id="Docker-运行openwrt"><a href="#Docker-运行openwrt" class="headerlink" title="Docker 运行openwrt"></a>Docker 运行openwrt</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">开启网卡混杂模式</span><br><span class="line">sudo ip link set eth0 promisc on</span><br><span class="line"></span><br><span class="line">创建docker网卡</span><br><span class="line">docker network create -d macvlan --subnet=192.168.1.0/24 --gateway=192.168.1.1 -o parent=eth0 macnet</span><br><span class="line"></span><br><span class="line">查看docker网卡</span><br><span class="line">docker network list</span><br><span class="line"></span><br><span class="line">项目地址https://github.com/SuLingGG/OpenWrt-Docker</span><br><span class="line">查看自己的系统的架构</span><br><span class="line">uname -a</span><br><span class="line"></span><br><span class="line">创建并启动docker镜像</span><br><span class="line">docker run --restart always --name openwrt -d --network macnet --privileged sulinggg/openwrt:armv8 /sbin/init</span><br><span class="line"></span><br><span class="line">docker给普通用户权限</span><br><span class="line">先查看一下默认这个文件/var/run/docker.sock的权限是啥</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo <span class="built_in">ls</span> -al /var/run/docker.sock</span></span><br><span class="line">srw-rw---- 1 root root 0 Feb 15 03:13 /var/run/docker.sock</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改文件权限</span></span><br><span class="line">sudo chmod 666 /var/run/docker.sock</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改后，再查看一下这个文件的权限</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo <span class="built_in">ls</span> -al /var/run/docker.sock</span></span><br><span class="line"></span><br><span class="line">srw-rw-rw- 1 root root 0 Feb 15 03:14 /var/run/docker.sock</span><br><span class="line"></span><br><span class="line">进入bash终端修改ip</span><br><span class="line">vim /etc/config/network</span><br><span class="line">将后面三项改成自己的ip</span><br><span class="line"></span><br><span class="line">重启openwrt网络</span><br><span class="line">/etc/init.d/network restart</span><br><span class="line"></span><br><span class="line">直接浏览器访问刚刚设置的ip</span><br><span class="line">密码默认passwd</span><br><span class="line"></span><br><span class="line">在网络LAN口中关闭桥接接口</span><br><span class="line"></span><br><span class="line">网络防火墙自定义规则中添加</span><br><span class="line">iptables -t nat -I POSTROUTING -j MASQUERADE</span><br><span class="line"></span><br><span class="line">在网络Turbo ACC网络加速中勾选DNS缓存</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h1><ol>
+<li><a href="http://www.zphj1987.com/rock5b-ke-yi-yun-xing-deuos-ca.html">rock5b uos</a></li>
+<li>rock5b专用内核：完美收官，对应源码已上传：<br><a href="https://github.com/unifreq/linux-rock5b">https://github.com/unifreq/linux-rock5b</a><br>允许全频率（电压超至1.1v, 默认未开）<br>开启方法：<br>nano /boot/armbianEnv.txt<br>把overlays=uart7-m2改为overlays=uart7-m2 [空格] full-cpufreq</li>
+<li>Rock5b Openwrt固件：采用5.10.149内核，并支持nvme（已测试）或usb启动（未测试）。<br>如果需要nvme或usb启动，必须要先刷入spi 的bootloader, 用前两天发的 bootloader包：<br>rock5b-bootloader_20221017.tar.gz<br><a href="https://t.me/openwrt_flippy/3464">https://t.me/openwrt_flippy/3464</a><br>用法：<ol>
+<li>先刷入TF卡启动成功后，把img镜像上传到 /mnt/mmcblk0p4</li>
+<li>进入TF卡里的openwrt,运行命令：<br>cd /mnt/mmcblk0p4<br>dd if=openwrt-xxxxxx.img of=/dev/nvme0n1 bs=1M conv=fsync</li>
+<li>然后关机，把TF卡拔掉再开机即可。</li>
+<li>用同一个镜像写的TF卡固件和nvme固件由于UUID相同，如果再重新插上TF卡启动会有问题，TF和nvme采用不同版本的固件就没问题。</li>
+</ol>
+</li>
+<li>官方镜像用户名密码 rock @rock</li>
+<li><blockquote>
+<p>目前我看到的并且我自己试过的各种镜像，我总结一下，咱们群里用的各种rock5b镜像主要是有四个来源：</p>
+<p>1、radxa官方发出的debian、ubuntu和安卓，已经有半个月没更新了，debian和ubuntu可以直接装obs，但没有mali驱动之类的，不能用gpu</p>
+<p>2、armbian官方社区发出的armbian，尤其是sid的那个，但armbian官方社区也已经有半个多月没更新了，我试过记得也可以直接装obs，但也没有mali驱动之类的，不能用gpu</p>
+<p>3、咱们群里有lost in utopia这位大佬，整合出来mali驱动，可以用gpu，并且这位大佬在3天前又发出自带mali驱动可以开箱即用的armbian镜像，桌面是gnome，doom3可以全特效平均跑40帧，但不能直接装obs</p>
+<p><a href="https://github.com/amazingfate/armbian-rock5b-images/releases">https://github.com/amazingfate/armbian-rock5b-images/releases</a></p>
+<p>4、咱们群里还有StatusHeadcrabed这位大佬， 也发出自带mali驱动可以开箱即用的armbian镜像，桌面是gnome和kde，doom3可以全特效平均跑40帧，但不能直接装obs</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="驱动"><a href="#驱动" class="headerlink" title="驱动"></a>驱动</h1><ol>
+<li>RTL8852be<br>下载<a href="https://github.com/armbian/firmware/blob/master/rtl8852bu_fw">rtl8852bu_fw.bin</a>放进/lib/firmware/realtek</li>
+<li><p>显卡GPU</p>
+<ul>
+<li><a href="https://icecream95.gitlab.io/fun-with-csf-firmware.html">Fun with CSF firmware</a></li>
+<li><p><a href="https://gitlab.com/panfork/mesa/">mesa</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository ppa:liujianfeng1994/panfork-mesa</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install libgl1-mesa-dri</span><br><span class="line">sudo apt-cache policy  libgl1-mesa-dri</span><br><span class="line">sudo apt install mesa*</span><br></pre></td></tr></table></figure></li>
+<li><a href="https://gitlab.com/panfork/panfwost">panfwost</a></li>
+</ul>
+</li>
+</ol>
+<h2 id="参考资料链接"><a href="#参考资料链接" class="headerlink" title="参考资料链接"></a>参考资料链接</h2>]]></content>
+      <categories>
+        <category>LINUX</category>
+      </categories>
+      <tags>
+        <tag>ROCK5B</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ZYNQ-in-7010</title>
+    <url>/2022/12/13/ZYNQ-in-7010/</url>
+    <content><![CDATA[<p>个人关于ZYNQ的一些开发学习文档，以小熊猫的ZYNQ7010为例，不断更新ing<br><span id="more"></span></p>
+<h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><ol>
+<li><a href="https://github.com/LeiWang1999/FPGA">FPGA资料大全</a></li>
+<li><a href="https://www.runoob.com/w3cnote/verilog-tutorial.html">菜鸟教程Verilog 教程</a></li>
+<li><a href="https://verilogoj.ustc.edu.cn/oj/">https://verilogoj.ustc.edu.cn/oj/</a></li>
+<li><a href="https://www.zhihu.com/answer/2291310107">知乎</a></li>
+<li><p>正点原子视频教程</p>
+<ul>
+<li>启明星V2第一期：<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a href="https://www.bilibili.com/video/BV1XU4y1M7nw/?spm_id_from=333.788.video.desc.click">BV1XU4y1M7nw</a>?spm_id_from=333.999.0.0</li>
+<li>领航者V2第一期：<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a href="https://www.bilibili.com/video/BV1hP4y1L73N/?spm_id_from=333.788.video.desc.click">BV1hP4y1L73N</a>?spm_id_from=333.999.0.0</li>
+<li>第二期：<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a href="https://www.bilibili.com/video/BV1Hq4y1u7qH/?spm_id_from=333.788.video.desc.click">BV1Hq4y1u7qH</a>?spm_id_from=333.999.0.0</li>
+<li>第三期：<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a href="https://www.bilibili.com/video/BV1qz4y1d7pF/?spm_id_from=333.788.video.desc.click">BV1qz4y1d7pF</a>?spm_id_from=333.999.0.0</li>
+</ul>
+</li>
+<li><a href="https://zhuanlan.zhihu.com/c_1131528588117385216">Verilog练习网站HDLBits</a></li>
+</ol>
+<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ol>
+<li><a href="https://www.jianshu.com/p/e3695489a958">VMware ubuntu压缩虚拟磁盘</a></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install open-vm-tools</span><br><span class="line">sudo vmware-toolbox-cmd disk shrink /</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#虚拟机</span></span><br><span class="line"><span class="comment">#开启自动扩容时禁用</span></span><br><span class="line"><span class="built_in">cat</span> /dev/zero &gt; zero.fill</span><br><span class="line"><span class="built_in">rm</span> -f zero.fill</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">主机</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如我的VMware安装在F盘，在windows的命令行中：</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">F:\&gt;<span class="built_in">cd</span> VMware</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">F:\VMware&gt;vmware-vdiskmanager.exe -k <span class="string">&quot;F:\UbuntuVMware\Ubuntu1804\Ubuntu 64-bit.vmdk&quot;</span></span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><a href="https://blog.csdn.net/u011198687/article/details/121713992">VMware虚拟机扩展Ubuntu系统磁盘空间</a></li>
+<li><a href="https://blog.csdn.net/weixin_45787652/article/details/109525269">完美解决虚拟机占用硬盘越来越大、删除快照出现内存不足错误</a></li>
+<li><a href="https://www.freesion.com/article/8548584805/">PETALINUX安装过程中遇到的坑【PETALINUX2018.3基于UBUNTU16.04.4（64-BIT）】</a></li>
+<li><a href="https://blog.csdn.net/weixin_44882546/article/details/116068157">使用vitis开发Linux应用程序</a></li>
+</ol>
+<h1 id="Vivado"><a href="#Vivado" class="headerlink" title="Vivado"></a>Vivado</h1><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
+<li><a href="https://zhuanlan.zhihu.com/p/365805011">FPGA Develop Support 使用手册-version 0.1.18</a></li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/378739805">用Vscode代替Vivado原生编辑器</a></p>
+<blockquote>
+<p>D:/Program Files/Microsoft VS Code/Code.exe -g [file name]:[line number]</p>
+<p>D:/Program Files/Microsoft VS Code/Code.exe —disable-features=CalculateNativeWinOcclusion -g [file name]:[line number]</p>
+<p>D:/Program Files/Sublime Text/sublime_text.exe [file name] -l[line number]</p>
+</blockquote>
+</li>
+<li><a href="https://blog.csdn.net/weixin_42905573/article/details/106247887">【超实用】一分钟学会如何用最小存储空间保存Vivado工程！</a></li>
+<li><p><a href="https://blog.csdn.net/jingjiankai5228/article/details/113074220">vivado工程保存为tcl脚本及用tcl脚本恢复vivado工程</a></p>
+<figure class="highlight tcl"><table><tr><td class="code"><pre><span class="line"><span class="comment">#导出工程</span></span><br><span class="line">write_project_tcl D:/Study/FPGA/Backup/backup.tcl</span><br><span class="line"></span><br><span class="line"><span class="comment">#打开工程</span></span><br><span class="line"><span class="keyword">cd</span> D:/Study/FPGA/Backup/</span><br><span class="line"><span class="comment">#source ./backup.tcl</span></span><br><span class="line"><span class="comment">#vivado -mode tcl -source FZ3B_board.tcl -tclargs --origin_dir &quot;origin_dir地址&quot;</span></span><br><span class="line">tcl -<span class="keyword">source</span> FZ3B_board.tcl -tclargs --origin_dir <span class="string">&quot;origin_dir地址&quot;</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong></p>
+<blockquote>
+<p>Please note that by default, the file path for the project source files were set wth respect to the ‘origin_dir’ variable in the<br>generated script. When this script is executed from the output directory, these source files will be referenced with respect to this ‘origin_dir’ path value.<br>In case this script was later moved to a different directory, the ‘origin_dir’ value must be set manually in the script with the path<br>relative to the new output directory to make sure that the source files are referenced correctly from the original project. You can also set the<br>‘origin_dir’ automatically by setting the ‘origin_dir_loc’ variable in the tcl shell before sourcing this generated script. The ‘origin_dir_loc’<br>variable should be set to the path relative to the new output directory. Alternatively, if you are sourcing the script from the Vivado command line,<br>then set the origin dir using ‘-tclargs —origin_dir ’. For example, ‘vivado -mode tcl -source FZ3B_board.tcl -tclargs —origin_dir “…”</p>
+</blockquote>
+</li>
+<li>创建自定义<a href="https://www.xilinx.com/support/documentation/sw_manuals/xilinx2020_1/ug895-vivado-system-level-design-entry.pdf#page=98">Board FIle</a><br><a href="https://www.hackster.io/mindaugas2/creating-xilinx-vivado-board-files-for-ebaz4205-a7b120">Creating Xilinx Vivado board files for EBAZ4205</a></li>
+<li>vscode插件：<a href="https://github.com/ericsonj/verilog-format">verilog-format</a></li>
+<li><a href="https://blog.csdn.net/qq_41894385/article/details/124410959">Vivado使用VSCode编辑器的各种配置：功能加持</a></li>
+<li>sublime text 插件：SublimeLinter-contrib-xsim</li>
+</ol>
+<h2 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h2><ol>
+<li><p><a href="https://blog.csdn.net/yihuajack/article/details/120830612">Xilinx Vivado卡在Initializing Language Server的解决方法</a></p>
+<blockquote>
+<p>打开 Tools -&gt; Settings -&gt; Tool Settings -&gt; Text Editor -&gt; Syntax Checking，将 Syntax checking 从 Sigasi 改为 Vivado：</p>
+</blockquote>
+</li>
+<li><p>自定义board_file:</p>
+<ol>
+<li><a href="https://www.hackster.io/mindaugas2/creating-xilinx-vivado-board-files-for-ebaz4205-a7b120">reating Xilinx Vivado board files for EBAZ4205</a></li>
+</ol>
+</li>
+<li><p><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20220117205826811.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="image-20220117205826811"></a>红框的作用参见<a href="https://www.xilinx.com/html_docs/xilinx2020_2/vitis_doc/embeddedplatforms.html">https://www.xilinx.com/html_docs/xilinx2020_2/vitis_doc/embeddedplatforms.html</a></p>
+<ul>
+<li>以前的流程<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/jek1570655725669-16424245406714.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a></li>
+<li>勾选后的流程<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/owe1570656810984-16424245992777.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/owe1570656810984-16424245992777.image" alt="img"></a></li>
+<li>区别图<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/smt1570656691809.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a><blockquote>
+<ul>
+<li>not checking the box “project is an extensible vitis platform”, you get the standard flow from previous versions of Vivado.</li>
+<li>check the box, you will be met with a radically changed flow when you try to export the platform (Export -&gt; Export Platform).</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><a href="https://blog.csdn.net/weixin_59105807/article/details/119975287">【FPGA】Vivado综合停滞、死机（PID Not Specified）解决方法</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzAxNTM2NzA0Nw==&amp;mid=2247484080&amp;idx=1&amp;sn=9b5834c1d5c5be32fac62a4089a49aac&amp;chksm=9b846c58acf3e54ee7386bb34250ad50407b3a297ba17a77f9a7cde8288e2555cbee477d358c&amp;scene=21#wechat_redirect">Modelsim安装，及其Vivado2021库编译</a></li>
+<li>Vivado添加资源一直卡进度条 <a href="https://support.xilinx.com/s/question/0D52E00006ihQm9SAE/never-ending-adding-source?language=en_US">Never ending adding source…</a></li>
+<li><a href="https://www.bilibili.com/read/cv13288042/">解决 重新启动 Vivado 设置 （文本编辑器）无法保存 会初始化</a><br><a href="https://www.bilibili.com/read/cv11751032?from=articleDetail">用VSCode代替Vivado的文本编辑器进行编辑</a></li>
+<li><a href="https://blog.csdn.net/wangfei960/article/details/125941517">Vivado仿真卡在executing analysis and compilation step阶段</a><br><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20221029173636922.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img" title="image-20221029173636922"></a></li>
+<li><p><a href="https://blog.csdn.net/sinat_31206523/article/details/103866723">解决Vivado与modelsim仿真卡在Executing analysis and compilation step</a></p>
+<blockquote>
+<p><a href="https://so.csdn.net/so/search?q=Vivado&amp;spm=1001.2101.3001.7020">Vivado</a>仿真卡在Executing analysis and compilation step循环不出去，检查是否有vivado报不出来的低级语法错误，还是不行，把sim文件里的sim_1文件删了，重新跑就好了</p>
+</blockquote>
+</li>
+<li><ul>
+<li><a href="http://www.jyguagua.com/?p=9715">ModelSim出现Unable to checkout a viewer license</a></li>
+<li><a href="https://blog.csdn.net/qq_42341984/article/details/105082502">Modelsim关联VS Code</a></li>
+</ul>
+</li>
+</ol>
+<p><a href="https://shjdgwj.github.io/d8298fbe5fcd/pic_center.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a><a href="https://blog.csdn.net/weixin_42418557/article/details/89416368">移植linux到zedboard过程中杂项错误总结</a></p>
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><ol>
+<li>时序逻辑赋值用 <code>&lt;=</code>，组合逻辑赋值用 <code>=</code><blockquote>
+<p>1： 当为<strong>时序</strong>逻辑建模，使用“非阻塞赋值”。<br>2： 当为 <strong>锁存器</strong> (latch) 建模，使用“非阻塞赋值”。<br>3： 当用always块为<strong>组合</strong>逻辑建模，使用“阻塞赋值”<br>4： 当在同一个always块里面既为组合逻辑又为时序逻辑建模，使用“非阻塞赋值”。<br>5： 不要在同一个always块里面<strong>混合</strong>使用“阻塞赋值”和“非阻塞赋值”。<br>6： 不要在<strong>两个或两个以上</strong>always块里面对同一个变量进行赋值。<br>7： 使用$strobe以显示已被“非阻塞赋值”的值。<br>8： 不要使用＃0延迟的赋值。</p>
+</blockquote>
+</li>
+<li>敏感信号表:所有的右边表达式中的变量以及if,case条件中的变量</li>
+<li>if/else要配对以避免latch（锁存器）的产生，同样的case语句加default语句</li>
+<li>状态机（fsm）：<ol>
+<li>使用独热码，每个状态只有一个寄存器置位，译码逻辑简单</li>
+<li>三段式可以在组合逻辑后再增加一级寄存器来实现时序逻辑输出:<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20220116144516055.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img" title="image-20220116144516055"></a><ul>
+<li>可以有效地滤去组合逻辑输出的毛刺</li>
+<li>可以有效地进行时序计算与约束</li>
+<li>另外对于总线形式的输出信号来说，容易使总线数据对齐,从而减小总线数据间的偏移，减小接收端数据采样出错的频率。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://shjdgwj.github.io/d8298fbe5fcd/">ZYNQ学习笔记</a></p>
+]]></content>
+      <categories>
+        <category>ZYNQ</category>
+      </categories>
+      <tags>
+        <tag>7010</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>win11_update</title>
     <url>/2023/01/20/win11-update/</url>
     <content><![CDATA[<p>win11针对联想等机器的部分更新推送会被取消，且由于一些杀毒软件的系统修复功能，会导致win11无法获得更新，从而使得win11更新卡在某个版本。针对个人使用win11遇到的一些bug进行总结，不断更新ing</p>
@@ -792,6 +797,7 @@
 <h2 id="设置移动IPV6公网IP"><a href="#设置移动IPV6公网IP" class="headerlink" title="设置移动IPV6公网IP"></a>设置移动IPV6公网IP</h2><h3 id="第一步：设置光猫（需支持IPV6）"><a href="#第一步：设置光猫（需支持IPV6）" class="headerlink" title="第一步：设置光猫（需支持IPV6）"></a>第一步：设置光猫（需支持IPV6）</h3><p>登录光猫后台，设置网络为IPV4&amp;IPV6，关闭IPV6防火墙，便于外网访问内网</p>
 <h3 id="第二步：设置路由器（需支持IPV6）"><a href="#第二步：设置路由器（需支持IPV6）" class="headerlink" title="第二步：设置路由器（需支持IPV6）"></a>第二步：设置路由器（需支持IPV6）</h3><p>登录路由器后台，在基本设置里面开启IPV6即可。</p>
 <h3 id="第三步：验证"><a href="#第三步：验证" class="headerlink" title="第三步：验证"></a>第三步：验证</h3><p>1.电脑或手机连接路由器，设置DMZ。<br>2.打开浏览器输入test—ipv6.com即可</p>
+<h3 id="小米路由器开启外网ssh"><a href="#小米路由器开启外网ssh" class="headerlink" title="小米路由器开启外网ssh"></a>小米路由器开启外网ssh</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd /       //回到根目录</span><br><span class="line">vi /etc/config/firewall       //编辑防火墙配置</span><br><span class="line"></span><br><span class="line">添加以下代码</span><br><span class="line">config redirect &#x27;Myssh&#x27;                                         </span><br><span class="line">        option src &#x27;wan&#x27;                                        </span><br><span class="line">        option src_dport &#x27;2345&#x27;                                </span><br><span class="line">        option dest &#x27;lan&#x27;                                       </span><br><span class="line">        option dest_port &#x27;22&#x27;                                   </span><br><span class="line">        option proto &#x27;tcp&#x27;</span><br></pre></td></tr></table></figure>
 <h1 id="网路运营商"><a href="#网路运营商" class="headerlink" title="网路运营商"></a>网路运营商</h1><p>电信：提供IPV4公网IP，需要申请<br>移动：不提供IPV4公网IP，但提供IPV6公网地址，不需要申请，只需要手动配置一下就行，参照前面的教程</p>
 ]]></content>
       <categories>
