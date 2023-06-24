@@ -20,22 +20,16 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"efault"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="个人关于ZYNQ的一些开发学习文档，以小熊猫的ZYNQ7010为例，不断更新ing">
+  <meta name="description" content="个人关于ZYNQ的一些开发学习文档，以小熊猫的ZYNQ7010和Smart 7020 SP为例，不断更新ing">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ZYNQ-in-7010">
 <meta property="og:url" content="http://example.com/2022/12/13/ZYNQ-in-7010/index.html">
 <meta property="og:site_name" content="Wishzone">
-<meta property="og:description" content="个人关于ZYNQ的一些开发学习文档，以小熊猫的ZYNQ7010为例，不断更新ing">
+<meta property="og:description" content="个人关于ZYNQ的一些开发学习文档，以小熊猫的ZYNQ7010和Smart 7020 SP为例，不断更新ing">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif">
-<meta property="og:image" content="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif">
-<meta property="og:image" content="https://shjdgwj.github.io/d8298fbe5fcd/owe1570656810984-16424245992777.image">
-<meta property="og:image" content="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif">
-<meta property="og:image" content="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif">
-<meta property="og:image" content="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif">
-<meta property="og:image" content="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif">
 <meta property="article:published_time" content="2022-12-13T10:12:43.000Z">
-<meta property="article:modified_time" content="2023-03-15T02:20:30.000Z">
+<meta property="article:modified_time" content="2023-06-24T09:56:25.900Z">
 <meta property="article:author" content="Wishzone">
 <meta property="article:tag" content="7010">
 <meta name="twitter:card" content="summary">
@@ -238,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-15 10:20:30" itemprop="dateModified" datetime="2023-03-15T10:20:30+08:00">2023-03-15</time>
+                <time title="修改时间：2023-06-24 17:56:25" itemprop="dateModified" datetime="2023-06-24T17:56:25+08:00">2023-06-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -261,102 +255,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>个人关于ZYNQ的一些开发学习文档，以小熊猫的ZYNQ7010为例，不断更新ing<br><span id="more"></span></p>
-<h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><ol>
-<li><a target="_blank" rel="noopener" href="https://github.com/LeiWang1999/FPGA">FPGA资料大全</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/verilog-tutorial.html">菜鸟教程Verilog 教程</a></li>
-<li><a target="_blank" rel="noopener" href="https://verilogoj.ustc.edu.cn/oj/">https://verilogoj.ustc.edu.cn/oj/</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/answer/2291310107">知乎</a></li>
-<li><p>正点原子视频教程</p>
-<ul>
-<li>启明星V2第一期：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1XU4y1M7nw/?spm_id_from=333.788.video.desc.click">BV1XU4y1M7nw</a>?spm_id_from=333.999.0.0</li>
-<li>领航者V2第一期：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1hP4y1L73N/?spm_id_from=333.788.video.desc.click">BV1hP4y1L73N</a>?spm_id_from=333.999.0.0</li>
-<li>第二期：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Hq4y1u7qH/?spm_id_from=333.788.video.desc.click">BV1Hq4y1u7qH</a>?spm_id_from=333.999.0.0</li>
-<li>第三期：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1qz4y1d7pF/?spm_id_from=333.788.video.desc.click">BV1qz4y1d7pF</a>?spm_id_from=333.999.0.0</li>
-</ul>
-</li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/c_1131528588117385216">Verilog练习网站HDLBits</a></li>
-</ol>
-<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e3695489a958">VMware ubuntu压缩虚拟磁盘</a></li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install open-vm-tools</span><br><span class="line">sudo vmware-toolbox-cmd disk shrink /</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#虚拟机</span></span><br><span class="line"><span class="comment">#开启自动扩容时禁用</span></span><br><span class="line"><span class="built_in">cat</span> /dev/zero &gt; zero.fill</span><br><span class="line"><span class="built_in">rm</span> -f zero.fill</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">主机</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如我的VMware安装在F盘，在windows的命令行中：</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">F:\&gt;<span class="built_in">cd</span> VMware</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">F:\VMware&gt;vmware-vdiskmanager.exe -k <span class="string">&quot;F:\UbuntuVMware\Ubuntu1804\Ubuntu 64-bit.vmdk&quot;</span></span></span><br></pre></td></tr></table></figure>
-<ol>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u011198687/article/details/121713992">VMware虚拟机扩展Ubuntu系统磁盘空间</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45787652/article/details/109525269">完美解决虚拟机占用硬盘越来越大、删除快照出现内存不足错误</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.freesion.com/article/8548584805/">PETALINUX安装过程中遇到的坑【PETALINUX2018.3基于UBUNTU16.04.4（64-BIT）】</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44882546/article/details/116068157">使用vitis开发Linux应用程序</a></li>
-</ol>
-<h1 id="Vivado"><a href="#Vivado" class="headerlink" title="Vivado"></a>Vivado</h1><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/365805011">FPGA Develop Support 使用手册-version 0.1.18</a></li>
-<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/378739805">用Vscode代替Vivado原生编辑器</a></p>
-<blockquote>
-<p>D:/Program Files/Microsoft VS Code/Code.exe -g [file name]:[line number]</p>
-<p>D:/Program Files/Microsoft VS Code/Code.exe —disable-features=CalculateNativeWinOcclusion -g [file name]:[line number]</p>
-<p>D:/Program Files/Sublime Text/sublime_text.exe [file name] -l[line number]</p>
-</blockquote>
-</li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42905573/article/details/106247887">【超实用】一分钟学会如何用最小存储空间保存Vivado工程！</a></li>
-<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jingjiankai5228/article/details/113074220">vivado工程保存为tcl脚本及用tcl脚本恢复vivado工程</a></p>
-<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导出工程</span></span><br><span class="line">write_project_tcl D:/Study/FPGA/Backup/backup.tcl</span><br><span class="line"></span><br><span class="line"><span class="comment">#打开工程</span></span><br><span class="line"><span class="keyword">cd</span> D:/Study/FPGA/Backup/</span><br><span class="line"><span class="comment">#source ./backup.tcl</span></span><br><span class="line"><span class="comment">#vivado -mode tcl -source FZ3B_board.tcl -tclargs --origin_dir &quot;origin_dir地址&quot;</span></span><br><span class="line">tcl -<span class="keyword">source</span> FZ3B_board.tcl -tclargs --origin_dir <span class="string">&quot;origin_dir地址&quot;</span></span><br></pre></td></tr></table></figure>
-<p><strong>注意</strong></p>
-<blockquote>
-<p>Please note that by default, the file path for the project source files were set wth respect to the ‘origin_dir’ variable in the<br>generated script. When this script is executed from the output directory, these source files will be referenced with respect to this ‘origin_dir’ path value.<br>In case this script was later moved to a different directory, the ‘origin_dir’ value must be set manually in the script with the path<br>relative to the new output directory to make sure that the source files are referenced correctly from the original project. You can also set the<br>‘origin_dir’ automatically by setting the ‘origin_dir_loc’ variable in the tcl shell before sourcing this generated script. The ‘origin_dir_loc’<br>variable should be set to the path relative to the new output directory. Alternatively, if you are sourcing the script from the Vivado command line,<br>then set the origin dir using ‘-tclargs —origin_dir ’. For example, ‘vivado -mode tcl -source FZ3B_board.tcl -tclargs —origin_dir “…”</p>
-</blockquote>
-</li>
-<li>创建自定义<a target="_blank" rel="noopener" href="https://www.xilinx.com/support/documentation/sw_manuals/xilinx2020_1/ug895-vivado-system-level-design-entry.pdf#page=98">Board FIle</a><br><a target="_blank" rel="noopener" href="https://www.hackster.io/mindaugas2/creating-xilinx-vivado-board-files-for-ebaz4205-a7b120">Creating Xilinx Vivado board files for EBAZ4205</a></li>
-<li>vscode插件：<a target="_blank" rel="noopener" href="https://github.com/ericsonj/verilog-format">verilog-format</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41894385/article/details/124410959">Vivado使用VSCode编辑器的各种配置：功能加持</a></li>
-<li>sublime text 插件：SublimeLinter-contrib-xsim</li>
-</ol>
-<h2 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h2><ol>
-<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yihuajack/article/details/120830612">Xilinx Vivado卡在Initializing Language Server的解决方法</a></p>
-<blockquote>
-<p>打开 Tools -&gt; Settings -&gt; Tool Settings -&gt; Text Editor -&gt; Syntax Checking，将 Syntax checking 从 Sigasi 改为 Vivado：</p>
-</blockquote>
-</li>
-<li><p>自定义board_file:</p>
-<ol>
-<li><a target="_blank" rel="noopener" href="https://www.hackster.io/mindaugas2/creating-xilinx-vivado-board-files-for-ebaz4205-a7b120">reating Xilinx Vivado board files for EBAZ4205</a></li>
-</ol>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/d8298fbe5fcd/image-20220117205826811.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="image-20220117205826811"></a>红框的作用参见<a target="_blank" rel="noopener" href="https://www.xilinx.com/html_docs/xilinx2020_2/vitis_doc/embeddedplatforms.html">https://www.xilinx.com/html_docs/xilinx2020_2/vitis_doc/embeddedplatforms.html</a></p>
-<ul>
-<li>以前的流程<br><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/d8298fbe5fcd/jek1570655725669-16424245406714.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a></li>
-<li>勾选后的流程<br><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/d8298fbe5fcd/owe1570656810984-16424245992777.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/owe1570656810984-16424245992777.image" alt="img"></a></li>
-<li>区别图<br><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/d8298fbe5fcd/smt1570656691809.image"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a><blockquote>
-<ul>
-<li>not checking the box “project is an extensible vitis platform”, you get the standard flow from previous versions of Vivado.</li>
-<li>check the box, you will be met with a radically changed flow when you try to export the platform (Export -&gt; Export Platform).</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_59105807/article/details/119975287">【FPGA】Vivado综合停滞、死机（PID Not Specified）解决方法</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAxNTM2NzA0Nw==&amp;mid=2247484080&amp;idx=1&amp;sn=9b5834c1d5c5be32fac62a4089a49aac&amp;chksm=9b846c58acf3e54ee7386bb34250ad50407b3a297ba17a77f9a7cde8288e2555cbee477d358c&amp;scene=21#wechat_redirect">Modelsim安装，及其Vivado2021库编译</a></li>
-<li>Vivado添加资源一直卡进度条 <a target="_blank" rel="noopener" href="https://support.xilinx.com/s/question/0D52E00006ihQm9SAE/never-ending-adding-source?language=en_US">Never ending adding source…</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv13288042/">解决 重新启动 Vivado 设置 （文本编辑器）无法保存 会初始化</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv11751032?from=articleDetail">用VSCode代替Vivado的文本编辑器进行编辑</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/wangfei960/article/details/125941517">Vivado仿真卡在executing analysis and compilation step阶段</a><br><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/d8298fbe5fcd/image-20221029173636922.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img" title="image-20221029173636922"></a></li>
-<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_31206523/article/details/103866723">解决Vivado与modelsim仿真卡在Executing analysis and compilation step</a></p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=Vivado&amp;spm=1001.2101.3001.7020">Vivado</a>仿真卡在Executing analysis and compilation step循环不出去，检查是否有vivado报不出来的低级语法错误，还是不行，把sim文件里的sim_1文件删了，重新跑就好了</p>
-</blockquote>
-</li>
-<li><ul>
-<li><a target="_blank" rel="noopener" href="http://www.jyguagua.com/?p=9715">ModelSim出现Unable to checkout a viewer license</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42341984/article/details/105082502">Modelsim关联VS Code</a></li>
-</ul>
-</li>
-</ol>
-<p><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/d8298fbe5fcd/pic_center.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42418557/article/details/89416368">移植linux到zedboard过程中杂项错误总结</a></p>
-<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><ol>
-<li>时序逻辑赋值用 <code>&lt;=</code>，组合逻辑赋值用 <code>=</code><blockquote>
-<p>1： 当为<strong>时序</strong>逻辑建模，使用“非阻塞赋值”。<br>2： 当为 <strong>锁存器</strong> (latch) 建模，使用“非阻塞赋值”。<br>3： 当用always块为<strong>组合</strong>逻辑建模，使用“阻塞赋值”<br>4： 当在同一个always块里面既为组合逻辑又为时序逻辑建模，使用“非阻塞赋值”。<br>5： 不要在同一个always块里面<strong>混合</strong>使用“阻塞赋值”和“非阻塞赋值”。<br>6： 不要在<strong>两个或两个以上</strong>always块里面对同一个变量进行赋值。<br>7： 使用$strobe以显示已被“非阻塞赋值”的值。<br>8： 不要使用＃0延迟的赋值。</p>
-</blockquote>
-</li>
+        <p>个人关于ZYNQ的一些开发学习文档，以小熊猫的ZYNQ7010和Smart 7020 SP为例，不断更新ing</p>
+<span id="more"></span>
+<h1 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h1><ol>
 <li>敏感信号表:所有的右边表达式中的变量以及if,case条件中的变量</li>
 <li>if/else要配对以避免latch（锁存器）的产生，同样的case语句加default语句</li>
 <li>状态机（fsm）：<ol>
@@ -370,6 +271,11 @@
 </ol>
 </li>
 </ol>
+<h1 id="Petalinux"><a href="#Petalinux" class="headerlink" title="Petalinux"></a>Petalinux</h1><h2 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h2><p>source /tools/petalinux/2023.1/settings.sh</p>
+<h2 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h2><p>petalinux-create —type project —template zynq —name Petalinux_TF</p>
+<h2 id="进入图形化配置界面"><a href="#进入图形化配置界面" class="headerlink" title="进入图形化配置界面"></a>进入图形化配置界面</h2><p>petalinux-config —get-hw-description=.</p>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>petalinux-build</p>
+<h2 id="打包镜像"><a href="#打包镜像" class="headerlink" title="打包镜像"></a>打包镜像</h2><p>petalinux-package —boot —fsbl ./images/linux/zynq_fsbl.elf —u-boot —fpga —kernel —force</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/d8298fbe5fcd/">ZYNQ学习笔记</a></p>
 
     </div>
@@ -455,7 +361,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99"><span class="nav-number">1.</span> <span class="nav-text">学习资料</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux"><span class="nav-number">2.</span> <span class="nav-text">Linux</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">2.1.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vivado"><span class="nav-number">3.</span> <span class="nav-text">Vivado</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">3.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98-1"><span class="nav-number">3.2.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%94%E8%AE%B0"><span class="nav-number">3.3.</span> <span class="nav-text">笔记</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">笔记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Petalinux"><span class="nav-number">2.</span> <span class="nav-text">Petalinux</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">2.1.</span> <span class="nav-text">设置环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">创建工程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5%E5%9B%BE%E5%BD%A2%E5%8C%96%E9%85%8D%E7%BD%AE%E7%95%8C%E9%9D%A2"><span class="nav-number">2.3.</span> <span class="nav-text">进入图形化配置界面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-number">2.4.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E9%95%9C%E5%83%8F"><span class="nav-number">2.5.</span> <span class="nav-text">打包镜像</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -471,20 +377,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
