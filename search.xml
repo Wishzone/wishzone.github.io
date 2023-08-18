@@ -59,7 +59,7 @@
 <h1 id="连接-Github"><a href="#连接-Github" class="headerlink" title="连接 Github"></a>连接 Github</h1><p>右键 -&gt; Git Bash Here， <strong>设置用户名和邮箱</strong> ：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;GitHub 用户名&quot;</span><br><span class="line">git config --global user.email &quot;GitHub 邮箱&quot;</span><br></pre></td></tr></table></figure>
 <h2 id="创建-SSH-密匙-："><a href="#创建-SSH-密匙-：" class="headerlink" title="创建 SSH 密匙 ："></a>创建 SSH 密匙 ：</h2><p>输入 <code>ssh-keygen -t rsa -C &quot;GitHub 邮箱&quot;</code>，然后一路回车。</p>
-<h2 id="添加密匙："><a href="#添加密匙：" class="headerlink" title="添加密匙："></a>添加密匙：</h2><p>进入 [C:\Users\用户名.ssh] 目录（要勾选显示“隐藏的项目”），用记事本打开公钥 id_rsa.pub 文件并复制里面的内容。</p>
+<h2 id="添加密匙："><a href="#添加密匙：" class="headerlink" title="添加密匙："></a>添加密匙：</h2><p>进入 [C:\Users\用户名\.ssh] 目录（要勾选显示“隐藏的项目”），用记事本打开公钥 id_rsa.pub 文件并复制里面的内容。</p>
 <p>登陆 GitHub ，进入 Settings 页面，选择左边栏的 SSH and GPG keys，点击 New SSH key。</p>
 <p>Title 随便取个名字，粘贴复制的 id_rsa.pub 内容到 Key 中，点击 Add SSH key 完成添加。</p>
 <h2 id="验证连接："><a href="#验证连接：" class="headerlink" title="验证连接："></a>验证连接：</h2><p>打开 Git Bash，输入 <code>ssh -T git@github.com</code> 出现 “Are you sure……”，输入 yes 回车确认。</p>
@@ -73,110 +73,6 @@
       </categories>
       <tags>
         <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>FRP</title>
-    <url>/2023/06/24/FRP/</url>
-    <content><![CDATA[<p>关于FRP的配置</p>
-<span id="more"></span>
-<h1 id="配置frpc开机自启"><a href="#配置frpc开机自启" class="headerlink" title="配置frpc开机自启"></a>配置frpc开机自启</h1><p>sudo nano /lib/systemd/system/frpc.service</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">服务描述</span></span><br><span class="line">Description=frpc service</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">执行命令</span></span><br><span class="line">ExecStart=/usr/local/frpc/frpc -c /usr/local/frpc/frpc.ini</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line">```</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">sudo systemctl enable frpc</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>LINUX</category>
-      </categories>
-      <tags>
-        <tag>FRP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Raspberry_pico</title>
-    <url>/2023/06/24/Raspberry-pico/</url>
-    <content><![CDATA[<p>关于树莓派pico的环境搭建与开发<br><span id="more"></span></p>
-<h1 id="Ubuntu-C-C"><a href="#Ubuntu-C-C" class="headerlink" title="Ubuntu C/C++"></a>Ubuntu C/C++</h1><h2 id="依赖："><a href="#依赖：" class="headerlink" title="依赖："></a>依赖：</h2><p> sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential python3-tk</p>
-<h2 id="下载-pico-sdk-和-pico-examples"><a href="#下载-pico-sdk-和-pico-examples" class="headerlink" title="下载 pico-sdk 和 pico-examples"></a>下载 pico-sdk 和 pico-examples</h2><p>cd ~<br>mkdir pico<br>cd pico<br>git clone -b master <a href="https://github.com/raspberrypi/pico-sdk.git">https://github.com/raspberrypi/pico-sdk.git</a><br>cd pico-sdk<br>git submodule update —init<br>cd ~/pico<br>git clone -b master <a href="https://github.com/raspberrypi/pico-examples.git">https://github.com/raspberrypi/pico-examples.git</a></p>
-<h2 id="下载-pico-project-generator"><a href="#下载-pico-project-generator" class="headerlink" title="下载 pico-project-generator"></a>下载 pico-project-generator</h2><p>cd ~/pico<br>git clone <a href="https://github.com/raspberrypi/pico-project-generator.git">https://github.com/raspberrypi/pico-project-generator.git</a></p>
-<h2 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h2><p>echo “export PICO_SDK_PATH=/home/$USER/pico/pico-sdk” &gt;&gt; .bashrc</p>
-<h2 id="安装-VSCode-插件"><a href="#安装-VSCode-插件" class="headerlink" title="安装 VSCode 插件"></a>安装 VSCode 插件</h2><p>code —install-extension marus25.cortex-debug<br>code —install-extension ms-vscode.cmake-tools<br>code —install-extension ms-vscode.cpptools</p>
-<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>cd pico-project-generator</p>
-<p>./pico-progect.py —gui</p>
-<p>手动生成工程</p>
-<p>cd build</p>
-<p>make -j(核心数)  eg：make -j4</p>
-<p>将uf2文件拖入pico即可</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf">https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf</a><br><a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf">https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf</a></p>
-]]></content>
-      <categories>
-        <category>单片机</category>
-      </categories>
-      <tags>
-        <tag>Pico</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RT-Thread</title>
-    <url>/2023/06/24/RT-Thread/</url>
-    <content><![CDATA[<p>记录自己学习RT-Thread的过程<br><span id="more"></span></p>
-<h1 id="RT-Thread版本"><a href="#RT-Thread版本" class="headerlink" title="RT-Thread版本"></a>RT-Thread版本</h1><h2 id="标准版"><a href="#标准版" class="headerlink" title="标准版"></a>标准版</h2><p>包含内核，组件和服务，上层应用包</p>
-<h2 id="Nano版"><a href="#Nano版" class="headerlink" title="Nano版"></a>Nano版</h2><p>包含内核，可移植组件</p>
-<h2 id="Smart版"><a href="#Smart版" class="headerlink" title="Smart版"></a>Smart版</h2><p>将硬件层与软件层分开，类似Linux</p>
-<h1 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h1><p>负责线程管理thread.c，时钟管理clock.c,timer.c，中断管理，内存管理mem.c,memheap.c等，以及线程之间的同步与通信ipc.c,对象管理object.c,实时调度器schedule.c，设备管理device.c</p>
-<h1 id="内核启动"><a href="#内核启动" class="headerlink" title="内核启动"></a>内核启动</h1><h2 id="汇编启动"><a href="#汇编启动" class="headerlink" title="汇编启动"></a>汇编启动</h2><p>Reset_Handler—&gt;LoopCopyDataInit—&gt;LoopFillZerobss—&gt;SystemInit()</p>
-<h2 id="C文件启动"><a href="#C文件启动" class="headerlink" title="C文件启动"></a>C文件启动</h2><p>SystemInit()—&gt;__libc_init_array()—&gt;entry()—&gt;rtthread_startup()</p>
-<h2 id="系统启动"><a href="#系统启动" class="headerlink" title="系统启动"></a>系统启动</h2><p>rtthread启动过程：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">intrtthread_startup(void)</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    rt_hw_interrupt_disable();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*板级初始化：需在该函数内部进行系统堆的初始化*/</span><br><span class="line"></span><br><span class="line">    rt_hw_board_init();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*打印RT-Thread版本信息*/</span><br><span class="line"></span><br><span class="line">    rt_show_version();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*定时器初始化*/</span><br><span class="line"></span><br><span class="line">    rt_system_timer_init();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*调度器初始化*/</span><br><span class="line"></span><br><span class="line">    rt_system_scheduler_init();</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">ifdef RT_USING_SIGNALS</span></span><br><span class="line"></span><br><span class="line">    /*信号初始化*/</span><br><span class="line"></span><br><span class="line">    rt_system_signal_init();</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">endif</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*由此创建一个用户main线程mian_thread_entry*/</span><br><span class="line"></span><br><span class="line">    rt_application_init();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*定时器线程初始化创建线程rt_thread_timer_entry*/</span><br><span class="line"></span><br><span class="line">    rt_system_timer_thread_init();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*空闲线程初始化创建线程rt_thread_idle_entry*/</span><br><span class="line"></span><br><span class="line">    rt_thread_idle_init();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*启动调度器*/</span><br><span class="line"></span><br><span class="line">    rt_system_scheduler_start();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*不会执行至此*/</span><br><span class="line"></span><br><span class="line">    return0;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="线程启动"><a href="#线程启动" class="headerlink" title="线程启动"></a>线程启动</h2><p>首先在系统启动的时候就已经创建了三个线程：</p>
-<p>mian_thread_entry</p>
-<p>rt_thread_timer_entry</p>
-<p>rt_thread_idle_entry</p>
-<h3 id="rt-application-init"><a href="#rt-application-init" class="headerlink" title="rt_application_init()"></a>rt_application_init()</h3><h4 id="线程创建"><a href="#线程创建" class="headerlink" title="线程创建"></a>线程创建</h4><p>根据是否使用堆会有两种创建方式:</p>
-<h5 id="使用堆heap"><a href="#使用堆heap" class="headerlink" title="使用堆heap"></a>使用堆heap</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">rt_thread_create(<span class="string">&quot;main&quot;</span>, main_thread_entry, RT_NULL,</span><br><span class="line"></span><br><span class="line">                           RT_MAIN_THREAD_STACK_SIZE, RT_MAIN_THREAD_PRIORITY, <span class="number">20</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>动态调度方式创建</p>
-<h5 id="不使用堆heap"><a href="#不使用堆heap" class="headerlink" title="不使用堆heap"></a>不使用堆heap</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">rt_thread_init(tid, <span class="string">&quot;main&quot;</span>, main_thread_entry, RT_NULL,</span><br><span class="line"></span><br><span class="line">                            main_stack, <span class="keyword">sizeof</span>(main_stack), RT_MAIN_THREAD_PRIORITY, <span class="number">20</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>静态创建</p>
-<h4 id="进入线程启动器函数启动线程"><a href="#进入线程启动器函数启动线程" class="headerlink" title="进入线程启动器函数启动线程"></a>进入线程启动器函数启动线程</h4><p>rt_thread_startup(tid)</p>
-<h4 id="进入就绪状态并运行线程"><a href="#进入就绪状态并运行线程" class="headerlink" title="进入就绪状态并运行线程"></a>进入就绪状态并运行线程</h4><p>main_thread_entry()</p>
-<h4 id="线程进入主函数"><a href="#线程进入主函数" class="headerlink" title="线程进入主函数"></a>线程进入主函数</h4><p>main()</p>
-<h3 id="rt-thread-timer-entry"><a href="#rt-thread-timer-entry" class="headerlink" title="rt_thread_timer_entry()"></a>rt_thread_timer_entry()</h3><h3 id="rt-thread-idle-entry"><a href="#rt-thread-idle-entry" class="headerlink" title="rt_thread_idle_entry()"></a>rt_thread_idle_entry()</h3><p>退出线程,cleanup函数清理资源</p>
-<h2 id="用户线程的创建"><a href="#用户线程的创建" class="headerlink" title="用户线程的创建"></a>用户线程的创建</h2><h3 id="线程结构体-线程控制块"><a href="#线程结构体-线程控制块" class="headerlink" title="线程结构体(线程控制块)"></a>线程结构体(线程控制块)</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rt_thread</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* rt object */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">char</span>        name[RT_NAME_MAX];                      <span class="comment">/**&lt; the name of thread */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint8_t</span>  type;                                   <span class="comment">/**&lt; type of object */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint8_t</span>  flags;                                  <span class="comment">/**&lt; thread&#x27;s flags */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> RT_USING_MODULE</span></span><br><span class="line"></span><br><span class="line">    <span class="type">void</span>       *module_id;                              <span class="comment">/**&lt; id of application module */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_list_t</span>   <span class="built_in">list</span>;                                   <span class="comment">/**&lt; the object list */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_list_t</span>   tlist;                                  <span class="comment">/**&lt; the thread list */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* stack point and entry */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">void</span>       *sp;                                     <span class="comment">/**&lt; stack point */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">void</span>       *entry;                                  <span class="comment">/**&lt; entry */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">void</span>       *parameter;                              <span class="comment">/**&lt; parameter */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">void</span>       *stack_addr;                             <span class="comment">/**&lt; stack address */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint32_t</span> stack_size;                             <span class="comment">/**&lt; stack size */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* error code */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_err_t</span>    error;                                  <span class="comment">/**&lt; error code */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint8_t</span>  stat;                                   <span class="comment">/**&lt; thread status */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> RT_USING_SMP <span class="comment">//判断是否使用多核</span></span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint8_t</span>  bind_cpu;                               <span class="comment">/**&lt; thread is bind to cpu */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint8_t</span>  oncpu;                                  <span class="comment">/**&lt; process on cpu` */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint16_t</span> scheduler_lock_nest;                    <span class="comment">/**&lt; scheduler lock count */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint16_t</span> cpus_lock_nest;                         <span class="comment">/**&lt; cpus lock count */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint16_t</span> critical_lock_nest;                     <span class="comment">/**&lt; critical lock count */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">/*RT_USING_SMP*/</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* priority */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint8_t</span>  current_priority;                       <span class="comment">/**&lt; current priority */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint8_t</span>  init_priority;                          <span class="comment">/**&lt; initialized priority */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> RT_THREAD_PRIORITY_MAX &gt;32</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint8_t</span>  number;</span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint8_t</span>  high_mask;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint32_t</span> number_mask;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#ifdefined(RT_USING_EVENT)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* thread event */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint32_t</span> event_set;</span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint8_t</span>  event_info;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#ifdefined(RT_USING_SIGNALS)</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_sigset_t</span>     sig_pending;                        <span class="comment">/**&lt; the pending signals */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_sigset_t</span>     sig_mask;                           <span class="comment">/**&lt; the mask bits of signal */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> RT_USING_SMP</span></span><br><span class="line"></span><br><span class="line">    <span class="type">void</span>            *sig_ret;                           <span class="comment">/**&lt; the return stack pointer from signal */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_sighandler_t</span> *sig_vectors;                       <span class="comment">/**&lt; vectors of signal handler */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">void</span>            *si_list;                           <span class="comment">/**&lt; the signal infor list */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_ubase_t</span>  init_tick;                              <span class="comment">/**&lt; thread&#x27;s initialized tick */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_ubase_t</span>  remaining_tick;                         <span class="comment">/**&lt; remaining tick */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> RT_USING_CPU_USAGE</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint64_t</span>  duration_tick;                          <span class="comment">/**&lt; cpu usage tick */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">rt_timer</span> <span class="title">thread_timer</span>;</span>                       <span class="comment">/**&lt; built-in thread timer */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="type">void</span> (*cleanup)(<span class="keyword">struct</span> rt_thread *tid);             <span class="comment">/**&lt; cleanup function when thread exit */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* light weight process if present */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> RT_USING_LWP</span></span><br><span class="line"></span><br><span class="line">    <span class="type">void</span>        *lwp;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_ubase_t</span> user_data;                             <span class="comment">/**&lt; private user data beyond this thread */</span></span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="线程属性"><a href="#线程属性" class="headerlink" title="线程属性"></a>线程属性</h3><h4 id="线程栈"><a href="#线程栈" class="headerlink" title="线程栈"></a>线程栈</h4><h4 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h4><h5 id="初始状态"><a href="#初始状态" class="headerlink" title="初始状态"></a>初始状态</h5><p>当线程刚开始创建还没开始运行时就处于初始状态；在初始状态下，线程不参与调度。此状态在 RT-Thread 中的宏定义为 RT_THREAD_INIT</p>
-<h5 id="就绪状态"><a href="#就绪状态" class="headerlink" title="就绪状态"></a>就绪状态</h5><p>在就绪状态下，线程按照优先级排队，等待被执行；一旦当前线程运行完毕让出处理器，操作系统会马上寻找最高优先级的就绪态线程运行。此状态在 RT-Thread 中的宏定义为 RT_THREAD_READY</p>
-<h5 id="运行状态"><a href="#运行状态" class="headerlink" title="运行状态"></a>运行状态</h5><p>线程当前正在运行。在单核系统中，只有 rt_thread_self() 函数返回的线程处于运行状态；在多核系统中，可能就不止这一个线程处于运行状态。此状态在 RT-Thread 中的宏定义为 RT_THREAD_RUNNING</p>
-<h5 id="挂起状态"><a href="#挂起状态" class="headerlink" title="挂起状态"></a>挂起状态</h5><p>也称阻塞态。它可能因为资源不可用而挂起等待，或线程主动延时一段时间而挂起。在挂起状态下，线程不参与调度。此状态在 RT-Thread 中的宏定义为 RT_THREAD_SUSPEND</p>
-<h5 id="关闭状态"><a href="#关闭状态" class="headerlink" title="关闭状态"></a>关闭状态</h5><p>当线程运行结束时将处于关闭状态。关闭状态的线程不参与线程的调度。此状态在 RT-Thread 中的宏定义为 RT_THREAD_CLOSE</p>
-<h4 id="时间片"><a href="#时间片" class="headerlink" title="时间片"></a>时间片</h4><p>如果线程优先级相同则通过时间片,一个线程运行几个时钟周期再切换给另一个</p>
-<h3 id="线程状态切换"><a href="#线程状态切换" class="headerlink" title="线程状态切换"></a>线程状态切换</h3><p><img src="https://www.rt-thread.org/document/site/rt-thread-version/rt-thread-standard/programming-manual/thread/figures/04thread_sta.png" alt="Alt text"></p>
-<h3 id="线程操作"><a href="#线程操作" class="headerlink" title="线程操作"></a>线程操作</h3><h4 id="线程创建与删除"><a href="#线程创建与删除" class="headerlink" title="线程创建与删除"></a>线程创建与删除</h4><p>动态创建:系统分配栈与句柄</p>
-<p>静态创建:用户自行分配栈和句柄</p>
-<h5 id="线程的创建"><a href="#线程的创建" class="headerlink" title="线程的创建"></a>线程的创建</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">rt_thread_create(constchar *name,<span class="comment">//名字</span></span><br><span class="line"></span><br><span class="line">                 <span class="type">void</span> (*entry)(<span class="type">void</span> *parameter),<span class="comment">//线程函数入口</span></span><br><span class="line"></span><br><span class="line">                 <span class="type">void</span>       *parameter,<span class="comment">//传递给线程函数的参数</span></span><br><span class="line"></span><br><span class="line">                 rt_uint32_tstack_size,<span class="comment">//线程栈大小</span></span><br><span class="line"></span><br><span class="line">                 <span class="type">rt_uint8_t</span>  priority,<span class="comment">//优先级,stm32为32个</span></span><br><span class="line"></span><br><span class="line">                 rt_uint32_ttick);<span class="comment">//时间片节拍数量</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>返回值为rt_thread_t,为结构体指针,返回线程控制块</p>
-<h5 id="线程的删除"><a href="#线程的删除" class="headerlink" title="线程的删除"></a>线程的删除</h5><p>rt_thread_delete(rt_thread_t thread);</p>
-<p>返回值为rt_err_t,线程错误码</p>
-<h2 id="RT-Thread程序内存分布"><a href="#RT-Thread程序内存分布" class="headerlink" title="RT_Thread程序内存分布"></a>RT_Thread程序内存分布</h2><p>一般 MCU 包含的存储空间有：片内 Flash 与片内 RAM，RAM 相当于内存，Flash 相当于硬盘。编译器会将一个程序分类为好几个部分，分别存储在 MCU 不同的存储区。</p>
-<p>Keil 工程在编译完之后，会有相应的程序所占用的空间提示信息，如下所示：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">linking...</span><br><span class="line"></span><br><span class="line">Program Size: Code=<span class="number">48008</span> RO-data=<span class="number">5660</span> RW-data=<span class="number">604</span> ZI-data=<span class="number">2124</span></span><br><span class="line"></span><br><span class="line">After Build - User command \#<span class="number">1</span>: fromelf --bin.\\build\\rtthread-stm32.axf--output rtthread.bin</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;.\\build\\rtthread-stm32.axf&quot;</span> - <span class="number">0</span>Error(s), <span class="number">0</span>Warning(s).</span><br><span class="line"></span><br><span class="line">Build Time Elapsed: <span class="number">00</span>:<span class="number">00</span>:<span class="number">07</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>上面提到的 Program Size 包含以下几个部分：</p>
-<p>1）Code：代码段，存放程序的代码部分；</p>
-<p>2）RO-data：只读数据段，存放程序中定义的常量；</p>
-<p>3）RW-data：读写数据段，存放初始化为非 0 值的全局变量；</p>
-<p>4）ZI-data：0 数据段，存放未初始化的全局变量及初始化为 0 的变量；</p>
-<p>编译完工程会生成一个. map 的文件，该文件说明了各个函数占用的尺寸和地址，在文件的最后几行也说明了上面几个字段的关系：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">Total RO <span class="title function_">Size</span> <span class="params">(Code + RO Data)</span> 53668 <span class="params">( <span class="number">52.41</span>kB)</span></span><br><span class="line"></span><br><span class="line">Total RW <span class="title function_">Size</span> <span class="params">(RW Data + ZI Data)</span> 2728 <span class="params">( <span class="number">2.66</span>kB)</span></span><br><span class="line"></span><br><span class="line">Total ROM <span class="title function_">Size</span> <span class="params">(Code + RO Data + RW Data)</span> 53780 <span class="params">( <span class="number">52.52</span>kB)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>1）RO Size 包含了 Code 及 RO-data，表示程序占用 Flash 空间的大小；</p>
-<p>2）RW Size 包含了 RW-data 及 ZI-data，表示运行时占用的 RAM 的大小；</p>
-<p>3）ROM Size 包含了 Code、RO-data 以及 RW-data，表示烧写程序所占用的 Flash 空间的大小；</p>
-<h2 id="RT-Thread-自动初始化机制"><a href="#RT-Thread-自动初始化机制" class="headerlink" title="RT-Thread 自动初始化机制"></a>RT-Thread 自动初始化机制</h2><p>INIT_BOARD_EXPORT(rt_hw_usart_init);    /<em> 使用组件自动初始化机制 </em>/</p>
-<h1 id="IO设备"><a href="#IO设备" class="headerlink" title="IO设备"></a>IO设备</h1><p><img src="https://www.rt-thread.org/document/site/rt-thread-version/rt-thread-standard/programming-manual/device/figures/io-dev.png" alt="Alt text"></p>
-<p><img src="https://www.rt-thread.org/document/site/rt-thread-version/rt-thread-standard/programming-manual/device/figures/io-fun-call.png" alt="Alt text"></p>
-<p><img src="https://www.rt-thread.org/document/site/rt-thread-version/rt-thread-standard/programming-manual/device/figures/io-dev-ex.png" alt="Alt text"></p>
-<h2 id="创建设备"><a href="#创建设备" class="headerlink" title="创建设备"></a>创建设备</h2><h2 id="注册设备"><a href="#注册设备" class="headerlink" title="注册设备"></a>注册设备</h2><h2 id="访问设备"><a href="#访问设备" class="headerlink" title="访问设备"></a>访问设备</h2><h1 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h1><h2 id="applications应用层"><a href="#applications应用层" class="headerlink" title="applications应用层"></a>applications应用层</h2><h2 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h2><h2 id="drivers驱动层"><a href="#drivers驱动层" class="headerlink" title="drivers驱动层"></a>drivers驱动层</h2><h2 id="libraries芯片硬件层"><a href="#libraries芯片硬件层" class="headerlink" title="libraries芯片硬件层"></a>libraries芯片硬件层</h2><p>包含有Hal库驱动和CMSIS等</p>
-<h2 id="rt-thread系统层"><a href="#rt-thread系统层" class="headerlink" title="rt_thread系统层"></a>rt_thread系统层</h2><h2 id="packages"><a href="#packages" class="headerlink" title="packages"></a>packages</h2>]]></content>
-      <categories>
-        <category>单片机</category>
-      </categories>
-      <tags>
-        <tag>OS</tag>
       </tags>
   </entry>
   <entry>
@@ -261,31 +157,10 @@
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu配置及优化</title>
-    <url>/2023/06/24/Ubuntu%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<p>关于ubuntu系统的优化与配置<br><span id="more"></span></p>
-<h1 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h1><p>sudo apt install gparted htop net-tools putty vim fcitx fcitx-googlepinyin xrdp xorg xorgxrdp tofrodos iproute2 gawk gcc g++ git make net-tools libncurses5-dev tftpd zlib1g:i386 libssl-dev flex bison libselinux1 gnupg wget diffstat chrpath socat xterm autoconf libtool tar unzip texinfo zlib1g-dev gcc-multilib build-essential libsdl1.2-dev libglib2.0-dev screen pax gzip automake tftpd-hpa ubuntu-restricted-extras gnome-tweaks gnome-shell-extension-manager indicator-multiload libncurses5 libtinfo5 libncurses5-dev libncursesw5-dev samba ssh</p>
-<p>sudo apt install tftpd-hpa ncurses-compat-libs</p>
-<p>service tftpd-hpa restart</p>
-<p>wget <a href="http://nz2.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1.3_amd64.deb">http://nz2.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1.3_amd64.deb</a></p>
-<p>sudo dpkg -i libssl1.1_1.1.1l-1ubuntu1.3_amd64.deb</p>
-<p>sudo dpkg-reconfigure dash (选NO）</p>
-<h1 id="解决“色彩管理设备”"><a href="#解决“色彩管理设备”" class="headerlink" title="解决“色彩管理设备”"></a>解决“色彩管理设备”</h1><p>sudo nano /etc/polkit-1/localauthority/50-local.d/45-allow-colord.pkla</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">[Allow Colord all Users]</span><br><span class="line">Identity=unix-user:*</span><br><span class="line">Action=org.freedesktop.color-manager.create-device;org.freedesktop.color-manager.create-profile;org.freedesktop.color-manager.delete-device;org.freedesktop.color-manager.delete-profile;org.freedesktop.color-manager.modify-device;org.freedesktop.color-manager.modify-profile</span><br><span class="line">ResultAny=no</span><br><span class="line">ResultInactive=no</span><br><span class="line">ResultActive=yes</span><br></pre></td></tr></table></figure>
-<h1 id="解决“刷新系统软件源需要认证”"><a href="#解决“刷新系统软件源需要认证”" class="headerlink" title="解决“刷新系统软件源需要认证”"></a>解决“刷新系统软件源需要认证”</h1><p>nano /etc/polkit-1/localauthority/50-local.d/46-allow-packagekit.pkla</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Allow Refresh Repository all Users]</span><br><span class="line">Identity=unix-user:*</span><br><span class="line">Action=org.freedesktop.packagekit.system-sources-refresh</span><br><span class="line">ResultAny=no</span><br><span class="line">ResultInactive=no</span><br><span class="line">ResultActive=yes</span><br></pre></td></tr></table></figure>
-<h1 id="解决“刷新系统软件源需要认证”-1"><a href="#解决“刷新系统软件源需要认证”-1" class="headerlink" title="解决“刷新系统软件源需要认证”"></a>解决“刷新系统软件源需要认证”</h1><p>sudo nano /etc/polkit-1/localauthority/50-local-d/allow-wifiscan</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Allow Wifi Scan]</span><br><span class="line">Identity=unix-user:*</span><br><span class="line">Action=org.freedesktop.NetworkManager.wifi.scan;org.freedesktop.NetworkManager.enable-disable-wifi;org.freedesktop.NetworkManager.settings.modify.own;org.freedesktop.NetworkManager.settings.modify.system;org.freedesktop.NetworkManager.network-control</span><br><span class="line">ResultAny=yes</span><br><span class="line">ResultInactive=yes</span><br><span class="line">ResultActive=yes</span><br></pre></td></tr></table></figure>
-<h1 id="自定义二级域名"><a href="#自定义二级域名" class="headerlink" title="自定义二级域名"></a>自定义二级域名</h1><p>在多人同时使用一个 frps 时，通过自定义二级域名的方式来使用会更加方便。</p>
-<p>通过在 frps 的配置文件中配置 subdomain_host，就可以启用该特性。之后在 frpc 的 http、https 类型的代理中可以不配置 custom_domains，而是配置一个 subdomain 参数。</p>
-<p>只需要将 *.{subdomain_host} 解析到 frps 所在服务器。之后用户可以通过 subdomain 自行指定自己的 web 服务所需要使用的二级域名，通过 {subdomain}.{subdomain_host} 来访问自己的 web 服务。</p>
-<h2 id="frps-ini"><a href="#frps-ini" class="headerlink" title="frps.ini"></a>frps.ini</h2><p>[common]<br>subdomain_host = frps.com<br>将泛域名 *.frps.com 解析到 frps 所在服务器的 IP 地址。</p>
-<h2 id="frpc-ini"><a href="#frpc-ini" class="headerlink" title="frpc.ini"></a>frpc.ini</h2><p>[web]<br>type = http<br>local_port = 80<br>subdomain = test<br>frps 和 frpc 都启动成功后，通过 test.frps.com 就可以访问到内网的 web 服务。</p>
-<p>注：如果 frps 配置了 subdomain_host，则 custom_domains 中不能是属于 subdomain_host 的子域名或者泛域名。</p>
-<p>同一个 http 或 https 类型的代理中 custom_domains 和 subdomain 可以同时配置。</p>
-<h1 id="解决休眠问题："><a href="#解决休眠问题：" class="headerlink" title="解决休眠问题："></a>解决休眠问题：</h1><p>检查休眠功能的状态<br>systemctl status sleep.target</p>
-<p>执行关闭休眠功能的命令<br>如果是作为服务器使用的时候，我们一般远程访问系统，这个功能就会导致我们无法远程控制服务器，因此我们需要关闭这个功能。<br>systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target</p>
-<p>再次观察系统休眠状态<br>systemctl status sleep.target</p>
+    <title>FRP</title>
+    <url>/2023/06/24/FRP/</url>
+    <content><![CDATA[<p>关于FRP的配置</p>
+<span id="more"></span>
 <h1 id="配置frpc开机自启"><a href="#配置frpc开机自启" class="headerlink" title="配置frpc开机自启"></a>配置frpc开机自启</h1><p>sudo nano /lib/systemd/system/frpc.service</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">服务描述</span></span><br><span class="line">Description=frpc service</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">执行命令</span></span><br><span class="line">ExecStart=/usr/local/frpc/frpc -c /usr/local/frpc/frpc.ini</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line">```</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">sudo systemctl enable frpc</span><br></pre></td></tr></table></figure>
 ]]></content>
@@ -293,73 +168,72 @@
         <category>LINUX</category>
       </categories>
       <tags>
-        <tag>Ubuntu</tag>
+        <tag>FRP</tag>
       </tags>
   </entry>
   <entry>
-    <title>Rockpi4B+</title>
-    <url>/2023/06/24/Rockpi4B/</url>
-    <content><![CDATA[<p>rock4B+配置服务器，运行docker自己总结的教程</p>
-<span id="more"></span>
-<h1 id="配置脚本"><a href="#配置脚本" class="headerlink" title="配置脚本"></a>配置脚本</h1><p>最开始是外国源，为了提高速度，不要下载别的东西，只安装wget</p>
-<p>sudo su<br>sudo apt update<br>sudo apt install wget</p>
-<h1 id="安装cockpit（端口9090）"><a href="#安装cockpit（端口9090）" class="headerlink" title="安装cockpit（端口9090）"></a>安装cockpit（端口9090）</h1><p>sudo apt-get install cockpit<br>sudo apt-get install cockpit-machines</p>
-<h1 id="安装宝塔"><a href="#安装宝塔" class="headerlink" title="安装宝塔"></a>安装宝塔</h1><p>wget -O install.sh <a href="https://download.bt.cn/install/install-ubuntu_6.0.sh">https://download.bt.cn/install/install-ubuntu_6.0.sh</a> &amp;&amp; bash install.sh ed8484bec</p>
-<h1 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h1><p>sudo apt install apt-transport-https ca-certificates<br>sudo nano /etc/apt/sources.list</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free</span></span><br><span class="line"></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ buster-updates main contrib non-free</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ buster-updates main contrib non-free</span></span><br><span class="line"></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ buster-backports main contrib non-free</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ buster-backports main contrib non-free</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb https://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib non-free</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib non-free</span></span></span><br><span class="line"></span><br><span class="line">deb https://security.debian.org/debian-security buster/updates main contrib non-free</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://security.debian.org/debian-security buster/updates main contrib non-free</span></span><br><span class="line"></span><br><span class="line">deb http://apt.radxa.com/buster-testing/ buster main</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>wget -O -  apt.radxa.com/buster-testing/public.key | sudo apt-key add -</p>
-<p>sudo apt-get update</p>
-<h1 id="装radxa硬件驱动"><a href="#装radxa硬件驱动" class="headerlink" title="装radxa硬件驱动"></a>装radxa硬件驱动</h1><p>sudo apt-get install -y rockchip-overlay &amp;&amp; sudo apt-get install -y rockpi4-dtbo libmraa</p>
-<h1 id="改地区"><a href="#改地区" class="headerlink" title="改地区"></a>改地区</h1><p>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</p>
-<h1 id="安装wifi蓝牙GPU驱动"><a href="#安装wifi蓝牙GPU驱动" class="headerlink" title="安装wifi蓝牙GPU驱动"></a>安装wifi蓝牙GPU驱动</h1><p>sudo apt-get install -y broadcom-wifibt-firmware<br>systemctl start bluetooth<br>pulseaudio —start<br>sudo apt install -y git gcc g++ libpng-dev libjpeg-dev pkg-config libx11-dev libdrm-dev libgbm-dev libgbm1 libudev-dev<br>mkdir -p /home/rock/work<br>cd /home/rock/work<br>git clone <a href="https://github.com/glmark2/glmark2.git">https://github.com/glmark2/glmark2.git</a><br>cd glmark2/<br>./waf configure —with-flavors=drm-glesv2<br>./waf build -j 4<br>./waf install<br>sudo apt install -y rockchip-mali-midgard14=1.6-2<br>sudo apt install -y rockchip-mali-midgard-dev=1.6-2<br>glmark2-es2-drm<br>apt-get install golang emacs</p>
-<h1 id="hdmi热插拔"><a href="#hdmi热插拔" class="headerlink" title="hdmi热插拔"></a>hdmi热插拔</h1><p>sudo chmod +x /usr/local/bin/drm-hotplug.sh</p>
-<h1 id="超频"><a href="#超频" class="headerlink" title="超频"></a>超频</h1><p>nano /boot/hw_intfc.conf</p>
-<p>setting cpu frequency over-2GHz</p>
-<p>   intfc:dtoverlay=cpufreq</p>
-<h1 id="wifi模式切换"><a href="#wifi模式切换" class="headerlink" title="wifi模式切换"></a>wifi模式切换</h1><p>sudo apt-get install git cmake hostapd<br>git clone <a href="https://github.com/oblique/create_ap">https://github.com/oblique/create_ap</a><br>cd create_ap<br>sudo make install<br>wget <a href="https://raw.githubusercontent.com/radxa/rkwifibt/master/brcm_tools/dhd_priv.c">https://raw.githubusercontent.com/radxa/rkwifibt/master/brcm_tools/dhd_priv.c</a><br>gcc dhd_priv.c -o dhd_priv<br>sudo ./dhd_priv channel 6<br>sudo ./dhd_priv monitor 1</p>
-<h1 id="安装樱花frpc"><a href="#安装樱花frpc" class="headerlink" title="安装樱花frpc"></a>安装樱花frpc</h1><p>cd /usr/local/bin<br>sudo wget -O frpc <a href="https://getfrp.sh/d/frpc_linux_arm64">https://getfrp.sh/d/frpc_linux_arm64</a><br>sudo chmod 755 frpc<br>ls -ls frpc<br>md5sum frpc<br>sudo mkdir -p /usr/local/etc/natfrp<br>sudo nano /etc/systemd/system/frpc@.service</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description=SakuraFrp Service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=idle</span><br><span class="line">User=nobody</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=60s</span><br><span class="line">ExecStart=/usr/local/bin/frpc -f %i</span><br><span class="line">WorkingDirectory=/usr/local/etc/natfrp</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>打开后直接crtl c退出就可以启动<br>systemctl daemon-reload<br>systemctl enable frpc@7xk345t4zdqx2d2345fsxx91svfs7e5x:7402311<br>外网ip：202.182.122.24:63979<br>frp-fly.top:63979</p>
-<p>配置systemctl进行开机启动</p>
-<p>创建frpc.service服务</p>
-<p>sudo nano /lib/systemd/system/frpc.service</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">服务描述</span></span><br><span class="line"></span><br><span class="line">Description=frpcservice</span><br><span class="line"></span><br><span class="line">After=network.targetsyslog.target</span><br><span class="line"></span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line"></span><br><span class="line">Type=simple</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">执行命令</span></span><br><span class="line"></span><br><span class="line">ExecStart=/usr/local/frpc/frpc-c/usr/local/frpc/frpc.ini</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line"></span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>重载</p>
-<p>systemctl daemon-reload</p>
-<h1 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h1><p>sudo systemctl status frpc</p>
-<p>设置开机自动启动</p>
-<p>sudo systemctl enable frpc</p>
-<h1 id="安装并配置clash和控制面板"><a href="#安装并配置clash和控制面板" class="headerlink" title="安装并配置clash和控制面板"></a>安装并配置clash和控制面板</h1><p>wget <a href="https://github.com/Dreamacro/clash/releases/download/v1.10.6/clash-linux-armv64-v1.14.6.gz">https://github.com/Dreamacro/clash/releases/download/v1.10.6/clash-linux-armv64-v1.14.6.gz</a><br>gunzip linux-armv64-v1.14.6.gz<br>mv linux-armv64-v1.14.6 clash<br>sudo mv clash /usr/local/bin<br>sudo chmod a+x /usr/local/bin/clash<br>mkdir ~/.config/clash<br>nano ~/.config/clash/config.yaml<br>放入配置文件即可</p>
-<p>mv Country.mmdb ~/.config/clash<br>sudo nano /etc/environment</p>
-<p>export http_proxy=”<a href="http://127.0.0.1:7890">http://127.0.0.1:7890</a>“<br>export https_proxy=”<a href="http://127.0.0.1:7890">http://127.0.0.1:7890</a>“<br>export no_proxy=”localhost, 127.0.0.1, *edu.cn”</p>
-<p>sudo visudo</p>
-<p>Defaults env_keep+=”http_proxy https_proxy no_proxy”</p>
-<p>sudo nano /etc/apt/apt.conf.d/10proxy</p>
-<p>Acquire::http::Proxy “<a href="http://127.0.0.1:7890/">http://127.0.0.1:7890/</a>“;</p>
-<p>nano ~/.gitconfig</p>
-<p>[http]<br>  proxy=<a href="http://127.0.0.1:7890">http://127.0.0.1:7890</a><br>[https]<br>  proxy=<a href="http://127.0.0.1:7890">http://127.0.0.1:7890</a></p>
-<p>crontab -e</p>
-<p>@reboot /usr/local/bin/clash</p>
-<p>cd ~/.config/clash<br>clash &amp;<br>git clone <a href="https://github.com/Dreamacro/clash-dashboard.git">https://github.com/Dreamacro/clash-dashboard.git</a><br>cd ~/.config/clash/clash-dashboard<br>git checkout -b gh-pages origin/gh-pages<br>nano ~/.config/clash/config.yaml<br>头部添加：</p>
-<p>external-ui: clash-dashboard<br>external-controller: 127.0.0.1:9090</p>
-<p><a href="http://127.0.0.1:9090/ui">http://127.0.0.1:9090/ui</a></p>
-<h1 id="桌面"><a href="#桌面" class="headerlink" title="桌面"></a>桌面</h1><p>sudo apt install xfce4 xorg xrdp xorgxrdp<br>touch ~/.xsession<br>echo xfce4-session &gt;~/.xsession<br>sudo chown rock:rock ~/.xsession</p>
-<h1 id="改中文"><a href="#改中文" class="headerlink" title="改中文"></a>改中文</h1><p>sudo apt install fcitx5 locales fonts-noto-cjk fonts-noto-cjk-extra<br>sudo dpkg-reconfigure locales<br>sudo apt-get install chromium-l10n</p>
-<h1 id="Docker-运行openwrt"><a href="#Docker-运行openwrt" class="headerlink" title="Docker 运行openwrt"></a>Docker 运行openwrt</h1><p>sudo chmod 666 /var/run/docker.sock<br>sudo ip link set eth0 promisc on<br>docker network create -d macvlan —subnet=192.168.1.0/24 —gateway=192.168.1.1 -o parent=eth0 macnet<br>docker network list<br>mkdir -p /etc/systemd/system/docker.service.d<br>nano /etc/systemd/system/docker.service.d/http-proxy.conf</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Service]</span><br><span class="line">Environment=&quot;HTTP_PROXY=http://proxy-addr:proxy-port&quot;       #代理服务器地址</span><br><span class="line">Environment=&quot;HTTPS_PROXY=http://proxy-addr:proxy-port&quot;      #https</span><br><span class="line">Environment=&quot;NO_PROXY=localhost,127.0.0.0/8,docker-registry.example.com,.corp&quot;                #哪些地址不需要走代理</span><br></pre></td></tr></table></figure>
-<p>systemctl daemon-reload<br>systemctl restart docker<br>sudo systemctl show —property=Environment docker<br>docker run —restart always —name openwrt -d —network macnet —privileged sulinggg/openwrt:armv8 /sbin/init<br>docker ps -a<br>docker exec -it d61d5edd67d4 bash<br>vim /etc/config/network<br>将后面三项改成自己的ip</p>
-<p>/etc/init.d/network restart</p>
-<p>直接浏览器访问刚刚设置的ip和端口<br>密码默认passwd</p>
-<p>在网络LAN口中关闭桥接接口</p>
-<p>网络防火墙自定义规则中添加<br>iptables -t nat -I POSTROUTING -j MASQUERADE</p>
-<p>在网络Turbo ACC网络加速中勾选DNS缓存</p>
-<h2 id="查看端口："><a href="#查看端口：" class="headerlink" title="查看端口："></a>查看端口：</h2><p>iptables -L -n</p>
-]]></content>
+    <title>RT-Thread</title>
+    <url>/2023/06/24/RT-Thread/</url>
+    <content><![CDATA[<p>记录自己学习RT-Thread的过程<br><span id="more"></span></p>
+<h1 id="RT-Thread版本"><a href="#RT-Thread版本" class="headerlink" title="RT-Thread版本"></a>RT-Thread版本</h1><h2 id="标准版"><a href="#标准版" class="headerlink" title="标准版"></a>标准版</h2><p>包含内核，组件和服务，上层应用包</p>
+<h2 id="Nano版"><a href="#Nano版" class="headerlink" title="Nano版"></a>Nano版</h2><p>包含内核，可移植组件</p>
+<h2 id="Smart版"><a href="#Smart版" class="headerlink" title="Smart版"></a>Smart版</h2><p>将硬件层与软件层分开，类似Linux</p>
+<h1 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h1><p>负责线程管理thread.c，时钟管理clock.c,timer.c，中断管理，内存管理mem.c,memheap.c等，以及线程之间的同步与通信ipc.c,对象管理object.c,实时调度器schedule.c，设备管理device.c</p>
+<h1 id="内核启动"><a href="#内核启动" class="headerlink" title="内核启动"></a>内核启动</h1><h2 id="汇编启动"><a href="#汇编启动" class="headerlink" title="汇编启动"></a>汇编启动</h2><p>Reset_Handler—&gt;LoopCopyDataInit—&gt;LoopFillZerobss—&gt;SystemInit()</p>
+<h2 id="C文件启动"><a href="#C文件启动" class="headerlink" title="C文件启动"></a>C文件启动</h2><p>SystemInit()—&gt;__libc_init_array()—&gt;entry()—&gt;rtthread_startup()</p>
+<h2 id="系统启动"><a href="#系统启动" class="headerlink" title="系统启动"></a>系统启动</h2><p>rtthread启动过程：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">intrtthread_startup(void)</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    rt_hw_interrupt_disable();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*板级初始化：需在该函数内部进行系统堆的初始化*/</span><br><span class="line"></span><br><span class="line">    rt_hw_board_init();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*打印RT-Thread版本信息*/</span><br><span class="line"></span><br><span class="line">    rt_show_version();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*定时器初始化*/</span><br><span class="line"></span><br><span class="line">    rt_system_timer_init();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*调度器初始化*/</span><br><span class="line"></span><br><span class="line">    rt_system_scheduler_init();</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">ifdef RT_USING_SIGNALS</span></span><br><span class="line"></span><br><span class="line">    /*信号初始化*/</span><br><span class="line"></span><br><span class="line">    rt_system_signal_init();</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">endif</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*由此创建一个用户main线程mian_thread_entry*/</span><br><span class="line"></span><br><span class="line">    rt_application_init();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*定时器线程初始化创建线程rt_thread_timer_entry*/</span><br><span class="line"></span><br><span class="line">    rt_system_timer_thread_init();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*空闲线程初始化创建线程rt_thread_idle_entry*/</span><br><span class="line"></span><br><span class="line">    rt_thread_idle_init();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*启动调度器*/</span><br><span class="line"></span><br><span class="line">    rt_system_scheduler_start();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*不会执行至此*/</span><br><span class="line"></span><br><span class="line">    return0;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="线程启动"><a href="#线程启动" class="headerlink" title="线程启动"></a>线程启动</h2><p>首先在系统启动的时候就已经创建了三个线程：</p>
+<p>mian_thread_entry</p>
+<p>rt_thread_timer_entry</p>
+<p>rt_thread_idle_entry</p>
+<h3 id="rt-application-init"><a href="#rt-application-init" class="headerlink" title="rt_application_init()"></a>rt_application_init()</h3><h4 id="线程创建"><a href="#线程创建" class="headerlink" title="线程创建"></a>线程创建</h4><p>根据是否使用堆会有两种创建方式:</p>
+<h5 id="使用堆heap"><a href="#使用堆heap" class="headerlink" title="使用堆heap"></a>使用堆heap</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">rt_thread_create(<span class="string">&quot;main&quot;</span>, main_thread_entry, RT_NULL,</span><br><span class="line"></span><br><span class="line">                           RT_MAIN_THREAD_STACK_SIZE, RT_MAIN_THREAD_PRIORITY, <span class="number">20</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>动态调度方式创建</p>
+<h5 id="不使用堆heap"><a href="#不使用堆heap" class="headerlink" title="不使用堆heap"></a>不使用堆heap</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">rt_thread_init(tid, <span class="string">&quot;main&quot;</span>, main_thread_entry, RT_NULL,</span><br><span class="line"></span><br><span class="line">                            main_stack, <span class="keyword">sizeof</span>(main_stack), RT_MAIN_THREAD_PRIORITY, <span class="number">20</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>静态创建</p>
+<h4 id="进入线程启动器函数启动线程"><a href="#进入线程启动器函数启动线程" class="headerlink" title="进入线程启动器函数启动线程"></a>进入线程启动器函数启动线程</h4><p>rt_thread_startup(tid)</p>
+<h4 id="进入就绪状态并运行线程"><a href="#进入就绪状态并运行线程" class="headerlink" title="进入就绪状态并运行线程"></a>进入就绪状态并运行线程</h4><p>main_thread_entry()</p>
+<h4 id="线程进入主函数"><a href="#线程进入主函数" class="headerlink" title="线程进入主函数"></a>线程进入主函数</h4><p>main()</p>
+<h3 id="rt-thread-timer-entry"><a href="#rt-thread-timer-entry" class="headerlink" title="rt_thread_timer_entry()"></a>rt_thread_timer_entry()</h3><h3 id="rt-thread-idle-entry"><a href="#rt-thread-idle-entry" class="headerlink" title="rt_thread_idle_entry()"></a>rt_thread_idle_entry()</h3><p>退出线程,cleanup函数清理资源</p>
+<h2 id="用户线程的创建"><a href="#用户线程的创建" class="headerlink" title="用户线程的创建"></a>用户线程的创建</h2><h3 id="线程结构体-线程控制块"><a href="#线程结构体-线程控制块" class="headerlink" title="线程结构体(线程控制块)"></a>线程结构体(线程控制块)</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rt_thread</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* rt object */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">char</span>        name[RT_NAME_MAX];                      <span class="comment">/**&lt; the name of thread */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint8_t</span>  type;                                   <span class="comment">/**&lt; type of object */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint8_t</span>  flags;                                  <span class="comment">/**&lt; thread&#x27;s flags */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> RT_USING_MODULE</span></span><br><span class="line"></span><br><span class="line">    <span class="type">void</span>       *module_id;                              <span class="comment">/**&lt; id of application module */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_list_t</span>   <span class="built_in">list</span>;                                   <span class="comment">/**&lt; the object list */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_list_t</span>   tlist;                                  <span class="comment">/**&lt; the thread list */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* stack point and entry */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">void</span>       *sp;                                     <span class="comment">/**&lt; stack point */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">void</span>       *entry;                                  <span class="comment">/**&lt; entry */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">void</span>       *parameter;                              <span class="comment">/**&lt; parameter */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">void</span>       *stack_addr;                             <span class="comment">/**&lt; stack address */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint32_t</span> stack_size;                             <span class="comment">/**&lt; stack size */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* error code */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_err_t</span>    error;                                  <span class="comment">/**&lt; error code */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint8_t</span>  stat;                                   <span class="comment">/**&lt; thread status */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> RT_USING_SMP <span class="comment">//判断是否使用多核</span></span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint8_t</span>  bind_cpu;                               <span class="comment">/**&lt; thread is bind to cpu */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint8_t</span>  oncpu;                                  <span class="comment">/**&lt; process on cpu` */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint16_t</span> scheduler_lock_nest;                    <span class="comment">/**&lt; scheduler lock count */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint16_t</span> cpus_lock_nest;                         <span class="comment">/**&lt; cpus lock count */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint16_t</span> critical_lock_nest;                     <span class="comment">/**&lt; critical lock count */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">/*RT_USING_SMP*/</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* priority */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint8_t</span>  current_priority;                       <span class="comment">/**&lt; current priority */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint8_t</span>  init_priority;                          <span class="comment">/**&lt; initialized priority */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> RT_THREAD_PRIORITY_MAX &gt;32</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint8_t</span>  number;</span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint8_t</span>  high_mask;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint32_t</span> number_mask;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#ifdefined(RT_USING_EVENT)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* thread event */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint32_t</span> event_set;</span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint8_t</span>  event_info;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#ifdefined(RT_USING_SIGNALS)</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_sigset_t</span>     sig_pending;                        <span class="comment">/**&lt; the pending signals */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_sigset_t</span>     sig_mask;                           <span class="comment">/**&lt; the mask bits of signal */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> RT_USING_SMP</span></span><br><span class="line"></span><br><span class="line">    <span class="type">void</span>            *sig_ret;                           <span class="comment">/**&lt; the return stack pointer from signal */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_sighandler_t</span> *sig_vectors;                       <span class="comment">/**&lt; vectors of signal handler */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">void</span>            *si_list;                           <span class="comment">/**&lt; the signal infor list */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_ubase_t</span>  init_tick;                              <span class="comment">/**&lt; thread&#x27;s initialized tick */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_ubase_t</span>  remaining_tick;                         <span class="comment">/**&lt; remaining tick */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> RT_USING_CPU_USAGE</span></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_uint64_t</span>  duration_tick;                          <span class="comment">/**&lt; cpu usage tick */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">rt_timer</span> <span class="title">thread_timer</span>;</span>                       <span class="comment">/**&lt; built-in thread timer */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="type">void</span> (*cleanup)(<span class="keyword">struct</span> rt_thread *tid);             <span class="comment">/**&lt; cleanup function when thread exit */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* light weight process if present */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> RT_USING_LWP</span></span><br><span class="line"></span><br><span class="line">    <span class="type">void</span>        *lwp;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="type">rt_ubase_t</span> user_data;                             <span class="comment">/**&lt; private user data beyond this thread */</span></span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="线程属性"><a href="#线程属性" class="headerlink" title="线程属性"></a>线程属性</h3><h4 id="线程栈"><a href="#线程栈" class="headerlink" title="线程栈"></a>线程栈</h4><h4 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h4><h5 id="初始状态"><a href="#初始状态" class="headerlink" title="初始状态"></a>初始状态</h5><p>当线程刚开始创建还没开始运行时就处于初始状态；在初始状态下，线程不参与调度。此状态在 RT-Thread 中的宏定义为 RT_THREAD_INIT</p>
+<h5 id="就绪状态"><a href="#就绪状态" class="headerlink" title="就绪状态"></a>就绪状态</h5><p>在就绪状态下，线程按照优先级排队，等待被执行；一旦当前线程运行完毕让出处理器，操作系统会马上寻找最高优先级的就绪态线程运行。此状态在 RT-Thread 中的宏定义为 RT_THREAD_READY</p>
+<h5 id="运行状态"><a href="#运行状态" class="headerlink" title="运行状态"></a>运行状态</h5><p>线程当前正在运行。在单核系统中，只有 rt_thread_self() 函数返回的线程处于运行状态；在多核系统中，可能就不止这一个线程处于运行状态。此状态在 RT-Thread 中的宏定义为 RT_THREAD_RUNNING</p>
+<h5 id="挂起状态"><a href="#挂起状态" class="headerlink" title="挂起状态"></a>挂起状态</h5><p>也称阻塞态。它可能因为资源不可用而挂起等待，或线程主动延时一段时间而挂起。在挂起状态下，线程不参与调度。此状态在 RT-Thread 中的宏定义为 RT_THREAD_SUSPEND</p>
+<h5 id="关闭状态"><a href="#关闭状态" class="headerlink" title="关闭状态"></a>关闭状态</h5><p>当线程运行结束时将处于关闭状态。关闭状态的线程不参与线程的调度。此状态在 RT-Thread 中的宏定义为 RT_THREAD_CLOSE</p>
+<h4 id="时间片"><a href="#时间片" class="headerlink" title="时间片"></a>时间片</h4><p>如果线程优先级相同则通过时间片,一个线程运行几个时钟周期再切换给另一个</p>
+<h3 id="线程状态切换"><a href="#线程状态切换" class="headerlink" title="线程状态切换"></a>线程状态切换</h3><p><img src="https://www.rt-thread.org/document/site/rt-thread-version/rt-thread-standard/programming-manual/thread/figures/04thread_sta.png" alt="Alt text"></p>
+<h3 id="线程操作"><a href="#线程操作" class="headerlink" title="线程操作"></a>线程操作</h3><h4 id="线程创建与删除"><a href="#线程创建与删除" class="headerlink" title="线程创建与删除"></a>线程创建与删除</h4><p>动态创建:系统分配栈与句柄</p>
+<p>静态创建:用户自行分配栈和句柄</p>
+<h5 id="线程的创建"><a href="#线程的创建" class="headerlink" title="线程的创建"></a>线程的创建</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">rt_thread_create(constchar *name,<span class="comment">//名字</span></span><br><span class="line"></span><br><span class="line">                 <span class="type">void</span> (*entry)(<span class="type">void</span> *parameter),<span class="comment">//线程函数入口</span></span><br><span class="line"></span><br><span class="line">                 <span class="type">void</span>       *parameter,<span class="comment">//传递给线程函数的参数</span></span><br><span class="line"></span><br><span class="line">                 rt_uint32_tstack_size,<span class="comment">//线程栈大小</span></span><br><span class="line"></span><br><span class="line">                 <span class="type">rt_uint8_t</span>  priority,<span class="comment">//优先级,stm32为32个</span></span><br><span class="line"></span><br><span class="line">                 rt_uint32_ttick);<span class="comment">//时间片节拍数量</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>返回值为rt_thread_t,为结构体指针,返回线程控制块</p>
+<h5 id="线程的删除"><a href="#线程的删除" class="headerlink" title="线程的删除"></a>线程的删除</h5><p>rt_thread_delete(rt_thread_t thread);</p>
+<p>返回值为rt_err_t,线程错误码</p>
+<h2 id="RT-Thread程序内存分布"><a href="#RT-Thread程序内存分布" class="headerlink" title="RT_Thread程序内存分布"></a>RT_Thread程序内存分布</h2><p>一般 MCU 包含的存储空间有：片内 Flash 与片内 RAM，RAM 相当于内存，Flash 相当于硬盘。编译器会将一个程序分类为好几个部分，分别存储在 MCU 不同的存储区。</p>
+<p>Keil 工程在编译完之后，会有相应的程序所占用的空间提示信息，如下所示：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">linking...</span><br><span class="line"></span><br><span class="line">Program Size: Code=<span class="number">48008</span> RO-data=<span class="number">5660</span> RW-data=<span class="number">604</span> ZI-data=<span class="number">2124</span></span><br><span class="line"></span><br><span class="line">After Build - User command \#<span class="number">1</span>: fromelf --bin.\\build\\rtthread-stm32.axf--output rtthread.bin</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;.\\build\\rtthread-stm32.axf&quot;</span> - <span class="number">0</span>Error(s), <span class="number">0</span>Warning(s).</span><br><span class="line"></span><br><span class="line">Build Time Elapsed: <span class="number">00</span>:<span class="number">00</span>:<span class="number">07</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>上面提到的 Program Size 包含以下几个部分：</p>
+<p>1）Code：代码段，存放程序的代码部分；</p>
+<p>2）RO-data：只读数据段，存放程序中定义的常量；</p>
+<p>3）RW-data：读写数据段，存放初始化为非 0 值的全局变量；</p>
+<p>4）ZI-data：0 数据段，存放未初始化的全局变量及初始化为 0 的变量；</p>
+<p>编译完工程会生成一个. map 的文件，该文件说明了各个函数占用的尺寸和地址，在文件的最后几行也说明了上面几个字段的关系：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">Total RO <span class="title function_">Size</span> <span class="params">(Code + RO Data)</span> 53668 <span class="params">( <span class="number">52.41</span>kB)</span></span><br><span class="line"></span><br><span class="line">Total RW <span class="title function_">Size</span> <span class="params">(RW Data + ZI Data)</span> 2728 <span class="params">( <span class="number">2.66</span>kB)</span></span><br><span class="line"></span><br><span class="line">Total ROM <span class="title function_">Size</span> <span class="params">(Code + RO Data + RW Data)</span> 53780 <span class="params">( <span class="number">52.52</span>kB)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>1）RO Size 包含了 Code 及 RO-data，表示程序占用 Flash 空间的大小；</p>
+<p>2）RW Size 包含了 RW-data 及 ZI-data，表示运行时占用的 RAM 的大小；</p>
+<p>3）ROM Size 包含了 Code、RO-data 以及 RW-data，表示烧写程序所占用的 Flash 空间的大小；</p>
+<h2 id="RT-Thread-自动初始化机制"><a href="#RT-Thread-自动初始化机制" class="headerlink" title="RT-Thread 自动初始化机制"></a>RT-Thread 自动初始化机制</h2><p>INIT_BOARD_EXPORT(rt_hw_usart_init);    /<em> 使用组件自动初始化机制 </em>/</p>
+<h1 id="IO设备"><a href="#IO设备" class="headerlink" title="IO设备"></a>IO设备</h1><p><img src="https://www.rt-thread.org/document/site/rt-thread-version/rt-thread-standard/programming-manual/device/figures/io-dev.png" alt="Alt text"></p>
+<p><img src="https://www.rt-thread.org/document/site/rt-thread-version/rt-thread-standard/programming-manual/device/figures/io-fun-call.png" alt="Alt text"></p>
+<p><img src="https://www.rt-thread.org/document/site/rt-thread-version/rt-thread-standard/programming-manual/device/figures/io-dev-ex.png" alt="Alt text"></p>
+<h2 id="创建设备"><a href="#创建设备" class="headerlink" title="创建设备"></a>创建设备</h2><h2 id="注册设备"><a href="#注册设备" class="headerlink" title="注册设备"></a>注册设备</h2><h2 id="访问设备"><a href="#访问设备" class="headerlink" title="访问设备"></a>访问设备</h2><h1 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h1><h2 id="applications应用层"><a href="#applications应用层" class="headerlink" title="applications应用层"></a>applications应用层</h2><h2 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h2><h2 id="drivers驱动层"><a href="#drivers驱动层" class="headerlink" title="drivers驱动层"></a>drivers驱动层</h2><h2 id="libraries芯片硬件层"><a href="#libraries芯片硬件层" class="headerlink" title="libraries芯片硬件层"></a>libraries芯片硬件层</h2><p>包含有Hal库驱动和CMSIS等</p>
+<h2 id="rt-thread系统层"><a href="#rt-thread系统层" class="headerlink" title="rt_thread系统层"></a>rt_thread系统层</h2><h2 id="packages"><a href="#packages" class="headerlink" title="packages"></a>packages</h2>]]></content>
       <categories>
-        <category>LINUX</category>
+        <category>单片机</category>
       </categories>
       <tags>
-        <tag>ROCK4B+</tag>
+        <tag>OS</tag>
       </tags>
   </entry>
   <entry>
@@ -571,36 +445,93 @@
       </tags>
   </entry>
   <entry>
-    <title>ZYNQ-in-7010</title>
-    <url>/2022/12/13/ZYNQ-in-7010/</url>
-    <content><![CDATA[<p>个人关于ZYNQ的一些开发学习文档，以小熊猫的ZYNQ7010和Smart 7020 SP为例，不断更新ing</p>
-<span id="more"></span>
-<h1 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h1><ol>
-<li>敏感信号表:所有的右边表达式中的变量以及if,case条件中的变量</li>
-<li>if/else要配对以避免latch（锁存器）的产生，同样的case语句加default语句</li>
-<li>状态机（fsm）：<ol>
-<li>使用独热码，每个状态只有一个寄存器置位，译码逻辑简单</li>
-<li>三段式可以在组合逻辑后再增加一级寄存器来实现时序逻辑输出:<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20220116144516055.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img" title="image-20220116144516055"></a><ul>
-<li>可以有效地滤去组合逻辑输出的毛刺</li>
-<li>可以有效地进行时序计算与约束</li>
-<li>另外对于总线形式的输出信号来说，容易使总线数据对齐,从而减小总线数据间的偏移，减小接收端数据采样出错的频率。</li>
-</ul>
-</li>
-</ol>
-</li>
-</ol>
-<h1 id="Petalinux"><a href="#Petalinux" class="headerlink" title="Petalinux"></a>Petalinux</h1><h2 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h2><p>source /tools/petalinux/2023.1/settings.sh</p>
-<h2 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h2><p>petalinux-create —type project —template zynq —name Petalinux_TF</p>
-<h2 id="进入图形化配置界面"><a href="#进入图形化配置界面" class="headerlink" title="进入图形化配置界面"></a>进入图形化配置界面</h2><p>petalinux-config —get-hw-description=.</p>
-<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>petalinux-build</p>
-<h2 id="打包镜像"><a href="#打包镜像" class="headerlink" title="打包镜像"></a>打包镜像</h2><p>petalinux-package —boot —fsbl ./images/linux/zynq_fsbl.elf —u-boot —fpga —kernel —force</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://shjdgwj.github.io/d8298fbe5fcd/">ZYNQ学习笔记</a></p>
+    <title>Raspberry_pico</title>
+    <url>/2023/06/24/Raspberry-pico/</url>
+    <content><![CDATA[<p>关于树莓派pico的环境搭建与开发<br><span id="more"></span></p>
+<h1 id="Ubuntu-C-C"><a href="#Ubuntu-C-C" class="headerlink" title="Ubuntu C/C++"></a>Ubuntu C/C++</h1><h2 id="依赖："><a href="#依赖：" class="headerlink" title="依赖："></a>依赖：</h2><p> sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential python3-tk</p>
+<h2 id="下载-pico-sdk-和-pico-examples"><a href="#下载-pico-sdk-和-pico-examples" class="headerlink" title="下载 pico-sdk 和 pico-examples"></a>下载 pico-sdk 和 pico-examples</h2><p>cd ~<br>mkdir pico<br>cd pico<br>git clone -b master <a href="https://github.com/raspberrypi/pico-sdk.git">https://github.com/raspberrypi/pico-sdk.git</a><br>cd pico-sdk<br>git submodule update —init<br>cd ~/pico<br>git clone -b master <a href="https://github.com/raspberrypi/pico-examples.git">https://github.com/raspberrypi/pico-examples.git</a></p>
+<h2 id="下载-pico-project-generator"><a href="#下载-pico-project-generator" class="headerlink" title="下载 pico-project-generator"></a>下载 pico-project-generator</h2><p>cd ~/pico<br>git clone <a href="https://github.com/raspberrypi/pico-project-generator.git">https://github.com/raspberrypi/pico-project-generator.git</a></p>
+<h2 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h2><p>echo “export PICO_SDK_PATH=/home/$USER/pico/pico-sdk” &gt;&gt; .bashrc</p>
+<h2 id="安装-VSCode-插件"><a href="#安装-VSCode-插件" class="headerlink" title="安装 VSCode 插件"></a>安装 VSCode 插件</h2><p>code —install-extension marus25.cortex-debug<br>code —install-extension ms-vscode.cmake-tools<br>code —install-extension ms-vscode.cpptools</p>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>cd pico-project-generator</p>
+<p>./pico-progect.py —gui</p>
+<p>手动生成工程</p>
+<p>cd build</p>
+<p>make -j(核心数)  eg：make -j4</p>
+<p>将uf2文件拖入pico即可</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf">https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf</a><br><a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf">https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf</a></p>
 ]]></content>
       <categories>
-        <category>ZYNQ</category>
+        <category>单片机</category>
       </categories>
       <tags>
-        <tag>7010</tag>
+        <tag>Pico</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Rockpi4B+</title>
+    <url>/2023/06/24/Rockpi4B/</url>
+    <content><![CDATA[<p>rock4B+配置服务器，运行docker自己总结的教程</p>
+<span id="more"></span>
+<h1 id="配置脚本"><a href="#配置脚本" class="headerlink" title="配置脚本"></a>配置脚本</h1><p>最开始是外国源，为了提高速度，不要下载别的东西，只安装wget</p>
+<p>sudo su<br>sudo apt update<br>sudo apt install wget</p>
+<h1 id="安装cockpit（端口9090）"><a href="#安装cockpit（端口9090）" class="headerlink" title="安装cockpit（端口9090）"></a>安装cockpit（端口9090）</h1><p>sudo apt-get install cockpit<br>sudo apt-get install cockpit-machines</p>
+<h1 id="安装宝塔"><a href="#安装宝塔" class="headerlink" title="安装宝塔"></a>安装宝塔</h1><p>wget -O install.sh <a href="https://download.bt.cn/install/install-ubuntu_6.0.sh">https://download.bt.cn/install/install-ubuntu_6.0.sh</a> &amp;&amp; bash install.sh ed8484bec</p>
+<h1 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h1><p>sudo apt install apt-transport-https ca-certificates<br>sudo nano /etc/apt/sources.list</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free</span></span><br><span class="line"></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ buster-updates main contrib non-free</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ buster-updates main contrib non-free</span></span><br><span class="line"></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ buster-backports main contrib non-free</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ buster-backports main contrib non-free</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb https://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib non-free</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib non-free</span></span></span><br><span class="line"></span><br><span class="line">deb https://security.debian.org/debian-security buster/updates main contrib non-free</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://security.debian.org/debian-security buster/updates main contrib non-free</span></span><br><span class="line"></span><br><span class="line">deb http://apt.radxa.com/buster-testing/ buster main</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>wget -O -  apt.radxa.com/buster-testing/public.key | sudo apt-key add -</p>
+<p>sudo apt-get update</p>
+<h1 id="装radxa硬件驱动"><a href="#装radxa硬件驱动" class="headerlink" title="装radxa硬件驱动"></a>装radxa硬件驱动</h1><p>sudo apt-get install -y rockchip-overlay &amp;&amp; sudo apt-get install -y rockpi4-dtbo libmraa</p>
+<h1 id="改地区"><a href="#改地区" class="headerlink" title="改地区"></a>改地区</h1><p>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</p>
+<h1 id="安装wifi蓝牙GPU驱动"><a href="#安装wifi蓝牙GPU驱动" class="headerlink" title="安装wifi蓝牙GPU驱动"></a>安装wifi蓝牙GPU驱动</h1><p>sudo apt-get install -y broadcom-wifibt-firmware<br>systemctl start bluetooth<br>pulseaudio —start<br>sudo apt install -y git gcc g++ libpng-dev libjpeg-dev pkg-config libx11-dev libdrm-dev libgbm-dev libgbm1 libudev-dev<br>mkdir -p /home/rock/work<br>cd /home/rock/work<br>git clone <a href="https://github.com/glmark2/glmark2.git">https://github.com/glmark2/glmark2.git</a><br>cd glmark2/<br>./waf configure —with-flavors=drm-glesv2<br>./waf build -j 4<br>./waf install<br>sudo apt install -y rockchip-mali-midgard14=1.6-2<br>sudo apt install -y rockchip-mali-midgard-dev=1.6-2<br>glmark2-es2-drm<br>apt-get install golang emacs</p>
+<h1 id="hdmi热插拔"><a href="#hdmi热插拔" class="headerlink" title="hdmi热插拔"></a>hdmi热插拔</h1><p>sudo chmod +x /usr/local/bin/drm-hotplug.sh</p>
+<h1 id="超频"><a href="#超频" class="headerlink" title="超频"></a>超频</h1><p>nano /boot/hw_intfc.conf</p>
+<p>setting cpu frequency over-2GHz</p>
+<p>   intfc:dtoverlay=cpufreq</p>
+<h1 id="wifi模式切换"><a href="#wifi模式切换" class="headerlink" title="wifi模式切换"></a>wifi模式切换</h1><p>sudo apt-get install git cmake hostapd<br>git clone <a href="https://github.com/oblique/create_ap">https://github.com/oblique/create_ap</a><br>cd create_ap<br>sudo make install<br>wget <a href="https://raw.githubusercontent.com/radxa/rkwifibt/master/brcm_tools/dhd_priv.c">https://raw.githubusercontent.com/radxa/rkwifibt/master/brcm_tools/dhd_priv.c</a><br>gcc dhd_priv.c -o dhd_priv<br>sudo ./dhd_priv channel 6<br>sudo ./dhd_priv monitor 1</p>
+<h1 id="安装樱花frpc"><a href="#安装樱花frpc" class="headerlink" title="安装樱花frpc"></a>安装樱花frpc</h1><p>cd /usr/local/bin<br>sudo wget -O frpc <a href="https://getfrp.sh/d/frpc_linux_arm64">https://getfrp.sh/d/frpc_linux_arm64</a><br>sudo chmod 755 frpc<br>ls -ls frpc<br>md5sum frpc<br>sudo mkdir -p /usr/local/etc/natfrp<br>sudo nano /etc/systemd/system/frpc@.service</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description=SakuraFrp Service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=idle</span><br><span class="line">User=nobody</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=60s</span><br><span class="line">ExecStart=/usr/local/bin/frpc -f %i</span><br><span class="line">WorkingDirectory=/usr/local/etc/natfrp</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>打开后直接crtl c退出就可以启动<br>systemctl daemon-reload<br>systemctl enable frpc@7xk345t4zdqx2d2345fsxx91svfs7e5x:7402311<br>外网ip：202.182.122.24:63979<br>frp-fly.top:63979</p>
+<p>配置systemctl进行开机启动</p>
+<p>创建frpc.service服务</p>
+<p>sudo nano /lib/systemd/system/frpc.service</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">服务描述</span></span><br><span class="line"></span><br><span class="line">Description=frpcservice</span><br><span class="line"></span><br><span class="line">After=network.targetsyslog.target</span><br><span class="line"></span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line"></span><br><span class="line">Type=simple</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">执行命令</span></span><br><span class="line"></span><br><span class="line">ExecStart=/usr/local/frpc/frpc-c/usr/local/frpc/frpc.ini</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line"></span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>重载</p>
+<p>systemctl daemon-reload</p>
+<h1 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h1><p>sudo systemctl status frpc</p>
+<p>设置开机自动启动</p>
+<p>sudo systemctl enable frpc</p>
+<h1 id="安装并配置clash和控制面板"><a href="#安装并配置clash和控制面板" class="headerlink" title="安装并配置clash和控制面板"></a>安装并配置clash和控制面板</h1><p>wget <a href="https://github.com/Dreamacro/clash/releases/download/v1.10.6/clash-linux-armv64-v1.14.6.gz">https://github.com/Dreamacro/clash/releases/download/v1.10.6/clash-linux-armv64-v1.14.6.gz</a><br>gunzip linux-armv64-v1.14.6.gz<br>mv linux-armv64-v1.14.6 clash<br>sudo mv clash /usr/local/bin<br>sudo chmod a+x /usr/local/bin/clash<br>mkdir ~/.config/clash<br>nano ~/.config/clash/config.yaml<br>放入配置文件即可</p>
+<p>mv Country.mmdb ~/.config/clash<br>sudo nano /etc/environment</p>
+<p>export http_proxy=”<a href="http://127.0.0.1:7890">http://127.0.0.1:7890</a>“<br>export https_proxy=”<a href="http://127.0.0.1:7890">http://127.0.0.1:7890</a>“<br>export no_proxy=”localhost, 127.0.0.1, *edu.cn”</p>
+<p>sudo visudo</p>
+<p>Defaults env_keep+=”http_proxy https_proxy no_proxy”</p>
+<p>sudo nano /etc/apt/apt.conf.d/10proxy</p>
+<p>Acquire::http::Proxy “<a href="http://127.0.0.1:7890/">http://127.0.0.1:7890/</a>“;</p>
+<p>nano ~/.gitconfig</p>
+<p>[http]<br>  proxy=<a href="http://127.0.0.1:7890">http://127.0.0.1:7890</a><br>[https]<br>  proxy=<a href="http://127.0.0.1:7890">http://127.0.0.1:7890</a></p>
+<p>crontab -e</p>
+<p>@reboot /usr/local/bin/clash</p>
+<p>cd ~/.config/clash<br>clash &amp;<br>git clone <a href="https://github.com/Dreamacro/clash-dashboard.git">https://github.com/Dreamacro/clash-dashboard.git</a><br>cd ~/.config/clash/clash-dashboard<br>git checkout -b gh-pages origin/gh-pages<br>nano ~/.config/clash/config.yaml<br>头部添加：</p>
+<p>external-ui: clash-dashboard<br>external-controller: 127.0.0.1:9090</p>
+<p><a href="http://127.0.0.1:9090/ui">http://127.0.0.1:9090/ui</a></p>
+<h1 id="桌面"><a href="#桌面" class="headerlink" title="桌面"></a>桌面</h1><p>sudo apt install xfce4 xorg xrdp xorgxrdp<br>touch ~/.xsession<br>echo xfce4-session &gt;~/.xsession<br>sudo chown rock:rock ~/.xsession</p>
+<h1 id="改中文"><a href="#改中文" class="headerlink" title="改中文"></a>改中文</h1><p>sudo apt install fcitx5 locales fonts-noto-cjk fonts-noto-cjk-extra<br>sudo dpkg-reconfigure locales<br>sudo apt-get install chromium-l10n</p>
+<h1 id="Docker-运行openwrt"><a href="#Docker-运行openwrt" class="headerlink" title="Docker 运行openwrt"></a>Docker 运行openwrt</h1><p>sudo chmod 666 /var/run/docker.sock<br>sudo ip link set eth0 promisc on<br>docker network create -d macvlan —subnet=192.168.1.0/24 —gateway=192.168.1.1 -o parent=eth0 macnet<br>docker network list<br>mkdir -p /etc/systemd/system/docker.service.d<br>nano /etc/systemd/system/docker.service.d/http-proxy.conf</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Service]</span><br><span class="line">Environment=&quot;HTTP_PROXY=http://proxy-addr:proxy-port&quot;       #代理服务器地址</span><br><span class="line">Environment=&quot;HTTPS_PROXY=http://proxy-addr:proxy-port&quot;      #https</span><br><span class="line">Environment=&quot;NO_PROXY=localhost,127.0.0.0/8,docker-registry.example.com,.corp&quot;                #哪些地址不需要走代理</span><br></pre></td></tr></table></figure>
+<p>systemctl daemon-reload<br>systemctl restart docker<br>sudo systemctl show —property=Environment docker<br>docker run —restart always —name openwrt -d —network macnet —privileged sulinggg/openwrt:armv8 /sbin/init<br>docker ps -a<br>docker exec -it d61d5edd67d4 bash<br>vim /etc/config/network<br>将后面三项改成自己的ip</p>
+<p>/etc/init.d/network restart</p>
+<p>直接浏览器访问刚刚设置的ip和端口<br>密码默认passwd</p>
+<p>在网络LAN口中关闭桥接接口</p>
+<p>网络防火墙自定义规则中添加<br>iptables -t nat -I POSTROUTING -j MASQUERADE</p>
+<p>在网络Turbo ACC网络加速中勾选DNS缓存</p>
+<h2 id="查看端口："><a href="#查看端口：" class="headerlink" title="查看端口："></a>查看端口：</h2><p>iptables -L -n</p>
+]]></content>
+      <categories>
+        <category>LINUX</category>
+      </categories>
+      <tags>
+        <tag>ROCK4B+</tag>
       </tags>
   </entry>
   <entry>
@@ -897,6 +828,114 @@
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu配置及优化</title>
+    <url>/2023/06/24/Ubuntu%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<p>关于ubuntu系统的优化与配置<br><span id="more"></span></p>
+<h1 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h1><p>sudo apt install gparted htop net-tools putty vim fcitx fcitx-googlepinyin xrdp xorg xorgxrdp tofrodos iproute2 gawk gcc g++ git make net-tools libncurses5-dev tftpd zlib1g:i386 libssl-dev flex bison libselinux1 gnupg wget diffstat chrpath socat xterm autoconf libtool tar unzip texinfo zlib1g-dev gcc-multilib build-essential libsdl1.2-dev libglib2.0-dev screen pax gzip automake tftpd-hpa ubuntu-restricted-extras gnome-tweaks gnome-shell-extension-manager indicator-multiload libncurses5 libtinfo5 libncurses5-dev libncursesw5-dev samba ssh</p>
+<p>sudo apt install tftpd-hpa ncurses-compat-libs</p>
+<p>service tftpd-hpa restart</p>
+<p>wget <a href="http://nz2.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1.3_amd64.deb">http://nz2.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1.3_amd64.deb</a></p>
+<p>sudo dpkg -i libssl1.1_1.1.1l-1ubuntu1.3_amd64.deb</p>
+<p>sudo dpkg-reconfigure dash (选NO）</p>
+<h1 id="解决“色彩管理设备”"><a href="#解决“色彩管理设备”" class="headerlink" title="解决“色彩管理设备”"></a>解决“色彩管理设备”</h1><p>sudo nano /etc/polkit-1/localauthority/50-local.d/45-allow-colord.pkla</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">[Allow Colord all Users]</span><br><span class="line">Identity=unix-user:*</span><br><span class="line">Action=org.freedesktop.color-manager.create-device;org.freedesktop.color-manager.create-profile;org.freedesktop.color-manager.delete-device;org.freedesktop.color-manager.delete-profile;org.freedesktop.color-manager.modify-device;org.freedesktop.color-manager.modify-profile</span><br><span class="line">ResultAny=no</span><br><span class="line">ResultInactive=no</span><br><span class="line">ResultActive=yes</span><br></pre></td></tr></table></figure>
+<h1 id="解决“刷新系统软件源需要认证”"><a href="#解决“刷新系统软件源需要认证”" class="headerlink" title="解决“刷新系统软件源需要认证”"></a>解决“刷新系统软件源需要认证”</h1><p>nano /etc/polkit-1/localauthority/50-local.d/46-allow-packagekit.pkla</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Allow Refresh Repository all Users]</span><br><span class="line">Identity=unix-user:*</span><br><span class="line">Action=org.freedesktop.packagekit.system-sources-refresh</span><br><span class="line">ResultAny=no</span><br><span class="line">ResultInactive=no</span><br><span class="line">ResultActive=yes</span><br></pre></td></tr></table></figure>
+<h1 id="解决“扫描WIFI需要认证”"><a href="#解决“扫描WIFI需要认证”" class="headerlink" title="解决“扫描WIFI需要认证”"></a>解决“扫描WIFI需要认证”</h1><p>sudo nano /etc/polkit-1/localauthority/50-local-d/allow-wifiscan</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Allow Wifi Scan]</span><br><span class="line">Identity=unix-user:*</span><br><span class="line">Action=org.freedesktop.NetworkManager.wifi.scan;org.freedesktop.NetworkManager.enable-disable-wifi;org.freedesktop.NetworkManager.settings.modify.own;org.freedesktop.NetworkManager.settings.modify.system;org.freedesktop.NetworkManager.network-control</span><br><span class="line">ResultAny=yes</span><br><span class="line">ResultInactive=yes</span><br><span class="line">ResultActive=yes</span><br></pre></td></tr></table></figure>
+<h1 id="自定义二级域名"><a href="#自定义二级域名" class="headerlink" title="自定义二级域名"></a>自定义二级域名</h1><p>在多人同时使用一个 frps 时，通过自定义二级域名的方式来使用会更加方便。</p>
+<p>通过在 frps 的配置文件中配置 subdomain_host，就可以启用该特性。之后在 frpc 的 http、https 类型的代理中可以不配置 custom_domains，而是配置一个 subdomain 参数。</p>
+<p>只需要将 *.{subdomain_host} 解析到 frps 所在服务器。之后用户可以通过 subdomain 自行指定自己的 web 服务所需要使用的二级域名，通过 {subdomain}.{subdomain_host} 来访问自己的 web 服务。</p>
+<h2 id="frps-ini"><a href="#frps-ini" class="headerlink" title="frps.ini"></a>frps.ini</h2><p>[common]<br>subdomain_host = frps.com<br>将泛域名 *.frps.com 解析到 frps 所在服务器的 IP 地址。</p>
+<h2 id="frpc-ini"><a href="#frpc-ini" class="headerlink" title="frpc.ini"></a>frpc.ini</h2><p>[web]<br>type = http<br>local_port = 80<br>subdomain = test<br>frps 和 frpc 都启动成功后，通过 test.frps.com 就可以访问到内网的 web 服务。</p>
+<p>注：如果 frps 配置了 subdomain_host，则 custom_domains 中不能是属于 subdomain_host 的子域名或者泛域名。</p>
+<p>同一个 http 或 https 类型的代理中 custom_domains 和 subdomain 可以同时配置。</p>
+<h1 id="解决休眠问题："><a href="#解决休眠问题：" class="headerlink" title="解决休眠问题："></a>解决休眠问题：</h1><p>检查休眠功能的状态<br>systemctl status sleep.target</p>
+<p>执行关闭休眠功能的命令<br>如果是作为服务器使用的时候，我们一般远程访问系统，这个功能就会导致我们无法远程控制服务器，因此我们需要关闭这个功能。<br>systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target</p>
+<p>再次观察系统休眠状态<br>systemctl status sleep.target</p>
+<h1 id="配置frpc开机自启"><a href="#配置frpc开机自启" class="headerlink" title="配置frpc开机自启"></a>配置frpc开机自启</h1><p>sudo nano /lib/systemd/system/frpc.service</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">服务描述</span></span><br><span class="line">Description=frpc service</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">执行命令</span></span><br><span class="line">ExecStart=/usr/local/frpc/frpc -c /usr/local/frpc/frpc.ini</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line">```</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">sudo systemctl enable frpc</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LINUX</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ZYNQ-in-7010</title>
+    <url>/2022/12/13/ZYNQ-in-7010/</url>
+    <content><![CDATA[<p>个人关于ZYNQ的一些开发学习文档，以小熊猫的ZYNQ7010和Smart 7020 SP为例，不断更新ing</p>
+<span id="more"></span>
+<h1 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h1><ol>
+<li>敏感信号表:所有的右边表达式中的变量以及if,case条件中的变量</li>
+<li>if/else要配对以避免latch（锁存器）的产生，同样的case语句加default语句</li>
+<li>状态机（fsm）：<ol>
+<li>使用独热码，每个状态只有一个寄存器置位，译码逻辑简单</li>
+<li>三段式可以在组合逻辑后再增加一级寄存器来实现时序逻辑输出:<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20220116144516055.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img" title="image-20220116144516055"></a><ul>
+<li>可以有效地滤去组合逻辑输出的毛刺</li>
+<li>可以有效地进行时序计算与约束</li>
+<li>另外对于总线形式的输出信号来说，容易使总线数据对齐,从而减小总线数据间的偏移，减小接收端数据采样出错的频率。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="Petalinux"><a href="#Petalinux" class="headerlink" title="Petalinux"></a>Petalinux</h1><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><p>source /tools/petalinux/2023.1/settings.sh</p>
+<h3 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h3><p>petalinux-create —type project —template zynq —name Petalinux_TF</p>
+<h3 id="进入图形化配置界面"><a href="#进入图形化配置界面" class="headerlink" title="进入图形化配置界面"></a>进入图形化配置界面</h3><p>petalinux-config —get-hw-description=.</p>
+<h3 id="编译-1"><a href="#编译-1" class="headerlink" title="编译"></a>编译</h3><p>petalinux-build</p>
+<h3 id="打包镜像"><a href="#打包镜像" class="headerlink" title="打包镜像"></a>打包镜像</h3><p>petalinux-package —boot —fsbl ./images/linux/zynq_fsbl.elf —u-boot —fpga —kernel —force</p>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><h3 id="启动出错显示找不到环境等问题"><a href="#启动出错显示找不到环境等问题" class="headerlink" title="启动出错显示找不到环境等问题"></a>启动出错显示找不到环境等问题</h3><p>在uboot界面输入：<br>env default -a<br>saveenv<br>boot</p>
+<h3 id="登陆"><a href="#登陆" class="headerlink" title="登陆"></a>登陆</h3><p>自从Petalinux 2022.1版本以后，取消了root登录。用户名改为petalinux，然后会引导你设置新密码。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://shjdgwj.github.io/d8298fbe5fcd/">ZYNQ学习笔记</a></p>
+]]></content>
+      <categories>
+        <category>ZYNQ</category>
+      </categories>
+      <tags>
+        <tag>7010</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>网络基础</title>
+    <url>/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<p>自己琢磨出的关于光猫与路由器设置的简单教程</p>
+<span id="more"></span>
+<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="光猫"><a href="#光猫" class="headerlink" title="光猫"></a>光猫</h2><p>进行光电转换的设备，最纯净的光猫是毛棒，常见的运营商的光猫是集成了光猫路由器交换机等功能的设备。</p>
+<h2 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h2><p>进行拨号NAT转换的设备</p>
+<h2 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a>交换机</h2><p>拓展接口的设备</p>
+<h2 id="AP"><a href="#AP" class="headerlink" title="AP"></a>AP</h2><p>同交换机只不过是通过无线网的方式来拓展接口</p>
+<h1 id="光猫-1"><a href="#光猫-1" class="headerlink" title="光猫"></a>光猫</h1><h2 id="超级管理员密码"><a href="#超级管理员密码" class="headerlink" title="超级管理员密码"></a>超级管理员密码</h2><h3 id="电信"><a href="#电信" class="headerlink" title="电信"></a>电信</h3><p>用户名：useradmin<br>密码：nE7jA%5m</p>
+<h3 id="移动"><a href="#移动" class="headerlink" title="移动"></a>移动</h3><p>用户名：CMCCAdmin<br>密码：aDm8H%MdA</p>
+<h2 id="桥接和路由模式切换"><a href="#桥接和路由模式切换" class="headerlink" title="桥接和路由模式切换"></a>桥接和路由模式切换</h2><p>桥接模式：不进行NAT转换，等同于交换器，让外接路由器拨号，效率更高</p>
+<p>路由模式：由光猫拨号进行一次NAT转换，再由路由器DHCP上网，再进行一次NAT转换，效率低，但可将光猫自带的AP功能用上</p>
+<p>但其实可以既用上光猫的AP功能，又使用桥接模式，只需要新建一个网络连接，将光猫自带的AP功能单独分到一个网络上面进行PPPoE拨号，再将其他的LAN口分到另一个网络进行桥接即可，就相当于有两个ip了，如果是申请的公网IP，就赚大了，但要知道怎么设置，或者是光猫默认设置里面就是这么分的，自己乱设置的往往没法上网</p>
+<p>连接光猫WIFI或LAN口，登录光猫后台，输入超级管理员密码，有的光猫默认将自带的AP功能分在一个网络下面，此时只需要将这个设备所在的网络设置为路由模式便可以白嫖一个地址，如果是给的公网地址的话，就相当于又多一个公网地址。</p>
+<h2 id="白嫖20-带宽"><a href="#白嫖20-带宽" class="headerlink" title="白嫖20%带宽"></a>白嫖20%带宽</h2><p>由于IPV4协议的原因，理论传输效率一般是94%多一点<br>宽带供应商考虑损耗往往提供的带宽是标称带宽的120%，也就是1000M宽带，往往能给到1200M。<br>但是由于宽带供应商送的光猫拨号和光带你转换性能不行，会有带宽损耗，所以采用桥接模式，让高性能路由器来进行拨号，带宽会有一定的提升<br>若要完全白嫖到那20%带宽，则可以根据光猫的类型使用gpon或者epon的光电转换棒猫棒，让软路由拨号。epon和gpon就像是两种方言，epon往往更贵。</p>
+<h1 id="路由器-1"><a href="#路由器-1" class="headerlink" title="路由器"></a>路由器</h1><h2 id="确定公网ip"><a href="#确定公网ip" class="headerlink" title="确定公网ip"></a>确定公网ip</h2><p>登录路由器后台，查看路由器获取到的ip地址，再使用设备连接到该路由器，然后在bing上搜索my ip或者在百度上面搜索ip查询，看查到的ip和路由器上面的ip是否一样，如果不一样，则不是公网ip，如果一样，则是公网ip。</p>
+<h2 id="公网访问内网（有公网IP）"><a href="#公网访问内网（有公网IP）" class="headerlink" title="公网访问内网（有公网IP）"></a>公网访问内网（有公网IP）</h2><h3 id="第一步：设置光猫"><a href="#第一步：设置光猫" class="headerlink" title="第一步：设置光猫"></a>第一步：设置光猫</h3><p>方式1：设置光猫为桥接模式<br>方式2：若使用路由模式，则将使用的路由器设置DMZ或者端口转发。</p>
+<h3 id="第二步：设置路由器"><a href="#第二步：设置路由器" class="headerlink" title="第二步：设置路由器"></a>第二步：设置路由器</h3><p>方式1：设置端口转发<br>    针对多个不同设备，但公网对80端口和443端口有限制，需要备案，可以转发成别的端口，如8080，或者4433，访问的时候，需要在域名后面缀上端口访问<br>方式2：设置DMZ<br>    针对单个设备，可以将设备的所有端口全部放在外网，但是风险较大，建议设置防火墙</p>
+<h3 id="第三步：设置动态域名解析DDNS"><a href="#第三步：设置动态域名解析DDNS" class="headerlink" title="第三步：设置动态域名解析DDNS"></a>第三步：设置动态域名解析DDNS</h3><p>由于家庭宽带给的公网IP地址都是动态的，一般每48小时变化一次，因此需要进行动态域名解析，以后只需要记住域名就可以访问了<br>若是企业专线网络的固定公网IP地址，则不需要这一步，直接记住IP访问就行了</p>
+<p>在路由器后台，要看不同的路由器支持哪家的，不同路由器支持的不一样，如果是软路由或者OP系统，往往可以自己设置，但往往对花生壳的动态域名解析支持的都比较好，电信光猫里面的DDNS就是采用的花生壳的动态域名解析</p>
+<h3 id="第四步：开放端口"><a href="#第四步：开放端口" class="headerlink" title="第四步：开放端口"></a>第四步：开放端口</h3><p>window系统可以在防火墙，防火墙高级设置，入站规则里面设置，新建规则，设置开放端口即可</p>
+<h2 id="公网访问内网（无公网IP）"><a href="#公网访问内网（无公网IP）" class="headerlink" title="公网访问内网（无公网IP）"></a>公网访问内网（无公网IP）</h2><h3 id="无获取到公网IP的服务器"><a href="#无获取到公网IP的服务器" class="headerlink" title="无获取到公网IP的服务器"></a>无获取到公网IP的服务器</h3><p>方式1：第三方内网穿透服务：花生壳等<br>方式2：虚拟组网：ZeroTier等</p>
+<h3 id="有获取到公网IP的服务器"><a href="#有获取到公网IP的服务器" class="headerlink" title="有获取到公网IP的服务器"></a>有获取到公网IP的服务器</h3><p>方式1：架设转发服务：Frp等<br>方式2：点对点透传</p>
+<h2 id="设置移动IPV6公网IP"><a href="#设置移动IPV6公网IP" class="headerlink" title="设置移动IPV6公网IP"></a>设置移动IPV6公网IP</h2><h3 id="第一步：设置光猫（需支持IPV6）"><a href="#第一步：设置光猫（需支持IPV6）" class="headerlink" title="第一步：设置光猫（需支持IPV6）"></a>第一步：设置光猫（需支持IPV6）</h3><p>登录光猫后台，设置网络为IPV4&amp;IPV6，关闭IPV6防火墙，便于外网访问内网</p>
+<h3 id="第二步：设置路由器（需支持IPV6）"><a href="#第二步：设置路由器（需支持IPV6）" class="headerlink" title="第二步：设置路由器（需支持IPV6）"></a>第二步：设置路由器（需支持IPV6）</h3><p>登录路由器后台，在基本设置里面开启IPV6即可。</p>
+<h3 id="第三步：验证"><a href="#第三步：验证" class="headerlink" title="第三步：验证"></a>第三步：验证</h3><p>1.电脑或手机连接路由器，设置DMZ。<br>2.打开浏览器输入test—ipv6.com即可</p>
+<h3 id="小米路由器开启外网ssh"><a href="#小米路由器开启外网ssh" class="headerlink" title="小米路由器开启外网ssh"></a>小米路由器开启外网ssh</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd /       //回到根目录</span><br><span class="line">vi /etc/config/firewall       //编辑防火墙配置</span><br><span class="line"></span><br><span class="line">添加以下代码</span><br><span class="line">config redirect &#x27;Myssh&#x27;                                       </span><br><span class="line">        option src &#x27;wan&#x27;                                      </span><br><span class="line">        option src_dport &#x27;2345&#x27;                              </span><br><span class="line">        option dest &#x27;lan&#x27;                                     </span><br><span class="line">        option dest_port &#x27;22&#x27;                                 </span><br><span class="line">        option proto &#x27;tcp&#x27;</span><br></pre></td></tr></table></figure>
+<h1 id="网路运营商"><a href="#网路运营商" class="headerlink" title="网路运营商"></a>网路运营商</h1><p>电信：提供IPV4公网IP，需要申请<br>移动：不提供IPV4公网IP，但提供IPV6公网地址，不需要申请，只需要手动配置一下就行，参照前面的教程</p>
+]]></content>
+      <categories>
+        <category>Web</category>
+      </categories>
+      <tags>
+        <tag>Web</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>win11_update</title>
     <url>/2023/01/20/win11-update/</url>
     <content><![CDATA[<p>win11针对联想等机器的部分更新推送会被取消，且由于一些杀毒软件的系统修复功能，会导致win11无法获得更新，从而使得win11更新卡在某个版本。针对个人使用win11遇到的一些bug进行总结，不断更新ing</p>
@@ -912,38 +951,6 @@
       </categories>
       <tags>
         <tag>Win11</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>网络基础</title>
-    <url>/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<p>自己琢磨出的关于光猫与路由器设置的简单教程<br><span id="more"></span></p>
-<h1 id="光猫"><a href="#光猫" class="headerlink" title="光猫"></a>光猫</h1><h2 id="超级管理员密码"><a href="#超级管理员密码" class="headerlink" title="超级管理员密码"></a>超级管理员密码</h2><h3 id="电信"><a href="#电信" class="headerlink" title="电信"></a>电信</h3><p>用户名：useradmin<br>密码：nE7jA%5m</p>
-<h3 id="移动"><a href="#移动" class="headerlink" title="移动"></a>移动</h3><p>用户名：CMCCAdmin<br>密码：aDm8H%MdA</p>
-<h2 id="桥接和路由模式切换"><a href="#桥接和路由模式切换" class="headerlink" title="桥接和路由模式切换"></a>桥接和路由模式切换</h2><p>桥接模式：只进行一次NAT转换，让外接路由器拨号，效率更高</p>
-<p>路由模式：进行两次NAT转换，由光猫拨号进行一次NAT转换，再由路由器DHCP上网，再进行一次NAT转换，效率低，但可将光猫自带的AP功能用上</p>
-<p>但其实可以既用上光猫的AP功能，又使用桥接模式，只需要新建一个网络连接，将光猫自带的AP功能单独分到一个网络上面进行PPPoE拨号，再将其他的LAN口分到另一个网络进行桥接即可，就相当于有两个ip了，如果是申请的公网IP，就赚大了，但要知道怎么设置，或者是光猫默认设置里面就是这么分的，自己乱设置的往往没法上网</p>
-<p>连接光猫WIFI或LAN口，登录光猫后台，输入超级管理员密码，有的光猫默认将自带的AP功能分在一个网络下面，此时只需要将这个设备所在的网络设置为路由模式便可以白嫖一个地址，如果是给的公网地址的话，就相当于又多一个公网地址。</p>
-<h2 id="白嫖20-带宽"><a href="#白嫖20-带宽" class="headerlink" title="白嫖20%带宽"></a>白嫖20%带宽</h2><p>由于IPV4协议的原因，理论传输效率一般是94%多一点<br>宽带供应商考虑损耗往往提供的带宽是标称带宽的120%，也就是1000M宽带，往往能给到1200M。<br>但是由于宽带供应商送的光猫拨号和光带你转换性能不行，会有带宽损耗，所以采用桥接模式，让高性能路由器来进行拨号，带宽会有一定的提升<br>若要完全白嫖到那20%带宽，则可以根据光猫的类型使用gpon或者epon的光电转换棒猫棒，让软路由拨号。epon和gpon就像是两种方言，epon往往更贵。</p>
-<h1 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h1><h2 id="确定公网ip"><a href="#确定公网ip" class="headerlink" title="确定公网ip"></a>确定公网ip</h2><p>登录路由器后台，查看路由器获取到的ip地址，再使用设备连接到该路由器，然后在bing上搜索my ip或者在百度上面搜索ip查询，看查到的ip和路由器上面的ip是否一样，如果不一样，则不是公网ip，如果一样，则是公网ip。</p>
-<h2 id="公网访问内网（有公网IP）"><a href="#公网访问内网（有公网IP）" class="headerlink" title="公网访问内网（有公网IP）"></a>公网访问内网（有公网IP）</h2><h3 id="第一步：设置光猫"><a href="#第一步：设置光猫" class="headerlink" title="第一步：设置光猫"></a>第一步：设置光猫</h3><p>方式1：设置光猫为桥接模式<br>方式2：若使用路由模式，则将使用的路由器设置DMZ或者端口转发。</p>
-<h3 id="第二步：设置路由器"><a href="#第二步：设置路由器" class="headerlink" title="第二步：设置路由器"></a>第二步：设置路由器</h3><p>方式1：设置端口转发<br>    针对多个不同设备，但公网对80端口和443端口有限制，需要备案，可以转发成别的端口，如8080，或者4433，访问的时候，需要在域名后面缀上端口访问<br>方式2：设置DMZ<br>    针对单个设备，可以将设备的所有端口全部放在外网，但是风险较大，建议设置防火墙</p>
-<h3 id="第三步：设置动态域名解析DDNS"><a href="#第三步：设置动态域名解析DDNS" class="headerlink" title="第三步：设置动态域名解析DDNS"></a>第三步：设置动态域名解析DDNS</h3><p>由于家庭宽带给的公网IP地址都是动态的，一般每48小时变化一次，因此需要进行动态域名解析，以后只需要记住域名就可以访问了<br>若是企业专线网络的固定公网IP地址，则不需要这一步，直接记住IP访问就行了</p>
-<p>在路由器后台，要看不同的路由器支持哪家的，不同路由器支持的不一样，如果是软路由或者OP系统，往往可以自己设置，但往往对花生壳的动态域名解析支持的都比较好，电信光猫里面的DDNS就是采用的花生壳的动态域名解析</p>
-<h3 id="第四步：开放端口"><a href="#第四步：开放端口" class="headerlink" title="第四步：开放端口"></a>第四步：开放端口</h3><p>window系统可以在防火墙，防火墙高级设置，入站规则里面设置，新建规则，设置开放端口即可</p>
-<h2 id="公网访问内网（无公网IP）"><a href="#公网访问内网（无公网IP）" class="headerlink" title="公网访问内网（无公网IP）"></a>公网访问内网（无公网IP）</h2><h3 id="无获取到公网IP的服务器"><a href="#无获取到公网IP的服务器" class="headerlink" title="无获取到公网IP的服务器"></a>无获取到公网IP的服务器</h3><p>方式1：第三方内网穿透服务：花生壳等<br>方式2：虚拟组网：ZeroTier等</p>
-<h3 id="有获取到公网IP的服务器"><a href="#有获取到公网IP的服务器" class="headerlink" title="有获取到公网IP的服务器"></a>有获取到公网IP的服务器</h3><p>方式1：架设转发服务：Frp等<br>方式2：点对点透传</p>
-<h2 id="设置移动IPV6公网IP"><a href="#设置移动IPV6公网IP" class="headerlink" title="设置移动IPV6公网IP"></a>设置移动IPV6公网IP</h2><h3 id="第一步：设置光猫（需支持IPV6）"><a href="#第一步：设置光猫（需支持IPV6）" class="headerlink" title="第一步：设置光猫（需支持IPV6）"></a>第一步：设置光猫（需支持IPV6）</h3><p>登录光猫后台，设置网络为IPV4&amp;IPV6，关闭IPV6防火墙，便于外网访问内网</p>
-<h3 id="第二步：设置路由器（需支持IPV6）"><a href="#第二步：设置路由器（需支持IPV6）" class="headerlink" title="第二步：设置路由器（需支持IPV6）"></a>第二步：设置路由器（需支持IPV6）</h3><p>登录路由器后台，在基本设置里面开启IPV6即可。</p>
-<h3 id="第三步：验证"><a href="#第三步：验证" class="headerlink" title="第三步：验证"></a>第三步：验证</h3><p>1.电脑或手机连接路由器，设置DMZ。<br>2.打开浏览器输入test—ipv6.com即可</p>
-<h3 id="小米路由器开启外网ssh"><a href="#小米路由器开启外网ssh" class="headerlink" title="小米路由器开启外网ssh"></a>小米路由器开启外网ssh</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd /       //回到根目录</span><br><span class="line">vi /etc/config/firewall       //编辑防火墙配置</span><br><span class="line"></span><br><span class="line">添加以下代码</span><br><span class="line">config redirect &#x27;Myssh&#x27;                                         </span><br><span class="line">        option src &#x27;wan&#x27;                                        </span><br><span class="line">        option src_dport &#x27;2345&#x27;                                </span><br><span class="line">        option dest &#x27;lan&#x27;                                       </span><br><span class="line">        option dest_port &#x27;22&#x27;                                   </span><br><span class="line">        option proto &#x27;tcp&#x27;</span><br></pre></td></tr></table></figure>
-<h1 id="网路运营商"><a href="#网路运营商" class="headerlink" title="网路运营商"></a>网路运营商</h1><p>电信：提供IPV4公网IP，需要申请<br>移动：不提供IPV4公网IP，但提供IPV6公网地址，不需要申请，只需要手动配置一下就行，参照前面的教程</p>
-]]></content>
-      <categories>
-        <category>Web</category>
-      </categories>
-      <tags>
-        <tag>Web</tag>
       </tags>
   </entry>
 </search>

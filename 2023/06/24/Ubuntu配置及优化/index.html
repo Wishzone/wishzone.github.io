@@ -28,7 +28,7 @@
 <meta property="og:description" content="关于ubuntu系统的优化与配置">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-06-24T09:28:41.000Z">
-<meta property="article:modified_time" content="2023-06-24T09:48:20.531Z">
+<meta property="article:modified_time" content="2023-07-09T07:37:24.522Z">
 <meta property="article:author" content="Wishzone">
 <meta property="article:tag" content="Ubuntu">
 <meta name="twitter:card" content="summary">
@@ -222,10 +222,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-06-24 17:28:41 / 修改时间：17:48:20" itemprop="dateCreated datePublished" datetime="2023-06-24T17:28:41+08:00">2023-06-24</time>
+              <time title="创建时间：2023-06-24 17:28:41" itemprop="dateCreated datePublished" datetime="2023-06-24T17:28:41+08:00">2023-06-24</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-09 15:37:24" itemprop="dateModified" datetime="2023-07-09T15:37:24+08:00">2023-07-09</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -258,7 +264,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[Allow Colord all Users]</span><br><span class="line">Identity=unix-user:*</span><br><span class="line">Action=org.freedesktop.color-manager.create-device;org.freedesktop.color-manager.create-profile;org.freedesktop.color-manager.delete-device;org.freedesktop.color-manager.delete-profile;org.freedesktop.color-manager.modify-device;org.freedesktop.color-manager.modify-profile</span><br><span class="line">ResultAny=no</span><br><span class="line">ResultInactive=no</span><br><span class="line">ResultActive=yes</span><br></pre></td></tr></table></figure>
 <h1 id="解决“刷新系统软件源需要认证”"><a href="#解决“刷新系统软件源需要认证”" class="headerlink" title="解决“刷新系统软件源需要认证”"></a>解决“刷新系统软件源需要认证”</h1><p>nano /etc/polkit-1/localauthority/50-local.d/46-allow-packagekit.pkla</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[Allow Refresh Repository all Users]</span><br><span class="line">Identity=unix-user:*</span><br><span class="line">Action=org.freedesktop.packagekit.system-sources-refresh</span><br><span class="line">ResultAny=no</span><br><span class="line">ResultInactive=no</span><br><span class="line">ResultActive=yes</span><br></pre></td></tr></table></figure>
-<h1 id="解决“刷新系统软件源需要认证”-1"><a href="#解决“刷新系统软件源需要认证”-1" class="headerlink" title="解决“刷新系统软件源需要认证”"></a>解决“刷新系统软件源需要认证”</h1><p>sudo nano /etc/polkit-1/localauthority/50-local-d/allow-wifiscan</p>
+<h1 id="解决“扫描WIFI需要认证”"><a href="#解决“扫描WIFI需要认证”" class="headerlink" title="解决“扫描WIFI需要认证”"></a>解决“扫描WIFI需要认证”</h1><p>sudo nano /etc/polkit-1/localauthority/50-local-d/allow-wifiscan</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[Allow Wifi Scan]</span><br><span class="line">Identity=unix-user:*</span><br><span class="line">Action=org.freedesktop.NetworkManager.wifi.scan;org.freedesktop.NetworkManager.enable-disable-wifi;org.freedesktop.NetworkManager.settings.modify.own;org.freedesktop.NetworkManager.settings.modify.system;org.freedesktop.NetworkManager.network-control</span><br><span class="line">ResultAny=yes</span><br><span class="line">ResultInactive=yes</span><br><span class="line">ResultActive=yes</span><br></pre></td></tr></table></figure>
 <h1 id="自定义二级域名"><a href="#自定义二级域名" class="headerlink" title="自定义二级域名"></a>自定义二级域名</h1><p>在多人同时使用一个 frps 时，通过自定义二级域名的方式来使用会更加方便。</p>
 <p>通过在 frps 的配置文件中配置 subdomain_host，就可以启用该特性。之后在 frpc 的 http、https 类型的代理中可以不配置 custom_domains，而是配置一个 subdomain 参数。</p>
@@ -353,7 +359,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">安装软件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E2%80%9C%E8%89%B2%E5%BD%A9%E7%AE%A1%E7%90%86%E8%AE%BE%E5%A4%87%E2%80%9D"><span class="nav-number">2.</span> <span class="nav-text">解决“色彩管理设备”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E2%80%9C%E5%88%B7%E6%96%B0%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6%E6%BA%90%E9%9C%80%E8%A6%81%E8%AE%A4%E8%AF%81%E2%80%9D"><span class="nav-number">3.</span> <span class="nav-text">解决“刷新系统软件源需要认证”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E2%80%9C%E5%88%B7%E6%96%B0%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6%E6%BA%90%E9%9C%80%E8%A6%81%E8%AE%A4%E8%AF%81%E2%80%9D-1"><span class="nav-number">4.</span> <span class="nav-text">解决“刷新系统软件源需要认证”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8C%E7%BA%A7%E5%9F%9F%E5%90%8D"><span class="nav-number">5.</span> <span class="nav-text">自定义二级域名</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#frps-ini"><span class="nav-number">5.1.</span> <span class="nav-text">frps.ini</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#frpc-ini"><span class="nav-number">5.2.</span> <span class="nav-text">frpc.ini</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E4%BC%91%E7%9C%A0%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">6.</span> <span class="nav-text">解决休眠问题：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEfrpc%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="nav-number">7.</span> <span class="nav-text">配置frpc开机自启</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">安装软件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E2%80%9C%E8%89%B2%E5%BD%A9%E7%AE%A1%E7%90%86%E8%AE%BE%E5%A4%87%E2%80%9D"><span class="nav-number">2.</span> <span class="nav-text">解决“色彩管理设备”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E2%80%9C%E5%88%B7%E6%96%B0%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6%E6%BA%90%E9%9C%80%E8%A6%81%E8%AE%A4%E8%AF%81%E2%80%9D"><span class="nav-number">3.</span> <span class="nav-text">解决“刷新系统软件源需要认证”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E2%80%9C%E6%89%AB%E6%8F%8FWIFI%E9%9C%80%E8%A6%81%E8%AE%A4%E8%AF%81%E2%80%9D"><span class="nav-number">4.</span> <span class="nav-text">解决“扫描WIFI需要认证”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8C%E7%BA%A7%E5%9F%9F%E5%90%8D"><span class="nav-number">5.</span> <span class="nav-text">自定义二级域名</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#frps-ini"><span class="nav-number">5.1.</span> <span class="nav-text">frps.ini</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#frpc-ini"><span class="nav-number">5.2.</span> <span class="nav-text">frpc.ini</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E4%BC%91%E7%9C%A0%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">6.</span> <span class="nav-text">解决休眠问题：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEfrpc%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="nav-number">7.</span> <span class="nav-text">配置frpc开机自启</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
