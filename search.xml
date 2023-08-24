@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Docker</title>
-    <url>/2023/08/24/Docker/</url>
-    <content><![CDATA[<span id="more"></span>
-]]></content>
-  </entry>
-  <entry>
     <title>Android</title>
     <url>/2022/12/18/Android/</url>
     <content><![CDATA[<p>一些安卓开发教程，不断更新ing<br><span id="more"></span></p>
@@ -37,6 +31,12 @@
       <tags>
         <tag>Android</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Docker</title>
+    <url>/2023/08/24/Docker/</url>
+    <content><![CDATA[<span id="more"></span>
+]]></content>
   </entry>
   <entry>
     <title>ESP_AT配置串口透传</title>
@@ -329,17 +329,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Openwrt</title>
-    <url>/2023/08/24/Openwrt/</url>
-    <content><![CDATA[<span id="more"></span>
-<h1 id="开启80端口和22端口"><a href="#开启80端口和22端口" class="headerlink" title="开启80端口和22端口"></a>开启80端口和22端口</h1><p>由于小米路由为了安全考虑，对WEB与防火墙规则进行限制，WEB管理、SSH只能通过内网登 陆，外网无法访问，在路由器的WEB管理页面新建端口转发中不能添加路由本机内网IP。<br>开启小米路由的SSH后，我们可以通过登陆SSH在命令行中手动添加防火墙中端口转发规则</p>
-<h2 id="一、解除WEB管理页面访问限制"><a href="#一、解除WEB管理页面访问限制" class="headerlink" title="一、解除WEB管理页面访问限制"></a>一、解除WEB管理页面访问限制</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /etc/sysapihttpd/       //切换目录</span><br><span class="line">cp miwifi-webinitrd.conf miwifi-webinitrd.conf.bak       //备份</span><br><span class="line">vi miwifi-webinitrd.conf  //编辑miwifi-webinitrd.conf</span><br><span class="line"></span><br><span class="line">在如下位置插入代码set $finalvar &quot;$canproxy $isluci&quot;;：</span><br><span class="line"></span><br><span class="line">set $isluci &quot;1&quot;;</span><br><span class="line"></span><br><span class="line">set $finalvar &quot;$canproxy $isluci&quot;;</span><br><span class="line"></span><br><span class="line">/etc/init.d/sysapihttpd restart  //重启httpd服务使配置生效</span><br></pre></td></tr></table></figure>
-<p>二、手动添加防火墙端口转发规则，开启外网访问WEB管理和SSH</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /                     //回到根目录</span><br><span class="line">vi /etc/config/firewall           //编辑防火墙配置</span><br><span class="line">1.添加WEB管理外网端口转发规则代码段：</span><br><span class="line">config redirect &#x27;MIWEB&#x27;</span><br><span class="line">    option src &#x27;wan&#x27;</span><br><span class="line">    option src_dport &#x27;1314&#x27;</span><br><span class="line">    option dest_ip &#x27;10.0.0.1&#x27;</span><br><span class="line">    option name &#x27;WEB&#x27;</span><br><span class="line">    option ftype &#x27;1&#x27;</span><br><span class="line">    option dest_port &#x27;80&#x27;</span><br><span class="line">    option proto &#x27;tcp&#x27;</span><br><span class="line"></span><br><span class="line">WEB管理界面外网端口为1314  可通过外网IP:1314访问 (例 http://61.181.133.5:1314),绑定DDNS的用户可通过域名:1314进行访问。</span><br><span class="line">2.添加SSH外网登陆端口转发规则代码段：</span><br><span class="line">config redirect &#x27;Myssh&#x27;</span><br><span class="line">    option src &#x27;wan&#x27;</span><br><span class="line">    option src_dport &#x27;2345&#x27;</span><br><span class="line">    option dest &#x27;lan&#x27;</span><br><span class="line">    option dest_port &#x27;22&#x27;</span><br><span class="line">    option proto &#x27;tcp&#x27;</span><br><span class="line"></span><br><span class="line">SSH登陆外网端口为2345</span><br><span class="line">重启防火墙使规则生效</span><br><span class="line"></span><br><span class="line">/etc/init.d/firewall restart</span><br></pre></td></tr></table></figure>
-<h1 id="查看端口状态："><a href="#查看端口状态：" class="headerlink" title="查看端口状态："></a>查看端口状态：</h1><p>iptables -L -n</p>
-]]></content>
-  </entry>
-  <entry>
     <title>PVE</title>
     <url>/2023/08/24/PVE/</url>
     <content><![CDATA[<span id="more"></span>
@@ -375,6 +364,17 @@
 <h3 id="修改完成，重启Web控制台"><a href="#修改完成，重启Web控制台" class="headerlink" title="修改完成，重启Web控制台"></a>修改完成，重启Web控制台</h3><p>systemctl restart pveproxy</p>
 <p>注意：若温度的显示值为null，请打开开发者工具，在Console中进行查看</p>
 <h2 id="懒人修改法"><a href="#懒人修改法" class="headerlink" title="懒人修改法"></a>懒人修改法</h2><p>点击这里，支持各种版本[<a href="https://www.right.com.cn/forum/thread-6754687-1-1.html">https://www.right.com.cn/forum/thread-6754687-1-1.html</a>]</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Openwrt</title>
+    <url>/2023/08/24/Openwrt/</url>
+    <content><![CDATA[<span id="more"></span>
+<h1 id="开启80端口和22端口"><a href="#开启80端口和22端口" class="headerlink" title="开启80端口和22端口"></a>开启80端口和22端口</h1><p>由于小米路由为了安全考虑，对WEB与防火墙规则进行限制，WEB管理、SSH只能通过内网登 陆，外网无法访问，在路由器的WEB管理页面新建端口转发中不能添加路由本机内网IP。<br>开启小米路由的SSH后，我们可以通过登陆SSH在命令行中手动添加防火墙中端口转发规则</p>
+<h2 id="一、解除WEB管理页面访问限制"><a href="#一、解除WEB管理页面访问限制" class="headerlink" title="一、解除WEB管理页面访问限制"></a>一、解除WEB管理页面访问限制</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /etc/sysapihttpd/       //切换目录</span><br><span class="line">cp miwifi-webinitrd.conf miwifi-webinitrd.conf.bak       //备份</span><br><span class="line">vi miwifi-webinitrd.conf  //编辑miwifi-webinitrd.conf</span><br><span class="line"></span><br><span class="line">在如下位置插入代码set $finalvar &quot;$canproxy $isluci&quot;;：</span><br><span class="line"></span><br><span class="line">set $isluci &quot;1&quot;;</span><br><span class="line"></span><br><span class="line">set $finalvar &quot;$canproxy $isluci&quot;;</span><br><span class="line"></span><br><span class="line">/etc/init.d/sysapihttpd restart  //重启httpd服务使配置生效</span><br></pre></td></tr></table></figure>
+<p>二、手动添加防火墙端口转发规则，开启外网访问WEB管理和SSH</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /                     //回到根目录</span><br><span class="line">vi /etc/config/firewall           //编辑防火墙配置</span><br><span class="line">1.添加WEB管理外网端口转发规则代码段：</span><br><span class="line">config redirect &#x27;MIWEB&#x27;</span><br><span class="line">    option src &#x27;wan&#x27;</span><br><span class="line">    option src_dport &#x27;1314&#x27;</span><br><span class="line">    option dest_ip &#x27;10.0.0.1&#x27;</span><br><span class="line">    option name &#x27;WEB&#x27;</span><br><span class="line">    option ftype &#x27;1&#x27;</span><br><span class="line">    option dest_port &#x27;80&#x27;</span><br><span class="line">    option proto &#x27;tcp&#x27;</span><br><span class="line"></span><br><span class="line">WEB管理界面外网端口为1314  可通过外网IP:1314访问 (例 http://61.181.133.5:1314),绑定DDNS的用户可通过域名:1314进行访问。</span><br><span class="line">2.添加SSH外网登陆端口转发规则代码段：</span><br><span class="line">config redirect &#x27;Myssh&#x27;</span><br><span class="line">    option src &#x27;wan&#x27;</span><br><span class="line">    option src_dport &#x27;2345&#x27;</span><br><span class="line">    option dest &#x27;lan&#x27;</span><br><span class="line">    option dest_port &#x27;22&#x27;</span><br><span class="line">    option proto &#x27;tcp&#x27;</span><br><span class="line"></span><br><span class="line">SSH登陆外网端口为2345</span><br><span class="line">重启防火墙使规则生效</span><br><span class="line"></span><br><span class="line">/etc/init.d/firewall restart</span><br></pre></td></tr></table></figure>
+<h1 id="查看端口状态："><a href="#查看端口状态：" class="headerlink" title="查看端口状态："></a>查看端口状态：</h1><p>iptables -L -n</p>
 ]]></content>
   </entry>
   <entry>
@@ -613,6 +613,25 @@
       </categories>
       <tags>
         <tag>ROCK4B+</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>win11_update</title>
+    <url>/2023/01/20/Windows/</url>
+    <content><![CDATA[<span id="more"></span>
+<h1 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h1><h2 id="查看系统版本"><a href="#查看系统版本" class="headerlink" title="查看系统版本"></a>查看系统版本</h2><p>cmd输入winver</p>
+<h2 id="查看文件MD5码"><a href="#查看文件MD5码" class="headerlink" title="查看文件MD5码"></a>查看文件MD5码</h2><p>certutil -hashfile 文件路径名称 MD5</p>
+<h2 id="win11安装系统应用"><a href="#win11安装系统应用" class="headerlink" title="win11安装系统应用"></a>win11安装系统应用</h2><p>1.以管理员运行powershell<br>2.输入Get-AppxPackage -allusers | Select Name, PackageFullName<br>3.找到需要安装的应用后面的应用版本<br>4输入Add-appxpackage -register “C:\Program Files\WindowsApps\【应用版本】\appxmanifest.xml” -disabledevelopmentmod即可</p>
+<h1 id="修复Win11更新的BUG"><a href="#修复Win11更新的BUG" class="headerlink" title="修复Win11更新的BUG"></a>修复Win11更新的BUG</h1><p>1.网站uupdump.net可以下载最新版本</p>
+<p>2.进入注册表<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\wuauserv\Parameters<br>找到ServiceDll<br>win11将数据改为%systemroot%\system32\wuauserv.dll，<br>win10将数据改为%systemroot%\system32\wuaueng.dll<br>如果还是找不到<br>进入”C:\WINDOWS\System32\wuauserv.dll”看是否存在wuauserv.dll或者wuaueng.dll，<br>如果不存在的话可能是其他软件删除了，需自行下载或者从别的电脑拷贝放进去就好了</p>
+<h1 id="配置FRPC服务"><a href="#配置FRPC服务" class="headerlink" title="配置FRPC服务"></a>配置FRPC服务</h1><h2 id="设置启动脚本"><a href="#设置启动脚本" class="headerlink" title="设置启动脚本"></a>设置启动脚本</h2><p>创建文件：<br>start_frpc.vbs<br>写入脚本<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CreateObject(&quot;WScript.Shell&quot;).Run &quot;&quot;&quot;D:\Program Files\frp_0.38.0_windows_amd64\frpc.exe&quot;&quot;&quot; &amp; &quot;-c&quot; &amp; &quot;&quot;&quot;D:\Program Files\frp_0.38.0_windows_amd64\frpc.ini&quot;&quot;&quot;,0</span><br></pre></td></tr></table></figure><br>双击就可启动frpc，可在资源管理器中看到frpc.exe已启动;</p>
+<h2 id="设置开机自启"><a href="#设置开机自启" class="headerlink" title="设置开机自启"></a>设置开机自启</h2><p>“win+r”输入shell:startup就会自动打开启动文件夹。<br>将文件放入即可（一般为：C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup）</p>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Win11</tag>
       </tags>
   </entry>
   <entry>
@@ -941,25 +960,6 @@
       </categories>
       <tags>
         <tag>7010</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>win11_update</title>
-    <url>/2023/01/20/Windows/</url>
-    <content><![CDATA[<span id="more"></span>
-<h1 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h1><h2 id="查看系统版本"><a href="#查看系统版本" class="headerlink" title="查看系统版本"></a>查看系统版本</h2><p>cmd输入winver</p>
-<h2 id="查看文件MD5码"><a href="#查看文件MD5码" class="headerlink" title="查看文件MD5码"></a>查看文件MD5码</h2><p>certutil -hashfile 文件路径名称 MD5</p>
-<h2 id="win11安装系统应用"><a href="#win11安装系统应用" class="headerlink" title="win11安装系统应用"></a>win11安装系统应用</h2><p>1.以管理员运行powershell<br>2.输入Get-AppxPackage -allusers | Select Name, PackageFullName<br>3.找到需要安装的应用后面的应用版本<br>4输入Add-appxpackage -register “C:\Program Files\WindowsApps\【应用版本】\appxmanifest.xml” -disabledevelopmentmod即可</p>
-<h1 id="修复Win11更新的BUG"><a href="#修复Win11更新的BUG" class="headerlink" title="修复Win11更新的BUG"></a>修复Win11更新的BUG</h1><p>1.网站uupdump.net可以下载最新版本</p>
-<p>2.进入注册表<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\wuauserv\Parameters<br>找到ServiceDll<br>win11将数据改为%systemroot%\system32\wuauserv.dll，<br>win10将数据改为%systemroot%\system32\wuaueng.dll<br>如果还是找不到<br>进入”C:\WINDOWS\System32\wuauserv.dll”看是否存在wuauserv.dll或者wuaueng.dll，<br>如果不存在的话可能是其他软件删除了，需自行下载或者从别的电脑拷贝放进去就好了</p>
-<h1 id="配置FRPC服务"><a href="#配置FRPC服务" class="headerlink" title="配置FRPC服务"></a>配置FRPC服务</h1><h2 id="设置启动脚本"><a href="#设置启动脚本" class="headerlink" title="设置启动脚本"></a>设置启动脚本</h2><p>创建文件：<br>start_frpc.vbs<br>写入脚本<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CreateObject(&quot;WScript.Shell&quot;).Run &quot;&quot;&quot;D:\Program Files\frp_0.38.0_windows_amd64\frpc.exe&quot;&quot;&quot; &amp; &quot;-c&quot; &amp; &quot;&quot;&quot;D:\Program Files\frp_0.38.0_windows_amd64\frpc.ini&quot;&quot;&quot;,0</span><br></pre></td></tr></table></figure><br>双击就可启动frpc，可在资源管理器中看到frpc.exe已启动;</p>
-<h2 id="设置开机自启"><a href="#设置开机自启" class="headerlink" title="设置开机自启"></a>设置开机自启</h2><p>“win+r”输入shell:startup就会自动打开启动文件夹。<br>将文件放入即可（一般为：C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup）</p>
-]]></content>
-      <categories>
-        <category>Windows</category>
-      </categories>
-      <tags>
-        <tag>Win11</tag>
       </tags>
   </entry>
   <entry>
