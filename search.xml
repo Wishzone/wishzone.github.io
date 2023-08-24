@@ -39,21 +39,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>ESP_AT串口透传</title>
-    <url>/2023/06/24/ESP-AT%E4%B8%B2%E5%8F%A3%E9%80%8F%E4%BC%A0/</url>
-    <content><![CDATA[<p>配置ESP系列AT指令进行wifi串口穿透的教程</p>
-<span id="more"></span>
-<h1 id="初始配置命令"><a href="#初始配置命令" class="headerlink" title="初始配置命令"></a>初始配置命令</h1><p>ESP32（AT）：AT+CWJAP=”XXXX“,”XXXXXXX“ //热点的SSID和密码<br>ESP32（AT）：AT+CIPSTA? //查看ip<br>串口开启tcp的server模式输入esp的ip和80端口<br>设置自己的ip并随便指定一个端口打开监听</p>
-<h1 id="每次上电需要执行的命令"><a href="#每次上电需要执行的命令" class="headerlink" title="每次上电需要执行的命令"></a>每次上电需要执行的命令</h1><p>ESP32（AT）：AT+CIPSTART=”TCP”,”192.168.1.236”,11451（手机的ip和手机指定的端口）<br>此时手机发送的数据，esp32即可收到<br>收到格式为：+IPD,6:DATA     //+IPD,数据长度:数据<br>ESP32（AT）：AT+CIPMODE=1 //设置传输模式为透传模式,此方式不能写进flash<br>此时收到格式为：DATA     //数据，直接就是数据<br>ESP32（AT）：AT+CIPSEND //数据发送<br>此时esp32发送的数据，手机即可收到<br>ESP32（AT）：+++ //不带换行符，结束透传</p>
-]]></content>
-      <categories>
-        <category>单片机</category>
-      </categories>
-      <tags>
-        <tag>ESP32 AT</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo</title>
     <url>/2023/06/24/Hexo/</url>
     <content><![CDATA[<p>关于Hexo的配置与部署</p>
@@ -79,6 +64,21 @@
       </categories>
       <tags>
         <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ESP_AT串口透传</title>
+    <url>/2023/06/24/ESP-AT%E4%B8%B2%E5%8F%A3%E9%80%8F%E4%BC%A0/</url>
+    <content><![CDATA[<p>配置ESP系列AT指令进行wifi串口穿透的教程</p>
+<span id="more"></span>
+<h1 id="初始配置命令"><a href="#初始配置命令" class="headerlink" title="初始配置命令"></a>初始配置命令</h1><p>ESP32（AT）：AT+CWJAP=”XXXX“,”XXXXXXX“ //热点的SSID和密码<br>ESP32（AT）：AT+CIPSTA? //查看ip<br>串口开启tcp的server模式输入esp的ip和80端口<br>设置自己的ip并随便指定一个端口打开监听</p>
+<h1 id="每次上电需要执行的命令"><a href="#每次上电需要执行的命令" class="headerlink" title="每次上电需要执行的命令"></a>每次上电需要执行的命令</h1><p>ESP32（AT）：AT+CIPSTART=”TCP”,”192.168.1.236”,11451（手机的ip和手机指定的端口）<br>此时手机发送的数据，esp32即可收到<br>收到格式为：+IPD,6:DATA     //+IPD,数据长度:数据<br>ESP32（AT）：AT+CIPMODE=1 //设置传输模式为透传模式,此方式不能写进flash<br>此时收到格式为：DATA     //数据，直接就是数据<br>ESP32（AT）：AT+CIPSEND //数据发送<br>此时esp32发送的数据，手机即可收到<br>ESP32（AT）：+++ //不带换行符，结束透传</p>
+]]></content>
+      <categories>
+        <category>单片机</category>
+      </categories>
+      <tags>
+        <tag>ESP32 AT</tag>
       </tags>
   </entry>
   <entry>
@@ -289,17 +289,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Openwrt</title>
-    <url>/2023/08/24/Openwrt/</url>
-    <content><![CDATA[<p>Openwrt的配置问题及解决方法<br><span id="more"></span></p>
-<h1 id="开启80端口和22端口"><a href="#开启80端口和22端口" class="headerlink" title="开启80端口和22端口"></a>开启80端口和22端口</h1><p>由于小米路由为了安全考虑，对WEB与防火墙规则进行限制，WEB管理、SSH只能通过内网登 陆，外网无法访问，在路由器的WEB管理页面新建端口转发中不能添加路由本机内网IP。<br>开启小米路由的SSH后，我们可以通过登陆SSH在命令行中手动添加防火墙中端口转发规则</p>
-<h2 id="一、解除WEB管理页面访问限制"><a href="#一、解除WEB管理页面访问限制" class="headerlink" title="一、解除WEB管理页面访问限制"></a>一、解除WEB管理页面访问限制</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /etc/sysapihttpd/       //切换目录</span><br><span class="line">cp miwifi-webinitrd.conf miwifi-webinitrd.conf.bak       //备份</span><br><span class="line">vi miwifi-webinitrd.conf  //编辑miwifi-webinitrd.conf</span><br><span class="line"></span><br><span class="line">在如下位置插入代码set $finalvar &quot;$canproxy $isluci&quot;;：</span><br><span class="line"></span><br><span class="line">set $isluci &quot;1&quot;;</span><br><span class="line"></span><br><span class="line">set $finalvar &quot;$canproxy $isluci&quot;;</span><br><span class="line"></span><br><span class="line">/etc/init.d/sysapihttpd restart  //重启httpd服务使配置生效</span><br></pre></td></tr></table></figure>
-<p>二、手动添加防火墙端口转发规则，开启外网访问WEB管理和SSH</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /                     //回到根目录</span><br><span class="line">vi /etc/config/firewall           //编辑防火墙配置</span><br><span class="line">1.添加WEB管理外网端口转发规则代码段：</span><br><span class="line">config redirect &#x27;MIWEB&#x27;</span><br><span class="line">    option src &#x27;wan&#x27;</span><br><span class="line">    option src_dport &#x27;1314&#x27;</span><br><span class="line">    option dest_ip &#x27;10.0.0.1&#x27;</span><br><span class="line">    option name &#x27;WEB&#x27;</span><br><span class="line">    option ftype &#x27;1&#x27;</span><br><span class="line">    option dest_port &#x27;80&#x27;</span><br><span class="line">    option proto &#x27;tcp&#x27;</span><br><span class="line"></span><br><span class="line">WEB管理界面外网端口为1314  可通过外网IP:1314访问 (例 http://61.181.133.5:1314),绑定DDNS的用户可通过域名:1314进行访问。</span><br><span class="line">2.添加SSH外网登陆端口转发规则代码段：</span><br><span class="line">config redirect &#x27;Myssh&#x27;</span><br><span class="line">    option src &#x27;wan&#x27;</span><br><span class="line">    option src_dport &#x27;2345&#x27;</span><br><span class="line">    option dest &#x27;lan&#x27;</span><br><span class="line">    option dest_port &#x27;22&#x27;</span><br><span class="line">    option proto &#x27;tcp&#x27;</span><br><span class="line"></span><br><span class="line">SSH登陆外网端口为2345</span><br><span class="line">重启防火墙使规则生效</span><br><span class="line"></span><br><span class="line">/etc/init.d/firewall restart</span><br></pre></td></tr></table></figure>
-<h1 id="查看端口状态："><a href="#查看端口状态：" class="headerlink" title="查看端口状态："></a>查看端口状态：</h1><p>iptables -L -n</p>
-]]></content>
-  </entry>
-  <entry>
     <title>Linux</title>
     <url>/2023/08/24/Linux/</url>
     <content><![CDATA[<p>Linux一些问题和解决方法<br><span id="more"></span></p>
@@ -378,28 +367,15 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Raspberry_pico</title>
-    <url>/2023/06/24/Raspberry-pico/</url>
-    <content><![CDATA[<p>关于树莓派pico的环境搭建与开发<br><span id="more"></span></p>
-<h1 id="Ubuntu-C-C"><a href="#Ubuntu-C-C" class="headerlink" title="Ubuntu C/C++"></a>Ubuntu C/C++</h1><h2 id="依赖："><a href="#依赖：" class="headerlink" title="依赖："></a>依赖：</h2><p> sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential python3-tk</p>
-<h2 id="下载-pico-sdk-和-pico-examples"><a href="#下载-pico-sdk-和-pico-examples" class="headerlink" title="下载 pico-sdk 和 pico-examples"></a>下载 pico-sdk 和 pico-examples</h2><p>cd ~<br>mkdir pico<br>cd pico<br>git clone -b master <a href="https://github.com/raspberrypi/pico-sdk.git">https://github.com/raspberrypi/pico-sdk.git</a><br>cd pico-sdk<br>git submodule update —init<br>cd ~/pico<br>git clone -b master <a href="https://github.com/raspberrypi/pico-examples.git">https://github.com/raspberrypi/pico-examples.git</a></p>
-<h2 id="下载-pico-project-generator"><a href="#下载-pico-project-generator" class="headerlink" title="下载 pico-project-generator"></a>下载 pico-project-generator</h2><p>cd ~/pico<br>git clone <a href="https://github.com/raspberrypi/pico-project-generator.git">https://github.com/raspberrypi/pico-project-generator.git</a></p>
-<h2 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h2><p>echo “export PICO_SDK_PATH=/home/$USER/pico/pico-sdk” &gt;&gt; .bashrc</p>
-<h2 id="安装-VSCode-插件"><a href="#安装-VSCode-插件" class="headerlink" title="安装 VSCode 插件"></a>安装 VSCode 插件</h2><p>code —install-extension marus25.cortex-debug<br>code —install-extension ms-vscode.cmake-tools<br>code —install-extension ms-vscode.cpptools</p>
-<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>cd pico-project-generator</p>
-<p>./pico-progect.py —gui</p>
-<p>手动生成工程</p>
-<p>cd build</p>
-<p>make -j(核心数)  eg：make -j4</p>
-<p>将uf2文件拖入pico即可</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf">https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf</a><br><a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf">https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf</a></p>
+    <title>Openwrt</title>
+    <url>/2023/08/24/Openwrt/</url>
+    <content><![CDATA[<p>Openwrt的配置问题及解决方法<br><span id="more"></span></p>
+<h1 id="开启80端口和22端口"><a href="#开启80端口和22端口" class="headerlink" title="开启80端口和22端口"></a>开启80端口和22端口</h1><p>由于小米路由为了安全考虑，对WEB与防火墙规则进行限制，WEB管理、SSH只能通过内网登 陆，外网无法访问，在路由器的WEB管理页面新建端口转发中不能添加路由本机内网IP。<br>开启小米路由的SSH后，我们可以通过登陆SSH在命令行中手动添加防火墙中端口转发规则</p>
+<h2 id="一、解除WEB管理页面访问限制"><a href="#一、解除WEB管理页面访问限制" class="headerlink" title="一、解除WEB管理页面访问限制"></a>一、解除WEB管理页面访问限制</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /etc/sysapihttpd/       //切换目录</span><br><span class="line">cp miwifi-webinitrd.conf miwifi-webinitrd.conf.bak       //备份</span><br><span class="line">vi miwifi-webinitrd.conf  //编辑miwifi-webinitrd.conf</span><br><span class="line"></span><br><span class="line">在如下位置插入代码set $finalvar &quot;$canproxy $isluci&quot;;：</span><br><span class="line"></span><br><span class="line">set $isluci &quot;1&quot;;</span><br><span class="line"></span><br><span class="line">set $finalvar &quot;$canproxy $isluci&quot;;</span><br><span class="line"></span><br><span class="line">/etc/init.d/sysapihttpd restart  //重启httpd服务使配置生效</span><br></pre></td></tr></table></figure>
+<p>二、手动添加防火墙端口转发规则，开启外网访问WEB管理和SSH</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /                     //回到根目录</span><br><span class="line">vi /etc/config/firewall           //编辑防火墙配置</span><br><span class="line">1.添加WEB管理外网端口转发规则代码段：</span><br><span class="line">config redirect &#x27;MIWEB&#x27;</span><br><span class="line">    option src &#x27;wan&#x27;</span><br><span class="line">    option src_dport &#x27;1314&#x27;</span><br><span class="line">    option dest_ip &#x27;10.0.0.1&#x27;</span><br><span class="line">    option name &#x27;WEB&#x27;</span><br><span class="line">    option ftype &#x27;1&#x27;</span><br><span class="line">    option dest_port &#x27;80&#x27;</span><br><span class="line">    option proto &#x27;tcp&#x27;</span><br><span class="line"></span><br><span class="line">WEB管理界面外网端口为1314  可通过外网IP:1314访问 (例 http://61.181.133.5:1314),绑定DDNS的用户可通过域名:1314进行访问。</span><br><span class="line">2.添加SSH外网登陆端口转发规则代码段：</span><br><span class="line">config redirect &#x27;Myssh&#x27;</span><br><span class="line">    option src &#x27;wan&#x27;</span><br><span class="line">    option src_dport &#x27;2345&#x27;</span><br><span class="line">    option dest &#x27;lan&#x27;</span><br><span class="line">    option dest_port &#x27;22&#x27;</span><br><span class="line">    option proto &#x27;tcp&#x27;</span><br><span class="line"></span><br><span class="line">SSH登陆外网端口为2345</span><br><span class="line">重启防火墙使规则生效</span><br><span class="line"></span><br><span class="line">/etc/init.d/firewall restart</span><br></pre></td></tr></table></figure>
+<h1 id="查看端口状态："><a href="#查看端口状态：" class="headerlink" title="查看端口状态："></a>查看端口状态：</h1><p>iptables -L -n</p>
 ]]></content>
-      <categories>
-        <category>单片机</category>
-      </categories>
-      <tags>
-        <tag>Pico</tag>
-      </tags>
   </entry>
   <entry>
     <title>RT-Thread</title>
@@ -909,24 +885,27 @@
       </tags>
   </entry>
   <entry>
-    <title>Windows</title>
-    <url>/2023/01/20/Windows/</url>
-    <content><![CDATA[<p>Windows常用设置<br><span id="more"></span></p>
-<h1 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h1><h2 id="查看系统版本"><a href="#查看系统版本" class="headerlink" title="查看系统版本"></a>查看系统版本</h2><p>cmd输入winver</p>
-<h2 id="查看文件MD5码"><a href="#查看文件MD5码" class="headerlink" title="查看文件MD5码"></a>查看文件MD5码</h2><p>certutil -hashfile 文件路径名称 MD5</p>
-<h2 id="win11安装系统应用"><a href="#win11安装系统应用" class="headerlink" title="win11安装系统应用"></a>win11安装系统应用</h2><p>1.以管理员运行powershell<br>2.输入Get-AppxPackage -allusers | Select Name, PackageFullName<br>3.找到需要安装的应用后面的应用版本<br>4输入Add-appxpackage -register “C:\Program Files\WindowsApps\【应用版本】\appxmanifest.xml” -disabledevelopmentmod即可</p>
-<h1 id="修复Win11更新的BUG"><a href="#修复Win11更新的BUG" class="headerlink" title="修复Win11更新的BUG"></a>修复Win11更新的BUG</h1><p>1.网站uupdump.net可以下载最新版本</p>
-<p>2.进入注册表<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\wuauserv\Parameters<br>找到ServiceDll<br>win11将数据改为%systemroot%\system32\wuauserv.dll，<br>win10将数据改为%systemroot%\system32\wuaueng.dll<br>如果还是找不到<br>进入”C:\WINDOWS\System32\wuauserv.dll”看是否存在wuauserv.dll或者wuaueng.dll，<br>如果不存在的话可能是其他软件删除了，需自行下载或者从别的电脑拷贝放进去就好了</p>
-<h1 id="配置FRPC服务"><a href="#配置FRPC服务" class="headerlink" title="配置FRPC服务"></a>配置FRPC服务</h1><h2 id="设置启动脚本"><a href="#设置启动脚本" class="headerlink" title="设置启动脚本"></a>设置启动脚本</h2><p>创建文件：<br>start_frpc.vbs<br>写入脚本</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CreateObject(&quot;WScript.Shell&quot;).Run &quot;&quot;&quot;D:\Program Files\frp_0.38.0_windows_amd64\frpc.exe&quot;&quot;&quot; &amp; &quot;-c&quot; &amp; &quot;&quot;&quot;D:\Program Files\frp_0.38.0_windows_amd64\frpc.ini&quot;&quot;&quot;,0</span><br></pre></td></tr></table></figure>
-<p>双击就可启动frpc，可在资源管理器中看到frpc.exe已启动;</p>
-<h2 id="设置开机自启"><a href="#设置开机自启" class="headerlink" title="设置开机自启"></a>设置开机自启</h2><p>“win+r”输入shell:startup就会自动打开启动文件夹。<br>将文件放入即可（一般为：C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup）</p>
+    <title>Raspberry_pico</title>
+    <url>/2023/06/24/Raspberry-pico/</url>
+    <content><![CDATA[<p>关于树莓派pico的环境搭建与开发<br><span id="more"></span></p>
+<h1 id="Ubuntu-C-C"><a href="#Ubuntu-C-C" class="headerlink" title="Ubuntu C/C++"></a>Ubuntu C/C++</h1><h2 id="依赖："><a href="#依赖：" class="headerlink" title="依赖："></a>依赖：</h2><p> sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential python3-tk</p>
+<h2 id="下载-pico-sdk-和-pico-examples"><a href="#下载-pico-sdk-和-pico-examples" class="headerlink" title="下载 pico-sdk 和 pico-examples"></a>下载 pico-sdk 和 pico-examples</h2><p>cd ~<br>mkdir pico<br>cd pico<br>git clone -b master <a href="https://github.com/raspberrypi/pico-sdk.git">https://github.com/raspberrypi/pico-sdk.git</a><br>cd pico-sdk<br>git submodule update —init<br>cd ~/pico<br>git clone -b master <a href="https://github.com/raspberrypi/pico-examples.git">https://github.com/raspberrypi/pico-examples.git</a></p>
+<h2 id="下载-pico-project-generator"><a href="#下载-pico-project-generator" class="headerlink" title="下载 pico-project-generator"></a>下载 pico-project-generator</h2><p>cd ~/pico<br>git clone <a href="https://github.com/raspberrypi/pico-project-generator.git">https://github.com/raspberrypi/pico-project-generator.git</a></p>
+<h2 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h2><p>echo “export PICO_SDK_PATH=/home/$USER/pico/pico-sdk” &gt;&gt; .bashrc</p>
+<h2 id="安装-VSCode-插件"><a href="#安装-VSCode-插件" class="headerlink" title="安装 VSCode 插件"></a>安装 VSCode 插件</h2><p>code —install-extension marus25.cortex-debug<br>code —install-extension ms-vscode.cmake-tools<br>code —install-extension ms-vscode.cpptools</p>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>cd pico-project-generator</p>
+<p>./pico-progect.py —gui</p>
+<p>手动生成工程</p>
+<p>cd build</p>
+<p>make -j(核心数)  eg：make -j4</p>
+<p>将uf2文件拖入pico即可</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf">https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf</a><br><a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf">https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf</a></p>
 ]]></content>
       <categories>
-        <category>Windows</category>
+        <category>单片机</category>
       </categories>
       <tags>
-        <tag>Win11</tag>
+        <tag>Pico</tag>
       </tags>
   </entry>
   <entry>
@@ -1005,6 +984,27 @@
       </categories>
       <tags>
         <tag>Web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows</title>
+    <url>/2023/01/20/Windows/</url>
+    <content><![CDATA[<p>Windows常用设置<br><span id="more"></span></p>
+<h1 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h1><h2 id="查看系统版本"><a href="#查看系统版本" class="headerlink" title="查看系统版本"></a>查看系统版本</h2><p>cmd输入winver</p>
+<h2 id="查看文件MD5码"><a href="#查看文件MD5码" class="headerlink" title="查看文件MD5码"></a>查看文件MD5码</h2><p>certutil -hashfile 文件路径名称 MD5</p>
+<h2 id="win11安装系统应用"><a href="#win11安装系统应用" class="headerlink" title="win11安装系统应用"></a>win11安装系统应用</h2><p>1.以管理员运行powershell<br>2.输入Get-AppxPackage -allusers | Select Name, PackageFullName<br>3.找到需要安装的应用后面的应用版本<br>4输入Add-appxpackage -register “C:\Program Files\WindowsApps\【应用版本】\appxmanifest.xml” -disabledevelopmentmod即可</p>
+<h1 id="修复Win11更新的BUG"><a href="#修复Win11更新的BUG" class="headerlink" title="修复Win11更新的BUG"></a>修复Win11更新的BUG</h1><p>1.网站uupdump.net可以下载最新版本</p>
+<p>2.进入注册表<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\wuauserv\Parameters<br>找到ServiceDll<br>win11将数据改为%systemroot%\system32\wuauserv.dll，<br>win10将数据改为%systemroot%\system32\wuaueng.dll<br>如果还是找不到<br>进入”C:\WINDOWS\System32\wuauserv.dll”看是否存在wuauserv.dll或者wuaueng.dll，<br>如果不存在的话可能是其他软件删除了，需自行下载或者从别的电脑拷贝放进去就好了</p>
+<h1 id="配置FRPC服务"><a href="#配置FRPC服务" class="headerlink" title="配置FRPC服务"></a>配置FRPC服务</h1><h2 id="设置启动脚本"><a href="#设置启动脚本" class="headerlink" title="设置启动脚本"></a>设置启动脚本</h2><p>创建文件：<br>start_frpc.vbs<br>写入脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CreateObject(&quot;WScript.Shell&quot;).Run &quot;&quot;&quot;D:\Program Files\frp_0.38.0_windows_amd64\frpc.exe&quot;&quot;&quot; &amp; &quot;-c&quot; &amp; &quot;&quot;&quot;D:\Program Files\frp_0.38.0_windows_amd64\frpc.ini&quot;&quot;&quot;,0</span><br></pre></td></tr></table></figure>
+<p>双击就可启动frpc，可在资源管理器中看到frpc.exe已启动;</p>
+<h2 id="设置开机自启"><a href="#设置开机自启" class="headerlink" title="设置开机自启"></a>设置开机自启</h2><p>“win+r”输入shell:startup就会自动打开启动文件夹。<br>将文件放入即可（一般为：C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup）</p>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Win11</tag>
       </tags>
   </entry>
 </search>
