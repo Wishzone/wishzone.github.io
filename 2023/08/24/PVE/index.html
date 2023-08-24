@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=得意黑:300,300italic,400,400italic,700,700italic|Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"efault"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="PVE 使用无线网卡上网查询网卡是否识别12ip addr在输出的信息中查看是否包含 w 开头的网卡  安装并配置WiFi管理工具以iwd为例 12345#安装软件apt install iwd#启动 iwd ，并设置开机启动systemctl start iwdsystemctl enable iwd 查看无线网卡1iwctl device list 扫描并获取无线网络12iwctl stati">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PVE">
+<meta property="og:url" content="http://example.com/2023/08/24/PVE/index.html">
+<meta property="og:site_name" content="Wishzone">
+<meta property="og:description" content="PVE 使用无线网卡上网查询网卡是否识别12ip addr在输出的信息中查看是否包含 w 开头的网卡  安装并配置WiFi管理工具以iwd为例 12345#安装软件apt install iwd#启动 iwd ，并设置开机启动systemctl start iwdsystemctl enable iwd 查看无线网卡1iwctl device list 扫描并获取无线网络12iwctl stati">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-24T03:32:35.000Z">
+<meta property="article:modified_time" content="2023-08-24T08:11:41.871Z">
+<meta property="article:author" content="Wishzone">
+<meta property="article:tag" content="STM32,FPGA,LINUX,WEB">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2023/08/24/PVE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>PVE | Wishzone</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Wishzone" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Wishzone</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎来到Wishzone的小站</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/Wishzone" class="github-corner" title="Wishzone GitHub" aria-label="Wishzone GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/24/PVE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/android-chrome-320x320.png">
+      <meta itemprop="name" content="Wishzone">
+      <meta itemprop="description" content="留点热情给旁边人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wishzone">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PVE
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-08-24 11:32:35 / 修改时间：16:11:41" itemprop="dateCreated datePublished" datetime="2023-08-24T11:32:35+08:00">2023-08-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="PVE-使用无线网卡上网"><a href="#PVE-使用无线网卡上网" class="headerlink" title="PVE 使用无线网卡上网"></a>PVE 使用无线网卡上网</h1><h2 id="查询网卡是否识别"><a href="#查询网卡是否识别" class="headerlink" title="查询网卡是否识别"></a>查询网卡是否识别</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip addr</span><br><span class="line">在输出的信息中查看是否包含 w 开头的网卡 </span><br></pre></td></tr></table></figure>
+<h2 id="安装并配置WiFi管理工具"><a href="#安装并配置WiFi管理工具" class="headerlink" title="安装并配置WiFi管理工具"></a>安装并配置WiFi管理工具</h2><p>以iwd为例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#安装软件</span><br><span class="line">apt install iwd</span><br><span class="line">#启动 iwd ，并设置开机启动</span><br><span class="line">systemctl start iwd</span><br><span class="line">systemctl enable iwd</span><br></pre></td></tr></table></figure>
+<h2 id="查看无线网卡"><a href="#查看无线网卡" class="headerlink" title="查看无线网卡"></a>查看无线网卡</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwctl device list</span><br></pre></td></tr></table></figure>
+<h2 id="扫描并获取无线网络"><a href="#扫描并获取无线网络" class="headerlink" title="扫描并获取无线网络"></a>扫描并获取无线网络</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iwctl station wlan0 scan</span><br><span class="line">iwctl station wlan0 get-networks</span><br></pre></td></tr></table></figure>
+<h2 id="连接无线网"><a href="#连接无线网" class="headerlink" title="连接无线网"></a>连接无线网</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwctl --passphrase 密码 station 网卡 connect SSID</span><br></pre></td></tr></table></figure>
+<h2 id="安装并配置-DHCP-为虚拟机自动分配IP"><a href="#安装并配置-DHCP-为虚拟机自动分配IP" class="headerlink" title="安装并配置 DHCP 为虚拟机自动分配IP"></a>安装并配置 DHCP 为虚拟机自动分配IP</h2><p>以dnsmasq为例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">apt install dnsmasq</span><br><span class="line"># 修改配置文件 /etc/dnsmasq.conf</span><br><span class="line"># 为vmbr0网卡自动分配IP，从100-254，租约72小时</span><br><span class="line">interface=vmbr0</span><br><span class="line">dhcp-range=10.10.10.100,10.10.10.254,255.255.255.0,72h</span><br><span class="line"># 设置开机启动</span><br><span class="line">systemctl enable dnsmasq</span><br></pre></td></tr></table></figure>
+<h2 id="配置网络让路由器下的其它设备能连上pve和虚拟机"><a href="#配置网络让路由器下的其它设备能连上pve和虚拟机" class="headerlink" title="配置网络让路由器下的其它设备能连上pve和虚拟机"></a>配置网络让路由器下的其它设备能连上pve和虚拟机</h2><h3 id="编辑配置文件-etc-network-interfaces"><a href="#编辑配置文件-etc-network-interfaces" class="headerlink" title="编辑配置文件  /etc/network/interfaces"></a>编辑配置文件  /etc/network/interfaces</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line"># 设置无线网卡静态IP</span><br><span class="line">auto wlan0</span><br><span class="line">iface wlan0 inet static</span><br><span class="line">        address 192.168.31.2/24</span><br><span class="line">        gateway 192.168.31.1</span><br><span class="line"></span><br><span class="line">iface enp6s0 inet manual</span><br><span class="line"># 设置 NAT</span><br><span class="line">auto vmbr0</span><br><span class="line">iface vmbr0 inet static</span><br><span class="line">        address 10.10.10.1/24</span><br><span class="line">        bridge-ports enp6s0</span><br><span class="line">        bridge-stp off</span><br><span class="line">        bridge-fd 0</span><br><span class="line"></span><br><span class="line">        post-up echo 1 &gt; /proc/sys/net/ipv4/ip_forward # 开启IP转发</span><br><span class="line">        post-up bash /root/iptables.config.sh # 定义规则</span><br></pre></td></tr></table></figure>
+<h3 id="修改-root-iptables-config-sh"><a href="#修改-root-iptables-config-sh" class="headerlink" title="修改 /root/iptables.config.sh"></a>修改 /root/iptables.config.sh</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env bash</span><br><span class="line">#设置NAT，让10.10.10.0/24的数据走wlan0网卡</span><br><span class="line">iptables -t nat -A POSTROUTING -s &#x27;10.10.10.0/24&#x27; -o wlan0 -j MASQUERADE</span><br><span class="line">iptables -t raw -I PREROUTING -i fwbr+ -j CT --zone 1</span><br></pre></td></tr></table></figure>
+<h3 id="设置端口转发-让路由器下的设备能访问到虚拟机"><a href="#设置端口转发-让路由器下的设备能访问到虚拟机" class="headerlink" title="设置端口转发, 让路由器下的设备能访问到虚拟机"></a>设置端口转发, 让路由器下的设备能访问到虚拟机</h3><h3 id="把访问-192-168-31-2-指定端口的流量转发到虚拟机对应的IP"><a href="#把访问-192-168-31-2-指定端口的流量转发到虚拟机对应的IP" class="headerlink" title="把访问 192.168.31.2 指定端口的流量转发到虚拟机对应的IP"></a>把访问 192.168.31.2 指定端口的流量转发到虚拟机对应的IP</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 8006 -j DNAT --to-destination 10.10.10.1:8006</span><br><span class="line">iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 10100 -j DNAT --to-destination 10.10.10.100:80</span><br></pre></td></tr></table></figure>
+<h3 id="设置默认路由，将所有未知目的地的数据包发送到-wlan0-网络接口上，并将它们的下一跳设置为-192-168-31-1"><a href="#设置默认路由，将所有未知目的地的数据包发送到-wlan0-网络接口上，并将它们的下一跳设置为-192-168-31-1" class="headerlink" title="设置默认路由，将所有未知目的地的数据包发送到 wlan0 网络接口上，并将它们的下一跳设置为 192.168.31.1"></a>设置默认路由，将所有未知目的地的数据包发送到 wlan0 网络接口上，并将它们的下一跳设置为 192.168.31.1</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip route add default via 192.168.31.1 dev wlan0</span><br><span class="line">ip route flush cache </span><br></pre></td></tr></table></figure>
+<h1 id="PVE监测温度"><a href="#PVE监测温度" class="headerlink" title="PVE监测温度"></a>PVE监测温度</h1><h2 id="安装并配置温度监控软件-lm-sensors"><a href="#安装并配置温度监控软件-lm-sensors" class="headerlink" title="安装并配置温度监控软件 lm-sensors"></a>安装并配置温度监控软件 lm-sensors</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">apt-get install lm-sensors</span><br><span class="line"># 验证lm-sensors的版本</span><br><span class="line">sensors -v</span><br><span class="line">sensors-detect #获取可显示的温度,全部填YES</span><br><span class="line">sensors #读取传感器</span><br></pre></td></tr></table></figure>
+<p>显示如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">root@wishzone:~# sensors</span><br><span class="line">iwlwifi_1-virtual-0</span><br><span class="line">Adapter: Virtual device</span><br><span class="line">temp1:        +53.0°C  </span><br><span class="line"></span><br><span class="line">nvme-pci-0300</span><br><span class="line">Adapter: PCI adapter</span><br><span class="line">Composite:    +60.9°C  </span><br><span class="line"></span><br><span class="line">coretemp-isa-0000</span><br><span class="line">Adapter: ISA adapter</span><br><span class="line">Package id 0:  +54.0°C  (high = +105.0°C, crit = +105.0°C)</span><br><span class="line">Core 0:        +54.0°C  (high = +105.0°C, crit = +105.0°C)</span><br><span class="line">Core 1:        +54.0°C  (high = +105.0°C, crit = +105.0°C)</span><br><span class="line">Core 2:        +54.0°C  (high = +105.0°C, crit = +105.0°C)</span><br><span class="line">Core 3:        +54.0°C  (high = +105.0°C, crit = +105.0°C)</span><br></pre></td></tr></table></figure>
+<p>我们可以看出</p>
+<p>iwlwifi_1-virtual-0是无线网卡温度<br>coretemp-isa-0000是 CPU 温度<br>使用命令lspci查询编号可知：<br>nvme-pci-0300是主硬盘温度</p>
+<h2 id="定制显示温度内容"><a href="#定制显示温度内容" class="headerlink" title="定制显示温度内容"></a>定制显示温度内容</h2><p>PVE 的 WebUI 控制台是使用Node.js实现的，所以要修改对应的文件，使得其可以定期执行sensors命令，并将结果输出 Web 页面上。</p>
+<h3 id="修改Nodes-pm，获取温度"><a href="#修改Nodes-pm，获取温度" class="headerlink" title="修改Nodes.pm，获取温度"></a>修改Nodes.pm，获取温度</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /usr/share/perl5/PVE/API2/Nodes.pm</span><br></pre></td></tr></table></figure>
+<p>增加的内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$res-&gt;&#123;temperature&#125; = `sensors`;   # 获取 CPU 和 主板 的温度</span><br></pre></td></tr></table></figure>
+<p>增加的位置<br>ctrl+w搜索my $dinfo = df(‘/‘, 1)</p>
+<p>在搜索内容的上面添加，如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">···</span><br><span class="line">        $res-&gt;&#123;ksm&#125; = &#123;</span><br><span class="line">            shared =&gt; $meminfo-&gt;&#123;memshared&#125;,</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        $res-&gt;&#123;swap&#125; = &#123;</span><br><span class="line">            free =&gt; $meminfo-&gt;&#123;swapfree&#125;,</span><br><span class="line">            total =&gt; $meminfo-&gt;&#123;swaptotal&#125;,</span><br><span class="line">            used =&gt; $meminfo-&gt;&#123;swapused&#125;,</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        $res-&gt;&#123;pveversion&#125; = PVE::pvecfg::package() . &quot;/&quot; .</span><br><span class="line">            PVE::pvecfg::version_text();</span><br><span class="line"></span><br><span class="line">        $res-&gt;&#123;temperature&#125; = `sensors`;   # 获取 CPU 和 主板 的温度</span><br><span class="line"></span><br><span class="line">        my $dinfo = df(&#x27;/&#x27;, 1);     # output is bytes</span><br><span class="line"></span><br><span class="line">        $res-&gt;&#123;rootfs&#125; = &#123;</span><br><span class="line">            total =&gt; $dinfo-&gt;&#123;blocks&#125;,</span><br><span class="line">            avail =&gt; $dinfo-&gt;&#123;bavail&#125;,</span><br><span class="line">            used =&gt; $dinfo-&gt;&#123;used&#125;,</span><br><span class="line">            free =&gt; $dinfo-&gt;&#123;blocks&#125; - $dinfo-&gt;&#123;used&#125;,</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        return $res;</span><br><span class="line">    </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h3 id="修改pvemanagerlib-js，显示温度"><a href="#修改pvemanagerlib-js，显示温度" class="headerlink" title="修改pvemanagerlib.js，显示温度"></a>修改pvemanagerlib.js，显示温度</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/share/pve-manager/js/pvemanagerlib.js</span><br></pre></td></tr></table></figure>
+<p>添加内容要根据自己的实际情况修改，注意逗号和括号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">,</span><br><span class="line">&#123;</span><br><span class="line">            itemId: &#x27;temperature&#x27;,</span><br><span class="line">            colspan: 2,</span><br><span class="line">            printBar: false,</span><br><span class="line">            title: gettext(&#x27;温度&#x27;),</span><br><span class="line">            textField: &#x27;temperature&#x27;,</span><br><span class="line">            renderer: function(value)&#123;</span><br><span class="line">                const p0 = value.match(/Package id 0.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const b0 = value.match(/temp1.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const b1 = value.match(/Composite.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const c0 = value.match(/Core 0.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const c1 = value.match(/Core 1.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const c2 = value.match(/Core 2.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const c3 = value.match(/Core 3.*?\+([\d\.]+)?/)[1];</span><br><span class="line"></span><br><span class="line">                return `CPU: $&#123;p0&#125;℃ | Core0: $&#123;c0&#125;℃ | Core1: $&#123;c1&#125;℃ | Core2: $&#123;c2&#125;℃ | Core3: $&#123;c3&#125;℃ | 无线网卡: $&#123;b0&#125;℃ | 系统盘: $&#123;b1&#125;℃ `</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>自己照猫画虎改就行了，不难<br>增加的位置<br>ctrl+w搜索itemId: ‘version’,<br>在内容的下面添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">        &#123;</span><br><span class="line">            itemId: &#x27;version&#x27;,</span><br><span class="line">            colspan: 2,</span><br><span class="line">            printBar: false,</span><br><span class="line">            title: gettext(&#x27;PVE Manager Version&#x27;),</span><br><span class="line">            textField: &#x27;pveversion&#x27;,</span><br><span class="line">            value: &#x27;&#x27;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            itemId: &#x27;temperature&#x27;,</span><br><span class="line">            colspan: 2,</span><br><span class="line">            printBar: false,</span><br><span class="line">            title: gettext(&#x27;温度&#x27;),</span><br><span class="line">            textField: &#x27;temperature&#x27;,</span><br><span class="line">            renderer: function(value)&#123;</span><br><span class="line">                const p0 = value.match(/Package id 0.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const b0 = value.match(/temp1.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const b1 = value.match(/Composite.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const c0 = value.match(/Core 0.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const c1 = value.match(/Core 1.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const c2 = value.match(/Core 2.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const c3 = value.match(/Core 3.*?\+([\d\.]+)?/)[1];</span><br><span class="line"></span><br><span class="line">                return `CPU: $&#123;p0&#125;℃ | Core0: $&#123;c0&#125;℃ | Core1: $&#123;c1&#125;℃ | Core2: $&#123;c2&#125;℃ | Core3: $&#123;c3&#125;℃ | 无线网卡: $&#123;b0&#125;℃ | 系统盘: $&#123;b1&#125;℃ `</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br><span class="line">    ],</span><br><span class="line"></span><br><span class="line">    updateTitle: function() &#123;</span><br><span class="line">        var me = this;</span><br><span class="line">        var uptime = Proxmox.Utils.render_uptime(me.getRecordValue(&#x27;uptime&#x27;));</span><br><span class="line">        me.setTitle(me.pveSelNode.data.node + &#x27; (&#x27; + gettext(&#x27;Uptime&#x27;) + &#x27;: &#x27; + uptime + &#x27;)&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h3 id="修改完成，重启Web控制台"><a href="#修改完成，重启Web控制台" class="headerlink" title="修改完成，重启Web控制台"></a>修改完成，重启Web控制台</h3><p>systemctl restart pveproxy</p>
+<p>注意：若温度的显示值为null，请打开开发者工具，在Console中进行查看</p>
+<h2 id="懒人修改法"><a href="#懒人修改法" class="headerlink" title="懒人修改法"></a>懒人修改法</h2><p>点击这里，支持各种版本[<a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-6754687-1-1.html">https://www.right.com.cn/forum/thread-6754687-1-1.html</a>]</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/06/24/Ubuntu%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BC%98%E5%8C%96/" rel="prev" title="Ubuntu配置及优化">
+      <i class="fa fa-chevron-left"></i> Ubuntu配置及优化
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/08/24/Docker/" rel="next" title="Docker">
+      Docker <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PVE-%E4%BD%BF%E7%94%A8%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1%E4%B8%8A%E7%BD%91"><span class="nav-number">1.</span> <span class="nav-text">PVE 使用无线网卡上网</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E7%BD%91%E5%8D%A1%E6%98%AF%E5%90%A6%E8%AF%86%E5%88%AB"><span class="nav-number">1.1.</span> <span class="nav-text">查询网卡是否识别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%B9%B6%E9%85%8D%E7%BD%AEWiFi%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7"><span class="nav-number">1.2.</span> <span class="nav-text">安装并配置WiFi管理工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1"><span class="nav-number">1.3.</span> <span class="nav-text">查看无线网卡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%AB%E6%8F%8F%E5%B9%B6%E8%8E%B7%E5%8F%96%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C"><span class="nav-number">1.4.</span> <span class="nav-text">扫描并获取无线网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%97%A0%E7%BA%BF%E7%BD%91"><span class="nav-number">1.5.</span> <span class="nav-text">连接无线网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%B9%B6%E9%85%8D%E7%BD%AE-DHCP-%E4%B8%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%87%AA%E5%8A%A8%E5%88%86%E9%85%8DIP"><span class="nav-number">1.6.</span> <span class="nav-text">安装并配置 DHCP 为虚拟机自动分配IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%BD%91%E7%BB%9C%E8%AE%A9%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B8%8B%E7%9A%84%E5%85%B6%E5%AE%83%E8%AE%BE%E5%A4%87%E8%83%BD%E8%BF%9E%E4%B8%8Apve%E5%92%8C%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">1.7.</span> <span class="nav-text">配置网络让路由器下的其它设备能连上pve和虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%BE%91%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-etc-network-interfaces"><span class="nav-number">1.7.1.</span> <span class="nav-text">编辑配置文件  &#x2F;etc&#x2F;network&#x2F;interfaces</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-root-iptables-config-sh"><span class="nav-number">1.7.2.</span> <span class="nav-text">修改 &#x2F;root&#x2F;iptables.config.sh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91-%E8%AE%A9%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B8%8B%E7%9A%84%E8%AE%BE%E5%A4%87%E8%83%BD%E8%AE%BF%E9%97%AE%E5%88%B0%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">1.7.3.</span> <span class="nav-text">设置端口转发, 让路由器下的设备能访问到虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%8A%E8%AE%BF%E9%97%AE-192-168-31-2-%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3%E7%9A%84%E6%B5%81%E9%87%8F%E8%BD%AC%E5%8F%91%E5%88%B0%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AF%B9%E5%BA%94%E7%9A%84IP"><span class="nav-number">1.7.4.</span> <span class="nav-text">把访问 192.168.31.2 指定端口的流量转发到虚拟机对应的IP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E8%B7%AF%E7%94%B1%EF%BC%8C%E5%B0%86%E6%89%80%E6%9C%89%E6%9C%AA%E7%9F%A5%E7%9B%AE%E7%9A%84%E5%9C%B0%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8C%85%E5%8F%91%E9%80%81%E5%88%B0-wlan0-%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%E4%B8%8A%EF%BC%8C%E5%B9%B6%E5%B0%86%E5%AE%83%E4%BB%AC%E7%9A%84%E4%B8%8B%E4%B8%80%E8%B7%B3%E8%AE%BE%E7%BD%AE%E4%B8%BA-192-168-31-1"><span class="nav-number">1.7.5.</span> <span class="nav-text">设置默认路由，将所有未知目的地的数据包发送到 wlan0 网络接口上，并将它们的下一跳设置为 192.168.31.1</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PVE%E7%9B%91%E6%B5%8B%E6%B8%A9%E5%BA%A6"><span class="nav-number">2.</span> <span class="nav-text">PVE监测温度</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%B8%A9%E5%BA%A6%E7%9B%91%E6%8E%A7%E8%BD%AF%E4%BB%B6-lm-sensors"><span class="nav-number">2.1.</span> <span class="nav-text">安装并配置温度监控软件 lm-sensors</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E5%88%B6%E6%98%BE%E7%A4%BA%E6%B8%A9%E5%BA%A6%E5%86%85%E5%AE%B9"><span class="nav-number">2.2.</span> <span class="nav-text">定制显示温度内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9Nodes-pm%EF%BC%8C%E8%8E%B7%E5%8F%96%E6%B8%A9%E5%BA%A6"><span class="nav-number">2.2.1.</span> <span class="nav-text">修改Nodes.pm，获取温度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9pvemanagerlib-js%EF%BC%8C%E6%98%BE%E7%A4%BA%E6%B8%A9%E5%BA%A6"><span class="nav-number">2.2.2.</span> <span class="nav-text">修改pvemanagerlib.js，显示温度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%AE%8C%E6%88%90%EF%BC%8C%E9%87%8D%E5%90%AFWeb%E6%8E%A7%E5%88%B6%E5%8F%B0"><span class="nav-number">2.2.3.</span> <span class="nav-text">修改完成，重启Web控制台</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%87%92%E4%BA%BA%E4%BF%AE%E6%94%B9%E6%B3%95"><span class="nav-number">2.3.</span> <span class="nav-text">懒人修改法</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wishzone"
+      src="/images/android-chrome-320x320.png">
+  <p class="site-author-name" itemprop="name">Wishzone</p>
+  <div class="site-description" itemprop="description">留点热情给旁边人</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wishzone</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="true"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '069b787c0b99ba5c4d39',
+      clientSecret: '20a837ebd50ea05bbd4ac5b91d1785a4fc280bbc',
+      repo        : 'wishzone.github.io',
+      owner       : 'Wishzone',
+      admin       : ['wishzone'],
+      id          : 'eb142ab81b842524c9dc43838d63707f',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+    </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

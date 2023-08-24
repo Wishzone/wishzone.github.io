@@ -197,6 +197,277 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/24/Linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/android-chrome-320x320.png">
+      <meta itemprop="name" content="Wishzone">
+      <meta itemprop="description" content="留点热情给旁边人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wishzone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/24/Linux/" class="post-title-link" itemprop="url">Linux</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-08-24 17:51:15 / 修改时间：18:09:00" itemprop="dateCreated datePublished" datetime="2023-08-24T17:51:15+08:00">2023-08-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="远程访问方式对比"><a href="#远程访问方式对比" class="headerlink" title="远程访问方式对比"></a>远程访问方式对比</h1><h2 id="XRDP"><a href="#XRDP" class="headerlink" title="XRDP"></a>XRDP</h2><h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><p>1.通常只支持X类的管理器<br>2.不能多用户同时登录<br>3.Linux下不支持UDP协议</p>
+<h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><p>1.安装包小<br>2.安装简单<br>3.画质高，速度快</p>
+<h2 id="VNC"><a href="#VNC" class="headerlink" title="VNC"></a>VNC</h2><h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>1.显示效果相对较差<br>2.需要HDMI诱骗器</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>1.支持UDP，相应快</p>
+<h1 id="退出XRDP未注销的用户"><a href="#退出XRDP未注销的用户" class="headerlink" title="退出XRDP未注销的用户"></a>退出XRDP未注销的用户</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">who -a  //查看登录的用户</span><br><span class="line">pkill -kill -t pts/3  //注销用户</span><br></pre></td></tr></table></figure>
+<h1 id="创建新用户"><a href="#创建新用户" class="headerlink" title="创建新用户"></a>创建新用户</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">su root</span><br><span class="line">apt install sudo</span><br><span class="line">sudo usermod -aG sudo username  //username替换为所需的用户名</span><br><span class="line">nano /etc/default/useradd</span><br><span class="line">改/bin/sh为/bin/bash</span><br><span class="line">nano /etc/passwd </span><br><span class="line">改用户名后面的/bin/sh为/bin/bash</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/24/Openwrt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/android-chrome-320x320.png">
+      <meta itemprop="name" content="Wishzone">
+      <meta itemprop="description" content="留点热情给旁边人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wishzone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/24/Openwrt/" class="post-title-link" itemprop="url">Openwrt</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-08-24 17:44:34 / 修改时间：17:50:09" itemprop="dateCreated datePublished" datetime="2023-08-24T17:44:34+08:00">2023-08-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="开启80端口和22端口"><a href="#开启80端口和22端口" class="headerlink" title="开启80端口和22端口"></a>开启80端口和22端口</h1><p>由于小米路由为了安全考虑，对WEB与防火墙规则进行限制，WEB管理、SSH只能通过内网登 陆，外网无法访问，在路由器的WEB管理页面新建端口转发中不能添加路由本机内网IP。<br>开启小米路由的SSH后，我们可以通过登陆SSH在命令行中手动添加防火墙中端口转发规则</p>
+<h2 id="一、解除WEB管理页面访问限制"><a href="#一、解除WEB管理页面访问限制" class="headerlink" title="一、解除WEB管理页面访问限制"></a>一、解除WEB管理页面访问限制</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/sysapihttpd/       //切换目录</span><br><span class="line">cp miwifi-webinitrd.conf miwifi-webinitrd.conf.bak       //备份</span><br><span class="line">vi miwifi-webinitrd.conf  //编辑miwifi-webinitrd.conf</span><br><span class="line"></span><br><span class="line">在如下位置插入代码set $finalvar &quot;$canproxy $isluci&quot;;：</span><br><span class="line"></span><br><span class="line">set $isluci &quot;1&quot;;</span><br><span class="line"></span><br><span class="line">set $finalvar &quot;$canproxy $isluci&quot;;</span><br><span class="line"></span><br><span class="line">/etc/init.d/sysapihttpd restart  //重启httpd服务使配置生效</span><br></pre></td></tr></table></figure>
+<p>二、手动添加防火墙端口转发规则，开启外网访问WEB管理和SSH<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">cd /                     //回到根目录</span><br><span class="line">vi /etc/config/firewall           //编辑防火墙配置</span><br><span class="line">1.添加WEB管理外网端口转发规则代码段：</span><br><span class="line">config redirect &#x27;MIWEB&#x27;</span><br><span class="line">    option src &#x27;wan&#x27;</span><br><span class="line">    option src_dport &#x27;1314&#x27;</span><br><span class="line">    option dest_ip &#x27;10.0.0.1&#x27;</span><br><span class="line">    option name &#x27;WEB&#x27;</span><br><span class="line">    option ftype &#x27;1&#x27;</span><br><span class="line">    option dest_port &#x27;80&#x27;</span><br><span class="line">    option proto &#x27;tcp&#x27;</span><br><span class="line"></span><br><span class="line">WEB管理界面外网端口为1314  可通过外网IP:1314访问 (例 http://61.181.133.5:1314),绑定DDNS的用户可通过域名:1314进行访问。</span><br><span class="line">2.添加SSH外网登陆端口转发规则代码段：</span><br><span class="line">config redirect &#x27;Myssh&#x27;</span><br><span class="line">    option src &#x27;wan&#x27;</span><br><span class="line">    option src_dport &#x27;2345&#x27;</span><br><span class="line">    option dest &#x27;lan&#x27;</span><br><span class="line">    option dest_port &#x27;22&#x27;</span><br><span class="line">    option proto &#x27;tcp&#x27;</span><br><span class="line"></span><br><span class="line">SSH登陆外网端口为2345</span><br><span class="line">重启防火墙使规则生效</span><br><span class="line"></span><br><span class="line">/etc/init.d/firewall restart</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/24/Docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/android-chrome-320x320.png">
+      <meta itemprop="name" content="Wishzone">
+      <meta itemprop="description" content="留点热情给旁边人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wishzone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/24/Docker/" class="post-title-link" itemprop="url">Docker</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-24 17:38:47" itemprop="dateCreated datePublished" datetime="2023-08-24T17:38:47+08:00">2023-08-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/24/PVE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/android-chrome-320x320.png">
+      <meta itemprop="name" content="Wishzone">
+      <meta itemprop="description" content="留点热情给旁边人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wishzone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/24/PVE/" class="post-title-link" itemprop="url">PVE</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-08-24 11:32:35 / 修改时间：16:11:41" itemprop="dateCreated datePublished" datetime="2023-08-24T11:32:35+08:00">2023-08-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="PVE-使用无线网卡上网"><a href="#PVE-使用无线网卡上网" class="headerlink" title="PVE 使用无线网卡上网"></a>PVE 使用无线网卡上网</h1><h2 id="查询网卡是否识别"><a href="#查询网卡是否识别" class="headerlink" title="查询网卡是否识别"></a>查询网卡是否识别</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip addr</span><br><span class="line">在输出的信息中查看是否包含 w 开头的网卡 </span><br></pre></td></tr></table></figure>
+<h2 id="安装并配置WiFi管理工具"><a href="#安装并配置WiFi管理工具" class="headerlink" title="安装并配置WiFi管理工具"></a>安装并配置WiFi管理工具</h2><p>以iwd为例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#安装软件</span><br><span class="line">apt install iwd</span><br><span class="line">#启动 iwd ，并设置开机启动</span><br><span class="line">systemctl start iwd</span><br><span class="line">systemctl enable iwd</span><br></pre></td></tr></table></figure>
+<h2 id="查看无线网卡"><a href="#查看无线网卡" class="headerlink" title="查看无线网卡"></a>查看无线网卡</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwctl device list</span><br></pre></td></tr></table></figure>
+<h2 id="扫描并获取无线网络"><a href="#扫描并获取无线网络" class="headerlink" title="扫描并获取无线网络"></a>扫描并获取无线网络</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iwctl station wlan0 scan</span><br><span class="line">iwctl station wlan0 get-networks</span><br></pre></td></tr></table></figure>
+<h2 id="连接无线网"><a href="#连接无线网" class="headerlink" title="连接无线网"></a>连接无线网</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwctl --passphrase 密码 station 网卡 connect SSID</span><br></pre></td></tr></table></figure>
+<h2 id="安装并配置-DHCP-为虚拟机自动分配IP"><a href="#安装并配置-DHCP-为虚拟机自动分配IP" class="headerlink" title="安装并配置 DHCP 为虚拟机自动分配IP"></a>安装并配置 DHCP 为虚拟机自动分配IP</h2><p>以dnsmasq为例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">apt install dnsmasq</span><br><span class="line"># 修改配置文件 /etc/dnsmasq.conf</span><br><span class="line"># 为vmbr0网卡自动分配IP，从100-254，租约72小时</span><br><span class="line">interface=vmbr0</span><br><span class="line">dhcp-range=10.10.10.100,10.10.10.254,255.255.255.0,72h</span><br><span class="line"># 设置开机启动</span><br><span class="line">systemctl enable dnsmasq</span><br></pre></td></tr></table></figure>
+<h2 id="配置网络让路由器下的其它设备能连上pve和虚拟机"><a href="#配置网络让路由器下的其它设备能连上pve和虚拟机" class="headerlink" title="配置网络让路由器下的其它设备能连上pve和虚拟机"></a>配置网络让路由器下的其它设备能连上pve和虚拟机</h2><h3 id="编辑配置文件-etc-network-interfaces"><a href="#编辑配置文件-etc-network-interfaces" class="headerlink" title="编辑配置文件  /etc/network/interfaces"></a>编辑配置文件  /etc/network/interfaces</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line"># 设置无线网卡静态IP</span><br><span class="line">auto wlan0</span><br><span class="line">iface wlan0 inet static</span><br><span class="line">        address 192.168.31.2/24</span><br><span class="line">        gateway 192.168.31.1</span><br><span class="line"></span><br><span class="line">iface enp6s0 inet manual</span><br><span class="line"># 设置 NAT</span><br><span class="line">auto vmbr0</span><br><span class="line">iface vmbr0 inet static</span><br><span class="line">        address 10.10.10.1/24</span><br><span class="line">        bridge-ports enp6s0</span><br><span class="line">        bridge-stp off</span><br><span class="line">        bridge-fd 0</span><br><span class="line"></span><br><span class="line">        post-up echo 1 &gt; /proc/sys/net/ipv4/ip_forward # 开启IP转发</span><br><span class="line">        post-up bash /root/iptables.config.sh # 定义规则</span><br></pre></td></tr></table></figure>
+<h3 id="修改-root-iptables-config-sh"><a href="#修改-root-iptables-config-sh" class="headerlink" title="修改 /root/iptables.config.sh"></a>修改 /root/iptables.config.sh</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env bash</span><br><span class="line">#设置NAT，让10.10.10.0/24的数据走wlan0网卡</span><br><span class="line">iptables -t nat -A POSTROUTING -s &#x27;10.10.10.0/24&#x27; -o wlan0 -j MASQUERADE</span><br><span class="line">iptables -t raw -I PREROUTING -i fwbr+ -j CT --zone 1</span><br></pre></td></tr></table></figure>
+<h3 id="设置端口转发-让路由器下的设备能访问到虚拟机"><a href="#设置端口转发-让路由器下的设备能访问到虚拟机" class="headerlink" title="设置端口转发, 让路由器下的设备能访问到虚拟机"></a>设置端口转发, 让路由器下的设备能访问到虚拟机</h3><h3 id="把访问-192-168-31-2-指定端口的流量转发到虚拟机对应的IP"><a href="#把访问-192-168-31-2-指定端口的流量转发到虚拟机对应的IP" class="headerlink" title="把访问 192.168.31.2 指定端口的流量转发到虚拟机对应的IP"></a>把访问 192.168.31.2 指定端口的流量转发到虚拟机对应的IP</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 8006 -j DNAT --to-destination 10.10.10.1:8006</span><br><span class="line">iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 10100 -j DNAT --to-destination 10.10.10.100:80</span><br></pre></td></tr></table></figure>
+<h3 id="设置默认路由，将所有未知目的地的数据包发送到-wlan0-网络接口上，并将它们的下一跳设置为-192-168-31-1"><a href="#设置默认路由，将所有未知目的地的数据包发送到-wlan0-网络接口上，并将它们的下一跳设置为-192-168-31-1" class="headerlink" title="设置默认路由，将所有未知目的地的数据包发送到 wlan0 网络接口上，并将它们的下一跳设置为 192.168.31.1"></a>设置默认路由，将所有未知目的地的数据包发送到 wlan0 网络接口上，并将它们的下一跳设置为 192.168.31.1</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip route add default via 192.168.31.1 dev wlan0</span><br><span class="line">ip route flush cache </span><br></pre></td></tr></table></figure>
+<h1 id="PVE监测温度"><a href="#PVE监测温度" class="headerlink" title="PVE监测温度"></a>PVE监测温度</h1><h2 id="安装并配置温度监控软件-lm-sensors"><a href="#安装并配置温度监控软件-lm-sensors" class="headerlink" title="安装并配置温度监控软件 lm-sensors"></a>安装并配置温度监控软件 lm-sensors</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">apt-get install lm-sensors</span><br><span class="line"># 验证lm-sensors的版本</span><br><span class="line">sensors -v</span><br><span class="line">sensors-detect #获取可显示的温度,全部填YES</span><br><span class="line">sensors #读取传感器</span><br></pre></td></tr></table></figure>
+<p>显示如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">root@wishzone:~# sensors</span><br><span class="line">iwlwifi_1-virtual-0</span><br><span class="line">Adapter: Virtual device</span><br><span class="line">temp1:        +53.0°C  </span><br><span class="line"></span><br><span class="line">nvme-pci-0300</span><br><span class="line">Adapter: PCI adapter</span><br><span class="line">Composite:    +60.9°C  </span><br><span class="line"></span><br><span class="line">coretemp-isa-0000</span><br><span class="line">Adapter: ISA adapter</span><br><span class="line">Package id 0:  +54.0°C  (high = +105.0°C, crit = +105.0°C)</span><br><span class="line">Core 0:        +54.0°C  (high = +105.0°C, crit = +105.0°C)</span><br><span class="line">Core 1:        +54.0°C  (high = +105.0°C, crit = +105.0°C)</span><br><span class="line">Core 2:        +54.0°C  (high = +105.0°C, crit = +105.0°C)</span><br><span class="line">Core 3:        +54.0°C  (high = +105.0°C, crit = +105.0°C)</span><br></pre></td></tr></table></figure>
+<p>我们可以看出</p>
+<p>iwlwifi_1-virtual-0是无线网卡温度<br>coretemp-isa-0000是 CPU 温度<br>使用命令lspci查询编号可知：<br>nvme-pci-0300是主硬盘温度</p>
+<h2 id="定制显示温度内容"><a href="#定制显示温度内容" class="headerlink" title="定制显示温度内容"></a>定制显示温度内容</h2><p>PVE 的 WebUI 控制台是使用Node.js实现的，所以要修改对应的文件，使得其可以定期执行sensors命令，并将结果输出 Web 页面上。</p>
+<h3 id="修改Nodes-pm，获取温度"><a href="#修改Nodes-pm，获取温度" class="headerlink" title="修改Nodes.pm，获取温度"></a>修改Nodes.pm，获取温度</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /usr/share/perl5/PVE/API2/Nodes.pm</span><br></pre></td></tr></table></figure>
+<p>增加的内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$res-&gt;&#123;temperature&#125; = `sensors`;   # 获取 CPU 和 主板 的温度</span><br></pre></td></tr></table></figure>
+<p>增加的位置<br>ctrl+w搜索my $dinfo = df(‘/‘, 1)</p>
+<p>在搜索内容的上面添加，如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">···</span><br><span class="line">        $res-&gt;&#123;ksm&#125; = &#123;</span><br><span class="line">            shared =&gt; $meminfo-&gt;&#123;memshared&#125;,</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        $res-&gt;&#123;swap&#125; = &#123;</span><br><span class="line">            free =&gt; $meminfo-&gt;&#123;swapfree&#125;,</span><br><span class="line">            total =&gt; $meminfo-&gt;&#123;swaptotal&#125;,</span><br><span class="line">            used =&gt; $meminfo-&gt;&#123;swapused&#125;,</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        $res-&gt;&#123;pveversion&#125; = PVE::pvecfg::package() . &quot;/&quot; .</span><br><span class="line">            PVE::pvecfg::version_text();</span><br><span class="line"></span><br><span class="line">        $res-&gt;&#123;temperature&#125; = `sensors`;   # 获取 CPU 和 主板 的温度</span><br><span class="line"></span><br><span class="line">        my $dinfo = df(&#x27;/&#x27;, 1);     # output is bytes</span><br><span class="line"></span><br><span class="line">        $res-&gt;&#123;rootfs&#125; = &#123;</span><br><span class="line">            total =&gt; $dinfo-&gt;&#123;blocks&#125;,</span><br><span class="line">            avail =&gt; $dinfo-&gt;&#123;bavail&#125;,</span><br><span class="line">            used =&gt; $dinfo-&gt;&#123;used&#125;,</span><br><span class="line">            free =&gt; $dinfo-&gt;&#123;blocks&#125; - $dinfo-&gt;&#123;used&#125;,</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        return $res;</span><br><span class="line">    </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h3 id="修改pvemanagerlib-js，显示温度"><a href="#修改pvemanagerlib-js，显示温度" class="headerlink" title="修改pvemanagerlib.js，显示温度"></a>修改pvemanagerlib.js，显示温度</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/share/pve-manager/js/pvemanagerlib.js</span><br></pre></td></tr></table></figure>
+<p>添加内容要根据自己的实际情况修改，注意逗号和括号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">,</span><br><span class="line">&#123;</span><br><span class="line">            itemId: &#x27;temperature&#x27;,</span><br><span class="line">            colspan: 2,</span><br><span class="line">            printBar: false,</span><br><span class="line">            title: gettext(&#x27;温度&#x27;),</span><br><span class="line">            textField: &#x27;temperature&#x27;,</span><br><span class="line">            renderer: function(value)&#123;</span><br><span class="line">                const p0 = value.match(/Package id 0.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const b0 = value.match(/temp1.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const b1 = value.match(/Composite.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const c0 = value.match(/Core 0.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const c1 = value.match(/Core 1.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const c2 = value.match(/Core 2.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const c3 = value.match(/Core 3.*?\+([\d\.]+)?/)[1];</span><br><span class="line"></span><br><span class="line">                return `CPU: $&#123;p0&#125;℃ | Core0: $&#123;c0&#125;℃ | Core1: $&#123;c1&#125;℃ | Core2: $&#123;c2&#125;℃ | Core3: $&#123;c3&#125;℃ | 无线网卡: $&#123;b0&#125;℃ | 系统盘: $&#123;b1&#125;℃ `</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>自己照猫画虎改就行了，不难<br>增加的位置<br>ctrl+w搜索itemId: ‘version’,<br>在内容的下面添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">        &#123;</span><br><span class="line">            itemId: &#x27;version&#x27;,</span><br><span class="line">            colspan: 2,</span><br><span class="line">            printBar: false,</span><br><span class="line">            title: gettext(&#x27;PVE Manager Version&#x27;),</span><br><span class="line">            textField: &#x27;pveversion&#x27;,</span><br><span class="line">            value: &#x27;&#x27;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            itemId: &#x27;temperature&#x27;,</span><br><span class="line">            colspan: 2,</span><br><span class="line">            printBar: false,</span><br><span class="line">            title: gettext(&#x27;温度&#x27;),</span><br><span class="line">            textField: &#x27;temperature&#x27;,</span><br><span class="line">            renderer: function(value)&#123;</span><br><span class="line">                const p0 = value.match(/Package id 0.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const b0 = value.match(/temp1.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const b1 = value.match(/Composite.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const c0 = value.match(/Core 0.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const c1 = value.match(/Core 1.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const c2 = value.match(/Core 2.*?\+([\d\.]+)?/)[1];</span><br><span class="line">                const c3 = value.match(/Core 3.*?\+([\d\.]+)?/)[1];</span><br><span class="line"></span><br><span class="line">                return `CPU: $&#123;p0&#125;℃ | Core0: $&#123;c0&#125;℃ | Core1: $&#123;c1&#125;℃ | Core2: $&#123;c2&#125;℃ | Core3: $&#123;c3&#125;℃ | 无线网卡: $&#123;b0&#125;℃ | 系统盘: $&#123;b1&#125;℃ `</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br><span class="line">    ],</span><br><span class="line"></span><br><span class="line">    updateTitle: function() &#123;</span><br><span class="line">        var me = this;</span><br><span class="line">        var uptime = Proxmox.Utils.render_uptime(me.getRecordValue(&#x27;uptime&#x27;));</span><br><span class="line">        me.setTitle(me.pveSelNode.data.node + &#x27; (&#x27; + gettext(&#x27;Uptime&#x27;) + &#x27;: &#x27; + uptime + &#x27;)&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h3 id="修改完成，重启Web控制台"><a href="#修改完成，重启Web控制台" class="headerlink" title="修改完成，重启Web控制台"></a>修改完成，重启Web控制台</h3><p>systemctl restart pveproxy</p>
+<p>注意：若温度的显示值为null，请打开开发者工具，在Console中进行查看</p>
+<h2 id="懒人修改法"><a href="#懒人修改法" class="headerlink" title="懒人修改法"></a>懒人修改法</h2><p>点击这里，支持各种版本[<a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-6754687-1-1.html">https://www.right.com.cn/forum/thread-6754687-1-1.html</a>]</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/24/Ubuntu%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BC%98%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -451,10 +722,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-06-24 16:59:32 / 修改时间：17:38:45" itemprop="dateCreated datePublished" datetime="2023-06-24T16:59:32+08:00">2023-06-24</time>
+              <time title="创建时间：2023-06-24 16:59:32" itemprop="dateCreated datePublished" datetime="2023-06-24T16:59:32+08:00">2023-06-24</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-08-23 19:52:49" itemprop="dateModified" datetime="2023-08-23T19:52:49+08:00">2023-08-23</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -534,7 +811,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-18 23:25:10" itemprop="dateModified" datetime="2023-08-18T23:25:10+08:00">2023-08-18</time>
+                <time title="修改时间：2023-08-19 12:57:13" itemprop="dateModified" datetime="2023-08-19T12:57:13+08:00">2023-08-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -655,324 +932,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/24/ESP-AT%E9%85%8D%E7%BD%AE%E4%B8%B2%E5%8F%A3%E9%80%8F%E4%BC%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/android-chrome-320x320.png">
-      <meta itemprop="name" content="Wishzone">
-      <meta itemprop="description" content="留点热情给旁边人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wishzone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/06/24/ESP-AT%E9%85%8D%E7%BD%AE%E4%B8%B2%E5%8F%A3%E9%80%8F%E4%BC%A0/" class="post-title-link" itemprop="url">ESP_AT配置串口透传</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-06-24 16:55:53 / 修改时间：17:27:55" itemprop="dateCreated datePublished" datetime="2023-06-24T16:55:53+08:00">2023-06-24</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/" itemprop="url" rel="index"><span itemprop="name">单片机</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>配置ESP系列AT指令进行wifi串口穿透的教程</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/06/24/ESP-AT%E9%85%8D%E7%BD%AE%E4%B8%B2%E5%8F%A3%E9%80%8F%E4%BC%A0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/20/win11-update/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/android-chrome-320x320.png">
-      <meta itemprop="name" content="Wishzone">
-      <meta itemprop="description" content="留点热情给旁边人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wishzone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/20/win11-update/" class="post-title-link" itemprop="url">win11_update</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-01-20 01:04:51" itemprop="dateCreated datePublished" datetime="2023-01-20T01:04:51+08:00">2023-01-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-15 10:19:06" itemprop="dateModified" datetime="2023-03-15T10:19:06+08:00">2023-03-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Windows/" itemprop="url" rel="index"><span itemprop="name">Windows</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>win11针对联想等机器的部分更新推送会被取消，且由于一些杀毒软件的系统修复功能，会导致win11无法获得更新，从而使得win11更新卡在某个版本。针对个人使用win11遇到的一些bug进行总结，不断更新ing</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/01/20/win11-update/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/android-chrome-320x320.png">
-      <meta itemprop="name" content="Wishzone">
-      <meta itemprop="description" content="留点热情给旁边人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wishzone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">网络基础</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-01-19 14:25:47" itemprop="dateCreated datePublished" datetime="2023-01-19T14:25:47+08:00">2023-01-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-18 23:15:10" itemprop="dateModified" datetime="2023-08-18T23:15:10+08:00">2023-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>自己琢磨出的关于光猫与路由器设置的简单教程</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/18/Android/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/android-chrome-320x320.png">
-      <meta itemprop="name" content="Wishzone">
-      <meta itemprop="description" content="留点热情给旁边人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wishzone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/18/Android/" class="post-title-link" itemprop="url">Android</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-12-18 20:06:28" itemprop="dateCreated datePublished" datetime="2022-12-18T20:06:28+08:00">2022-12-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-15 10:06:08" itemprop="dateModified" datetime="2023-03-15T10:06:08+08:00">2023-03-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>一些安卓开发教程，不断更新ing<br>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/12/18/Android/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1044,7 +1003,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -20,18 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"efault"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="留点热情给旁边人">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Wishzone">
-<meta property="og:url" content="http://example.com/archives/2023/06/index.html">
+  <meta name="description" content="开启80端口和22端口由于小米路由为了安全考虑，对WEB与防火墙规则进行限制，WEB管理、SSH只能通过内网登 陆，外网无法访问，在路由器的WEB管理页面新建端口转发中不能添加路由本机内网IP。开启小米路由的SSH后，我们可以通过登陆SSH在命令行中手动添加防火墙中端口转发规则 一、解除WEB管理页面访问限制1234567891011cd &#x2F;etc&#x2F;sysapihttpd&#x2F;       &#x2F;&#x2F;切换目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Openwrt">
+<meta property="og:url" content="http://example.com/2023/08/24/Openwrt/index.html">
 <meta property="og:site_name" content="Wishzone">
-<meta property="og:description" content="留点热情给旁边人">
+<meta property="og:description" content="开启80端口和22端口由于小米路由为了安全考虑，对WEB与防火墙规则进行限制，WEB管理、SSH只能通过内网登 陆，外网无法访问，在路由器的WEB管理页面新建端口转发中不能添加路由本机内网IP。开启小米路由的SSH后，我们可以通过登陆SSH在命令行中手动添加防火墙中端口转发规则 一、解除WEB管理页面访问限制1234567891011cd &#x2F;etc&#x2F;sysapihttpd&#x2F;       &#x2F;&#x2F;切换目">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-24T09:44:34.000Z">
+<meta property="article:modified_time" content="2023-08-24T09:50:09.956Z">
 <meta property="article:author" content="Wishzone">
 <meta property="article:tag" content="STM32,FPGA,LINUX,WEB">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/archives/2023/06/">
+<link rel="canonical" href="http://example.com/2023/08/24/Openwrt/">
 
 
 <script id="page-configurations">
@@ -39,12 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | Wishzone</title>
+  <title>Openwrt | Wishzone</title>
   
 
 
@@ -191,176 +193,89 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 18 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/24/Openwrt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/android-chrome-320x320.png">
+      <meta itemprop="name" content="Wishzone">
+      <meta itemprop="description" content="留点热情给旁边人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wishzone">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Openwrt
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-08-24 17:44:34 / 修改时间：17:50:09" itemprop="dateCreated datePublished" datetime="2023-08-24T17:44:34+08:00">2023-08-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2023</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-06-24T17:28:41+08:00"
-              content="2023-06-24">
-          06-24
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/06/24/Ubuntu%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BC%98%E5%8C%96/" itemprop="url">
-            <span itemprop="name">Ubuntu配置及优化</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-06-24T17:00:34+08:00"
-              content="2023-06-24">
-          06-24
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/06/24/FRP/" itemprop="url">
-            <span itemprop="name">FRP</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-06-24T16:59:53+08:00"
-              content="2023-06-24">
-          06-24
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/06/24/RT-Thread/" itemprop="url">
-            <span itemprop="name">RT-Thread</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-06-24T16:59:32+08:00"
-              content="2023-06-24">
-          06-24
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/06/24/Rockpi4B/" itemprop="url">
-            <span itemprop="name">Rockpi4B+</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-06-24T16:58:09+08:00"
-              content="2023-06-24">
-          06-24
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/06/24/Hexo/" itemprop="url">
-            <span itemprop="name">Hexo</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-06-24T16:56:33+08:00"
-              content="2023-06-24">
-          06-24
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/06/24/Raspberry-pico/" itemprop="url">
-            <span itemprop="name">Raspberry_pico</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-06-24T16:55:53+08:00"
-              content="2023-06-24">
-          06-24
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/06/24/ESP-AT%E9%85%8D%E7%BD%AE%E4%B8%B2%E5%8F%A3%E9%80%8F%E4%BC%A0/" itemprop="url">
-            <span itemprop="name">ESP_AT配置串口透传</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+        <h1 id="开启80端口和22端口"><a href="#开启80端口和22端口" class="headerlink" title="开启80端口和22端口"></a>开启80端口和22端口</h1><p>由于小米路由为了安全考虑，对WEB与防火墙规则进行限制，WEB管理、SSH只能通过内网登 陆，外网无法访问，在路由器的WEB管理页面新建端口转发中不能添加路由本机内网IP。<br>开启小米路由的SSH后，我们可以通过登陆SSH在命令行中手动添加防火墙中端口转发规则</p>
+<h2 id="一、解除WEB管理页面访问限制"><a href="#一、解除WEB管理页面访问限制" class="headerlink" title="一、解除WEB管理页面访问限制"></a>一、解除WEB管理页面访问限制</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/sysapihttpd/       //切换目录</span><br><span class="line">cp miwifi-webinitrd.conf miwifi-webinitrd.conf.bak       //备份</span><br><span class="line">vi miwifi-webinitrd.conf  //编辑miwifi-webinitrd.conf</span><br><span class="line"></span><br><span class="line">在如下位置插入代码set $finalvar &quot;$canproxy $isluci&quot;;：</span><br><span class="line"></span><br><span class="line">set $isluci &quot;1&quot;;</span><br><span class="line"></span><br><span class="line">set $finalvar &quot;$canproxy $isluci&quot;;</span><br><span class="line"></span><br><span class="line">/etc/init.d/sysapihttpd restart  //重启httpd服务使配置生效</span><br></pre></td></tr></table></figure>
+<p>二、手动添加防火墙端口转发规则，开启外网访问WEB管理和SSH<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">cd /                     //回到根目录</span><br><span class="line">vi /etc/config/firewall           //编辑防火墙配置</span><br><span class="line">1.添加WEB管理外网端口转发规则代码段：</span><br><span class="line">config redirect &#x27;MIWEB&#x27;</span><br><span class="line">    option src &#x27;wan&#x27;</span><br><span class="line">    option src_dport &#x27;1314&#x27;</span><br><span class="line">    option dest_ip &#x27;10.0.0.1&#x27;</span><br><span class="line">    option name &#x27;WEB&#x27;</span><br><span class="line">    option ftype &#x27;1&#x27;</span><br><span class="line">    option dest_port &#x27;80&#x27;</span><br><span class="line">    option proto &#x27;tcp&#x27;</span><br><span class="line"></span><br><span class="line">WEB管理界面外网端口为1314  可通过外网IP:1314访问 (例 http://61.181.133.5:1314),绑定DDNS的用户可通过域名:1314进行访问。</span><br><span class="line">2.添加SSH外网登陆端口转发规则代码段：</span><br><span class="line">config redirect &#x27;Myssh&#x27;</span><br><span class="line">    option src &#x27;wan&#x27;</span><br><span class="line">    option src_dport &#x27;2345&#x27;</span><br><span class="line">    option dest &#x27;lan&#x27;</span><br><span class="line">    option dest_port &#x27;22&#x27;</span><br><span class="line">    option proto &#x27;tcp&#x27;</span><br><span class="line"></span><br><span class="line">SSH登陆外网端口为2345</span><br><span class="line">重启防火墙使规则生效</span><br><span class="line"></span><br><span class="line">/etc/init.d/firewall restart</span><br></pre></td></tr></table></figure></p>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/08/24/Docker/" rel="prev" title="Docker">
+      <i class="fa fa-chevron-left"></i> Docker
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/08/24/Linux/" rel="next" title="Linux">
+      Linux <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
 
           </div>
           
+    <div class="comments" id="gitalk-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -407,6 +322,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%80%E5%90%AF80%E7%AB%AF%E5%8F%A3%E5%92%8C22%E7%AB%AF%E5%8F%A3"><span class="nav-number">1.</span> <span class="nav-text">开启80端口和22端口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E8%A7%A3%E9%99%A4WEB%E7%AE%A1%E7%90%86%E9%A1%B5%E9%9D%A2%E8%AE%BF%E9%97%AE%E9%99%90%E5%88%B6"><span class="nav-number">1.1.</span> <span class="nav-text">一、解除WEB管理页面访问限制</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -592,6 +508,25 @@ window.addEventListener('pjax:success', () => {
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '069b787c0b99ba5c4d39',
+      clientSecret: '20a837ebd50ea05bbd4ac5b91d1785a4fc280bbc',
+      repo        : 'wishzone.github.io',
+      owner       : 'Wishzone',
+      admin       : ['wishzone'],
+      id          : '34ded7e97d5bdb8e78e7832b990c83fc',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
     </div>
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
