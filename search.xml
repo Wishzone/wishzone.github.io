@@ -68,14 +68,32 @@
       </tags>
   </entry>
   <entry>
-    <title>Linux</title>
-    <url>/2023/08/24/Linux/</url>
-    <content><![CDATA[<h1 id="远程访问方式对比"><a href="#远程访问方式对比" class="headerlink" title="远程访问方式对比"></a>远程访问方式对比</h1><h2 id="XRDP"><a href="#XRDP" class="headerlink" title="XRDP"></a>XRDP</h2><h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><p>1.通常只支持X类的管理器<br>2.不能多用户同时登录<br>3.Linux下不支持UDP协议</p>
-<h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><p>1.安装包小<br>2.安装简单<br>3.画质高，速度快</p>
-<h2 id="VNC"><a href="#VNC" class="headerlink" title="VNC"></a>VNC</h2><h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>1.显示效果相对较差<br>2.需要HDMI诱骗器</p>
-<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>1.支持UDP，相应快</p>
-<h1 id="退出XRDP未注销的用户"><a href="#退出XRDP未注销的用户" class="headerlink" title="退出XRDP未注销的用户"></a>退出XRDP未注销的用户</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">who -a  //查看登录的用户</span><br><span class="line">pkill -kill -t pts/3  //注销用户</span><br></pre></td></tr></table></figure>
-<h1 id="创建新用户"><a href="#创建新用户" class="headerlink" title="创建新用户"></a>创建新用户</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">su root</span><br><span class="line">apt install sudo</span><br><span class="line">sudo usermod -aG sudo username  //username替换为所需的用户名</span><br><span class="line">nano /etc/default/useradd</span><br><span class="line">改/bin/sh为/bin/bash</span><br><span class="line">nano /etc/passwd </span><br><span class="line">改用户名后面的/bin/sh为/bin/bash</span><br></pre></td></tr></table></figure>]]></content>
+    <title>Hexo</title>
+    <url>/2023/06/24/Hexo/</url>
+    <content><![CDATA[<p>关于Hexo的配置与部署</p>
+<span id="more"></span>
+<h1 id="安装-Node-js-和-Git。"><a href="#安装-Node-js-和-Git。" class="headerlink" title="安装 Node.js 和 Git。"></a>安装 Node.js 和 Git。</h1><ul>
+<li>Node.js：<a href="https://link.zhihu.com/?target=https%3A//nodejs.org/zh-cn">https://<strong>nodejs.org/zh-cn</strong></a></li>
+<li>Git：<a href="https://link.zhihu.com/?target=https%3A//git-scm.com/downloads">https://<strong>git-scm.com/downloads</strong></a></li>
+</ul>
+<h1 id="连接-Github"><a href="#连接-Github" class="headerlink" title="连接 Github"></a>连接 Github</h1><p>右键 -&gt; Git Bash Here， <strong>设置用户名和邮箱</strong> ：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;GitHub 用户名&quot;</span><br><span class="line">git config --global user.email &quot;GitHub 邮箱&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="创建-SSH-密匙-："><a href="#创建-SSH-密匙-：" class="headerlink" title="创建 SSH 密匙 ："></a>创建 SSH 密匙 ：</h2><p>输入 <code>ssh-keygen -t rsa -C &quot;GitHub 邮箱&quot;</code>，然后一路回车。</p>
+<h2 id="添加密匙："><a href="#添加密匙：" class="headerlink" title="添加密匙："></a>添加密匙：</h2><p>进入 [C:\Users\用户名\.ssh] 目录（要勾选显示“隐藏的项目”），用记事本打开公钥 id_rsa.pub 文件并复制里面的内容。</p>
+<p>登陆 GitHub ，点击头像，选择 Settings ，选择左边栏的 SSH and GPG keys，点击 New SSH key。</p>
+<p>Title 随便取个名字，粘贴复制的 id_rsa.pub 内容到 Key 中，点击 Add SSH key 完成添加。</p>
+<h2 id="验证连接："><a href="#验证连接：" class="headerlink" title="验证连接："></a>验证连接：</h2><p>打开 Git Bash，输入 <code>ssh -T git@github.com</code> 出现 “Are you sure……”，输入 yes 回车确认。</p>
+<h1 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h1><p>使用 npm 一键安装 Hexo 博客程序：</p>
+<p>npm install -g hexo-cli<br>npm install hexo-deployer-git —save<br>然后修改 _config.yml 文件末尾的 Deployment 部分，修改成如下：</p>
+<p>deploy:<br>  type: git<br>  repository: git@github.com:用户名/用户名.github.io.git<br>  branch: master</p>
+<h1 id="发布文章"><a href="#发布文章" class="headerlink" title="发布文章"></a>发布文章</h1><p>右键打开 Git Bash Here，创建博文：<br>hexo new “My New Post”<br>hexo g   # 生成页面<br>hexo d   # 部署发布</p>
+]]></content>
+      <categories>
+        <category>LINUX</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
   </entry>
   <entry>
     <title>LINUX-in-ARM64</title>
@@ -286,6 +304,24 @@
       </tags>
   </entry>
   <entry>
+    <title>Linux</title>
+    <url>/2023/08/24/Linux/</url>
+    <content><![CDATA[<h1 id="远程访问方式对比"><a href="#远程访问方式对比" class="headerlink" title="远程访问方式对比"></a>远程访问方式对比</h1><h2 id="XRDP"><a href="#XRDP" class="headerlink" title="XRDP"></a>XRDP</h2><h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><p>1.通常只支持X类的管理器<br>2.不能多用户同时登录<br>3.Linux下不支持UDP协议</p>
+<h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><p>1.安装包小<br>2.安装简单<br>3.画质高，速度快</p>
+<h2 id="VNC"><a href="#VNC" class="headerlink" title="VNC"></a>VNC</h2><h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>1.显示效果相对较差<br>2.需要HDMI诱骗器</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>1.支持UDP，相应快</p>
+<h1 id="退出XRDP未注销的用户"><a href="#退出XRDP未注销的用户" class="headerlink" title="退出XRDP未注销的用户"></a>退出XRDP未注销的用户</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">who -a  //查看登录的用户</span><br><span class="line">pkill -kill -t pts/3  //注销用户</span><br></pre></td></tr></table></figure>
+<h1 id="创建新用户"><a href="#创建新用户" class="headerlink" title="创建新用户"></a>创建新用户</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">su root</span><br><span class="line">apt install sudo</span><br><span class="line">sudo usermod -aG sudo username  //username替换为所需的用户名</span><br><span class="line">nano /etc/default/useradd</span><br><span class="line">改/bin/sh为/bin/bash</span><br><span class="line">nano /etc/passwd </span><br><span class="line">改用户名后面的/bin/sh为/bin/bash</span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
+    <title>Openwrt</title>
+    <url>/2023/08/24/Openwrt/</url>
+    <content><![CDATA[<h1 id="开启80端口和22端口"><a href="#开启80端口和22端口" class="headerlink" title="开启80端口和22端口"></a>开启80端口和22端口</h1><p>由于小米路由为了安全考虑，对WEB与防火墙规则进行限制，WEB管理、SSH只能通过内网登 陆，外网无法访问，在路由器的WEB管理页面新建端口转发中不能添加路由本机内网IP。<br>开启小米路由的SSH后，我们可以通过登陆SSH在命令行中手动添加防火墙中端口转发规则</p>
+<h2 id="一、解除WEB管理页面访问限制"><a href="#一、解除WEB管理页面访问限制" class="headerlink" title="一、解除WEB管理页面访问限制"></a>一、解除WEB管理页面访问限制</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /etc/sysapihttpd/       //切换目录</span><br><span class="line">cp miwifi-webinitrd.conf miwifi-webinitrd.conf.bak       //备份</span><br><span class="line">vi miwifi-webinitrd.conf  //编辑miwifi-webinitrd.conf</span><br><span class="line"></span><br><span class="line">在如下位置插入代码set $finalvar &quot;$canproxy $isluci&quot;;：</span><br><span class="line"></span><br><span class="line">set $isluci &quot;1&quot;;</span><br><span class="line"></span><br><span class="line">set $finalvar &quot;$canproxy $isluci&quot;;</span><br><span class="line"></span><br><span class="line">/etc/init.d/sysapihttpd restart  //重启httpd服务使配置生效</span><br></pre></td></tr></table></figure>
+<p>二、手动添加防火墙端口转发规则，开启外网访问WEB管理和SSH<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /                     //回到根目录</span><br><span class="line">vi /etc/config/firewall           //编辑防火墙配置</span><br><span class="line">1.添加WEB管理外网端口转发规则代码段：</span><br><span class="line">config redirect &#x27;MIWEB&#x27;</span><br><span class="line">    option src &#x27;wan&#x27;</span><br><span class="line">    option src_dport &#x27;1314&#x27;</span><br><span class="line">    option dest_ip &#x27;10.0.0.1&#x27;</span><br><span class="line">    option name &#x27;WEB&#x27;</span><br><span class="line">    option ftype &#x27;1&#x27;</span><br><span class="line">    option dest_port &#x27;80&#x27;</span><br><span class="line">    option proto &#x27;tcp&#x27;</span><br><span class="line"></span><br><span class="line">WEB管理界面外网端口为1314  可通过外网IP:1314访问 (例 http://61.181.133.5:1314),绑定DDNS的用户可通过域名:1314进行访问。</span><br><span class="line">2.添加SSH外网登陆端口转发规则代码段：</span><br><span class="line">config redirect &#x27;Myssh&#x27;</span><br><span class="line">    option src &#x27;wan&#x27;</span><br><span class="line">    option src_dport &#x27;2345&#x27;</span><br><span class="line">    option dest &#x27;lan&#x27;</span><br><span class="line">    option dest_port &#x27;22&#x27;</span><br><span class="line">    option proto &#x27;tcp&#x27;</span><br><span class="line"></span><br><span class="line">SSH登陆外网端口为2345</span><br><span class="line">重启防火墙使规则生效</span><br><span class="line"></span><br><span class="line">/etc/init.d/firewall restart</span><br></pre></td></tr></table></figure></p>
+]]></content>
+  </entry>
+  <entry>
     <title>RK3588_in_ROCK5</title>
     <url>/2022/12/10/RK3588-in-ROCK5/</url>
     <content><![CDATA[<p>以Rock5B为例的rk3588开发文档，不断更新ing</p>
@@ -365,42 +401,6 @@
       <tags>
         <tag>ROCK5B</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hexo</title>
-    <url>/2023/06/24/Hexo/</url>
-    <content><![CDATA[<p>关于Hexo的配置与部署</p>
-<span id="more"></span>
-<h1 id="安装-Node-js-和-Git。"><a href="#安装-Node-js-和-Git。" class="headerlink" title="安装 Node.js 和 Git。"></a>安装 Node.js 和 Git。</h1><ul>
-<li>Node.js：<a href="https://link.zhihu.com/?target=https%3A//nodejs.org/zh-cn">https://<strong>nodejs.org/zh-cn</strong></a></li>
-<li>Git：<a href="https://link.zhihu.com/?target=https%3A//git-scm.com/downloads">https://<strong>git-scm.com/downloads</strong></a></li>
-</ul>
-<h1 id="连接-Github"><a href="#连接-Github" class="headerlink" title="连接 Github"></a>连接 Github</h1><p>右键 -&gt; Git Bash Here， <strong>设置用户名和邮箱</strong> ：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;GitHub 用户名&quot;</span><br><span class="line">git config --global user.email &quot;GitHub 邮箱&quot;</span><br></pre></td></tr></table></figure>
-<h2 id="创建-SSH-密匙-："><a href="#创建-SSH-密匙-：" class="headerlink" title="创建 SSH 密匙 ："></a>创建 SSH 密匙 ：</h2><p>输入 <code>ssh-keygen -t rsa -C &quot;GitHub 邮箱&quot;</code>，然后一路回车。</p>
-<h2 id="添加密匙："><a href="#添加密匙：" class="headerlink" title="添加密匙："></a>添加密匙：</h2><p>进入 [C:\Users\用户名\.ssh] 目录（要勾选显示“隐藏的项目”），用记事本打开公钥 id_rsa.pub 文件并复制里面的内容。</p>
-<p>登陆 GitHub ，点击头像，选择 Settings ，选择左边栏的 SSH and GPG keys，点击 New SSH key。</p>
-<p>Title 随便取个名字，粘贴复制的 id_rsa.pub 内容到 Key 中，点击 Add SSH key 完成添加。</p>
-<h2 id="验证连接："><a href="#验证连接：" class="headerlink" title="验证连接："></a>验证连接：</h2><p>打开 Git Bash，输入 <code>ssh -T git@github.com</code> 出现 “Are you sure……”，输入 yes 回车确认。</p>
-<h1 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h1><p>使用 npm 一键安装 Hexo 博客程序：</p>
-<p>npm install -g hexo-cli<br>npm install hexo-deployer-git —save<br>然后修改 _config.yml 文件末尾的 Deployment 部分，修改成如下：</p>
-<p>deploy:<br>  type: git<br>  repository: git@github.com:用户名/用户名.github.io.git<br>  branch: master</p>
-<h1 id="发布文章"><a href="#发布文章" class="headerlink" title="发布文章"></a>发布文章</h1><p>右键打开 Git Bash Here，创建博文：<br>hexo new “My New Post”<br>hexo g   # 生成页面<br>hexo d   # 部署发布</p>
-]]></content>
-      <categories>
-        <category>LINUX</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Openwrt</title>
-    <url>/2023/08/24/Openwrt/</url>
-    <content><![CDATA[<h1 id="开启80端口和22端口"><a href="#开启80端口和22端口" class="headerlink" title="开启80端口和22端口"></a>开启80端口和22端口</h1><p>由于小米路由为了安全考虑，对WEB与防火墙规则进行限制，WEB管理、SSH只能通过内网登 陆，外网无法访问，在路由器的WEB管理页面新建端口转发中不能添加路由本机内网IP。<br>开启小米路由的SSH后，我们可以通过登陆SSH在命令行中手动添加防火墙中端口转发规则</p>
-<h2 id="一、解除WEB管理页面访问限制"><a href="#一、解除WEB管理页面访问限制" class="headerlink" title="一、解除WEB管理页面访问限制"></a>一、解除WEB管理页面访问限制</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /etc/sysapihttpd/       //切换目录</span><br><span class="line">cp miwifi-webinitrd.conf miwifi-webinitrd.conf.bak       //备份</span><br><span class="line">vi miwifi-webinitrd.conf  //编辑miwifi-webinitrd.conf</span><br><span class="line"></span><br><span class="line">在如下位置插入代码set $finalvar &quot;$canproxy $isluci&quot;;：</span><br><span class="line"></span><br><span class="line">set $isluci &quot;1&quot;;</span><br><span class="line"></span><br><span class="line">set $finalvar &quot;$canproxy $isluci&quot;;</span><br><span class="line"></span><br><span class="line">/etc/init.d/sysapihttpd restart  //重启httpd服务使配置生效</span><br></pre></td></tr></table></figure>
-<p>二、手动添加防火墙端口转发规则，开启外网访问WEB管理和SSH<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /                     //回到根目录</span><br><span class="line">vi /etc/config/firewall           //编辑防火墙配置</span><br><span class="line">1.添加WEB管理外网端口转发规则代码段：</span><br><span class="line">config redirect &#x27;MIWEB&#x27;</span><br><span class="line">    option src &#x27;wan&#x27;</span><br><span class="line">    option src_dport &#x27;1314&#x27;</span><br><span class="line">    option dest_ip &#x27;10.0.0.1&#x27;</span><br><span class="line">    option name &#x27;WEB&#x27;</span><br><span class="line">    option ftype &#x27;1&#x27;</span><br><span class="line">    option dest_port &#x27;80&#x27;</span><br><span class="line">    option proto &#x27;tcp&#x27;</span><br><span class="line"></span><br><span class="line">WEB管理界面外网端口为1314  可通过外网IP:1314访问 (例 http://61.181.133.5:1314),绑定DDNS的用户可通过域名:1314进行访问。</span><br><span class="line">2.添加SSH外网登陆端口转发规则代码段：</span><br><span class="line">config redirect &#x27;Myssh&#x27;</span><br><span class="line">    option src &#x27;wan&#x27;</span><br><span class="line">    option src_dport &#x27;2345&#x27;</span><br><span class="line">    option dest &#x27;lan&#x27;</span><br><span class="line">    option dest_port &#x27;22&#x27;</span><br><span class="line">    option proto &#x27;tcp&#x27;</span><br><span class="line"></span><br><span class="line">SSH登陆外网端口为2345</span><br><span class="line">重启防火墙使规则生效</span><br><span class="line"></span><br><span class="line">/etc/init.d/firewall restart</span><br></pre></td></tr></table></figure></p>
-]]></content>
   </entry>
   <entry>
     <title>PVE</title>
@@ -896,24 +896,6 @@
       </tags>
   </entry>
   <entry>
-    <title>win11_update</title>
-    <url>/2023/01/20/Windows/</url>
-    <content><![CDATA[<h1 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h1><h2 id="查看系统版本"><a href="#查看系统版本" class="headerlink" title="查看系统版本"></a>查看系统版本</h2><p>cmd输入winver</p>
-<h2 id="查看文件MD5码"><a href="#查看文件MD5码" class="headerlink" title="查看文件MD5码"></a>查看文件MD5码</h2><p>certutil -hashfile 文件路径名称 MD5</p>
-<h2 id="win11安装系统应用"><a href="#win11安装系统应用" class="headerlink" title="win11安装系统应用"></a>win11安装系统应用</h2><p>1.以管理员运行powershell<br>2.输入Get-AppxPackage -allusers | Select Name, PackageFullName<br>3.找到需要安装的应用后面的应用版本<br>4输入Add-appxpackage -register “C:\Program Files\WindowsApps\【应用版本】\appxmanifest.xml” -disabledevelopmentmod即可</p>
-<h1 id="修复Win11更新的BUG"><a href="#修复Win11更新的BUG" class="headerlink" title="修复Win11更新的BUG"></a>修复Win11更新的BUG</h1><p>1.网站uupdump.net可以下载最新版本</p>
-<p>2.进入注册表<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\wuauserv\Parameters<br>找到ServiceDll<br>win11将数据改为%systemroot%\system32\wuauserv.dll，<br>win10将数据改为%systemroot%\system32\wuaueng.dll<br>如果还是找不到<br>进入”C:\WINDOWS\System32\wuauserv.dll”看是否存在wuauserv.dll或者wuaueng.dll，<br>如果不存在的话可能是其他软件删除了，需自行下载或者从别的电脑拷贝放进去就好了</p>
-<h1 id="配置FRPC服务"><a href="#配置FRPC服务" class="headerlink" title="配置FRPC服务"></a>配置FRPC服务</h1><h2 id="设置启动脚本"><a href="#设置启动脚本" class="headerlink" title="设置启动脚本"></a>设置启动脚本</h2><p>创建文件：<br>start_frpc.vbs<br>写入脚本<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CreateObject(&quot;WScript.Shell&quot;).Run &quot;&quot;&quot;D:\Program Files\frp_0.38.0_windows_amd64\frpc.exe&quot;&quot;&quot; &amp; &quot;-c&quot; &amp; &quot;&quot;&quot;D:\Program Files\frp_0.38.0_windows_amd64\frpc.ini&quot;&quot;&quot;,0</span><br></pre></td></tr></table></figure><br>双击就可启动frpc，可在资源管理器中看到frpc.exe已启动;</p>
-<h2 id="设置开机自启"><a href="#设置开机自启" class="headerlink" title="设置开机自启"></a>设置开机自启</h2><p>“win+r”输入shell:startup就会自动打开启动文件夹。<br>将文件放入即可（一般为：C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup）</p>
-]]></content>
-      <categories>
-        <category>Windows</category>
-      </categories>
-      <tags>
-        <tag>Win11</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Ubuntu配置及优化</title>
     <url>/2023/06/24/Ubuntu%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<p>关于ubuntu系统的优化与配置<br><span id="more"></span></p>
@@ -947,6 +929,24 @@
       </categories>
       <tags>
         <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>win11_update</title>
+    <url>/2023/01/20/Windows/</url>
+    <content><![CDATA[<h1 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h1><h2 id="查看系统版本"><a href="#查看系统版本" class="headerlink" title="查看系统版本"></a>查看系统版本</h2><p>cmd输入winver</p>
+<h2 id="查看文件MD5码"><a href="#查看文件MD5码" class="headerlink" title="查看文件MD5码"></a>查看文件MD5码</h2><p>certutil -hashfile 文件路径名称 MD5</p>
+<h2 id="win11安装系统应用"><a href="#win11安装系统应用" class="headerlink" title="win11安装系统应用"></a>win11安装系统应用</h2><p>1.以管理员运行powershell<br>2.输入Get-AppxPackage -allusers | Select Name, PackageFullName<br>3.找到需要安装的应用后面的应用版本<br>4输入Add-appxpackage -register “C:\Program Files\WindowsApps\【应用版本】\appxmanifest.xml” -disabledevelopmentmod即可</p>
+<h1 id="修复Win11更新的BUG"><a href="#修复Win11更新的BUG" class="headerlink" title="修复Win11更新的BUG"></a>修复Win11更新的BUG</h1><p>1.网站uupdump.net可以下载最新版本</p>
+<p>2.进入注册表<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\wuauserv\Parameters<br>找到ServiceDll<br>win11将数据改为%systemroot%\system32\wuauserv.dll，<br>win10将数据改为%systemroot%\system32\wuaueng.dll<br>如果还是找不到<br>进入”C:\WINDOWS\System32\wuauserv.dll”看是否存在wuauserv.dll或者wuaueng.dll，<br>如果不存在的话可能是其他软件删除了，需自行下载或者从别的电脑拷贝放进去就好了</p>
+<h1 id="配置FRPC服务"><a href="#配置FRPC服务" class="headerlink" title="配置FRPC服务"></a>配置FRPC服务</h1><h2 id="设置启动脚本"><a href="#设置启动脚本" class="headerlink" title="设置启动脚本"></a>设置启动脚本</h2><p>创建文件：<br>start_frpc.vbs<br>写入脚本<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CreateObject(&quot;WScript.Shell&quot;).Run &quot;&quot;&quot;D:\Program Files\frp_0.38.0_windows_amd64\frpc.exe&quot;&quot;&quot; &amp; &quot;-c&quot; &amp; &quot;&quot;&quot;D:\Program Files\frp_0.38.0_windows_amd64\frpc.ini&quot;&quot;&quot;,0</span><br></pre></td></tr></table></figure><br>双击就可启动frpc，可在资源管理器中看到frpc.exe已启动;</p>
+<h2 id="设置开机自启"><a href="#设置开机自启" class="headerlink" title="设置开机自启"></a>设置开机自启</h2><p>“win+r”输入shell:startup就会自动打开启动文件夹。<br>将文件放入即可（一般为：C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup）</p>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Win11</tag>
       </tags>
   </entry>
   <entry>
