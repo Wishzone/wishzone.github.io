@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"efault"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="自己琢磨出的关于光猫与路由器设置的简单教程">
+  <meta name="description" content="关于光猫与路由器设置的简单教程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网络基础">
 <meta property="og:url" content="http://example.com/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="Wishzone">
-<meta property="og:description" content="自己琢磨出的关于光猫与路由器设置的简单教程">
+<meta property="og:description" content="关于光猫与路由器设置的简单教程">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-01-19T06:25:47.000Z">
-<meta property="article:modified_time" content="2023-08-24T09:43:40.668Z">
+<meta property="article:modified_time" content="2023-08-24T10:50:44.119Z">
 <meta property="article:author" content="Wishzone">
 <meta property="article:tag" content="Web">
 <meta name="twitter:card" content="summary">
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-24 17:43:40" itemprop="dateModified" datetime="2023-08-24T17:43:40+08:00">2023-08-24</time>
+                <time title="修改时间：2023-08-24 18:50:44" itemprop="dateModified" datetime="2023-08-24T18:50:44+08:00">2023-08-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -253,7 +253,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>自己琢磨出的关于光猫与路由器设置的简单教程</p>
+        <p>关于光猫与路由器设置的简单教程</p>
 <span id="more"></span>
 <h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="光猫"><a href="#光猫" class="headerlink" title="光猫"></a>光猫</h2><p>进行光电转换的设备，最纯净的光猫是毛棒，常见的运营商的光猫是集成了光猫路由器交换机等功能的设备。</p>
 <h2 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h2><p>进行拨号NAT转换的设备</p>
@@ -277,14 +277,14 @@
 <h2 id="设置移动IPV6公网IP"><a href="#设置移动IPV6公网IP" class="headerlink" title="设置移动IPV6公网IP"></a>设置移动IPV6公网IP</h2><h3 id="第一步：设置光猫（需支持IPV6）"><a href="#第一步：设置光猫（需支持IPV6）" class="headerlink" title="第一步：设置光猫（需支持IPV6）"></a>第一步：设置光猫（需支持IPV6）</h3><p>登录光猫后台，设置网络为IPV4&amp;IPV6，关闭IPV6防火墙，便于外网访问内网</p>
 <h3 id="第二步：设置路由器（需支持IPV6）"><a href="#第二步：设置路由器（需支持IPV6）" class="headerlink" title="第二步：设置路由器（需支持IPV6）"></a>第二步：设置路由器（需支持IPV6）</h3><p>登录路由器后台，在基本设置里面开启IPV6即可。</p>
 <h3 id="第三步：验证"><a href="#第三步：验证" class="headerlink" title="第三步：验证"></a>第三步：验证</h3><p>1.电脑或手机连接路由器，设置DMZ。<br>2.打开浏览器输入test—ipv6.com即可</p>
-<h3 id="小米路由器开启外网ssh"><a href="#小米路由器开启外网ssh" class="headerlink" title="小米路由器开启外网ssh"></a>小米路由器开启外网ssh</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cd /       //回到根目录</span><br><span class="line">vi /etc/config/firewall       //编辑防火墙配置</span><br><span class="line"></span><br><span class="line">添加以下代码</span><br><span class="line">config redirect &#x27;Myssh&#x27;                                     </span><br><span class="line">        option src &#x27;wan&#x27;                                    </span><br><span class="line">        option src_dport &#x27;2345&#x27;                            </span><br><span class="line">        option dest &#x27;lan&#x27;                                   </span><br><span class="line">        option dest_port &#x27;22&#x27;                               </span><br><span class="line">        option proto &#x27;tcp&#x27;</span><br></pre></td></tr></table></figure>
+<h3 id="小米路由器开启外网ssh"><a href="#小米路由器开启外网ssh" class="headerlink" title="小米路由器开启外网ssh"></a>小米路由器开启外网ssh</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cd /       //回到根目录</span><br><span class="line">vi /etc/config/firewall       //编辑防火墙配置</span><br><span class="line"></span><br><span class="line">添加以下代码</span><br><span class="line">config redirect &#x27;Myssh&#x27;                                   </span><br><span class="line">        option src &#x27;wan&#x27;                                  </span><br><span class="line">        option src_dport &#x27;2345&#x27;                          </span><br><span class="line">        option dest &#x27;lan&#x27;                                 </span><br><span class="line">        option dest_port &#x27;22&#x27;                             </span><br><span class="line">        option proto &#x27;tcp&#x27;</span><br></pre></td></tr></table></figure>
 <h1 id="网络运营商"><a href="#网络运营商" class="headerlink" title="网络运营商"></a>网络运营商</h1><p>电信：提供IPV4公网IP，需要申请<br>移动：不提供IPV4公网IP，但提供IPV6公网地址，不需要申请，只需要手动配置一下就行，参照前面的教程</p>
 <h1 id="光猫开启IPV6"><a href="#光猫开启IPV6" class="headerlink" title="光猫开启IPV6"></a>光猫开启IPV6</h1><h2 id="桥接端："><a href="#桥接端：" class="headerlink" title="桥接端："></a>桥接端：</h2><p>只需要在网络，网络设置，网络连接，IP模式选择IPV4&amp;IPV6即可</p>
 <h2 id="路由端："><a href="#路由端：" class="headerlink" title="路由端："></a>路由端：</h2><h3 id="获取前缀："><a href="#获取前缀：" class="headerlink" title="获取前缀："></a>获取前缀：</h3><p>1.网络，网络设置，网络连接，获取前缀勾选；<br>2.网络，网络设置，网络连接，前缀获取方式选择DHCPV6-PD;<br>3.网络，用户侧管理，IPV6设置，前缀来源选择WAN侧代理即可；</p>
 <h3 id="获取DNS（可手动配置）"><a href="#获取DNS（可手动配置）" class="headerlink" title="获取DNS（可手动配置）:"></a>获取DNS（可手动配置）:</h3><p>1.网络，网络设置，网络连接，DNS获取方式选择自动配置;<br>2.网络，用户侧管理，IPV6设置，DNS来源选择网络连接；<br>3.网络，用户侧管理，IPV6设置，接口选择路由的那个网络即可；</p>
 <h3 id="获取IPV6："><a href="#获取IPV6：" class="headerlink" title="获取IPV6："></a>获取IPV6：</h3><p>1.网络，网络设置，网络连接，IP模式选择IPV4&amp;IPV6；<br>2.网络，网络设置，网络连接，地址获取方式选择自动配置</p>
 <p>注意：<br>fe开头通常为内网<br>240开头通常为外网</p>
-<p>其他：DHCPv6能通过DHCPv6获得DNS,域名,但网关信息他不会给你获得,只能通过NDP(无状态地址解析)获得网关信息，要手动设置一下ipv6网关才行，实际上它是通的 只是被代理了 DP模式就正常 SLAAC模式就这样，DNS选择手动 地址分配模式选SLAAC 关闭DHCPv6分配，选DP模式 </p>
+<p>其他：DHCPv6能通过DHCPv6获得DNS,域名,但网关信息他不会给你获得,只能通过NDP(无状态地址解析)获得网关信息，要手动设置一下ipv6网关才行，实际上它是通的 只是被代理了 DP模式就正常 SLAAC模式就这样，DNS选择手动 地址分配模式选SLAAC 关闭DHCPv6分配，选DP模式</p>
 
     </div>
 
@@ -385,7 +385,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -398,7 +398,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
