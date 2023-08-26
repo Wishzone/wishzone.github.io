@@ -286,10 +286,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-08-24 17:44:34 / 修改时间：19:04:34" itemprop="dateCreated datePublished" datetime="2023-08-24T17:44:34+08:00">2023-08-24</time>
+              <time title="创建时间：2023-08-24 17:44:34" itemprop="dateCreated datePublished" datetime="2023-08-24T17:44:34+08:00">2023-08-24</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-08-25 22:14:22" itemprop="dateModified" datetime="2023-08-25T22:14:22+08:00">2023-08-25</time>
+              </span>
 
           
 
@@ -352,10 +358,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-08-24 17:38:47 / 修改时间：18:51:07" itemprop="dateCreated datePublished" datetime="2023-08-24T17:38:47+08:00">2023-08-24</time>
+              <time title="创建时间：2023-08-24 17:38:47" itemprop="dateCreated datePublished" datetime="2023-08-24T17:38:47+08:00">2023-08-24</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-08-26 18:42:30" itemprop="dateModified" datetime="2023-08-26T18:42:30+08:00">2023-08-26</time>
+              </span>
 
           
 
@@ -369,6 +381,20 @@
 
       
           <span id="more"></span>
+<h2 id="配置非root用户使用docker"><a href="#配置非root用户使用docker" class="headerlink" title="配置非root用户使用docker"></a>配置非root用户使用docker</h2><h3 id="一、为用户添加root权限"><a href="#一、为用户添加root权限" class="headerlink" title="一、为用户添加root权限"></a>一、为用户添加root权限</h3><h4 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h4><p>修改 /etc/sudoers 文件，找到下面一行，把前面的注释（#）去掉<br>Allows people in group wheel to run all commands<br>%wheel ALL=(ALL) ALL<br>然后修改用户，使其属于root组（wheel），命令如下：</p>
+<h1 id="usermod-g-root-ithing"><a href="#usermod-g-root-ithing" class="headerlink" title="usermod -g root ithing"></a>usermod -g root ithing</h1><p>修改完毕，现在可以用tommy帐号登录，然后用命令 su - ，即可获得root权限进行操作。</p>
+<h4 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h4><p>修改 /etc/sudoers 文件，找到下面一行，在root下面添加一行，如下所示：<br>Allow root to run any commands anywhere<br>root ALL=(ALL) ALL<br>ithing ALL=(ALL) ALL</p>
+<p>如果，在修改/etc/sudoers 文件，你该错误了，会导致使用不了sudo命令，使用vim也打不开该文件了；</p>
+<p><strong>解决方式</strong>：执行下面的命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkexec visudo</span><br></pre></td></tr></table></figure>
+<h3 id="二、为非root用户添加docker执行权限"><a href="#二、为非root用户添加docker执行权限" class="headerlink" title="二、为非root用户添加docker执行权限"></a>二、为非root用户添加docker执行权限</h3><h4 id="方式1：创建docker组"><a href="#方式1：创建docker组" class="headerlink" title="方式1：创建docker组"></a>方式1：创建docker组</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd docker     #添加docker用户组</span><br><span class="line">sudo gpasswd -a $USER docker     #将登陆用户加入到docker用户组中</span><br><span class="line">newgrp docker     #更新用户组</span><br><span class="line">docker ps    #测试docker命令是否可以使用sudo正常使用</span><br></pre></td></tr></table></figure>
+<h4 id="方式二："><a href="#方式二：" class="headerlink" title="方式二："></a>方式二：</h4><p>直接修改 /var/run/docker.sock文件（这样是所有的用户都可操作docker,这样不安全，但是如果安全性要求不高，就可这样做）</p>
+<p>先查看一下默认这个文件/var/run/docker.sock的权限是啥 ？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ls -al /var/run/docker.sock</span><br><span class="line">srw-rw---- 1 root root 0 Feb 15 03:13 /var/run/docker.sock</span><br><span class="line"></span><br><span class="line">#修改文件权限</span><br><span class="line">sudo chmod 666 /var/run/docker.sock</span><br><span class="line"></span><br><span class="line">#修改后，再查看一下这个文件的权限</span><br><span class="line">$ sudo ls -al /var/run/docker.sock</span><br><span class="line">srw-rw-rw- 1 root root 0 Feb 15 03:14 /var/run/docker.sock</span><br></pre></td></tr></table></figure>
+<h1 id="镜像操作"><a href="#镜像操作" class="headerlink" title="镜像操作"></a>镜像操作</h1><p>docker pull xxx  //拉取镜像<br>docker image list //查看镜像<br>docker image rm [ID] //删除镜像<br>cat docker/xxx.tar | docker import - xxx:v1 //导入本地包到镜像</p>
+<h1 id="容器操作"><a href="#容器操作" class="headerlink" title="容器操作"></a>容器操作</h1><p>docker run —name=xyz -it xxx /bin/bash //前台运行<br>docker run —name=xyz -itd xxx /bin/bash  //后台运行<br>docker exec -it [ID] /bin/bash  //进入运行中的容器<br>docker stop [ID] //停止容器<br>docker restart [ID] //重启容器<br>docker rm -f [ID] //删除容器<br>docker export [ID] &gt; xxx.tar //导出容器到本地包<br>docker container prune //清除所有停止的容器<br>docker commit -m=”has update” -a=”runoob” [ID] name:v2  //提交容器为镜像</p>
+<h1 id="推送操作"><a href="#推送操作" class="headerlink" title="推送操作"></a>推送操作</h1><p>docker push xxx //推送xxx到仓库</p>
+<p>注意docker镜像需要提前改名才能推送（name/xxx:v1.0）</p>
 
       
     </div>
@@ -411,10 +437,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-08-24 11:32:35 / 修改时间：19:05:12" itemprop="dateCreated datePublished" datetime="2023-08-24T11:32:35+08:00">2023-08-24</time>
+              <time title="创建时间：2023-08-24 11:32:35" itemprop="dateCreated datePublished" datetime="2023-08-24T11:32:35+08:00">2023-08-24</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-08-25 21:46:06" itemprop="dateModified" datetime="2023-08-25T21:46:06+08:00">2023-08-25</time>
+              </span>
 
           
 
@@ -431,6 +463,168 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/08/24/PVE/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/24/Ubuntu%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/android-chrome-320x320.png">
+      <meta itemprop="name" content="Wishzone">
+      <meta itemprop="description" content="留点热情给旁边人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wishzone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/06/24/Ubuntu%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BC%98%E5%8C%96/" class="post-title-link" itemprop="url">Ubuntu配置及优化</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-06-24 17:28:41" itemprop="dateCreated datePublished" datetime="2023-06-24T17:28:41+08:00">2023-06-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-08-24 18:53:59" itemprop="dateModified" datetime="2023-08-24T18:53:59+08:00">2023-08-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LINUX/" itemprop="url" rel="index"><span itemprop="name">LINUX</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>关于ubuntu系统的优化与配置</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/06/24/Ubuntu%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BC%98%E5%8C%96/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/24/FRP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/android-chrome-320x320.png">
+      <meta itemprop="name" content="Wishzone">
+      <meta itemprop="description" content="留点热情给旁边人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wishzone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/06/24/FRP/" class="post-title-link" itemprop="url">FRP</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-06-24 17:00:34" itemprop="dateCreated datePublished" datetime="2023-06-24T17:00:34+08:00">2023-06-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-08-24 18:50:26" itemprop="dateModified" datetime="2023-08-24T18:50:26+08:00">2023-08-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LINUX/" itemprop="url" rel="index"><span itemprop="name">LINUX</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>关于FRP的配置</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/06/24/FRP/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -768,168 +962,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/24/ESP-AT%E4%B8%B2%E5%8F%A3%E9%80%8F%E4%BC%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/android-chrome-320x320.png">
-      <meta itemprop="name" content="Wishzone">
-      <meta itemprop="description" content="留点热情给旁边人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wishzone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/06/24/ESP-AT%E4%B8%B2%E5%8F%A3%E9%80%8F%E4%BC%A0/" class="post-title-link" itemprop="url">ESP_AT串口透传</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-06-24 16:55:53" itemprop="dateCreated datePublished" datetime="2023-06-24T16:55:53+08:00">2023-06-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-24 19:13:28" itemprop="dateModified" datetime="2023-08-24T19:13:28+08:00">2023-08-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/" itemprop="url" rel="index"><span itemprop="name">单片机</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>配置ESP系列AT指令进行wifi串口穿透的教程</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/06/24/ESP-AT%E4%B8%B2%E5%8F%A3%E9%80%8F%E4%BC%A0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/20/Windows/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/android-chrome-320x320.png">
-      <meta itemprop="name" content="Wishzone">
-      <meta itemprop="description" content="留点热情给旁边人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wishzone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/20/Windows/" class="post-title-link" itemprop="url">Windows</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-01-20 01:04:51" itemprop="dateCreated datePublished" datetime="2023-01-20T01:04:51+08:00">2023-01-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-24 19:17:01" itemprop="dateModified" datetime="2023-08-24T19:17:01+08:00">2023-08-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Windows/" itemprop="url" rel="index"><span itemprop="name">Windows</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Windows常用设置<br>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/01/20/Windows/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1001,7 +1033,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1014,7 +1046,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
