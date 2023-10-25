@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=得意黑:300,300italic,400,400italic,700,700italic|Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"efault"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="关于光猫与路由器设置的简单教程 基础知识光猫进行光电转换的设备，最纯净的光猫是毛棒，常见的运营商的光猫是集成了光猫路由器交换机等功能的设备。 路由器进行拨号NAT转换的设备 交换机拓展接口的设备 AP同交换机只不过是通过无线网的方式来拓展接口 光猫超级管理员密码电信用户名：useradmin密码：nE7jA%5m 移动用户名：CMCCAdmin密码：aDm8H%MdA 桥接和路由模式切换桥接模式：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络基础">
+<meta property="og:url" content="http://example.com/2023/09/12/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="请移步以下网址">
+<meta property="og:description" content="关于光猫与路由器设置的简单教程 基础知识光猫进行光电转换的设备，最纯净的光猫是毛棒，常见的运营商的光猫是集成了光猫路由器交换机等功能的设备。 路由器进行拨号NAT转换的设备 交换机拓展接口的设备 AP同交换机只不过是通过无线网的方式来拓展接口 光猫超级管理员密码电信用户名：useradmin密码：nE7jA%5m 移动用户名：CMCCAdmin密码：aDm8H%MdA 桥接和路由模式切换桥接模式：">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-09-12T14:04:25.000Z">
+<meta property="article:modified_time" content="2023-10-25T15:04:34.602Z">
+<meta property="article:author" content="Wishzone">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2023/09/12/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>网络基础 | 请移步以下网址</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="请移步以下网址" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">请移步以下网址</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wishzone.x3322.net:10024</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/Wishzone" class="github-corner" title="Wishzone GitHub" aria-label="Wishzone GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/12/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/android-chrome-320x320.png">
+      <meta itemprop="name" content="Wishzone">
+      <meta itemprop="description" content="该网站仅为机械移植">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="请移步以下网址">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          网络基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-12 22:04:25" itemprop="dateCreated datePublished" datetime="2023-09-12T22:04:25+08:00">2023-09-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-25 23:04:34" itemprop="dateModified" datetime="2023-10-25T23:04:34+08:00">2023-10-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Windows/" itemprop="url" rel="index"><span itemprop="name">Windows</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>关于光猫与路由器设置的简单教程</p>
+<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"></a>基础知识</h1><h2 id="光猫"><a href="#光猫" class="headerlink" title="光猫"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E5%85%89%E7%8C%AB"></a>光猫</h2><p>进行光电转换的设备，最纯净的光猫是毛棒，常见的运营商的光猫是集成了光猫路由器交换机等功能的设备。</p>
+<h2 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E8%B7%AF%E7%94%B1%E5%99%A8"></a>路由器</h2><p>进行拨号NAT转换的设备</p>
+<h2 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E4%BA%A4%E6%8D%A2%E6%9C%BA"></a>交换机</h2><p>拓展接口的设备</p>
+<h2 id="AP"><a href="#AP" class="headerlink" title="AP"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#AP"></a>AP</h2><p>同交换机只不过是通过无线网的方式来拓展接口</p>
+<h1 id="光猫-1"><a href="#光猫-1" class="headerlink" title="光猫"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E5%85%89%E7%8C%AB-1"></a>光猫</h1><h2 id="超级管理员密码"><a href="#超级管理员密码" class="headerlink" title="超级管理员密码"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E8%B6%85%E7%BA%A7%E7%AE%A1%E7%90%86%E5%91%98%E5%AF%86%E7%A0%81"></a>超级管理员密码</h2><h3 id="电信"><a href="#电信" class="headerlink" title="电信"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E7%94%B5%E4%BF%A1"></a>电信</h3><p>用户名：useradmin<br>密码：nE7jA%5m</p>
+<h3 id="移动"><a href="#移动" class="headerlink" title="移动"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E7%A7%BB%E5%8A%A8"></a>移动</h3><p>用户名：CMCCAdmin<br>密码：aDm8H%MdA</p>
+<h2 id="桥接和路由模式切换"><a href="#桥接和路由模式切换" class="headerlink" title="桥接和路由模式切换"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E6%A1%A5%E6%8E%A5%E5%92%8C%E8%B7%AF%E7%94%B1%E6%A8%A1%E5%BC%8F%E5%88%87%E6%8D%A2"></a>桥接和路由模式切换</h2><p>桥接模式：不进行NAT转换，等同于交换器，让外接路由器拨号，效率更高</p>
+<p>路由模式：由光猫拨号进行一次NAT转换，再由路由器DHCP上网，再进行一次NAT转换，效率低，但可将光猫自带的AP功能用上</p>
+<p>但其实可以既用上光猫的AP功能，又使用桥接模式，只需要新建一个网络连接，将光猫自带的AP功能单独分到一个网络上面进行PPPoE拨号，再将其他的LAN口分到另一个网络进行桥接即可，就相当于有两个ip了，如果是申请的公网IP，就赚大了，但要知道怎么设置，或者是光猫默认设置里面就是这么分的，自己乱设置的往往没法上网</p>
+<p>连接光猫WIFI或LAN口，登录光猫后台，输入超级管理员密码，有的光猫默认将自带的AP功能分在一个网络下面，此时只需要将这个设备所在的网络设置为路由模式便可以白嫖一个地址，如果是给的公网地址的话，就相当于又多一个公网地址。</p>
+<h2 id="白嫖20-带宽"><a href="#白嫖20-带宽" class="headerlink" title="白嫖20%带宽"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E7%99%BD%E5%AB%9620-%E5%B8%A6%E5%AE%BD"></a>白嫖20%带宽</h2><p>由于IPV4协议的原因，理论传输效率一般是94%多一点<br>宽带供应商考虑损耗往往提供的带宽是标称带宽的120%，也就是1000M宽带，往往能给到1200M。<br>但是由于宽带供应商送的光猫拨号和光带你转换性能不行，会有带宽损耗，所以采用桥接模式，让高性能路由器来进行拨号，带宽会有一定的提升<br>若要完全白嫖到那20%带宽，则可以根据光猫的类型使用gpon或者epon的光电转换棒猫棒，让软路由拨号。epon和gpon就像是两种方言，epon往往更贵。</p>
+<h1 id="路由器-1"><a href="#路由器-1" class="headerlink" title="路由器"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E8%B7%AF%E7%94%B1%E5%99%A8-1"></a>路由器</h1><h2 id="确定公网ip"><a href="#确定公网ip" class="headerlink" title="确定公网ip"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E7%A1%AE%E5%AE%9A%E5%85%AC%E7%BD%91ip"></a>确定公网ip</h2><p>登录路由器后台，查看路由器获取到的ip地址，再使用设备连接到该路由器，然后在bing上搜索my ip或者在百度上面搜索ip查询，看查到的ip和路由器上面的ip是否一样，如果不一样，则不是公网ip，如果一样，则是公网ip。</p>
+<h2 id="公网访问内网（有公网IP）"><a href="#公网访问内网（有公网IP）" class="headerlink" title="公网访问内网（有公网IP）"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E5%85%AC%E7%BD%91%E8%AE%BF%E9%97%AE%E5%86%85%E7%BD%91%EF%BC%88%E6%9C%89%E5%85%AC%E7%BD%91IP%EF%BC%89"></a>公网访问内网（有公网IP）</h2><h3 id="第一步：设置光猫"><a href="#第一步：设置光猫" class="headerlink" title="第一步：设置光猫"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E8%AE%BE%E7%BD%AE%E5%85%89%E7%8C%AB"></a>第一步：设置光猫</h3><p>方式1：设置光猫为桥接模式<br>方式2：若使用路由模式，则将使用的路由器设置DMZ或者端口转发。</p>
+<h3 id="第二步：设置路由器"><a href="#第二步：设置路由器" class="headerlink" title="第二步：设置路由器"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E8%AE%BE%E7%BD%AE%E8%B7%AF%E7%94%B1%E5%99%A8"></a>第二步：设置路由器</h3><p>方式1：设置端口转发<br>针对多个不同设备，但公网对80端口和443端口有限制，需要备案，可以转发成别的端口，如8080，或者4433，访问的时候，需要在域名后面缀上端口访问<br>方式2：设置DMZ<br>针对单个设备，可以将设备的所有端口全部放在外网，但是风险较大，建议设置防火墙</p>
+<h3 id="第三步：设置动态域名解析DDNS"><a href="#第三步：设置动态域名解析DDNS" class="headerlink" title="第三步：设置动态域名解析DDNS"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E8%AE%BE%E7%BD%AE%E5%8A%A8%E6%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90DDNS"></a>第三步：设置动态域名解析DDNS</h3><p>由于家庭宽带给的公网IP地址都是动态的，一般每48小时变化一次，因此需要进行动态域名解析，以后只需要记住域名就可以访问了<br>若是企业专线网络的固定公网IP地址，则不需要这一步，直接记住IP访问就行了</p>
+<p>在路由器后台，要看不同的路由器支持哪家的，不同路由器支持的不一样，如果是软路由或者OP系统，往往可以自己设置，但往往对花生壳的动态域名解析支持的都比较好，电信光猫里面的DDNS就是采用的花生壳的动态域名解析</p>
+<h3 id="第四步：开放端口"><a href="#第四步：开放端口" class="headerlink" title="第四步：开放端口"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9A%E5%BC%80%E6%94%BE%E7%AB%AF%E5%8F%A3"></a>第四步：开放端口</h3><p>window系统可以在防火墙，防火墙高级设置，入站规则里面设置，新建规则，设置开放端口即可</p>
+<h2 id="公网访问内网（无公网IP）"><a href="#公网访问内网（无公网IP）" class="headerlink" title="公网访问内网（无公网IP）"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E5%85%AC%E7%BD%91%E8%AE%BF%E9%97%AE%E5%86%85%E7%BD%91%EF%BC%88%E6%97%A0%E5%85%AC%E7%BD%91IP%EF%BC%89"></a>公网访问内网（无公网IP）</h2><h3 id="无获取到公网IP的服务器"><a href="#无获取到公网IP的服务器" class="headerlink" title="无获取到公网IP的服务器"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E6%97%A0%E8%8E%B7%E5%8F%96%E5%88%B0%E5%85%AC%E7%BD%91IP%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8"></a>无获取到公网IP的服务器</h3><p>方式1：第三方内网穿透服务：花生壳等<br>方式2：虚拟组网：ZeroTier等</p>
+<h3 id="有获取到公网IP的服务器"><a href="#有获取到公网IP的服务器" class="headerlink" title="有获取到公网IP的服务器"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E6%9C%89%E8%8E%B7%E5%8F%96%E5%88%B0%E5%85%AC%E7%BD%91IP%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8"></a>有获取到公网IP的服务器</h3><p>方式1：架设转发服务：Frp等<br>方式2：点对点透传</p>
+<h2 id="设置移动IPV6公网IP"><a href="#设置移动IPV6公网IP" class="headerlink" title="设置移动IPV6公网IP"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E8%AE%BE%E7%BD%AE%E7%A7%BB%E5%8A%A8IPV6%E5%85%AC%E7%BD%91IP"></a>设置移动IPV6公网IP</h2><h3 id="第一步：设置光猫（需支持IPV6）"><a href="#第一步：设置光猫（需支持IPV6）" class="headerlink" title="第一步：设置光猫（需支持IPV6）"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E8%AE%BE%E7%BD%AE%E5%85%89%E7%8C%AB%EF%BC%88%E9%9C%80%E6%94%AF%E6%8C%81IPV6%EF%BC%89"></a>第一步：设置光猫（需支持IPV6）</h3><p>登录光猫后台，设置网络为IPV4&amp;IPV6，关闭IPV6防火墙，便于外网访问内网</p>
+<h3 id="第二步：设置路由器（需支持IPV6）"><a href="#第二步：设置路由器（需支持IPV6）" class="headerlink" title="第二步：设置路由器（需支持IPV6）"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E8%AE%BE%E7%BD%AE%E8%B7%AF%E7%94%B1%E5%99%A8%EF%BC%88%E9%9C%80%E6%94%AF%E6%8C%81IPV6%EF%BC%89"></a>第二步：设置路由器（需支持IPV6）</h3><p>登录路由器后台，在基本设置里面开启IPV6即可。</p>
+<h3 id="第三步：验证"><a href="#第三步：验证" class="headerlink" title="第三步：验证"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E9%AA%8C%E8%AF%81"></a>第三步：验证</h3><p>1.电脑或手机连接路由器，设置DMZ。<br>2.打开浏览器输入test—ipv6.com即可</p>
+<h3 id="小米路由器开启外网ssh"><a href="#小米路由器开启外网ssh" class="headerlink" title="小米路由器开启外网ssh"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8%E5%BC%80%E5%90%AF%E5%A4%96%E7%BD%91ssh"></a>小米路由器开启外网ssh</h3><p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10</p>
+<p>cd / //回到根目录<br>vi /etc/config/firewall //编辑防火墙配置  </p>
+<p>添加以下代码<br>config redirect ‘Myssh’<br>option src ‘wan’<br>option src_dport ‘2345’<br>option dest ‘lan’<br>option dest_port ‘22’<br>option proto ‘tcp’</p>
+<h1 id="网络运营商"><a href="#网络运营商" class="headerlink" title="网络运营商"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E7%BD%91%E7%BB%9C%E8%BF%90%E8%90%A5%E5%95%86"></a>网络运营商</h1><p>电信：提供IPV4公网IP，需要申请<br>移动：不提供IPV4公网IP，但提供IPV6公网地址，不需要申请，只需要手动配置一下就行，参照前面的教程</p>
+<h1 id="光猫开启IPV6"><a href="#光猫开启IPV6" class="headerlink" title="光猫开启IPV6"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E5%85%89%E7%8C%AB%E5%BC%80%E5%90%AFIPV6"></a>光猫开启IPV6</h1><h2 id="桥接端："><a href="#桥接端：" class="headerlink" title="桥接端："></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E6%A1%A5%E6%8E%A5%E7%AB%AF%EF%BC%9A"></a>桥接端：</h2><p>只需要在网络，网络设置，网络连接，IP模式选择IPV4&amp;IPV6即可</p>
+<h2 id="路由端："><a href="#路由端：" class="headerlink" title="路由端："></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E8%B7%AF%E7%94%B1%E7%AB%AF%EF%BC%9A"></a>路由端：</h2><h3 id="获取前缀："><a href="#获取前缀：" class="headerlink" title="获取前缀："></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E8%8E%B7%E5%8F%96%E5%89%8D%E7%BC%80%EF%BC%9A"></a>获取前缀：</h3><p>1.网络，网络设置，网络连接，获取前缀勾选；<br>2.网络，网络设置，网络连接，前缀获取方式选择DHCPV6-PD;<br>3.网络，用户侧管理，IPV6设置，前缀来源选择WAN侧代理即可；</p>
+<h3 id="获取DNS（可手动配置）"><a href="#获取DNS（可手动配置）" class="headerlink" title="获取DNS（可手动配置）:"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E8%8E%B7%E5%8F%96DNS%EF%BC%88%E5%8F%AF%E6%89%8B%E5%8A%A8%E9%85%8D%E7%BD%AE%EF%BC%89"></a>获取DNS（可手动配置）:</h3><p>1.网络，网络设置，网络连接，DNS获取方式选择自动配置;<br>2.网络，用户侧管理，IPV6设置，DNS来源选择网络连接；<br>3.网络，用户侧管理，IPV6设置，接口选择路由的那个网络即可；</p>
+<h3 id="获取IPV6："><a href="#获取IPV6：" class="headerlink" title="获取IPV6："></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2023/01/19/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#%E8%8E%B7%E5%8F%96IPV6%EF%BC%9A"></a>获取IPV6：</h3><p>1.网络，网络设置，网络连接，IP模式选择IPV4&amp;IPV6；<br>2.网络，网络设置，网络连接，地址获取方式选择自动配置</p>
+<p>注意：<br>fe开头通常为内网<br>240开头通常为外网</p>
+<p>其他：DHCPv6能通过DHCPv6获得DNS,域名,但网关信息他不会给你获得,只能通过NDP(无状态地址解析)获得网关信息，要手动设置一下ipv6网关才行，实际上它是通的 只是被代理了 DP模式就正常 SLAAC模式就这样，DNS选择手动 地址分配模式选SLAAC 关闭DHCPv6分配，选DP模式</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/web/" rel="tag"># web</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/09/12/windows/" rel="prev" title="Windows">
+      <i class="fa fa-chevron-left"></i> Windows
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/09/12/android/" rel="next" title="Android">
+      Android <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%89%E7%8C%AB"><span class="nav-number">1.1.</span> <span class="nav-text">光猫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">路由器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA"><span class="nav-number">1.3.</span> <span class="nav-text">交换机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AP"><span class="nav-number">1.4.</span> <span class="nav-text">AP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%89%E7%8C%AB-1"><span class="nav-number">2.</span> <span class="nav-text">光猫</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B6%85%E7%BA%A7%E7%AE%A1%E7%90%86%E5%91%98%E5%AF%86%E7%A0%81"><span class="nav-number">2.1.</span> <span class="nav-text">超级管理员密码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%B5%E4%BF%A1"><span class="nav-number">2.1.1.</span> <span class="nav-text">电信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8"><span class="nav-number">2.1.2.</span> <span class="nav-text">移动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%A5%E6%8E%A5%E5%92%8C%E8%B7%AF%E7%94%B1%E6%A8%A1%E5%BC%8F%E5%88%87%E6%8D%A2"><span class="nav-number">2.2.</span> <span class="nav-text">桥接和路由模式切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%99%BD%E5%AB%9620-%E5%B8%A6%E5%AE%BD"><span class="nav-number">2.3.</span> <span class="nav-text">白嫖20%带宽</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8-1"><span class="nav-number">3.</span> <span class="nav-text">路由器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E5%85%AC%E7%BD%91ip"><span class="nav-number">3.1.</span> <span class="nav-text">确定公网ip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AC%E7%BD%91%E8%AE%BF%E9%97%AE%E5%86%85%E7%BD%91%EF%BC%88%E6%9C%89%E5%85%AC%E7%BD%91IP%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">公网访问内网（有公网IP）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E8%AE%BE%E7%BD%AE%E5%85%89%E7%8C%AB"><span class="nav-number">3.2.1.</span> <span class="nav-text">第一步：设置光猫</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E8%AE%BE%E7%BD%AE%E8%B7%AF%E7%94%B1%E5%99%A8"><span class="nav-number">3.2.2.</span> <span class="nav-text">第二步：设置路由器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E8%AE%BE%E7%BD%AE%E5%8A%A8%E6%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90DDNS"><span class="nav-number">3.2.3.</span> <span class="nav-text">第三步：设置动态域名解析DDNS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9A%E5%BC%80%E6%94%BE%E7%AB%AF%E5%8F%A3"><span class="nav-number">3.2.4.</span> <span class="nav-text">第四步：开放端口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AC%E7%BD%91%E8%AE%BF%E9%97%AE%E5%86%85%E7%BD%91%EF%BC%88%E6%97%A0%E5%85%AC%E7%BD%91IP%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">公网访问内网（无公网IP）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E8%8E%B7%E5%8F%96%E5%88%B0%E5%85%AC%E7%BD%91IP%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">3.3.1.</span> <span class="nav-text">无获取到公网IP的服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E8%8E%B7%E5%8F%96%E5%88%B0%E5%85%AC%E7%BD%91IP%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">3.3.2.</span> <span class="nav-text">有获取到公网IP的服务器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E7%A7%BB%E5%8A%A8IPV6%E5%85%AC%E7%BD%91IP"><span class="nav-number">3.4.</span> <span class="nav-text">设置移动IPV6公网IP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E8%AE%BE%E7%BD%AE%E5%85%89%E7%8C%AB%EF%BC%88%E9%9C%80%E6%94%AF%E6%8C%81IPV6%EF%BC%89"><span class="nav-number">3.4.1.</span> <span class="nav-text">第一步：设置光猫（需支持IPV6）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E8%AE%BE%E7%BD%AE%E8%B7%AF%E7%94%B1%E5%99%A8%EF%BC%88%E9%9C%80%E6%94%AF%E6%8C%81IPV6%EF%BC%89"><span class="nav-number">3.4.2.</span> <span class="nav-text">第二步：设置路由器（需支持IPV6）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E9%AA%8C%E8%AF%81"><span class="nav-number">3.4.3.</span> <span class="nav-text">第三步：验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8%E5%BC%80%E5%90%AF%E5%A4%96%E7%BD%91ssh"><span class="nav-number">3.4.4.</span> <span class="nav-text">小米路由器开启外网ssh</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%BF%90%E8%90%A5%E5%95%86"><span class="nav-number">4.</span> <span class="nav-text">网络运营商</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%89%E7%8C%AB%E5%BC%80%E5%90%AFIPV6"><span class="nav-number">5.</span> <span class="nav-text">光猫开启IPV6</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%A5%E6%8E%A5%E7%AB%AF%EF%BC%9A"><span class="nav-number">5.1.</span> <span class="nav-text">桥接端：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E7%AB%AF%EF%BC%9A"><span class="nav-number">5.2.</span> <span class="nav-text">路由端：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%89%8D%E7%BC%80%EF%BC%9A"><span class="nav-number">5.2.1.</span> <span class="nav-text">获取前缀：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96DNS%EF%BC%88%E5%8F%AF%E6%89%8B%E5%8A%A8%E9%85%8D%E7%BD%AE%EF%BC%89"><span class="nav-number">5.2.2.</span> <span class="nav-text">获取DNS（可手动配置）:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96IPV6%EF%BC%9A"><span class="nav-number">5.2.3.</span> <span class="nav-text">获取IPV6：</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wishzone"
+      src="/images/android-chrome-320x320.png">
+  <p class="site-author-name" itemprop="name">Wishzone</p>
+  <div class="site-description" itemprop="description">该网站仅为机械移植</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wishzone</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="true"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '069b787c0b99ba5c4d39',
+      clientSecret: '20a837ebd50ea05bbd4ac5b91d1785a4fc280bbc',
+      repo        : 'wishzone.github.io',
+      owner       : 'Wishzone',
+      admin       : ['wishzone'],
+      id          : '16ff3de6e86b52a897560294080845df',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+    </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=得意黑:300,300italic,400,400italic,700,700italic|Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"efault"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="STM32的个人开发文档，不断更新ing 配置 vscode 插件 Keil Assistant keil启动vscode 编码改为UTF-8，Tab-size为4 在Edit-&gt;Configuration-&gt;Editor-&gt;File&amp;Project Handing里勾上了Automatic reload of externally modified files 点击md">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32">
+<meta property="og:url" content="http://example.com/2023/09/12/stm32/index.html">
+<meta property="og:site_name" content="请移步以下网址">
+<meta property="og:description" content="STM32的个人开发文档，不断更新ing 配置 vscode 插件 Keil Assistant keil启动vscode 编码改为UTF-8，Tab-size为4 在Edit-&gt;Configuration-&gt;Editor-&gt;File&amp;Project Handing里勾上了Automatic reload of externally modified files 点击md">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-09-12T14:06:36.000Z">
+<meta property="article:modified_time" content="2023-10-25T15:04:34.608Z">
+<meta property="article:author" content="Wishzone">
+<meta property="article:tag" content="STM32,FPGA,LINUX,WEB">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2023/09/12/stm32/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>STM32 | 请移步以下网址</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="请移步以下网址" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">请移步以下网址</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wishzone.x3322.net:10024</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/Wishzone" class="github-corner" title="Wishzone GitHub" aria-label="Wishzone GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/12/stm32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/android-chrome-320x320.png">
+      <meta itemprop="name" content="Wishzone">
+      <meta itemprop="description" content="该网站仅为机械移植">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="请移步以下网址">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          STM32
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-12 22:06:36" itemprop="dateCreated datePublished" datetime="2023-09-12T22:06:36+08:00">2023-09-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-25 23:04:34" itemprop="dateModified" datetime="2023-10-25T23:04:34+08:00">2023-10-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/uncategorized/" itemprop="url" rel="index"><span itemprop="name">uncategorized</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>STM32的个人开发文档，不断更新ing</p>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E9%85%8D%E7%BD%AE"></a>配置</h1><ul>
+<li>vscode 插件 Keil Assistant</li>
+<li>keil启动vscode<ul>
+<li>编码改为UTF-8，Tab-size为4</li>
+<li>在Edit-&gt;Configuration-&gt;Editor-&gt;File&amp;Project Handing里勾上了Automatic reload of externally modified files</li>
+<li>点击mdk菜单栏Tools-&gt;Customize Tools Menu，在弹出的对话框中新建一个外部编辑器，并指定其路径， <strong>注意Arguments要填上#E</strong> ，我的vscode路径：D:\Program Files\Microsoft VS CodeCode.exe</li>
+<li>点击确定后，点击mdk菜单栏Tools-&gt;VSCode，即可自动调用vscode打开当前文件</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/asdfghjkl1234567890p/article/details/125522052">Keil仿真监控数据导出到EXCEL图表显示的方法</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/QXF0806/article/details/125687203">Keil5把变量的数据导出，可视化</a>经验</li>
+</ul>
+<ol>
+<li>switch -case语句中 case: 后面不能直接定义变量，但是可以先写一个；来解决这个问题</li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/111723881">Nucleo-G474RE作为烧写器</a></li>
+<li><a target="_blank" rel="noopener" href="http://t.zoukankan.com/juwan-p-13069102.html">理解 LCD 屏幕的驱动原理与调试过程，示例的驱动 IC 为 GC9308 ，展示整个屏幕的驱动过程。</a></li>
+</ol>
+<h1 id="时钟"><a href="#时钟" class="headerlink" title="时钟"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E6%97%B6%E9%92%9F"></a>时钟</h1><h2 id="SysTick定时时间计算"><a href="#SysTick定时时间计算" class="headerlink" title="SysTick定时时间计算"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#SysTick%E5%AE%9A%E6%97%B6%E6%97%B6%E9%97%B4%E8%AE%A1%E7%AE%97"></a>SysTick定时时间计算</h2><p>t = reload <em>(1/clk)<br>clk = 72m时 t = (72)</em>(1/72M) = 1us<br>clk = 72m时 t = (72000)* (1/72M) = 1ms<br>1s = 1000ms = 1000 000us = 1000 000 000ns<br>记得使用 <code>HAL_TIM_Base_Start(&amp;htim1);</code></p>
+<h1 id="keil-软件仿真"><a href="#keil-软件仿真" class="headerlink" title="keil 软件仿真"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#keil-%E8%BD%AF%E4%BB%B6%E4%BB%BF%E7%9C%9F"></a>keil 软件仿真</h1><h2 id="stm32f103VET6"><a href="#stm32f103VET6" class="headerlink" title="stm32f103VET6"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#stm32f103VET6"></a>stm32f103VET6</h2><ol>
+<li>debug页面如下设置<br><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/e6640d881469/1.png"></a></li>
+<li>打开逻辑分析仪</li>
+<li>setup打开后如下设置<a target="_blank" rel="noopener" href="https://shjdgwj.github.io/e6640d881469/2.png"></a><br>填 <code>PORTB.0</code>即可查看GPIOB pin0的输出<br><code>DisPlay Type</code> 选择 <code>Bit</code><br>之后就能输出PWM波形了</li>
+</ol>
+<h2 id="stm32f103C8T6"><a href="#stm32f103C8T6" class="headerlink" title="stm32f103C8T6"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#stm32f103C8T6"></a>stm32f103C8T6</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/keygun/article/details/97619613">软件仿真配置</a><br>CPU<br>DLL：SARMCM3.DLL</p>
+<p>Dialog<br>DLL：DARMSTM.DLL Parameter:-pSTM32F103C8</p>
+<p>Driver<br>DLL SARMCM3.DLL</p>
+<p>Dalog<br>DLL:TARMSTM.DLL Parameter:-pSTM32F103C8</p>
+<h1 id="C相关"><a href="#C相关" class="headerlink" title="C相关"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#C%E7%9B%B8%E5%85%B3"></a>C相关</h1><h2 id="STM32使用malloc函数"><a href="#STM32使用malloc函数" class="headerlink" title="STM32使用malloc函数"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#STM32%E4%BD%BF%E7%94%A8malloc%E5%87%BD%E6%95%B0"></a>STM32使用malloc函数</h2><p>对于malloc和free对内存堆栈块的空间操作，在keilMDK中需要满足下面几个条件：</p>
+<ol>
+<li>使用的代码文件中需要包含头文件 <code>#include &lt;stdlib.h&gt;</code></li>
+<li>在工程的属性设置中需要把 Use MicroLIB 选项勾选</li>
+<li>这时候原则上就可以使用空间申请和释放的两个操作函数了，但是由于STM32在startup_stm32f10x_hd.s中分配的堆空间只有0x00000200个字节，所以很多时候调用malloc函数时如果申请空间超过0X200则返回了NULL，这时候就需要到该文件对这个值进行设置。</li>
+</ol>
+<h2 id="单片机中的数据类型"><a href="#单片机中的数据类型" class="headerlink" title="单片机中的数据类型"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E5%8D%95%E7%89%87%E6%9C%BA%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"></a>单片机中的数据类型</h2><p>u8——1个字节，无符号型（不能表达负数，如果用来当作负数的话，就出错了）<br>u16 ——2个字节，无符号型（参看前边STM32f10x.h中的定义）<br>u32——4个字节，无符号型<br>int——4个字节,有符号型，可以表达负整数<br>float ——4个字节，有符号型，可以表达负数/小数<br>double——8个字节，有符号弄，可以表达负数/小数</p>
+<h2 id="代码书写规范"><a href="#代码书写规范" class="headerlink" title="代码书写规范"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E4%BB%A3%E7%A0%81%E4%B9%A6%E5%86%99%E8%A7%84%E8%8C%83"></a>代码书写规范</h2><p>变量定义在.c 在.h中用extern供外部引用<br>宏定义直接define在.h最前面<br>函数定义在.c 在.h中再写一遍名字即可<br>结构体和枚举需要将类型名定义在 .h ，将变量定义在.c 在 .h中用extern引用</p>
+<h2 id="while-str-的含义"><a href="#while-str-的含义" class="headerlink" title="while(*str)的含义"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#while-str-%E7%9A%84%E5%90%AB%E4%B9%89"></a>while(*str)的含义</h2><p>字符串是以 ‘\0’结束的 当 指针 s指向最后一个 即是 ‘\0’是 *s=’\0’ 也等于 0 即是假的 结束循环</p>
+<h2 id="判断char数组里是否是汉字"><a href="#判断char数组里是否是汉字" class="headerlink" title="判断char数组里是否是汉字"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E5%88%A4%E6%96%ADchar%E6%95%B0%E7%BB%84%E9%87%8C%E6%98%AF%E5%90%A6%E6%98%AF%E6%B1%89%E5%AD%97"></a>判断char数组里是否是汉字</h2><p>百度说</p>
+<blockquote>
+<p>负数是为汉字，二个字节一个<br>gb2312 两个字节都是负的<br>如果是gbk，第一个字节还是负的，第二字节就不一定了</p>
+</blockquote>
+<p><strong>但是</strong> ！不知道为什么，在keil中</p>
+<p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10</p>
+<p>char* str;<br>while(*str)<br>{<br>if(*str &gt;= 0&amp;&amp;str&lt;128){<br>…<br>}else{<br>//反正非汉字字符一定在0-127间<br>…<br>}<br>}</p>
+<p><code>str&lt;128</code>的部分会被keil提示成 <code>always true</code>,而实际仿真中，变量窗口识别str为uchar，也就是中文的值并非<0而是>127。。。<br>改进后：</p>
+<p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17</p>
+<p>while(*str)<br>{<br>uint8_t ch = *str;<br>if(ch &gt;= 0&amp;&amp;ch&lt;128)<br>{<br>showchar(*str, color);<br>str++;<br>}<br>else//汉字2个char 第一个char&lt;0<br>{<br>char s8[2];<br>int16_t *s16 ;<br>s16 = (int16_t*)str;<br>str +=2;<br>showChinese(*s16, color);<br>}<br>}</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E5%85%B6%E4%BB%96"></a>其他</h2><p>无符号与有符号数进行运算时，系统会自动将有符号数看成无符号数，然后进行比较。举例:<br>假定一个数是8位，一个字节表示<br>-1=11111111(补码)，相当于无符号数255<br>10=00001010，此时，-1&gt;10</p>
+<h1 id="外设"><a href="#外设" class="headerlink" title="外设"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E5%A4%96%E8%AE%BE"></a>外设</h1><h2 id="TIM定时器"><a href="#TIM定时器" class="headerlink" title="TIM定时器"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#TIM%E5%AE%9A%E6%97%B6%E5%99%A8"></a>TIM定时器</h2><p>计数器时钟 CK_CNT = CK_PSC/(PSC+1)<br>计数一次的时间 1/CK_CNT<br>周期 1/CK_CNT*(ARR+1)</p>
+<h3 id="输入捕获"><a href="#输入捕获" class="headerlink" title="输入捕获"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E8%BE%93%E5%85%A5%E6%8D%95%E8%8E%B7"></a>输入捕获</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zj490044512/article/details/83754414">stm32f103输入捕获</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/as480133937/article/details/99407485">【STM32】HAL库 STM32CubeMX教程八—定时器输入捕获</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/yyx112358/article/details/78414594">使用 STM32 测量频率和占空比的几种方法</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_17351161/article/details/107386857">STM32F1x HAL库学习笔记（11）定时器配置及中断（溢出中断，PWM输出，输入捕获）</a></p>
+<h3 id="输出比较"><a href="#输出比较" class="headerlink" title="输出比较"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E8%BE%93%E5%87%BA%E6%AF%94%E8%BE%83"></a>输出比较</h3><p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12</p>
+<p>/* Blocking mode: Polling 轮询模式*/  </p>
+<p>HAL_StatusTypeDef HAL_TIM_OC_Start(TIM_HandleTypeDef *htim, uint32_t Channel);<br>HAL_StatusTypeDef HAL_TIM_OC_Stop(TIM_HandleTypeDef htim, uint32_t Channel);<br>/* Non-Blocking mode: Interrupt 中断模式 */  </p>
+<p>HAL_StatusTypeDef HAL_TIM_OC_Start_IT(TIM_HandleTypeDef htim, uint32_t Channel);<br>HAL_StatusTypeDef HAL_TIM_OC_Stop_IT(TIM_HandleTypeDef htim, uint32_t Channel);<br>/* Non-Blocking mode: DMA DMA模式*/  </p>
+<p>HAL_StatusTypeDef HAL_TIM_OC_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Channel, uint32_t *pData, uint16_t Length);<br>HAL_StatusTypeDef HAL_TIM_OC_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Channel);</p>
+<h3 id="全速运行卡死在-HAL-TIM-Base-Start-IT函数"><a href="#全速运行卡死在-HAL-TIM-Base-Start-IT函数" class="headerlink" title="全速运行卡死在-HAL_TIM_Base_Start_IT函数"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E5%85%A8%E9%80%9F%E8%BF%90%E8%A1%8C%E5%8D%A1%E6%AD%BB%E5%9C%A8-HAL-TIM-Base-Start-IT%E5%87%BD%E6%95%B0"></a>全速运行卡死在-HAL_TIM_Base_Start_IT函数</h3><blockquote>
+<p>我没有猜错的话 你的是NVIC撞车了 都是 0 0 滴答定时器就阵亡了 修改一下分配的优先级就好了</p>
+</blockquote>
+<h3 id="HAL库微秒级延时"><a href="#HAL库微秒级延时" class="headerlink" title="HAL库微秒级延时"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#HAL%E5%BA%93%E5%BE%AE%E7%A7%92%E7%BA%A7%E5%BB%B6%E6%97%B6"></a>HAL库微秒级延时</h3><h4 id="优选-获取系统时钟计时，非阻塞式延时"><a href="#优选-获取系统时钟计时，非阻塞式延时" class="headerlink" title="优选-获取系统时钟计时，非阻塞式延时"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E4%BC%98%E9%80%89-%E8%8E%B7%E5%8F%96%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%92%9F%E8%AE%A1%E6%97%B6%EF%BC%8C%E9%9D%9E%E9%98%BB%E5%A1%9E%E5%BC%8F%E5%BB%B6%E6%97%B6"></a>优选-获取系统时钟计时，非阻塞式延时</h4><p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15</p>
+<p>void delay_ms(int32_t nms)<br>{<br>int32_t temp;<br>SysTick-&gt;LOAD = 8000*nms;<br>SysTick-&gt;VAL=0X00;//清空计数器<br>SysTick-&gt;CTRL=0X01;//使能，减到零是无动作，采用外部时钟源<br>do<br>{<br>temp=SysTick-&gt;CTRL;//读取当前倒计数值<br>}<br>while((temp&amp;0x01)&amp;&amp;(!(temp&amp;(1&lt;&lt;16))));//等待时间到达  </p>
+<p>SysTick-&gt;CTRL=0x00; //关闭计数器<br>SysTick-&gt;VAL =0X00; //清空计数器<br>}</p>
+<hr>
+<p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15</p>
+<p>void Delay_us(int16_t nus)<br>{<br>int32_t temp;<br>SysTick-&gt;LOAD = nus*9; //72MHz<br>SysTick-&gt;VAL=0X00;<br>SysTick-&gt;CTRL=0X01;<br>do<br>{<br>temp=SysTick-&gt;CTRL;<br>}<br>while((temp&amp;0x01)&amp;&amp;(!(temp&amp;(1&lt;&lt;16))));  </p>
+<p>SysTick-&gt;CTRL=0x00;<br>SysTick-&gt;VAL =0X00;<br>}</p>
+<h4 id="利用HAL-Delay"><a href="#利用HAL-Delay" class="headerlink" title="利用HAL_Delay"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E5%88%A9%E7%94%A8HAL-Delay"></a>利用HAL_Delay</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34752070/article/details/82620374">STM32 HAL库学习 常使用的几种延时方式</a></p>
+<p>1<br>2<br>3<br>4</p>
+<p>// HAL_RCC_GetHCLKFreq()/1000 1ms中断一次，即HAL_Delay函数延时基准为1ms<br>// HAL_RCC_GetHCLKFreq()/100000 10us中断一次，即HAL_Delay函数延时基准为10us<br>// HAL_RCC_GetHCLKFreq()/1000000 1us中断一次，即HAL_Delay函数延时基准为1us<br>HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000000); // 配置并启动系统滴答定时器</p>
+<h4 id="利用TIM"><a href="#利用TIM" class="headerlink" title="利用TIM"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E5%88%A9%E7%94%A8TIM"></a>利用TIM</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29506411/article/details/109070558">HAL库中同时实现微秒级us以及毫秒级ms延时</a></p>
+<p>tim6，中断不使能</p>
+<p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15</p>
+<p>//72M PSC=71  </p>
+<p>void Delay_us(uint16_t us) //注意us变量的上限是65535<br>{<br>// uint16_t counter= us &amp; 0xffff;  </p>
+<p>HAL_TIM_Base_Start(&amp;htim6);<br>__HAL_TIM_SetCounter(&amp;htim6,0); // 对上次延时产生的计数清零  </p>
+<p>us = (us &gt; 4)?(us-2):1; // 对counter的改变是为了让短时长的延时更精确（通过示波器校正过，timer的时钟是72M）  </p>
+<p>while( us &gt; __HAL_TIM_GetCounter(&amp;htim6) ) {};  </p>
+<p>HAL_TIM_Base_Stop(&amp;htim6);<br>}</p>
+<h2 id="串口"><a href="#串口" class="headerlink" title="串口"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E4%B8%B2%E5%8F%A3"></a>串口</h2><h3 id="串口重定向"><a href="#串口重定向" class="headerlink" title="串口重定向"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E4%B8%B2%E5%8F%A3%E9%87%8D%E5%AE%9A%E5%90%91"></a>串口重定向</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/morixinguan/article/details/103474643">STM32 HAL串口接收常用的几种方式</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/xinghunlove123/article/details/89503218">Stm32 HAL库 USART(发送+接收)全部采用DMA形式</a></p>
+<h3 id="UART成帧"><a href="#UART成帧" class="headerlink" title="[UART成帧]"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#UART%E6%88%90%E5%B8%A7"></a>[UART成帧]</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/WANGYONGZIXUE/article/details/121375351">UART成帧</a></p>
+<p>ESP8266 判断 UART 传来的数据时间间隔，若时间间隔大于 20ms， 则认为一帧结束；否则， 一直接收数据到上限值 2KB， 认为一帧结束。 ESP8266 模块判断UART 来的数据一帧结束后， 通过 WIFI 接口将数据转发出去。<br>成帧时间间隔为 20ms， 一帧上限值为 2KB。</p>
+<h2 id="SPI"><a href="#SPI" class="headerlink" title="SPI"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#SPI"></a>SPI</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41082463/article/details/104952605">STM32（HAL）——SPI通信</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/wanruiou/article/details/97236750">HAL库的学习 —— SPI配置和使用 发送16位和8位数据</a></p>
+<p>Mode</p>
+<p>含义</p>
+<p>Full-Duplex Master</p>
+<p>全双工主模式</p>
+<p>Full-Duplex Slave</p>
+<p>全双工从模式</p>
+<p>Half-Duplex Master</p>
+<p>半双工主模式</p>
+<p>Half-Duplex Slave</p>
+<p>半双工从模式</p>
+<p>Receive Only Master</p>
+<p>仅接收主模式</p>
+<p>Receive Only Slave</p>
+<p>仅接收从模式</p>
+<p>Transmit Only Master</p>
+<p>仅发送主模式</p>
+<p>Transmit Only Slave</p>
+<p>仅发送从模式</p>
+<p>参数</p>
+<p>含义</p>
+<p>Frame Format</p>
+<p>框架格式，有Motorola和TI两种</p>
+<p>Data Size</p>
+<p>数据长度，8bit和16bit两种</p>
+<p>First Bit</p>
+<p>对齐形式，高位先行和低位先行</p>
+<p>Prescaler</p>
+<p>预分频，用于控制波特率，波特率=16MHz/Prescaler</p>
+<p>Clock Polarity</p>
+<p>CPOL，前面有讲</p>
+<p>Clock Phase</p>
+<p>CPHA，前面有讲</p>
+<p>CRC Calculation</p>
+<p>是否启用CRC</p>
+<p>NSS Signal Type</p>
+<p>片选形式，硬件实现还是软件实现</p>
+<h2 id="ADC-amp-amp-DAC"><a href="#ADC-amp-amp-DAC" class="headerlink" title="ADC &amp;&amp; DAC"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#ADC-amp-amp-DAC"></a>ADC &amp;&amp; DAC</h2><p><strong>测量前用 <code>HAL_ADCEx_Calibration_Start();</code>校准!</strong><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38410730/article/details/80071349">【STM32】ADC的基本原理、寄存器（超基础、详细版）</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/as480133937/article/details/99627062">【STM32】HAL库 STM32CubeMX教程九—ADC</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43743762/article/details/100067558">STM32—ADC详解</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/super828/article/details/79600395">STM32 HAL库学习系列第1篇 ADC配置 及 DAC配置</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xingboy/p/10018749.html">STM32使用HAL库实现ADC单通道转换(中断和非中断都有代码)</a></p>
+<p><a target="_blank" rel="noopener" href="https://wenku.baidu.com/view/7f69e2c081c758f5f61f67e2.html">用STM32内置的ADC实现数字示波器</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38294949/article/details/106036394">Cube生成定时器2触发双ADC同步采集并用DMA传输</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weifengdq/article/details/121802176">STM32H743 ADC1+DMA1 ADC3+BDMA CubeMX配置使用</a></p>
+<blockquote>
+<p>要知道，转换后的数据是一个12位的二进制数，我们需要把这个二进制数代表的模拟量（电压）用数字表示出来。比如测量的电压范围是0~3.3V，转换后的二进制数是x，因为12位ADC在转换时将电压的范围大小（也就是3.3）分为4096（2^12）份，所以转换后的二进制数x代表的真实电压的计算方法就是：</p>
+<p>y=3.3* x / 4096</p>
+</blockquote>
+<h2 id="血泪教训"><a href="#血泪教训" class="headerlink" title="血泪教训"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E8%A1%80%E6%B3%AA%E6%95%99%E8%AE%AD"></a>血泪教训</h2><p>&amp;ensp&amp;ensp如果用定时器触发adc，无论怎样设置，最高就500khz，但是一旦选择连续采样模式，让adc自动一次接一次采样，由于我配置的adc 14mhz，14个周期，因此自然而然的就是1m的采样频率。<br>而使用定时器触发时，需要关闭连续转换模式，否则无法通过定时器控制adc的采样频率<br>然后又不知道咋回事，除了使能连续转换模式，定时器触发永远是500khz的上限，我暂时没有找到不使能连续转换模式的同时使adc速度大于500khz的方法</p>
+<h1 id="模块"><a href="#模块" class="headerlink" title="模块"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E6%A8%A1%E5%9D%97"></a>模块</h1><h2 id="AD9910"><a href="#AD9910" class="headerlink" title="AD9910"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#AD9910"></a>AD9910</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/fraay/article/details/108687441">AD9910模块数据手册、使用方法详解</a></p>
+<h2 id="mpu6050"><a href="#mpu6050" class="headerlink" title="mpu6050"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#mpu6050"></a>mpu6050</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zj490044512/article/details/83745684">stm32f103与mpu6050通信详解</a></p>
+<h2 id="DHT11"><a href="#DHT11" class="headerlink" title="DHT11"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#DHT11"></a>DHT11</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/dingyc_ee/article/details/103530982">HAL库 DHT11 驱动</a></p>
+<h2 id="SSD1306-0-96OLED"><a href="#SSD1306-0-96OLED" class="headerlink" title="SSD1306 0.96OLED"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#SSD1306-0-96OLED"></a>SSD1306 0.96OLED</h2><h3 id="驱动"><a href="#驱动" class="headerlink" title="驱动"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E9%A9%B1%E5%8A%A8"></a>驱动</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/SL-RU/stm32libs">stm32libs 5年前的库 基于stm32f103</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/afiskon/stm32-ssd1306">stm32-ssd1306</a>STM32 library for working with OLEDs based on SSD1306, supports I2C and 4-wire SPI. It also works with SH1106, SH1107 and SSD1309 which are compatible with SSD1306.<br>Please see ssd1306/ssd1306_conf_template.h and examples directory for more details.</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/4ilo/ssd1306-stm32HAL">ssd1306-stm32HAL</a>ssd1306 library for stm32 using stm32-hal library’s. This library works with i2c and is configured for 128x64 oled panels by default.<br>If you search 4-wire SPI support, you can find it in the afiskon/stm32-ssd1306 fork.</li>
+</ul>
+<h3 id="获取OLED的通信地址"><a href="#获取OLED的通信地址" class="headerlink" title="获取OLED的通信地址"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E8%8E%B7%E5%8F%96OLED%E7%9A%84%E9%80%9A%E4%BF%A1%E5%9C%B0%E5%9D%80"></a>获取OLED的通信地址</h3><p>参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42860728/article/details/84310160">关于Arduino&amp;SSD1306OLED（IIC）显示的学习</a></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/e6640d881469/4.png"></a><br>模块背面的IIC ADRESSSELECT表示该模块在IIC通信作为从机时的地址，当中间的脚用电阻和左边接起来时，地址为0x78，当和右边接起来时，地址为0x7A。</p>
+<p>图片所示的通信地址是0x78</p>
+</blockquote>
+<h3 id="显示与取模"><a href="#显示与取模" class="headerlink" title="显示与取模"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E6%98%BE%E7%A4%BA%E4%B8%8E%E5%8F%96%E6%A8%A1"></a>显示与取模</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u010858987/article/details/103362144">关于0.96OLED的显示过程详解（I2C通信方式）</a></p>
+<h2 id="ESP8266"><a href="#ESP8266" class="headerlink" title="ESP8266"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#ESP8266"></a>ESP8266</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zDavid_2018/article/details/108349593">【stm32】wifi ESP8266的AT指令</a></p>
+<ul>
+<li><code>__HAL_UART_ENABLE_IT(&amp;huart1, UART_IT_RXNE);</code>中断模式下使用此函数使能中断</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://dsx2016.com/?p=1510">arduino+ESP8266模块使用AT指令设置wifi</a></p>
+<p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36</p>
+<p>void USART1_IRQHandler(void)<br>{<br>/* USER CODE BEGIN USART1_IRQn 0 */<br>uint8_t ch = 1;<br>if (__HAL_UART_GET_FLAG(&amp;huart1, UART_FLAG_RXNE) != RESET)<br>{<br>//读寄存器<br>ch = (uint16_t)READ_REG(huart1.Instance-&gt;DR);  </p>
+<p>//将串口1的数据 写入串口3（串口3将数据 -&gt; esp8266）<br>WRITE_REG(huart3.Instance-&gt;DR, ch);<br>}<br>/* USER CODE END USART1_IRQn 0 */<br>HAL_UART_IRQHandler(&amp;huart1);<br>/* USER CODE BEGIN USART1_IRQn 1 */  </p>
+<p>/* USER CODE END USART1_IRQn 1 */<br>}<br>void USART3_IRQHandler(void)<br>{<br>/* USER CODE BEGIN USART3_IRQn 0 */<br>uint8_t ch = 1;<br>if (__HAL_UART_GET_FLAG(&amp;huart3, UART_FLAG_RXNE) != RESET)<br>{<br>ch = (uint16_t)READ_REG(huart3.Instance-&gt;DR);  </p>
+<p>//给串口1<br>WRITE_REG(huart1.Instance-&gt;DR, ch);<br>}  </p>
+<p>/* USER CODE END USART3_IRQn 0 */<br>HAL_UART_IRQHandler(&amp;huart3);<br>/* USER CODE BEGIN USART3_IRQn 1 */  </p>
+<p>/* USER CODE END USART3_IRQn 1 */<br>}</p>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E7%AE%97%E6%B3%95"></a>算法</h1><h2 id="FFT"><a href="#FFT" class="headerlink" title="FFT"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#FFT"></a>FFT</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013028442/article/details/88836515">matlab中fft运算后需要对幅值乘2除N</a></li>
+<li>矩形窗(Rectangular)：加矩形窗等于不加窗，因为在截取时域信号时本身就是采用矩形截取，所以矩形窗适用于瞬态变化的信号，只要采集的时间足够长，信号宽度基本可以覆盖整个有效的瞬态部分。<br>汉宁窗(Von Hann)：如果测试信号有多个频率分量，频谱表现的十分复杂，且测试的目的更多关注频率点而非能量的大小。在这种情况下，需要选择一个主瓣够窄的窗函数，汉宁窗是一个很好的选择。<br>flattop窗：如果测试的目的更多的关注某周期信号频率点的能量值，比如，更关心其EUpeak,EUpeak-peak,EUrms，那么其幅度的准确性则更加的重要，可以选择一个主瓣稍宽的窗，flattop窗在这样的情况下经常被使用。</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013346007/article/details/54142981">【Get深一度】矩形窗/bartlett/Blackman/hamming/Hanning/kaiser -相控阵雷达原理</a></li>
+</ol>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E9%97%AE%E9%A2%98"></a>问题</h1><h2 id="STM32CUBEMX-BUG"><a href="#STM32CUBEMX-BUG" class="headerlink" title="STM32CUBEMX BUG"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#STM32CUBEMX-BUG"></a>STM32CUBEMX BUG</h2><ol>
+<li>版本6.5.0 stm32h743 配置ADC时无法配置其时钟。<br>版本6.3.0解决此问题</li>
+<li>STM32 DMA初始化代码要在ADC前面。</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_49497012/article/details/118499056">STM32CubeMX生成代码时防止UTF-8乱码</a><br><strong>添加环境变量</strong><ul>
+<li>变量名称：JAVA_TOOL_OPTIONS</li>
+<li>变量值：-Dfile.encoding=UTF-8</li>
+</ul>
+</li>
+</ol>
+<h2 id="DMA循环模式导致hal-delay失效"><a href="#DMA循环模式导致hal-delay失效" class="headerlink" title="DMA循环模式导致hal_delay失效"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#DMA%E5%BE%AA%E7%8E%AF%E6%A8%A1%E5%BC%8F%E5%AF%BC%E8%87%B4hal-delay%E5%A4%B1%E6%95%88"></a>DMA循环模式导致hal_delay失效</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/apple_2333/article/details/96962574">可能的原因</a><br>心态爆炸！<br>野火教程</p>
+<p>1<br>2</p>
+<p>uint32_t adcData[5];<br>HAL_ADCEx_MultiModeStart_DMA(&amp;hadc1, (uint32_t *)&amp;adcData, sizeof(adcData));</p>
+<p>而实际上应该写</p>
+<p>1<br>2<br>3</p>
+<p>uint32_t adcData[5];<br>HAL_ADCEx_MultiModeStart_DMA(&amp;hadc1, (uint32_t *)&amp;adcData, 5);<br>//HAL_ADC_Start_DMA(&amp;hadc1, (uint32_t *)&amp;adcData, 5)</p>
+<p><code>HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef* hadc, uint32_t* pData, uint32_t Length)</code><br><code>HAL_StatusTypeDef HAL_ADC_Start_DMA(ADC_HandleTypeDef* hadc, uint32_t* pData, uint32_t Length)</code><br>Length的参数不应该是数据长度，应该是数据数量。<br><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/e6640d881469/5.png"></a><br>在此问题耗时6小时，特此纪念</p>
+<p>注/HAL_ADC_Start_DMA()的data变量为uint32_t的原因是hal为了程序方便移植，虽然f1只支持12位精度的adc，但是其他芯片支持更高精度的adc。</p>
+<h2 id="hal-根据exti获取触发中断的管脚"><a href="#hal-根据exti获取触发中断的管脚" class="headerlink" title="hal 根据exti获取触发中断的管脚"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#hal-%E6%A0%B9%E6%8D%AEexti%E8%8E%B7%E5%8F%96%E8%A7%A6%E5%8F%91%E4%B8%AD%E6%96%AD%E7%9A%84%E7%AE%A1%E8%84%9A"></a>hal 根据exti获取触发中断的管脚</h2><p>比如stm32f103c8t6 PA15和PC15都是EXTI15 那触发时我怎么知道是哪个脚触发？</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/1642129457849988940.html比如，来自PA0的外部中断，可以通过库函数(EXTI\_GetITStatus(EXTI\_Line0)!=RESET);判断外部中断来源是不是来源于端口0（至于是PA0还是PB0可通过查询中断来源进行判断，但不建议这么用，所以设置外部中断的端口建议不要重复，比如使用了PA0，就不要使用PB0之类的）另外要注意：端口0-4有自己独立的外部中断函数入口，5-9和10-15两组分别共用两个外部中断函数入口">https://zhidao.baidu.com/question/1642129457849988940.html比如，来自PA0的外部中断，可以通过库函数(EXTI\_GetITStatus(EXTI\_Line0)!=RESET);判断外部中断来源是不是来源于端口0（至于是PA0还是PB0可通过查询中断来源进行判断，但不建议这么用，所以设置外部中断的端口建议不要重复，比如使用了PA0，就不要使用PB0之类的）另外要注意：端口0-4有自己独立的外部中断函数入口，5-9和10-15两组分别共用两个外部中断函数入口</a></p>
+</blockquote>
+<h2 id="HAL-GPIO-EXTI-Callback"><a href="#HAL-GPIO-EXTI-Callback" class="headerlink" title="HAL_GPIO_EXTI_Callback"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#HAL-GPIO-EXTI-Callback"></a>HAL_GPIO_EXTI_Callback</h2><p>HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) 里面一调用函数就锁死，直接写语句没问题</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.stm32cube.com/question/615">https://www.stm32cube.com/question/615</a><br>HAL_InitTick(uint32_t TickPriority)这个函数要重新定义下，把systick的主优先级定义为0x0000(最高），之前HAL库给出的宏参数TICK_INT_PRIORITY 0X000f(最低）。导致一进中断<br>HAL的时钟就停摆了。</p>
+</blockquote>
+<h2 id="“Insufficient-RAM-for-Flash-Algorithms”出错原因及解决方案"><a href="#“Insufficient-RAM-for-Flash-Algorithms”出错原因及解决方案" class="headerlink" title="“Insufficient RAM for Flash Algorithms”出错原因及解决方案"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E2%80%9CInsufficient-RAM-for-Flash-Algorithms%E2%80%9D%E5%87%BA%E9%94%99%E5%8E%9F%E5%9B%A0%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"></a>“Insufficient RAM for Flash Algorithms”出错原因及解决方案</h2><p>Insufficient RAM for Flash Algorithms”错误一般会有一个“cannot load flash programming algorithm !”的提示窗口<br><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/e6640d881469/6.png"></a><br>如图更改为 <code>0x0000FFF4</code><br><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/e6640d881469/7.png"></a></p>
+<p>注：C++ include 添加 <code>Drivers\CMSIS\DSP\Include</code></p>
+<h2 id="stm32函数中大数组问题"><a href="#stm32函数中大数组问题" class="headerlink" title="stm32函数中大数组问题"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#stm32%E5%87%BD%E6%95%B0%E4%B8%AD%E5%A4%A7%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98"></a>stm32函数中大数组问题</h2><blockquote>
+<p>在以stm32构建系统的时候，当用户自己编写函数时，发现函数出现意想不到的结果，其中一项你需要注意的是看你的函数中有没有大的数组，或者说查看你函数中临时变量的总量是不是超过了系统设置的堆栈的最大值这类问题编译器是不会给出错误的，相应的当出现程序不能给出想要的结果的时候，我们需要特别注意这类问题。对系统设置函栈最大值的宏一般放在系统的启动文件中，具体的是startup_stm32xxxx.s这个启动文件的Stack_Size这个宏</p>
+</blockquote>
+<h2 id="STM32H743-STM32CUBEMX6-3-0-ADC时钟为什么能配置为80MHz？"><a href="#STM32H743-STM32CUBEMX6-3-0-ADC时钟为什么能配置为80MHz？" class="headerlink" title="STM32H743 STM32CUBEMX6.3.0 ADC时钟为什么能配置为80MHz？"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#STM32H743-STM32CUBEMX6-3-0-ADC%E6%97%B6%E9%92%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E9%85%8D%E7%BD%AE%E4%B8%BA80MHz%EF%BC%9F"></a>STM32H743 STM32CUBEMX6.3.0 ADC时钟为什么能配置为80MHz？</h2><p><a target="_blank" rel="noopener" href="https://community.st.com/s/question/0D53W000013pKvlSAE/clock-source-for-adc-of-the-stm32h7-cpu">Clock source for ADC of The STM32H7 CPU</a></p>
+<p>ADC 时钟配置成160MHz，12位可以达到12M采样率（ADC直连通道） 14位5M采样率</p>
+<p><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/e6640d881469/image-20220721150437943.png"></a>## STM32F429 HAL 定时器触发DMA 内存到内存</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq\_38974298/article/details/118158575">https://blog.csdn.net/qq\_38974298/article/details/118158575</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.efton.sk/STM32/bt.c">http://www.efton.sk/STM32/bt.c</a></p>
+<h2 id="Keil-MDK下如何设置非零初始化变量-基于Arm-Compiler-6"><a href="#Keil-MDK下如何设置非零初始化变量-基于Arm-Compiler-6" class="headerlink" title="Keil MDK下如何设置非零初始化变量 - 基于Arm Compiler 6"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#Keil-MDK%E4%B8%8B%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%E9%9D%9E%E9%9B%B6%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8F%98%E9%87%8F-%E5%9F%BA%E4%BA%8EArm-Compiler-6"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhzht19861011/article/details/124904070">Keil MDK下如何设置非零初始化变量 - 基于Arm Compiler 6</a></h2><p>Arm Compiler 5 属性</p>
+<p>Arm Compiler 6 属性</p>
+<p>描述</p>
+<p><code>__attribute__((at(address)))</code></p>
+<p><code>__attribute__((section(&quot;.ARM.__at_address&quot;)))</code></p>
+<p>Arm Compiler 6 中的 armlink 仍然支持以 <code>.ARM.__at_address</code> 的形式放置段</p>
+<p><code>__attribute__((at(address), zero_init))</code></p>
+<p><code>__attribute__((section(&quot;.bss.ARM.__at_address&quot;)))</code></p>
+<p>Arm Compiler 6 中的 armlink 支持以 <code>.bss.ARM.__at_address</code> 的形式放置零初始化段。 <code>.bss</code> 前缀区分大小写，并且必须全部小写。</p>
+<p><code>__attribute__((section(name), zero_init))</code></p>
+<p><code>__attribute__((section(&quot;.bss.name&quot;)))</code></p>
+<p><code>name</code> 是你选择的名字。 <code>.bss</code> 前缀区分大小写，并且必须全部小写。</p>
+<p><code>__attribute__((zero_init))</code></p>
+<p>不支持 默认将零初始化变量放在 <code>.bss</code> 段。</p>
+<p>如果变量具有初始值设定项，则 Arm Compiler 5 会生成错误。 否则，它将零初始化变量放在 <code>.bss</code>段。</p>
+<blockquote>
+<h3 id="5-Arm®-Compiler-5-如何防止未初始化变量被初始化为0"><a href="#5-Arm®-Compiler-5-如何防止未初始化变量被初始化为0" class="headerlink" title="5. Arm® Compiler 5 如何防止未初始化变量被初始化为0"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#5-Arm%C2%AE-Compiler-5-%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2%E6%9C%AA%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8F%98%E9%87%8F%E8%A2%AB%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%BA0"></a>5. Arm® Compiler 5 如何防止未初始化变量被初始化为0</h3><ol>
+<li>定义变量时，使用编译器扩展属性 <code>__attribute__((section(&quot;name&quot;), zero_init))</code>来将变量放入指定段中。其中 <code>section(&quot;name&quot;)</code>选择一个指定的段，<code>zero_init</code>告诉编译器将变量放入ZI段。1<br>2uint32_t phy_link_init_flag __attribute__((section(“NO_INIT”), zero_init));<br>1</li>
+<li><p>在分散加载文件中，定义名为 <code>NO_INIT</code>的段。注意该段所在的可执行域要具有 <code>UNINIT</code>属性。1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15LR_IROM1 0x00000000 0x00080000 { ; load region size_region 从0扇区开始<br>ER_IROM1 0x00000000 0x00080000 { ; load address = execution address<br>*.o (RESET, +First)<br>*(InRoot$$Sections)<br>.ANY (+RO)<br>}<br>RW_IRAM1 0x10000000 0x0000F000 { ; RW data<br>.ANY (+RW +ZI)<br>}  </p>
+<p>RW_IRAM2 0x1000F000 UNINIT 0x00001000 {<br>.ANY (NO_INIT)<br>}<br>}<br>1234567891011121314</p>
+</li>
+</ol>
+<h3 id="6-Arm®-Compiler-6-如何防止未初始化变量被初始化为0"><a href="#6-Arm®-Compiler-6-如何防止未初始化变量被初始化为0" class="headerlink" title="6. Arm® Compiler 6 如何防止未初始化变量被初始化为0"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#6-Arm%C2%AE-Compiler-6-%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2%E6%9C%AA%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8F%98%E9%87%8F%E8%A2%AB%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%BA0"></a>6. Arm® Compiler 6 如何防止未初始化变量被初始化为0</h3><ol>
+<li>定义变量时，使用编译器扩展属性 <code>__attribute__((section(&quot;name&quot;)))</code>来将变量放入指定段中。其中 <code>section(&quot;name&quot;)</code>选择一个指定的段。1<br>2uint32_t phy_link_init_flag __attribute__((section(“.bss.NO_INIT”)));<br>1</li>
+<li><p>在分散加载文件中，定义名为 <code>.bss.NO_INIT</code>的段，其中前缀 <code>.bss</code>是必须的，并且只能为小写。这个前缀表明该数据段具有ZI属性。注意该段所在的可执行域要具有 <code>UNINIT</code>属性1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14LR_IROM1 0x00000000 0x00080000 { ; load region size_region 从0扇区开始<br>ER_IROM1 0x00000000 0x00080000 { ; load address = execution address<br>*.o (RESET, +First)<br>*(InRoot$$Sections)<br>.ANY (+RO)<br>}<br>RW_IRAM1 0x10000000 0x0000F000 { ; RW data<br>.ANY (+RW +ZI)<br>}  </p>
+<p>RW_IRAM2 0x1000F000 UNINIT 0x00001000 {<br>.ANY (.bss.NO_INIT)<br>}<br>}</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="定时器触发DMA控制GPIO"><a href="#定时器触发DMA控制GPIO" class="headerlink" title="定时器触发DMA控制GPIO"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E5%AE%9A%E6%97%B6%E5%99%A8%E8%A7%A6%E5%8F%91DMA%E6%8E%A7%E5%88%B6GPIO"></a>定时器触发DMA控制GPIO</h2><p><a target="_blank" rel="noopener" href="https://community.st.com/s/question/0D53W00000Eo9rLSAR/parallel-transmission-using-gpio-and-dma-like-an4666">Parallel transmission using GPIO and DMA (like AN4666)</a></p>
+<p><a target="_blank" rel="noopener" href="https://metebalci.com/blog/stm32h7-gpio-toggling/">stm32h7-gpio-toggling</a></p>
+<h1 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/STM32/#%E5%8F%82%E8%80%83%E5%8D%9A%E5%AE%A2"></a>参考博客</h1><p><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/e6640d881469/">STM32学习笔记</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38410730/category_7511110.html">Yngz_Miao《嵌入式》STM32开发笔记</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/as480133937/category_9188655.html">Z小旋 STM32</a><br><a target="_blank" rel="noopener" href="http://www.mculover666.cn/">mculover666</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/09/12/linux-command/" rel="prev" title="LINUX_Command">
+      <i class="fa fa-chevron-left"></i> LINUX_Command
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/09/12/rock5b/" rel="next" title="Rock5B">
+      Rock5B <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%B6%E9%92%9F"><span class="nav-number">2.</span> <span class="nav-text">时钟</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SysTick%E5%AE%9A%E6%97%B6%E6%97%B6%E9%97%B4%E8%AE%A1%E7%AE%97"><span class="nav-number">2.1.</span> <span class="nav-text">SysTick定时时间计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#keil-%E8%BD%AF%E4%BB%B6%E4%BB%BF%E7%9C%9F"><span class="nav-number">3.</span> <span class="nav-text">keil 软件仿真</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#stm32f103VET6"><span class="nav-number">3.1.</span> <span class="nav-text">stm32f103VET6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stm32f103C8T6"><span class="nav-number">3.2.</span> <span class="nav-text">stm32f103C8T6</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C%E7%9B%B8%E5%85%B3"><span class="nav-number">4.</span> <span class="nav-text">C相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#STM32%E4%BD%BF%E7%94%A8malloc%E5%87%BD%E6%95%B0"><span class="nav-number">4.1.</span> <span class="nav-text">STM32使用malloc函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E7%89%87%E6%9C%BA%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.2.</span> <span class="nav-text">单片机中的数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E4%B9%A6%E5%86%99%E8%A7%84%E8%8C%83"><span class="nav-number">4.3.</span> <span class="nav-text">代码书写规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#while-str-%E7%9A%84%E5%90%AB%E4%B9%89"><span class="nav-number">4.4.</span> <span class="nav-text">while(*str)的含义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%ADchar%E6%95%B0%E7%BB%84%E9%87%8C%E6%98%AF%E5%90%A6%E6%98%AF%E6%B1%89%E5%AD%97"><span class="nav-number">4.5.</span> <span class="nav-text">判断char数组里是否是汉字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">4.6.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%96%E8%AE%BE"><span class="nav-number">5.</span> <span class="nav-text">外设</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TIM%E5%AE%9A%E6%97%B6%E5%99%A8"><span class="nav-number">5.1.</span> <span class="nav-text">TIM定时器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%8D%95%E8%8E%B7"><span class="nav-number">5.1.1.</span> <span class="nav-text">输入捕获</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%AF%94%E8%BE%83"><span class="nav-number">5.1.2.</span> <span class="nav-text">输出比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E9%80%9F%E8%BF%90%E8%A1%8C%E5%8D%A1%E6%AD%BB%E5%9C%A8-HAL-TIM-Base-Start-IT%E5%87%BD%E6%95%B0"><span class="nav-number">5.1.3.</span> <span class="nav-text">全速运行卡死在-HAL_TIM_Base_Start_IT函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HAL%E5%BA%93%E5%BE%AE%E7%A7%92%E7%BA%A7%E5%BB%B6%E6%97%B6"><span class="nav-number">5.1.4.</span> <span class="nav-text">HAL库微秒级延时</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E9%80%89-%E8%8E%B7%E5%8F%96%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%92%9F%E8%AE%A1%E6%97%B6%EF%BC%8C%E9%9D%9E%E9%98%BB%E5%A1%9E%E5%BC%8F%E5%BB%B6%E6%97%B6"><span class="nav-number">5.1.4.1.</span> <span class="nav-text">优选-获取系统时钟计时，非阻塞式延时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8HAL-Delay"><span class="nav-number">5.1.4.2.</span> <span class="nav-text">利用HAL_Delay</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8TIM"><span class="nav-number">5.1.4.3.</span> <span class="nav-text">利用TIM</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%B2%E5%8F%A3"><span class="nav-number">5.2.</span> <span class="nav-text">串口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%B2%E5%8F%A3%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">5.2.1.</span> <span class="nav-text">串口重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UART%E6%88%90%E5%B8%A7"><span class="nav-number">5.2.2.</span> <span class="nav-text">[UART成帧]</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SPI"><span class="nav-number">5.3.</span> <span class="nav-text">SPI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ADC-amp-amp-DAC"><span class="nav-number">5.4.</span> <span class="nav-text">ADC &amp;&amp; DAC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%80%E6%B3%AA%E6%95%99%E8%AE%AD"><span class="nav-number">5.5.</span> <span class="nav-text">血泪教训</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97"><span class="nav-number">6.</span> <span class="nav-text">模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AD9910"><span class="nav-number">6.1.</span> <span class="nav-text">AD9910</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mpu6050"><span class="nav-number">6.2.</span> <span class="nav-text">mpu6050</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DHT11"><span class="nav-number">6.3.</span> <span class="nav-text">DHT11</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSD1306-0-96OLED"><span class="nav-number">6.4.</span> <span class="nav-text">SSD1306 0.96OLED</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A9%B1%E5%8A%A8"><span class="nav-number">6.4.1.</span> <span class="nav-text">驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96OLED%E7%9A%84%E9%80%9A%E4%BF%A1%E5%9C%B0%E5%9D%80"><span class="nav-number">6.4.2.</span> <span class="nav-text">获取OLED的通信地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E4%B8%8E%E5%8F%96%E6%A8%A1"><span class="nav-number">6.4.3.</span> <span class="nav-text">显示与取模</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ESP8266"><span class="nav-number">6.5.</span> <span class="nav-text">ESP8266</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95"><span class="nav-number">7.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#FFT"><span class="nav-number">7.1.</span> <span class="nav-text">FFT</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">8.</span> <span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#STM32CUBEMX-BUG"><span class="nav-number">8.1.</span> <span class="nav-text">STM32CUBEMX BUG</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DMA%E5%BE%AA%E7%8E%AF%E6%A8%A1%E5%BC%8F%E5%AF%BC%E8%87%B4hal-delay%E5%A4%B1%E6%95%88"><span class="nav-number">8.2.</span> <span class="nav-text">DMA循环模式导致hal_delay失效</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hal-%E6%A0%B9%E6%8D%AEexti%E8%8E%B7%E5%8F%96%E8%A7%A6%E5%8F%91%E4%B8%AD%E6%96%AD%E7%9A%84%E7%AE%A1%E8%84%9A"><span class="nav-number">8.3.</span> <span class="nav-text">hal 根据exti获取触发中断的管脚</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HAL-GPIO-EXTI-Callback"><span class="nav-number">8.4.</span> <span class="nav-text">HAL_GPIO_EXTI_Callback</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%80%9CInsufficient-RAM-for-Flash-Algorithms%E2%80%9D%E5%87%BA%E9%94%99%E5%8E%9F%E5%9B%A0%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">8.5.</span> <span class="nav-text">“Insufficient RAM for Flash Algorithms”出错原因及解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stm32%E5%87%BD%E6%95%B0%E4%B8%AD%E5%A4%A7%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98"><span class="nav-number">8.6.</span> <span class="nav-text">stm32函数中大数组问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STM32H743-STM32CUBEMX6-3-0-ADC%E6%97%B6%E9%92%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E9%85%8D%E7%BD%AE%E4%B8%BA80MHz%EF%BC%9F"><span class="nav-number">8.7.</span> <span class="nav-text">STM32H743 STM32CUBEMX6.3.0 ADC时钟为什么能配置为80MHz？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Keil-MDK%E4%B8%8B%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%E9%9D%9E%E9%9B%B6%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8F%98%E9%87%8F-%E5%9F%BA%E4%BA%8EArm-Compiler-6"><span class="nav-number">8.8.</span> <span class="nav-text">Keil MDK下如何设置非零初始化变量 - 基于Arm Compiler 6</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Arm%C2%AE-Compiler-5-%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2%E6%9C%AA%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8F%98%E9%87%8F%E8%A2%AB%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%BA0"><span class="nav-number">8.8.1.</span> <span class="nav-text">5. Arm® Compiler 5 如何防止未初始化变量被初始化为0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Arm%C2%AE-Compiler-6-%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2%E6%9C%AA%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8F%98%E9%87%8F%E8%A2%AB%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%BA0"><span class="nav-number">8.8.2.</span> <span class="nav-text">6. Arm® Compiler 6 如何防止未初始化变量被初始化为0</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E8%A7%A6%E5%8F%91DMA%E6%8E%A7%E5%88%B6GPIO"><span class="nav-number">8.9.</span> <span class="nav-text">定时器触发DMA控制GPIO</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E5%8D%9A%E5%AE%A2"><span class="nav-number">9.</span> <span class="nav-text">参考博客</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wishzone"
+      src="/images/android-chrome-320x320.png">
+  <p class="site-author-name" itemprop="name">Wishzone</p>
+  <div class="site-description" itemprop="description">该网站仅为机械移植</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wishzone</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="true"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '069b787c0b99ba5c4d39',
+      clientSecret: '20a837ebd50ea05bbd4ac5b91d1785a4fc280bbc',
+      repo        : 'wishzone.github.io',
+      owner       : 'Wishzone',
+      admin       : ['wishzone'],
+      id          : 'e329905cbeceb5f09d9b7e055169a69b',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+    </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

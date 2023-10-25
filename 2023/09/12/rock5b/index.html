@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=得意黑:300,300italic,400,400italic,700,700italic|Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"efault"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="以Rock5B为例的rk3588开发文档，不断更新ing 命令芯片体质检测123456for i in &#96;seq 0 7&#96;; do echo &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;cpu$i;cat &#x2F;sys&#x2F;bus&#x2F;cpu&#x2F;devices&#x2F;cpu$&amp;#123;i&amp;#125;&#x2F;cpufreq&#x2F;scaling_max_freq; donesudo sed -i &quot;sfocaljammyg&quot; &#x2F;etc&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rock5B">
+<meta property="og:url" content="http://example.com/2023/09/12/rock5b/index.html">
+<meta property="og:site_name" content="请移步以下网址">
+<meta property="og:description" content="以Rock5B为例的rk3588开发文档，不断更新ing 命令芯片体质检测123456for i in &#96;seq 0 7&#96;; do echo &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;cpu$i;cat &#x2F;sys&#x2F;bus&#x2F;cpu&#x2F;devices&#x2F;cpu$&amp;#123;i&amp;#125;&#x2F;cpufreq&#x2F;scaling_max_freq; donesudo sed -i &quot;sfocaljammyg&quot; &#x2F;etc&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://shjdgwj.github.io/14733f4e12d9/image-20221026213053527.png">
+<meta property="article:published_time" content="2023-09-12T14:07:17.000Z">
+<meta property="article:modified_time" content="2023-10-25T15:04:34.610Z">
+<meta property="article:author" content="Wishzone">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="openwrt">
+<meta property="article:tag" content="arm64">
+<meta property="article:tag" content="rock5b">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shjdgwj.github.io/14733f4e12d9/image-20221026213053527.png">
+
+<link rel="canonical" href="http://example.com/2023/09/12/rock5b/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Rock5B | 请移步以下网址</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="请移步以下网址" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">请移步以下网址</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wishzone.x3322.net:10024</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/Wishzone" class="github-corner" title="Wishzone GitHub" aria-label="Wishzone GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/12/rock5b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/android-chrome-320x320.png">
+      <meta itemprop="name" content="Wishzone">
+      <meta itemprop="description" content="该网站仅为机械移植">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="请移步以下网址">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Rock5B
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-12 22:07:17" itemprop="dateCreated datePublished" datetime="2023-09-12T22:07:17+08:00">2023-09-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-25 23:04:34" itemprop="dateModified" datetime="2023-10-25T23:04:34+08:00">2023-10-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>以Rock5B为例的rk3588开发文档，不断更新ing</p>
+<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/Rock5B/#%E5%91%BD%E4%BB%A4"></a>命令</h1><h2 id="芯片体质检测"><a href="#芯片体质检测" class="headerlink" title="芯片体质检测"></a>芯片体质检测</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for i in `seq 0 7`; do echo ========cpu$i;cat /sys/bus/cpu/devices/cpu$&#123;i&#125;/cpufreq/scaling_max_freq; done</span><br><span class="line">sudo sed -i &quot;sfocaljammyg&quot; /etc/apt/sources.list &amp;&amp; sudo apt update &amp;&amp; sudo apt dist-upgrade &amp;&amp; sudo reboot</span><br><span class="line">cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq</span><br><span class="line">lscpu  grep MHz #pytm-volt-sel 越大越好</span><br><span class="line">dmesg  grep -i pvtm</span><br><span class="line">dmesg  grep -E &#x27;pvtmdmc&#x27;  grep sel</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://shjdgwj.github.io/14733f4e12d9/image-20221026213053527.png"><img src="https://shjdgwj.github.io/14733f4e12d9/image-20221026213053527.png" alt="img" title="image-20221026213053527"></a></p>
+<h2 id="相关配置"><a href="#相关配置" class="headerlink" title="相关配置"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/Rock5B/#%E4%B8%AD%E6%96%87"></a>相关配置</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//配置中文</span><br><span class="line">sudo apt install locales</span><br><span class="line">sudo apt install fonts-noto-cjk fonts-noto-cjk-extra</span><br><span class="line">sudo dpkg-reconfigure locales #选 en_US UTF-8 和 zh_CN UTF, 设置默认locales 为 en_us</span><br><span class="line">//PD协商电压 温度</span><br><span class="line">sudo apt install lm-sensors sensors</span><br><span class="line">//编译和网络校时</span><br><span class="line">sudo apt install build-essential #编译</span><br><span class="line">sudo apt install ntp#网络校时</span><br><span class="line">//exFAT</span><br><span class="line">sudo apt install exfat fuse exfat-fuse</span><br></pre></td></tr></table></figure>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/Rock5B/#%E6%96%B9%E6%B3%95"></a>方法</h1><h2 id="查看温度"><a href="#查看温度" class="headerlink" title="查看温度"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/Rock5B/#%E6%9F%A5%E7%9C%8B%E6%B8%A9%E5%BA%A6"></a>查看温度</h2><p>1</p>
+<p>echo $[$(cat /sys/class/thermal/thermal_zone0/temp)/1000]°</p>
+<h2 id="硬件驱动"><a href="#硬件驱动" class="headerlink" title="硬件驱动"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/Rock5B/#%E7%A1%AC%E4%BB%B6%E9%A9%B1%E5%8A%A8"></a>硬件驱动</h2><p><a target="_blank" rel="noopener" href="https://github.com/happyme531/Adafruit_Blinka/commits/rk3588-rock-5">https://github.com/happyme531/Adafruit_Blinka/commits/rk3588-rock-5</a><br>rock5 gpio i2c spi pwm 串口 adc 全部适配完成</p>
+<h2 id="wifi"><a href="#wifi" class="headerlink" title="wifi"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/Rock5B/#wifi"></a>wifi</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">使用`nmtui`命令</span><br><span class="line"></span><br><span class="line">注意Security选择 WPA &amp; WPA2 Personal</span><br></pre></td></tr></table></figure>
+<h2 id="KDE桌面"><a href="#KDE桌面" class="headerlink" title="KDE桌面"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/Rock5B/#KDE%E6%A1%8C%E9%9D%A2"></a>KDE桌面</h2><p><a target="_blank" rel="noopener" href="https://forum.armbian.com/topic/10526-using-different-desktop-environments-on-armbian/">Using different desktop environments on Armbian</a></p>
+<p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8</p>
+<h1 id="安装KDE桌面"><a href="#安装KDE桌面" class="headerlink" title="安装KDE桌面"></a>安装KDE桌面</h1><p>sudo add-apt-repository ppa:kubuntu-ppa/backports<br>sudo apt-get update<br>sudo apt-get install -y kubuntu-desktop  </p>
+<h1 id="修改默认桌面"><a href="#修改默认桌面" class="headerlink" title="修改默认桌面"></a>修改默认桌面</h1><p>cd /usr/share/xsessions  </p>
+<h1 id="看到有ubuntu-desktop-ubuntu-xorg-desktop"><a href="#看到有ubuntu-desktop-ubuntu-xorg-desktop" class="headerlink" title="看到有ubuntu.desktop ubuntu-xorg.desktop"></a>看到有ubuntu.desktop ubuntu-xorg.desktop</h1><h1 id="后面还不会改"><a href="#后面还不会改" class="headerlink" title="后面还不会改"></a>后面还不会改</h1><h2 id="安卓root"><a href="#安卓root" class="headerlink" title="安卓root"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/Rock5B/#%E5%AE%89%E5%8D%93root"></a>安卓root</h2><p>1<br>2<br>3<br>4<br>5<br>6</p>
+<h1 id="备份boot"><a href="#备份boot" class="headerlink" title="备份boot"></a>备份boot</h1><p>dd if=/dev/block/nvme0n1p5 of=/storage/emulated/0/mod.img  </p>
+<h1 id="刷入boot"><a href="#刷入boot" class="headerlink" title="刷入boot"></a>刷入boot</h1><p>dd if=/storage/emulated/0/mod.img of=dev/block/nvme0n1p5<br>sync<br>reboot</p>
+<h2 id="EMMC镜像备份导出方法"><a href="#EMMC镜像备份导出方法" class="headerlink" title="EMMC镜像备份导出方法"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/Rock5B/#EMMC%E9%95%9C%E5%83%8F%E5%A4%87%E4%BB%BD%E5%AF%BC%E5%87%BA%E6%96%B9%E6%B3%95"></a>EMMC镜像备份导出方法</h2><p>用户基于我们发布是镜像系统，安装软件或进行其他配置之后，如果想备份系统，有很多方法可以实现，我这里提供一个比较简单的思路供大家参考。</p>
+<p>前置条件：</p>
+<p>假如您手边有一张已经做好系统的TF卡<br>各种改动后的EMMC系统<br>核心操作步骤：</p>
+<p>从EMMC启动系统，登陆桌面并打开终端命令行更改卷标</p>
+<p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11</p>
+<p>sudo su<br>fatlabel /dev/mmcblk0p1 emmc-boot<br>e2label /dev/mmcblk0p2 emmc-rootfs  </p>
+<p>vim /boot/firmware/cmdline.txt<br>将writable替换为emmc-rootfs 然后保存退出  </p>
+<p>vim /etc/fstab<br>将writable替换为emmc-rootfs 然后保存退出  </p>
+<p>sync;</p>
+<p>插入TF卡，重启系统</p>
+<p>默认优先从TF卡引导系统，进入系统之后，可以挂载EMMC分区进行备份压缩</p>
+<h2 id="Docker-运行openwrt"><a href="#Docker-运行openwrt" class="headerlink" title="Docker 运行openwrt"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/Rock5B/#Docker-%E8%BF%90%E8%A1%8Copenwrt"></a>Docker 运行openwrt</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">开启网卡混杂模式</span><br><span class="line">sudo ip link set eth0 promisc on</span><br><span class="line"></span><br><span class="line">创建docker网卡</span><br><span class="line">docker network create -d macvlan --subnet=192.168.1.0/24 --gateway=192.168.1.1 -o parent=eth0 macnet</span><br><span class="line"></span><br><span class="line">查看docker网卡</span><br><span class="line">docker network list</span><br><span class="line"></span><br><span class="line">项目地址https://github.com/SuLingGG/OpenWrt-Docker</span><br><span class="line">查看自己的系统的架构</span><br><span class="line">uname -a</span><br><span class="line"></span><br><span class="line">创建并启动docker镜像</span><br><span class="line">docker run --restart always --name openwrt -d --network macnet --privileged sulinggg/openwrt:armv8 /sbin/init</span><br><span class="line"></span><br><span class="line">docker给普通用户权限</span><br><span class="line">先查看一下默认这个文件/var/run/docker.sock的权限是啥</span><br><span class="line">$ sudo ls -al /var/run/docker.sock</span><br><span class="line">srw-rw---- 1 root root 0 Feb 15 03:13 /var/run/docker.sock</span><br><span class="line"></span><br><span class="line">#修改文件权限</span><br><span class="line">sudo chmod 666 /var/run/docker.sock</span><br><span class="line"></span><br><span class="line">#修改后，再查看一下这个文件的权限</span><br><span class="line">$ sudo ls -al /var/run/docker.sock</span><br><span class="line"></span><br><span class="line">srw-rw-rw- 1 root root 0 Feb 15 03:14 /var/run/docker.sock</span><br><span class="line"></span><br><span class="line">进入bash终端修改ip</span><br><span class="line">vim /etc/config/network</span><br><span class="line">将后面三项改成自己的ip</span><br><span class="line"></span><br><span class="line">重启openwrt网络</span><br><span class="line">/etc/init.d/network restart</span><br><span class="line"></span><br><span class="line">直接浏览器访问刚刚设置的ip</span><br><span class="line">密码默认passwd</span><br><span class="line"></span><br><span class="line">在网络LAN口中关闭桥接接口</span><br><span class="line"></span><br><span class="line">网络防火墙自定义规则中添加</span><br><span class="line">iptables -t nat -I POSTROUTING -j MASQUERADE</span><br><span class="line"></span><br><span class="line">在网络Turbo ACC网络加速中勾选DNS缓存</span><br></pre></td></tr></table></figure>
+<h1 id="系统"><a href="#系统" class="headerlink" title="系统"></a><a target="_blank" rel="noopener" href="https://wishzone.ltd/2022/12/10/Rock5B/#%E7%B3%BB%E7%BB%9F"></a>系统</h1><ol>
+<li><a target="_blank" rel="noopener" href="http://www.zphj1987.com/rock5b-ke-yi-yun-xing-deuos-ca.html">rock5b uos</a></li>
+<li>官方镜像用户名密码 rock @rock</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/docker/" rel="tag"># docker</a>
+              <a href="/tags/openwrt/" rel="tag"># openwrt</a>
+              <a href="/tags/arm64/" rel="tag"># arm64</a>
+              <a href="/tags/rock5b/" rel="tag"># rock5b</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/09/12/stm32/" rel="prev" title="STM32">
+      <i class="fa fa-chevron-left"></i> STM32
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/09/13/%E6%90%AD%E5%BB%BAcsgo%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="next" title="搭建CSGO服务器">
+      搭建CSGO服务器 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8A%AF%E7%89%87%E4%BD%93%E8%B4%A8%E6%A3%80%E6%B5%8B"><span class="nav-number">1.1.</span> <span class="nav-text">芯片体质检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.</span> <span class="nav-text">相关配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%B8%A9%E5%BA%A6"><span class="nav-number">2.1.</span> <span class="nav-text">查看温度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E9%A9%B1%E5%8A%A8"><span class="nav-number">2.2.</span> <span class="nav-text">硬件驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wifi"><span class="nav-number">2.3.</span> <span class="nav-text">wifi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KDE%E6%A1%8C%E9%9D%A2"><span class="nav-number">2.4.</span> <span class="nav-text">KDE桌面</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85KDE%E6%A1%8C%E9%9D%A2"><span class="nav-number">3.</span> <span class="nav-text">安装KDE桌面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4%E6%A1%8C%E9%9D%A2"><span class="nav-number">4.</span> <span class="nav-text">修改默认桌面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9C%8B%E5%88%B0%E6%9C%89ubuntu-desktop-ubuntu-xorg-desktop"><span class="nav-number">5.</span> <span class="nav-text">看到有ubuntu.desktop ubuntu-xorg.desktop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8E%E9%9D%A2%E8%BF%98%E4%B8%8D%E4%BC%9A%E6%94%B9"><span class="nav-number">6.</span> <span class="nav-text">后面还不会改</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%8D%93root"><span class="nav-number">6.1.</span> <span class="nav-text">安卓root</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%87%E4%BB%BDboot"><span class="nav-number">7.</span> <span class="nav-text">备份boot</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%B7%E5%85%A5boot"><span class="nav-number">8.</span> <span class="nav-text">刷入boot</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#EMMC%E9%95%9C%E5%83%8F%E5%A4%87%E4%BB%BD%E5%AF%BC%E5%87%BA%E6%96%B9%E6%B3%95"><span class="nav-number">8.1.</span> <span class="nav-text">EMMC镜像备份导出方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-%E8%BF%90%E8%A1%8Copenwrt"><span class="nav-number">8.2.</span> <span class="nav-text">Docker 运行openwrt</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F"><span class="nav-number">9.</span> <span class="nav-text">系统</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wishzone"
+      src="/images/android-chrome-320x320.png">
+  <p class="site-author-name" itemprop="name">Wishzone</p>
+  <div class="site-description" itemprop="description">该网站仅为机械移植</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wishzone</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="true"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '069b787c0b99ba5c4d39',
+      clientSecret: '20a837ebd50ea05bbd4ac5b91d1785a4fc280bbc',
+      repo        : 'wishzone.github.io',
+      owner       : 'Wishzone',
+      admin       : ['wishzone'],
+      id          : '9e6fec2ba8185b87b61943aa4b4dfb14',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+    </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
