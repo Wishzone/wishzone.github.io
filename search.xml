@@ -54,19 +54,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>FRP</title>
-    <url>/2023/06/24/FRP/</url>
-    <content><![CDATA[<p>关于FRP的配置</p>
-<span id="more"></span>
-]]></content>
-      <categories>
-        <category>LINUX</category>
-      </categories>
-      <tags>
-        <tag>FRP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ESP_AT串口透传</title>
     <url>/2023/06/24/ESP-AT%E4%B8%B2%E5%8F%A3%E9%80%8F%E4%BC%A0/</url>
     <content><![CDATA[<p>配置ESP系列AT指令进行wifi串口穿透的教程</p>
@@ -79,6 +66,47 @@
       </categories>
       <tags>
         <tag>ESP32 AT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo</title>
+    <url>/2023/06/24/Hexo/</url>
+    <content><![CDATA[<p>关于Hexo的配置与部署</p>
+<span id="more"></span>
+<h1 id="安装-Node-js-和-Git。"><a href="#安装-Node-js-和-Git。" class="headerlink" title="安装 Node.js 和 Git。"></a>安装 Node.js 和 Git。</h1><ul>
+<li>Node.js：<a href="https://link.zhihu.com/?target=https%3A//nodejs.org/zh-cn">https://<strong>nodejs.org/zh-cn</strong></a></li>
+<li>Git：<a href="https://link.zhihu.com/?target=https%3A//git-scm.com/downloads">https://<strong>git-scm.com/downloads</strong></a></li>
+</ul>
+<h1 id="连接-Github"><a href="#连接-Github" class="headerlink" title="连接 Github"></a>连接 Github</h1><p>右键 -&gt; Git Bash Here， <strong>设置用户名和邮箱</strong> ：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;GitHub 用户名&quot;</span><br><span class="line">git config --global user.email &quot;GitHub 邮箱&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="创建-SSH-密匙-："><a href="#创建-SSH-密匙-：" class="headerlink" title="创建 SSH 密匙 ："></a>创建 SSH 密匙 ：</h2><p>输入 <code>ssh-keygen -t rsa -C &quot;GitHub 邮箱&quot;</code>，然后一路回车。</p>
+<h2 id="添加密匙："><a href="#添加密匙：" class="headerlink" title="添加密匙："></a>添加密匙：</h2><p>进入 [C:\Users\用户名\.ssh] 目录（要勾选显示“隐藏的项目”），用记事本打开公钥 id_rsa.pub 文件并复制里面的内容。</p>
+<p>登陆 GitHub ，点击头像，选择 Settings ，选择左边栏的 SSH and GPG keys，点击 New SSH key。</p>
+<p>Title 随便取个名字，粘贴复制的 id_rsa.pub 内容到 Key 中，点击 Add SSH key 完成添加。</p>
+<h2 id="验证连接："><a href="#验证连接：" class="headerlink" title="验证连接："></a>验证连接：</h2><p>打开 Git Bash，输入 <code>ssh -T git@github.com</code> 出现 “Are you sure……”，输入 yes 回车确认。</p>
+<h1 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h1><p>使用 npm 一键安装 Hexo 博客程序：</p>
+<p>npm install -g hexo-cli<br>npm install hexo-deployer-git —save<br>然后修改 _config.yml 文件末尾的 Deployment 部分，修改成如下：</p>
+<p>deploy:<br>  type: git<br>  repository: git@github.com:用户名/用户名.github.io.git<br>  branch: master</p>
+<h1 id="发布文章"><a href="#发布文章" class="headerlink" title="发布文章"></a>发布文章</h1><p>右键打开 Git Bash Here，创建博文：<br>hexo new “My New Post”<br>hexo g   # 生成页面<br>hexo d   # 部署发布</p>
+]]></content>
+      <categories>
+        <category>LINUX</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>FRP</title>
+    <url>/2023/06/24/FRP/</url>
+    <content><![CDATA[<p>关于FRP的配置</p>
+<span id="more"></span>
+]]></content>
+      <categories>
+        <category>LINUX</category>
+      </categories>
+      <tags>
+        <tag>FRP</tag>
       </tags>
   </entry>
   <entry>
@@ -329,34 +357,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Hexo</title>
-    <url>/2023/06/24/Hexo/</url>
-    <content><![CDATA[<p>关于Hexo的配置与部署</p>
-<span id="more"></span>
-<h1 id="安装-Node-js-和-Git。"><a href="#安装-Node-js-和-Git。" class="headerlink" title="安装 Node.js 和 Git。"></a>安装 Node.js 和 Git。</h1><ul>
-<li>Node.js：<a href="https://link.zhihu.com/?target=https%3A//nodejs.org/zh-cn">https://<strong>nodejs.org/zh-cn</strong></a></li>
-<li>Git：<a href="https://link.zhihu.com/?target=https%3A//git-scm.com/downloads">https://<strong>git-scm.com/downloads</strong></a></li>
-</ul>
-<h1 id="连接-Github"><a href="#连接-Github" class="headerlink" title="连接 Github"></a>连接 Github</h1><p>右键 -&gt; Git Bash Here， <strong>设置用户名和邮箱</strong> ：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;GitHub 用户名&quot;</span><br><span class="line">git config --global user.email &quot;GitHub 邮箱&quot;</span><br></pre></td></tr></table></figure>
-<h2 id="创建-SSH-密匙-："><a href="#创建-SSH-密匙-：" class="headerlink" title="创建 SSH 密匙 ："></a>创建 SSH 密匙 ：</h2><p>输入 <code>ssh-keygen -t rsa -C &quot;GitHub 邮箱&quot;</code>，然后一路回车。</p>
-<h2 id="添加密匙："><a href="#添加密匙：" class="headerlink" title="添加密匙："></a>添加密匙：</h2><p>进入 [C:\Users\用户名\.ssh] 目录（要勾选显示“隐藏的项目”），用记事本打开公钥 id_rsa.pub 文件并复制里面的内容。</p>
-<p>登陆 GitHub ，点击头像，选择 Settings ，选择左边栏的 SSH and GPG keys，点击 New SSH key。</p>
-<p>Title 随便取个名字，粘贴复制的 id_rsa.pub 内容到 Key 中，点击 Add SSH key 完成添加。</p>
-<h2 id="验证连接："><a href="#验证连接：" class="headerlink" title="验证连接："></a>验证连接：</h2><p>打开 Git Bash，输入 <code>ssh -T git@github.com</code> 出现 “Are you sure……”，输入 yes 回车确认。</p>
-<h1 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h1><p>使用 npm 一键安装 Hexo 博客程序：</p>
-<p>npm install -g hexo-cli<br>npm install hexo-deployer-git —save<br>然后修改 _config.yml 文件末尾的 Deployment 部分，修改成如下：</p>
-<p>deploy:<br>  type: git<br>  repository: git@github.com:用户名/用户名.github.io.git<br>  branch: master</p>
-<h1 id="发布文章"><a href="#发布文章" class="headerlink" title="发布文章"></a>发布文章</h1><p>右键打开 Git Bash Here，创建博文：<br>hexo new “My New Post”<br>hexo g   # 生成页面<br>hexo d   # 部署发布</p>
-]]></content>
-      <categories>
-        <category>LINUX</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Openwrt</title>
     <url>/2023/08/24/Openwrt/</url>
     <content><![CDATA[<p>Openwrt的配置问题及解决方法<br><span id="more"></span></p>
@@ -581,6 +581,74 @@
       </categories>
       <tags>
         <tag>ROCK5B</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Rockpi4B+</title>
+    <url>/2023/06/24/Rockpi4B+/</url>
+    <content><![CDATA[<p>rock4B+的设置和配置服务器的教程</p>
+<span id="more"></span>
+<h1 id="配置脚本"><a href="#配置脚本" class="headerlink" title="配置脚本"></a>配置脚本</h1><p>最开始是外国源，为了提高速度，不要下载别的东西，只安装wget</p>
+<p>sudo su<br>sudo apt update<br>sudo apt install wget</p>
+<h1 id="安装cockpit（端口9090）"><a href="#安装cockpit（端口9090）" class="headerlink" title="安装cockpit（端口9090）"></a>安装cockpit（端口9090）</h1><p>sudo apt-get install cockpit<br>sudo apt-get install cockpit-machines</p>
+<h1 id="安装宝塔"><a href="#安装宝塔" class="headerlink" title="安装宝塔"></a>安装宝塔</h1><p>wget -O install.sh <a href="https://download.bt.cn/install/install-ubuntu_6.0.sh">https://download.bt.cn/install/install-ubuntu_6.0.sh</a> &amp;&amp; bash install.sh ed8484bec</p>
+<h1 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h1><p>sudo apt install apt-transport-https ca-certificates<br>sudo nano /etc/apt/sources.list</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free</span></span><br><span class="line"></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ buster-updates main contrib non-free</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ buster-updates main contrib non-free</span></span><br><span class="line"></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ buster-backports main contrib non-free</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ buster-backports main contrib non-free</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb https://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib non-free</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib non-free</span></span></span><br><span class="line"></span><br><span class="line">deb https://security.debian.org/debian-security buster/updates main contrib non-free</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://security.debian.org/debian-security buster/updates main contrib non-free</span></span><br><span class="line"></span><br><span class="line">deb http://apt.radxa.com/buster-testing/ buster main</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>wget -O -  apt.radxa.com/buster-testing/public.key | sudo apt-key add -</p>
+<p>sudo apt-get update</p>
+<h1 id="装radxa硬件驱动"><a href="#装radxa硬件驱动" class="headerlink" title="装radxa硬件驱动"></a>装radxa硬件驱动</h1><p>sudo apt-get install -y rockchip-overlay &amp;&amp; sudo apt-get install -y rockpi4-dtbo libmraa</p>
+<h1 id="改地区"><a href="#改地区" class="headerlink" title="改地区"></a>改地区</h1><p>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</p>
+<h1 id="安装wifi蓝牙GPU驱动"><a href="#安装wifi蓝牙GPU驱动" class="headerlink" title="安装wifi蓝牙GPU驱动"></a>安装wifi蓝牙GPU驱动</h1><p>sudo apt-get install -y broadcom-wifibt-firmware<br>systemctl start bluetooth<br>pulseaudio —start<br>sudo apt install -y git gcc g++ libpng-dev libjpeg-dev pkg-config libx11-dev libdrm-dev libgbm-dev libgbm1 libudev-dev<br>mkdir -p /home/rock/work<br>cd /home/rock/work<br>git clone <a href="https://github.com/glmark2/glmark2.git">https://github.com/glmark2/glmark2.git</a><br>cd glmark2/<br>./waf configure —with-flavors=drm-glesv2<br>./waf build -j 4<br>./waf install<br>sudo apt install -y rockchip-mali-midgard14=1.6-2<br>sudo apt install -y rockchip-mali-midgard-dev=1.6-2<br>glmark2-es2-drm<br>apt-get install golang emacs</p>
+<h1 id="hdmi热插拔"><a href="#hdmi热插拔" class="headerlink" title="hdmi热插拔"></a>hdmi热插拔</h1><p>sudo chmod +x /usr/local/bin/drm-hotplug.sh</p>
+<h1 id="超频"><a href="#超频" class="headerlink" title="超频"></a>超频</h1><p>nano /boot/hw_intfc.conf</p>
+<p>setting cpu frequency over-2GHz</p>
+<p>   intfc:dtoverlay=cpufreq</p>
+<h1 id="wifi模式切换"><a href="#wifi模式切换" class="headerlink" title="wifi模式切换"></a>wifi模式切换</h1><p>sudo apt-get install git cmake hostapd<br>git clone <a href="https://github.com/oblique/create_ap">https://github.com/oblique/create_ap</a><br>cd create_ap<br>sudo make install<br>wget <a href="https://raw.githubusercontent.com/radxa/rkwifibt/master/brcm_tools/dhd_priv.c">https://raw.githubusercontent.com/radxa/rkwifibt/master/brcm_tools/dhd_priv.c</a><br>gcc dhd_priv.c -o dhd_priv<br>sudo ./dhd_priv channel 6<br>sudo ./dhd_priv monitor 1</p>
+<h1 id="安装樱花frpc"><a href="#安装樱花frpc" class="headerlink" title="安装樱花frpc"></a>安装樱花frpc</h1><p>cd /usr/local/bin<br>sudo wget -O frpc <a href="https://getfrp.sh/d/frpc_linux_arm64">https://getfrp.sh/d/frpc_linux_arm64</a><br>sudo chmod 755 frpc<br>ls -ls frpc<br>md5sum frpc<br>sudo mkdir -p /usr/local/etc/natfrp<br>sudo nano /etc/systemd/system/frpc@.service</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description=SakuraFrp Service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=idle</span><br><span class="line">User=nobody</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=60s</span><br><span class="line">ExecStart=/usr/local/bin/frpc -f %i</span><br><span class="line">WorkingDirectory=/usr/local/etc/natfrp</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>打开后直接crtl c退出就可以启动<br>systemctl daemon-reload<br>systemctl enable frpc@7xk345t4zdqx2d2345fsxx91svfs7e5x:7402311<br>外网ip：202.182.122.24:63979<br>frp-fly.top:63979</p>
+<p>配置systemctl进行开机启动</p>
+<p>创建frpc.service服务</p>
+<p>sudo nano /lib/systemd/system/frpc.service</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">服务描述</span></span><br><span class="line"></span><br><span class="line">Description=frpcservice</span><br><span class="line"></span><br><span class="line">After=network.targetsyslog.target</span><br><span class="line"></span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line"></span><br><span class="line">Type=simple</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">执行命令</span></span><br><span class="line"></span><br><span class="line">ExecStart=/usr/local/frpc/frpc-c/usr/local/frpc/frpc.ini</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line"></span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>重载</p>
+<p>systemctl daemon-reload</p>
+<h1 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h1><p>sudo systemctl status frpc</p>
+<p>设置开机自动启动</p>
+<p>sudo systemctl enable frpc</p>
+<h1 id="安装并配置clash和控制面板"><a href="#安装并配置clash和控制面板" class="headerlink" title="安装并配置clash和控制面板"></a>安装并配置clash和控制面板</h1><p>wget <a href="https://github.com/Dreamacro/clash/releases/download/v1.10.6/clash-linux-armv64-v1.14.6.gz">https://github.com/Dreamacro/clash/releases/download/v1.10.6/clash-linux-armv64-v1.14.6.gz</a><br>gunzip linux-armv64-v1.14.6.gz<br>mv linux-armv64-v1.14.6 clash<br>sudo mv clash /usr/local/bin<br>sudo chmod a+x /usr/local/bin/clash<br>mkdir ~/.config/clash<br>nano ~/.config/clash/config.yaml<br>放入配置文件即可</p>
+<p>mv Country.mmdb ~/.config/clash<br>sudo nano /etc/environment</p>
+<p>export http_proxy=”<a href="http://127.0.0.1:7890">http://127.0.0.1:7890</a>“<br>export https_proxy=”<a href="http://127.0.0.1:7890">http://127.0.0.1:7890</a>“<br>export no_proxy=”localhost, 127.0.0.1, *edu.cn”</p>
+<p>sudo visudo</p>
+<p>Defaults env_keep+=”http_proxy https_proxy no_proxy”</p>
+<p>sudo nano /etc/apt/apt.conf.d/10proxy</p>
+<p>Acquire::http::Proxy “<a href="http://127.0.0.1:7890/">http://127.0.0.1:7890/</a>“;</p>
+<p>nano ~/.gitconfig</p>
+<p>[http]<br>  proxy=<a href="http://127.0.0.1:7890">http://127.0.0.1:7890</a><br>[https]<br>  proxy=<a href="http://127.0.0.1:7890">http://127.0.0.1:7890</a></p>
+<p>crontab -e</p>
+<p>@reboot /usr/local/bin/clash</p>
+<p>cd ~/.config/clash<br>clash &amp;<br>git clone <a href="https://github.com/Dreamacro/clash-dashboard.git">https://github.com/Dreamacro/clash-dashboard.git</a><br>cd ~/.config/clash/clash-dashboard<br>git checkout -b gh-pages origin/gh-pages<br>nano ~/.config/clash/config.yaml<br>头部添加：</p>
+<p>external-ui: clash-dashboard<br>external-controller: 127.0.0.1:9090</p>
+<p><a href="http://127.0.0.1:9090/ui">http://127.0.0.1:9090/ui</a></p>
+<h1 id="桌面"><a href="#桌面" class="headerlink" title="桌面"></a>桌面</h1><p>sudo apt install xfce4 xorg xrdp xorgxrdp<br>touch ~/.xsession<br>echo xfce4-session &gt;~/.xsession<br>sudo chown rock:rock ~/.xsession</p>
+<h1 id="改中文"><a href="#改中文" class="headerlink" title="改中文"></a>改中文</h1><p>sudo apt install fcitx5 locales fonts-noto-cjk fonts-noto-cjk-extra<br>sudo dpkg-reconfigure locales<br>sudo apt-get install chromium-l10n</p>
+<h1 id="Docker-运行openwrt"><a href="#Docker-运行openwrt" class="headerlink" title="Docker 运行openwrt"></a>Docker 运行openwrt</h1><p>sudo chmod 666 /var/run/docker.sock<br>sudo ip link set eth0 promisc on</p>
+<p>sudo nano /etc/rc.local</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ip link set eth0 promisc on &amp;</span><br></pre></td></tr></table></figure>
+<p>docker network create -d macvlan —subnet=192.168.1.0/24 —gateway=192.168.1.1 -o parent=eth0 macnet<br>docker network list<br>mkdir -p /etc/systemd/system/docker.service.d<br>nano /etc/systemd/system/docker.service.d/http-proxy.conf</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Service]</span><br><span class="line">Environment=&quot;HTTP_PROXY=http://proxy-addr:proxy-port&quot;       #代理服务器地址</span><br><span class="line">Environment=&quot;HTTPS_PROXY=http://proxy-addr:proxy-port&quot;      #https</span><br><span class="line">Environment=&quot;NO_PROXY=localhost,127.0.0.0/8,docker-registry.example.com,.corp&quot;                #哪些地址不需要走代理</span><br></pre></td></tr></table></figure>
+<p>systemctl daemon-reload<br>systemctl restart docker<br>sudo systemctl show —property=Environment docker<br>docker run —restart always —name openwrt -d —network macnet —privileged sulinggg/openwrt:armv8 /sbin/init<br>docker ps -a<br>docker exec -it d61d5edd67d4 bash<br>vim /etc/config/network<br>将后面三项改成自己的ip</p>
+<p>/etc/init.d/network restart</p>
+<p>直接浏览器访问刚刚设置的ip和端口<br>密码默认passwd</p>
+<p>在网络LAN口中关闭桥接接口</p>
+<p>网络防火墙自定义规则中添加<br>iptables -t nat -I POSTROUTING -j MASQUERADE</p>
+<p>在网络Turbo ACC网络加速中勾选DNS缓存</p>
+]]></content>
+      <categories>
+        <category>LINUX</category>
+      </categories>
+      <tags>
+        <tag>ROCK4B+</tag>
       </tags>
   </entry>
   <entry>
@@ -877,74 +945,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Rockpi4B+</title>
-    <url>/2023/06/24/Rockpi4B+/</url>
-    <content><![CDATA[<p>rock4B+的设置和配置服务器的教程</p>
-<span id="more"></span>
-<h1 id="配置脚本"><a href="#配置脚本" class="headerlink" title="配置脚本"></a>配置脚本</h1><p>最开始是外国源，为了提高速度，不要下载别的东西，只安装wget</p>
-<p>sudo su<br>sudo apt update<br>sudo apt install wget</p>
-<h1 id="安装cockpit（端口9090）"><a href="#安装cockpit（端口9090）" class="headerlink" title="安装cockpit（端口9090）"></a>安装cockpit（端口9090）</h1><p>sudo apt-get install cockpit<br>sudo apt-get install cockpit-machines</p>
-<h1 id="安装宝塔"><a href="#安装宝塔" class="headerlink" title="安装宝塔"></a>安装宝塔</h1><p>wget -O install.sh <a href="https://download.bt.cn/install/install-ubuntu_6.0.sh">https://download.bt.cn/install/install-ubuntu_6.0.sh</a> &amp;&amp; bash install.sh ed8484bec</p>
-<h1 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h1><p>sudo apt install apt-transport-https ca-certificates<br>sudo nano /etc/apt/sources.list</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free</span></span><br><span class="line"></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ buster-updates main contrib non-free</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ buster-updates main contrib non-free</span></span><br><span class="line"></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ buster-backports main contrib non-free</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ buster-backports main contrib non-free</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb https://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib non-free</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib non-free</span></span></span><br><span class="line"></span><br><span class="line">deb https://security.debian.org/debian-security buster/updates main contrib non-free</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb-src https://security.debian.org/debian-security buster/updates main contrib non-free</span></span><br><span class="line"></span><br><span class="line">deb http://apt.radxa.com/buster-testing/ buster main</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>wget -O -  apt.radxa.com/buster-testing/public.key | sudo apt-key add -</p>
-<p>sudo apt-get update</p>
-<h1 id="装radxa硬件驱动"><a href="#装radxa硬件驱动" class="headerlink" title="装radxa硬件驱动"></a>装radxa硬件驱动</h1><p>sudo apt-get install -y rockchip-overlay &amp;&amp; sudo apt-get install -y rockpi4-dtbo libmraa</p>
-<h1 id="改地区"><a href="#改地区" class="headerlink" title="改地区"></a>改地区</h1><p>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</p>
-<h1 id="安装wifi蓝牙GPU驱动"><a href="#安装wifi蓝牙GPU驱动" class="headerlink" title="安装wifi蓝牙GPU驱动"></a>安装wifi蓝牙GPU驱动</h1><p>sudo apt-get install -y broadcom-wifibt-firmware<br>systemctl start bluetooth<br>pulseaudio —start<br>sudo apt install -y git gcc g++ libpng-dev libjpeg-dev pkg-config libx11-dev libdrm-dev libgbm-dev libgbm1 libudev-dev<br>mkdir -p /home/rock/work<br>cd /home/rock/work<br>git clone <a href="https://github.com/glmark2/glmark2.git">https://github.com/glmark2/glmark2.git</a><br>cd glmark2/<br>./waf configure —with-flavors=drm-glesv2<br>./waf build -j 4<br>./waf install<br>sudo apt install -y rockchip-mali-midgard14=1.6-2<br>sudo apt install -y rockchip-mali-midgard-dev=1.6-2<br>glmark2-es2-drm<br>apt-get install golang emacs</p>
-<h1 id="hdmi热插拔"><a href="#hdmi热插拔" class="headerlink" title="hdmi热插拔"></a>hdmi热插拔</h1><p>sudo chmod +x /usr/local/bin/drm-hotplug.sh</p>
-<h1 id="超频"><a href="#超频" class="headerlink" title="超频"></a>超频</h1><p>nano /boot/hw_intfc.conf</p>
-<p>setting cpu frequency over-2GHz</p>
-<p>   intfc:dtoverlay=cpufreq</p>
-<h1 id="wifi模式切换"><a href="#wifi模式切换" class="headerlink" title="wifi模式切换"></a>wifi模式切换</h1><p>sudo apt-get install git cmake hostapd<br>git clone <a href="https://github.com/oblique/create_ap">https://github.com/oblique/create_ap</a><br>cd create_ap<br>sudo make install<br>wget <a href="https://raw.githubusercontent.com/radxa/rkwifibt/master/brcm_tools/dhd_priv.c">https://raw.githubusercontent.com/radxa/rkwifibt/master/brcm_tools/dhd_priv.c</a><br>gcc dhd_priv.c -o dhd_priv<br>sudo ./dhd_priv channel 6<br>sudo ./dhd_priv monitor 1</p>
-<h1 id="安装樱花frpc"><a href="#安装樱花frpc" class="headerlink" title="安装樱花frpc"></a>安装樱花frpc</h1><p>cd /usr/local/bin<br>sudo wget -O frpc <a href="https://getfrp.sh/d/frpc_linux_arm64">https://getfrp.sh/d/frpc_linux_arm64</a><br>sudo chmod 755 frpc<br>ls -ls frpc<br>md5sum frpc<br>sudo mkdir -p /usr/local/etc/natfrp<br>sudo nano /etc/systemd/system/frpc@.service</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description=SakuraFrp Service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=idle</span><br><span class="line">User=nobody</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=60s</span><br><span class="line">ExecStart=/usr/local/bin/frpc -f %i</span><br><span class="line">WorkingDirectory=/usr/local/etc/natfrp</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>打开后直接crtl c退出就可以启动<br>systemctl daemon-reload<br>systemctl enable frpc@7xk345t4zdqx2d2345fsxx91svfs7e5x:7402311<br>外网ip：202.182.122.24:63979<br>frp-fly.top:63979</p>
-<p>配置systemctl进行开机启动</p>
-<p>创建frpc.service服务</p>
-<p>sudo nano /lib/systemd/system/frpc.service</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">服务描述</span></span><br><span class="line"></span><br><span class="line">Description=frpcservice</span><br><span class="line"></span><br><span class="line">After=network.targetsyslog.target</span><br><span class="line"></span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line"></span><br><span class="line">Type=simple</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">执行命令</span></span><br><span class="line"></span><br><span class="line">ExecStart=/usr/local/frpc/frpc-c/usr/local/frpc/frpc.ini</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line"></span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>重载</p>
-<p>systemctl daemon-reload</p>
-<h1 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h1><p>sudo systemctl status frpc</p>
-<p>设置开机自动启动</p>
-<p>sudo systemctl enable frpc</p>
-<h1 id="安装并配置clash和控制面板"><a href="#安装并配置clash和控制面板" class="headerlink" title="安装并配置clash和控制面板"></a>安装并配置clash和控制面板</h1><p>wget <a href="https://github.com/Dreamacro/clash/releases/download/v1.10.6/clash-linux-armv64-v1.14.6.gz">https://github.com/Dreamacro/clash/releases/download/v1.10.6/clash-linux-armv64-v1.14.6.gz</a><br>gunzip linux-armv64-v1.14.6.gz<br>mv linux-armv64-v1.14.6 clash<br>sudo mv clash /usr/local/bin<br>sudo chmod a+x /usr/local/bin/clash<br>mkdir ~/.config/clash<br>nano ~/.config/clash/config.yaml<br>放入配置文件即可</p>
-<p>mv Country.mmdb ~/.config/clash<br>sudo nano /etc/environment</p>
-<p>export http_proxy=”<a href="http://127.0.0.1:7890">http://127.0.0.1:7890</a>“<br>export https_proxy=”<a href="http://127.0.0.1:7890">http://127.0.0.1:7890</a>“<br>export no_proxy=”localhost, 127.0.0.1, *edu.cn”</p>
-<p>sudo visudo</p>
-<p>Defaults env_keep+=”http_proxy https_proxy no_proxy”</p>
-<p>sudo nano /etc/apt/apt.conf.d/10proxy</p>
-<p>Acquire::http::Proxy “<a href="http://127.0.0.1:7890/">http://127.0.0.1:7890/</a>“;</p>
-<p>nano ~/.gitconfig</p>
-<p>[http]<br>  proxy=<a href="http://127.0.0.1:7890">http://127.0.0.1:7890</a><br>[https]<br>  proxy=<a href="http://127.0.0.1:7890">http://127.0.0.1:7890</a></p>
-<p>crontab -e</p>
-<p>@reboot /usr/local/bin/clash</p>
-<p>cd ~/.config/clash<br>clash &amp;<br>git clone <a href="https://github.com/Dreamacro/clash-dashboard.git">https://github.com/Dreamacro/clash-dashboard.git</a><br>cd ~/.config/clash/clash-dashboard<br>git checkout -b gh-pages origin/gh-pages<br>nano ~/.config/clash/config.yaml<br>头部添加：</p>
-<p>external-ui: clash-dashboard<br>external-controller: 127.0.0.1:9090</p>
-<p><a href="http://127.0.0.1:9090/ui">http://127.0.0.1:9090/ui</a></p>
-<h1 id="桌面"><a href="#桌面" class="headerlink" title="桌面"></a>桌面</h1><p>sudo apt install xfce4 xorg xrdp xorgxrdp<br>touch ~/.xsession<br>echo xfce4-session &gt;~/.xsession<br>sudo chown rock:rock ~/.xsession</p>
-<h1 id="改中文"><a href="#改中文" class="headerlink" title="改中文"></a>改中文</h1><p>sudo apt install fcitx5 locales fonts-noto-cjk fonts-noto-cjk-extra<br>sudo dpkg-reconfigure locales<br>sudo apt-get install chromium-l10n</p>
-<h1 id="Docker-运行openwrt"><a href="#Docker-运行openwrt" class="headerlink" title="Docker 运行openwrt"></a>Docker 运行openwrt</h1><p>sudo chmod 666 /var/run/docker.sock<br>sudo ip link set eth0 promisc on</p>
-<p>sudo nano /etc/rc.local</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ip link set eth0 promisc on &amp;</span><br></pre></td></tr></table></figure>
-<p>docker network create -d macvlan —subnet=192.168.1.0/24 —gateway=192.168.1.1 -o parent=eth0 macnet<br>docker network list<br>mkdir -p /etc/systemd/system/docker.service.d<br>nano /etc/systemd/system/docker.service.d/http-proxy.conf</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Service]</span><br><span class="line">Environment=&quot;HTTP_PROXY=http://proxy-addr:proxy-port&quot;       #代理服务器地址</span><br><span class="line">Environment=&quot;HTTPS_PROXY=http://proxy-addr:proxy-port&quot;      #https</span><br><span class="line">Environment=&quot;NO_PROXY=localhost,127.0.0.0/8,docker-registry.example.com,.corp&quot;                #哪些地址不需要走代理</span><br></pre></td></tr></table></figure>
-<p>systemctl daemon-reload<br>systemctl restart docker<br>sudo systemctl show —property=Environment docker<br>docker run —restart always —name openwrt -d —network macnet —privileged sulinggg/openwrt:armv8 /sbin/init<br>docker ps -a<br>docker exec -it d61d5edd67d4 bash<br>vim /etc/config/network<br>将后面三项改成自己的ip</p>
-<p>/etc/init.d/network restart</p>
-<p>直接浏览器访问刚刚设置的ip和端口<br>密码默认passwd</p>
-<p>在网络LAN口中关闭桥接接口</p>
-<p>网络防火墙自定义规则中添加<br>iptables -t nat -I POSTROUTING -j MASQUERADE</p>
-<p>在网络Turbo ACC网络加速中勾选DNS缓存</p>
-]]></content>
-      <categories>
-        <category>LINUX</category>
-      </categories>
-      <tags>
-        <tag>ROCK4B+</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Ubuntu配置及优化</title>
     <url>/2023/06/24/Ubuntu%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<p>关于ubuntu系统的优化与配置</p>
@@ -976,6 +976,41 @@
       </categories>
       <tags>
         <tag>Win11</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ZYNQ-in-7010</title>
+    <url>/2022/12/13/ZYNQ-in-7010/</url>
+    <content><![CDATA[<p>个人关于ZYNQ的一些开发学习文档，以小熊猫的ZYNQ7010和Smart 7020 SP为例，不断更新ing</p>
+<span id="more"></span>
+<h1 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h1><ol>
+<li>敏感信号表:所有的右边表达式中的变量以及if,case条件中的变量</li>
+<li>if/else要配对以避免latch（锁存器）的产生，同样的case语句加default语句</li>
+<li>状态机（fsm）：<ol>
+<li>使用独热码，每个状态只有一个寄存器置位，译码逻辑简单</li>
+<li>三段式可以在组合逻辑后再增加一级寄存器来实现时序逻辑输出:<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20220116144516055.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img" title="image-20220116144516055"></a><ul>
+<li>可以有效地滤去组合逻辑输出的毛刺</li>
+<li>可以有效地进行时序计算与约束</li>
+<li>另外对于总线形式的输出信号来说，容易使总线数据对齐,从而减小总线数据间的偏移，减小接收端数据采样出错的频率。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="Petalinux"><a href="#Petalinux" class="headerlink" title="Petalinux"></a>Petalinux</h1><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><p>source /tools/petalinux/2023.1/settings.sh</p>
+<h3 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h3><p>petalinux-create —type project —template zynq —name Petalinux_TF</p>
+<h3 id="进入图形化配置界面"><a href="#进入图形化配置界面" class="headerlink" title="进入图形化配置界面"></a>进入图形化配置界面</h3><p>petalinux-config —get-hw-description=.</p>
+<h3 id="编译-1"><a href="#编译-1" class="headerlink" title="编译"></a>编译</h3><p>petalinux-build</p>
+<h3 id="打包镜像"><a href="#打包镜像" class="headerlink" title="打包镜像"></a>打包镜像</h3><p>petalinux-package —boot —fsbl ./images/linux/zynq_fsbl.elf —u-boot —fpga —kernel —force</p>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><h3 id="启动出错显示找不到环境等问题"><a href="#启动出错显示找不到环境等问题" class="headerlink" title="启动出错显示找不到环境等问题"></a>启动出错显示找不到环境等问题</h3><p>在uboot界面输入：<br>env default -a<br>saveenv<br>boot</p>
+<h3 id="登陆"><a href="#登陆" class="headerlink" title="登陆"></a>登陆</h3><p>自从Petalinux 2022.1版本以后，取消了root登录。用户名改为petalinux，然后会引导你设置新密码。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://shjdgwj.github.io/d8298fbe5fcd/">ZYNQ学习笔记</a></p>
+]]></content>
+      <categories>
+        <category>ZYNQ</category>
+      </categories>
+      <tags>
+        <tag>7010</tag>
       </tags>
   </entry>
   <entry>
@@ -1030,41 +1065,6 @@
       </categories>
       <tags>
         <tag>Web</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ZYNQ-in-7010</title>
-    <url>/2022/12/13/ZYNQ-in-7010/</url>
-    <content><![CDATA[<p>个人关于ZYNQ的一些开发学习文档，以小熊猫的ZYNQ7010和Smart 7020 SP为例，不断更新ing</p>
-<span id="more"></span>
-<h1 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h1><ol>
-<li>敏感信号表:所有的右边表达式中的变量以及if,case条件中的变量</li>
-<li>if/else要配对以避免latch（锁存器）的产生，同样的case语句加default语句</li>
-<li>状态机（fsm）：<ol>
-<li>使用独热码，每个状态只有一个寄存器置位，译码逻辑简单</li>
-<li>三段式可以在组合逻辑后再增加一级寄存器来实现时序逻辑输出:<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20220116144516055.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img" title="image-20220116144516055"></a><ul>
-<li>可以有效地滤去组合逻辑输出的毛刺</li>
-<li>可以有效地进行时序计算与约束</li>
-<li>另外对于总线形式的输出信号来说，容易使总线数据对齐,从而减小总线数据间的偏移，减小接收端数据采样出错的频率。</li>
-</ul>
-</li>
-</ol>
-</li>
-</ol>
-<h1 id="Petalinux"><a href="#Petalinux" class="headerlink" title="Petalinux"></a>Petalinux</h1><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><p>source /tools/petalinux/2023.1/settings.sh</p>
-<h3 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h3><p>petalinux-create —type project —template zynq —name Petalinux_TF</p>
-<h3 id="进入图形化配置界面"><a href="#进入图形化配置界面" class="headerlink" title="进入图形化配置界面"></a>进入图形化配置界面</h3><p>petalinux-config —get-hw-description=.</p>
-<h3 id="编译-1"><a href="#编译-1" class="headerlink" title="编译"></a>编译</h3><p>petalinux-build</p>
-<h3 id="打包镜像"><a href="#打包镜像" class="headerlink" title="打包镜像"></a>打包镜像</h3><p>petalinux-package —boot —fsbl ./images/linux/zynq_fsbl.elf —u-boot —fpga —kernel —force</p>
-<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><h3 id="启动出错显示找不到环境等问题"><a href="#启动出错显示找不到环境等问题" class="headerlink" title="启动出错显示找不到环境等问题"></a>启动出错显示找不到环境等问题</h3><p>在uboot界面输入：<br>env default -a<br>saveenv<br>boot</p>
-<h3 id="登陆"><a href="#登陆" class="headerlink" title="登陆"></a>登陆</h3><p>自从Petalinux 2022.1版本以后，取消了root登录。用户名改为petalinux，然后会引导你设置新密码。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://shjdgwj.github.io/d8298fbe5fcd/">ZYNQ学习笔记</a></p>
-]]></content>
-      <categories>
-        <category>ZYNQ</category>
-      </categories>
-      <tags>
-        <tag>7010</tag>
       </tags>
   </entry>
 </search>
