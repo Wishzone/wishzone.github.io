@@ -97,6 +97,46 @@
       </tags>
   </entry>
   <entry>
+    <title>Linux</title>
+    <url>/2023/08/24/Linux/</url>
+    <content><![CDATA[<p>Linux一些问题和解决方法<br><span id="more"></span></p>
+<h1 id="远程访问方式对比"><a href="#远程访问方式对比" class="headerlink" title="远程访问方式对比"></a>远程访问方式对比</h1><h2 id="XRDP"><a href="#XRDP" class="headerlink" title="XRDP"></a>XRDP</h2><h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><p>1.通常只支持X类的管理器<br>2.不能多用户同时登录<br>3.Linux下不支持UDP协议</p>
+<h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><p>1.安装包小<br>2.安装简单<br>3.画质高，速度快</p>
+<h2 id="VNC"><a href="#VNC" class="headerlink" title="VNC"></a>VNC</h2><h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>1.显示效果相对较差<br>2.需要HDMI诱骗器</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>1.支持UDP，相应快</p>
+<h1 id="Linux系统设置开机启动："><a href="#Linux系统设置开机启动：" class="headerlink" title="Linux系统设置开机启动："></a>Linux系统设置开机启动：</h1><h2 id="1-在-etc-rc-local添加需要启动的命令"><a href="#1-在-etc-rc-local添加需要启动的命令" class="headerlink" title="1.在/etc/rc.local添加需要启动的命令"></a>1.在/etc/rc.local添加需要启动的命令</h2><p>这样系统在启动的时候会自动执行这些命令。</p>
+<h2 id="2-使用systemd服务管理器，"><a href="#2-使用systemd服务管理器，" class="headerlink" title="2.使用systemd服务管理器，"></a>2.使用systemd服务管理器，</h2><p>在/etc/systemd/system目录下创建一个service文件，指定需要启动的服务和相关参数。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo nano /lib/systemd/system/frpc.service</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">#服务描述</span><br><span class="line">Description=frpc service</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">#执行命令</span><br><span class="line">ExecStart=/usr/local/frpc/frpc -c /usr/local/frpc/frpc.ini</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">sudo systemctl enable frpc</span><br></pre></td></tr></table></figure>
+<h2 id="3-将需要启动的命令添加到用户的bashrc文件中，这样每个用户登录时都会自动执行这些命令。"><a href="#3-将需要启动的命令添加到用户的bashrc文件中，这样每个用户登录时都会自动执行这些命令。" class="headerlink" title="3. 将需要启动的命令添加到用户的bashrc文件中，这样每个用户登录时都会自动执行这些命令。"></a>3. 将需要启动的命令添加到用户的bashrc文件中，这样每个用户登录时都会自动执行这些命令。</h2><h1 id="退出XRDP未注销的用户"><a href="#退出XRDP未注销的用户" class="headerlink" title="退出XRDP未注销的用户"></a>退出XRDP未注销的用户</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">who -a  //查看登录的用户</span><br><span class="line">pkill -kill -t pts/3  //注销用户</span><br></pre></td></tr></table></figure>
+<h1 id="创建新用户"><a href="#创建新用户" class="headerlink" title="创建新用户"></a>创建新用户</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">su root</span><br><span class="line">apt install sudo</span><br><span class="line">sudo usermod -aG sudo username  //username替换为所需的用户名</span><br><span class="line">nano /etc/default/useradd</span><br><span class="line">改/bin/sh为/bin/bash</span><br><span class="line">nano /etc/passwd </span><br><span class="line">改用户名后面的/bin/sh为/bin/bash</span><br></pre></td></tr></table></figure>
+<h1 id="Ubuntu优化"><a href="#Ubuntu优化" class="headerlink" title="Ubuntu优化"></a>Ubuntu优化</h1><h2 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h2><p>sudo apt install gparted htop net-tools putty vim fcitx fcitx-googlepinyin xrdp xorg xorgxrdp tofrodos iproute2 gawk gcc g++ git make net-tools libncurses5-dev tftpd zlib1g:i386 libssl-dev flex bison libselinux1 gnupg wget diffstat chrpath socat xterm autoconf libtool tar unzip texinfo zlib1g-dev gcc-multilib build-essential libsdl1.2-dev libglib2.0-dev screen pax gzip automake tftpd-hpa ubuntu-restricted-extras gnome-tweaks gnome-shell-extension-manager indicator-multiload libncurses5 libtinfo5 libncurses5-dev libncursesw5-dev samba ssh</p>
+<p>sudo apt install tftpd-hpa ncurses-compat-libs</p>
+<p>service tftpd-hpa restart</p>
+<p>wget <a href="http://nz2.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1.3_amd64.deb">http://nz2.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1.3_amd64.deb</a></p>
+<p>sudo dpkg -i libssl1.1_1.1.1l-1ubuntu1.3_amd64.deb</p>
+<p>sudo dpkg-reconfigure dash (选NO）</p>
+<h2 id="解决“色彩管理设备”"><a href="#解决“色彩管理设备”" class="headerlink" title="解决“色彩管理设备”"></a>解决“色彩管理设备”</h2><p>sudo nano /etc/polkit-1/localauthority/50-local.d/45-allow-colord.pkla</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">[Allow Colord all Users]</span><br><span class="line">Identity=unix-user:*</span><br><span class="line">Action=org.freedesktop.color-manager.create-device;org.freedesktop.color-manager.create-profile;org.freedesktop.color-manager.delete-device;org.freedesktop.color-manager.delete-profile;org.freedesktop.color-manager.modify-device;org.freedesktop.color-manager.modify-profile</span><br><span class="line">ResultAny=no</span><br><span class="line">ResultInactive=no</span><br><span class="line">ResultActive=yes</span><br></pre></td></tr></table></figure>
+<h2 id="解决“刷新系统软件源需要认证”"><a href="#解决“刷新系统软件源需要认证”" class="headerlink" title="解决“刷新系统软件源需要认证”"></a>解决“刷新系统软件源需要认证”</h2><p>nano /etc/polkit-1/localauthority/50-local.d/46-allow-packagekit.pkla</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Allow Refresh Repository all Users]</span><br><span class="line">Identity=unix-user:*</span><br><span class="line">Action=org.freedesktop.packagekit.system-sources-refresh</span><br><span class="line">ResultAny=no</span><br><span class="line">ResultInactive=no</span><br><span class="line">ResultActive=yes</span><br></pre></td></tr></table></figure>
+<h2 id="解决“扫描WIFI需要认证”"><a href="#解决“扫描WIFI需要认证”" class="headerlink" title="解决“扫描WIFI需要认证”"></a>解决“扫描WIFI需要认证”</h2><p>sudo nano /etc/polkit-1/localauthority/50-local-d/allow-wifiscan</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Allow Wifi Scan]</span><br><span class="line">Identity=unix-user:*</span><br><span class="line">Action=org.freedesktop.NetworkManager.wifi.scan;org.freedesktop.NetworkManager.enable-disable-wifi;org.freedesktop.NetworkManager.settings.modify.own;org.freedesktop.NetworkManager.settings.modify.system;org.freedesktop.NetworkManager.network-control</span><br><span class="line">ResultAny=yes</span><br><span class="line">ResultInactive=yes</span><br><span class="line">ResultActive=yes</span><br></pre></td></tr></table></figure>
+<h1 id="自定义二级域名"><a href="#自定义二级域名" class="headerlink" title="自定义二级域名"></a>自定义二级域名</h1><p>在多人同时使用一个 frps 时，通过自定义二级域名的方式来使用会更加方便。</p>
+<p>通过在 frps 的配置文件中配置 subdomain_host，就可以启用该特性。之后在 frpc 的 http、https 类型的代理中可以不配置 custom_domains，而是配置一个 subdomain 参数。</p>
+<p>只需要将 *.{subdomain_host} 解析到 frps 所在服务器。之后用户可以通过 subdomain 自行指定自己的 web 服务所需要使用的二级域名，通过 {subdomain}.{subdomain_host} 来访问自己的 web 服务。</p>
+<h2 id="frps-ini"><a href="#frps-ini" class="headerlink" title="frps.ini"></a>frps.ini</h2><p>[common]<br>subdomain_host = frps.com<br>将泛域名 *.frps.com 解析到 frps 所在服务器的 IP 地址。</p>
+<h2 id="frpc-ini"><a href="#frpc-ini" class="headerlink" title="frpc.ini"></a>frpc.ini</h2><p>[web]<br>type = http<br>local_port = 80<br>subdomain = test<br>frps 和 frpc 都启动成功后，通过 test.frps.com 就可以访问到内网的 web 服务。</p>
+<p>注：如果 frps 配置了 subdomain_host，则 custom_domains 中不能是属于 subdomain_host 的子域名或者泛域名。</p>
+<p>同一个 http 或 https 类型的代理中 custom_domains 和 subdomain 可以同时配置。</p>
+<h1 id="解决休眠问题："><a href="#解决休眠问题：" class="headerlink" title="解决休眠问题："></a>解决休眠问题：</h1><p>检查休眠功能的状态<br>systemctl status sleep.target</p>
+<p>执行关闭休眠功能的命令<br>如果是作为服务器使用的时候，我们一般远程访问系统，这个功能就会导致我们无法远程控制服务器，因此我们需要关闭这个功能。<br>systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target</p>
+<p>再次观察系统休眠状态<br>systemctl status sleep.target</p>
+<h1 id="Ubuntu常见问题及解决办法"><a href="#Ubuntu常见问题及解决办法" class="headerlink" title="Ubuntu常见问题及解决办法"></a>Ubuntu常见问题及解决办法</h1><h2 id="由于没有公钥，无法验证下列签名：-NO-PUBKEY-76F1A20FF987672F"><a href="#由于没有公钥，无法验证下列签名：-NO-PUBKEY-76F1A20FF987672F" class="headerlink" title="由于没有公钥，无法验证下列签名： NO_PUBKEY 76F1A20FF987672F"></a>由于没有公钥，无法验证下列签名： NO_PUBKEY 76F1A20FF987672F</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $&#123;PUBLIC_KEY_SIGN&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+  </entry>
+  <entry>
     <title>FRP</title>
     <url>/2023/06/24/FRP/</url>
     <content><![CDATA[<p>关于FRP的配置</p>
@@ -317,46 +357,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Linux</title>
-    <url>/2023/08/24/Linux/</url>
-    <content><![CDATA[<p>Linux一些问题和解决方法<br><span id="more"></span></p>
-<h1 id="远程访问方式对比"><a href="#远程访问方式对比" class="headerlink" title="远程访问方式对比"></a>远程访问方式对比</h1><h2 id="XRDP"><a href="#XRDP" class="headerlink" title="XRDP"></a>XRDP</h2><h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><p>1.通常只支持X类的管理器<br>2.不能多用户同时登录<br>3.Linux下不支持UDP协议</p>
-<h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><p>1.安装包小<br>2.安装简单<br>3.画质高，速度快</p>
-<h2 id="VNC"><a href="#VNC" class="headerlink" title="VNC"></a>VNC</h2><h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>1.显示效果相对较差<br>2.需要HDMI诱骗器</p>
-<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>1.支持UDP，相应快</p>
-<h1 id="Linux系统设置开机启动："><a href="#Linux系统设置开机启动：" class="headerlink" title="Linux系统设置开机启动："></a>Linux系统设置开机启动：</h1><h2 id="1-在-etc-rc-local添加需要启动的命令"><a href="#1-在-etc-rc-local添加需要启动的命令" class="headerlink" title="1.在/etc/rc.local添加需要启动的命令"></a>1.在/etc/rc.local添加需要启动的命令</h2><p>这样系统在启动的时候会自动执行这些命令。</p>
-<h2 id="2-使用systemd服务管理器，"><a href="#2-使用systemd服务管理器，" class="headerlink" title="2.使用systemd服务管理器，"></a>2.使用systemd服务管理器，</h2><p>在/etc/systemd/system目录下创建一个service文件，指定需要启动的服务和相关参数。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo nano /lib/systemd/system/frpc.service</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">#服务描述</span><br><span class="line">Description=frpc service</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">#执行命令</span><br><span class="line">ExecStart=/usr/local/frpc/frpc -c /usr/local/frpc/frpc.ini</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">sudo systemctl enable frpc</span><br></pre></td></tr></table></figure>
-<h2 id="3-将需要启动的命令添加到用户的bashrc文件中，这样每个用户登录时都会自动执行这些命令。"><a href="#3-将需要启动的命令添加到用户的bashrc文件中，这样每个用户登录时都会自动执行这些命令。" class="headerlink" title="3. 将需要启动的命令添加到用户的bashrc文件中，这样每个用户登录时都会自动执行这些命令。"></a>3. 将需要启动的命令添加到用户的bashrc文件中，这样每个用户登录时都会自动执行这些命令。</h2><h1 id="退出XRDP未注销的用户"><a href="#退出XRDP未注销的用户" class="headerlink" title="退出XRDP未注销的用户"></a>退出XRDP未注销的用户</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">who -a  //查看登录的用户</span><br><span class="line">pkill -kill -t pts/3  //注销用户</span><br></pre></td></tr></table></figure>
-<h1 id="创建新用户"><a href="#创建新用户" class="headerlink" title="创建新用户"></a>创建新用户</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">su root</span><br><span class="line">apt install sudo</span><br><span class="line">sudo usermod -aG sudo username  //username替换为所需的用户名</span><br><span class="line">nano /etc/default/useradd</span><br><span class="line">改/bin/sh为/bin/bash</span><br><span class="line">nano /etc/passwd </span><br><span class="line">改用户名后面的/bin/sh为/bin/bash</span><br></pre></td></tr></table></figure>
-<h1 id="Ubuntu优化"><a href="#Ubuntu优化" class="headerlink" title="Ubuntu优化"></a>Ubuntu优化</h1><h2 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h2><p>sudo apt install gparted htop net-tools putty vim fcitx fcitx-googlepinyin xrdp xorg xorgxrdp tofrodos iproute2 gawk gcc g++ git make net-tools libncurses5-dev tftpd zlib1g:i386 libssl-dev flex bison libselinux1 gnupg wget diffstat chrpath socat xterm autoconf libtool tar unzip texinfo zlib1g-dev gcc-multilib build-essential libsdl1.2-dev libglib2.0-dev screen pax gzip automake tftpd-hpa ubuntu-restricted-extras gnome-tweaks gnome-shell-extension-manager indicator-multiload libncurses5 libtinfo5 libncurses5-dev libncursesw5-dev samba ssh</p>
-<p>sudo apt install tftpd-hpa ncurses-compat-libs</p>
-<p>service tftpd-hpa restart</p>
-<p>wget <a href="http://nz2.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1.3_amd64.deb">http://nz2.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1.3_amd64.deb</a></p>
-<p>sudo dpkg -i libssl1.1_1.1.1l-1ubuntu1.3_amd64.deb</p>
-<p>sudo dpkg-reconfigure dash (选NO）</p>
-<h2 id="解决“色彩管理设备”"><a href="#解决“色彩管理设备”" class="headerlink" title="解决“色彩管理设备”"></a>解决“色彩管理设备”</h2><p>sudo nano /etc/polkit-1/localauthority/50-local.d/45-allow-colord.pkla</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">[Allow Colord all Users]</span><br><span class="line">Identity=unix-user:*</span><br><span class="line">Action=org.freedesktop.color-manager.create-device;org.freedesktop.color-manager.create-profile;org.freedesktop.color-manager.delete-device;org.freedesktop.color-manager.delete-profile;org.freedesktop.color-manager.modify-device;org.freedesktop.color-manager.modify-profile</span><br><span class="line">ResultAny=no</span><br><span class="line">ResultInactive=no</span><br><span class="line">ResultActive=yes</span><br></pre></td></tr></table></figure>
-<h2 id="解决“刷新系统软件源需要认证”"><a href="#解决“刷新系统软件源需要认证”" class="headerlink" title="解决“刷新系统软件源需要认证”"></a>解决“刷新系统软件源需要认证”</h2><p>nano /etc/polkit-1/localauthority/50-local.d/46-allow-packagekit.pkla</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Allow Refresh Repository all Users]</span><br><span class="line">Identity=unix-user:*</span><br><span class="line">Action=org.freedesktop.packagekit.system-sources-refresh</span><br><span class="line">ResultAny=no</span><br><span class="line">ResultInactive=no</span><br><span class="line">ResultActive=yes</span><br></pre></td></tr></table></figure>
-<h2 id="解决“扫描WIFI需要认证”"><a href="#解决“扫描WIFI需要认证”" class="headerlink" title="解决“扫描WIFI需要认证”"></a>解决“扫描WIFI需要认证”</h2><p>sudo nano /etc/polkit-1/localauthority/50-local-d/allow-wifiscan</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Allow Wifi Scan]</span><br><span class="line">Identity=unix-user:*</span><br><span class="line">Action=org.freedesktop.NetworkManager.wifi.scan;org.freedesktop.NetworkManager.enable-disable-wifi;org.freedesktop.NetworkManager.settings.modify.own;org.freedesktop.NetworkManager.settings.modify.system;org.freedesktop.NetworkManager.network-control</span><br><span class="line">ResultAny=yes</span><br><span class="line">ResultInactive=yes</span><br><span class="line">ResultActive=yes</span><br></pre></td></tr></table></figure>
-<h1 id="自定义二级域名"><a href="#自定义二级域名" class="headerlink" title="自定义二级域名"></a>自定义二级域名</h1><p>在多人同时使用一个 frps 时，通过自定义二级域名的方式来使用会更加方便。</p>
-<p>通过在 frps 的配置文件中配置 subdomain_host，就可以启用该特性。之后在 frpc 的 http、https 类型的代理中可以不配置 custom_domains，而是配置一个 subdomain 参数。</p>
-<p>只需要将 *.{subdomain_host} 解析到 frps 所在服务器。之后用户可以通过 subdomain 自行指定自己的 web 服务所需要使用的二级域名，通过 {subdomain}.{subdomain_host} 来访问自己的 web 服务。</p>
-<h2 id="frps-ini"><a href="#frps-ini" class="headerlink" title="frps.ini"></a>frps.ini</h2><p>[common]<br>subdomain_host = frps.com<br>将泛域名 *.frps.com 解析到 frps 所在服务器的 IP 地址。</p>
-<h2 id="frpc-ini"><a href="#frpc-ini" class="headerlink" title="frpc.ini"></a>frpc.ini</h2><p>[web]<br>type = http<br>local_port = 80<br>subdomain = test<br>frps 和 frpc 都启动成功后，通过 test.frps.com 就可以访问到内网的 web 服务。</p>
-<p>注：如果 frps 配置了 subdomain_host，则 custom_domains 中不能是属于 subdomain_host 的子域名或者泛域名。</p>
-<p>同一个 http 或 https 类型的代理中 custom_domains 和 subdomain 可以同时配置。</p>
-<h1 id="解决休眠问题："><a href="#解决休眠问题：" class="headerlink" title="解决休眠问题："></a>解决休眠问题：</h1><p>检查休眠功能的状态<br>systemctl status sleep.target</p>
-<p>执行关闭休眠功能的命令<br>如果是作为服务器使用的时候，我们一般远程访问系统，这个功能就会导致我们无法远程控制服务器，因此我们需要关闭这个功能。<br>systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target</p>
-<p>再次观察系统休眠状态<br>systemctl status sleep.target</p>
-<h1 id="Ubuntu常见问题及解决办法"><a href="#Ubuntu常见问题及解决办法" class="headerlink" title="Ubuntu常见问题及解决办法"></a>Ubuntu常见问题及解决办法</h1><h2 id="由于没有公钥，无法验证下列签名：-NO-PUBKEY-76F1A20FF987672F"><a href="#由于没有公钥，无法验证下列签名：-NO-PUBKEY-76F1A20FF987672F" class="headerlink" title="由于没有公钥，无法验证下列签名： NO_PUBKEY 76F1A20FF987672F"></a>由于没有公钥，无法验证下列签名： NO_PUBKEY 76F1A20FF987672F</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $&#123;PUBLIC_KEY_SIGN&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-  </entry>
-  <entry>
     <title>Openwrt</title>
     <url>/2023/08/24/Openwrt/</url>
     <content><![CDATA[<p>Openwrt的配置问题及解决方法<br><span id="more"></span></p>
@@ -373,6 +373,30 @@
 <h3 id="make-menuconfig"><a href="#make-menuconfig" class="headerlink" title="make menuconfig"></a>make menuconfig</h3><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">make download V=s</span><br><span class="line">make V=s</span><br></pre></td></tr></table></figure>
 <h2 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h2><p>进入/bin/target<br>xxx.combined.img即为编译的镜像</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>Raspberry_pico</title>
+    <url>/2023/06/24/Raspberry-pico/</url>
+    <content><![CDATA[<p>关于树莓派pico的环境搭建与开发<br><span id="more"></span></p>
+<h1 id="Ubuntu-C-C"><a href="#Ubuntu-C-C" class="headerlink" title="Ubuntu C/C++"></a>Ubuntu C/C++</h1><h2 id="依赖："><a href="#依赖：" class="headerlink" title="依赖："></a>依赖：</h2><p> sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential python3-tk</p>
+<h2 id="下载-pico-sdk-和-pico-examples"><a href="#下载-pico-sdk-和-pico-examples" class="headerlink" title="下载 pico-sdk 和 pico-examples"></a>下载 pico-sdk 和 pico-examples</h2><p>cd ~<br>mkdir pico<br>cd pico<br>git clone -b master <a href="https://github.com/raspberrypi/pico-sdk.git">https://github.com/raspberrypi/pico-sdk.git</a><br>cd pico-sdk<br>git submodule update —init<br>cd ~/pico<br>git clone -b master <a href="https://github.com/raspberrypi/pico-examples.git">https://github.com/raspberrypi/pico-examples.git</a></p>
+<h2 id="下载-pico-project-generator"><a href="#下载-pico-project-generator" class="headerlink" title="下载 pico-project-generator"></a>下载 pico-project-generator</h2><p>cd ~/pico<br>git clone <a href="https://github.com/raspberrypi/pico-project-generator.git">https://github.com/raspberrypi/pico-project-generator.git</a></p>
+<h2 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h2><p>echo “export PICO_SDK_PATH=/home/$USER/pico/pico-sdk” &gt;&gt; .bashrc</p>
+<h2 id="安装-VSCode-插件"><a href="#安装-VSCode-插件" class="headerlink" title="安装 VSCode 插件"></a>安装 VSCode 插件</h2><p>code —install-extension marus25.cortex-debug<br>code —install-extension ms-vscode.cmake-tools<br>code —install-extension ms-vscode.cpptools</p>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>cd pico-project-generator</p>
+<p>./pico-progect.py —gui</p>
+<p>手动生成工程</p>
+<p>cd build</p>
+<p>make -j(核心数)  eg：make -j4</p>
+<p>将uf2文件拖入pico即可</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf">https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf</a><br><a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf">https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf</a></p>
+]]></content>
+      <categories>
+        <category>单片机</category>
+      </categories>
+      <tags>
+        <tag>Pico</tag>
+      </tags>
   </entry>
   <entry>
     <title>PVE</title>
@@ -476,30 +500,6 @@
       </categories>
       <tags>
         <tag>OS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Raspberry_pico</title>
-    <url>/2023/06/24/Raspberry-pico/</url>
-    <content><![CDATA[<p>关于树莓派pico的环境搭建与开发<br><span id="more"></span></p>
-<h1 id="Ubuntu-C-C"><a href="#Ubuntu-C-C" class="headerlink" title="Ubuntu C/C++"></a>Ubuntu C/C++</h1><h2 id="依赖："><a href="#依赖：" class="headerlink" title="依赖："></a>依赖：</h2><p> sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential python3-tk</p>
-<h2 id="下载-pico-sdk-和-pico-examples"><a href="#下载-pico-sdk-和-pico-examples" class="headerlink" title="下载 pico-sdk 和 pico-examples"></a>下载 pico-sdk 和 pico-examples</h2><p>cd ~<br>mkdir pico<br>cd pico<br>git clone -b master <a href="https://github.com/raspberrypi/pico-sdk.git">https://github.com/raspberrypi/pico-sdk.git</a><br>cd pico-sdk<br>git submodule update —init<br>cd ~/pico<br>git clone -b master <a href="https://github.com/raspberrypi/pico-examples.git">https://github.com/raspberrypi/pico-examples.git</a></p>
-<h2 id="下载-pico-project-generator"><a href="#下载-pico-project-generator" class="headerlink" title="下载 pico-project-generator"></a>下载 pico-project-generator</h2><p>cd ~/pico<br>git clone <a href="https://github.com/raspberrypi/pico-project-generator.git">https://github.com/raspberrypi/pico-project-generator.git</a></p>
-<h2 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h2><p>echo “export PICO_SDK_PATH=/home/$USER/pico/pico-sdk” &gt;&gt; .bashrc</p>
-<h2 id="安装-VSCode-插件"><a href="#安装-VSCode-插件" class="headerlink" title="安装 VSCode 插件"></a>安装 VSCode 插件</h2><p>code —install-extension marus25.cortex-debug<br>code —install-extension ms-vscode.cmake-tools<br>code —install-extension ms-vscode.cpptools</p>
-<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>cd pico-project-generator</p>
-<p>./pico-progect.py —gui</p>
-<p>手动生成工程</p>
-<p>cd build</p>
-<p>make -j(核心数)  eg：make -j4</p>
-<p>将uf2文件拖入pico即可</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf">https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf</a><br><a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf">https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf</a></p>
-]]></content>
-      <categories>
-        <category>单片机</category>
-      </categories>
-      <tags>
-        <tag>Pico</tag>
       </tags>
   </entry>
   <entry>
@@ -649,6 +649,40 @@
       </categories>
       <tags>
         <tag>ROCK4B+</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows</title>
+    <url>/2023/01/20/Windows/</url>
+    <content><![CDATA[<p>Windows常用设置<br><span id="more"></span></p>
+<h1 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h1><h2 id="查看系统版本"><a href="#查看系统版本" class="headerlink" title="查看系统版本"></a>查看系统版本</h2><p>cmd输入winver</p>
+<h2 id="查看文件MD5码"><a href="#查看文件MD5码" class="headerlink" title="查看文件MD5码"></a>查看文件MD5码</h2><p>certutil -hashfile 文件路径名称 MD5</p>
+<h2 id="win11安装系统应用"><a href="#win11安装系统应用" class="headerlink" title="win11安装系统应用"></a>win11安装系统应用</h2><p>1.以管理员运行powershell<br>2.输入Get-AppxPackage -allusers | Select Name, PackageFullName<br>3.找到需要安装的应用后面的应用版本<br>4输入Add-appxpackage -register “C:\Program Files\WindowsApps\【应用版本】\appxmanifest.xml” -disabledevelopmentmod即可</p>
+<h1 id="修复Win11更新的BUG"><a href="#修复Win11更新的BUG" class="headerlink" title="修复Win11更新的BUG"></a>修复Win11更新的BUG</h1><p>1.网站uupdump.net可以下载最新版本</p>
+<p>2.进入注册表<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\wuauserv\Parameters<br>找到ServiceDll<br>win11将数据改为%systemroot%\system32\wuauserv.dll，<br>win10将数据改为%systemroot%\system32\wuaueng.dll<br>如果还是找不到<br>进入”C:\WINDOWS\System32\wuauserv.dll”看是否存在wuauserv.dll或者wuaueng.dll，<br>如果不存在的话可能是其他软件删除了，需自行下载或者从别的电脑拷贝放进去就好了</p>
+<h1 id="配置FRPC服务"><a href="#配置FRPC服务" class="headerlink" title="配置FRPC服务"></a>配置FRPC服务</h1><h2 id="设置启动脚本"><a href="#设置启动脚本" class="headerlink" title="设置启动脚本"></a>设置启动脚本</h2><p>创建文件：<br>start_frpc.vbs<br>写入脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CreateObject(&quot;WScript.Shell&quot;).Run &quot;&quot;&quot;D:\Program Files\frp_0.38.0_windows_amd64\frpc.exe&quot;&quot;&quot; &amp; &quot;-c&quot; &amp; &quot;&quot;&quot;D:\Program Files\frp_0.38.0_windows_amd64\frpc.ini&quot;&quot;&quot;,0</span><br></pre></td></tr></table></figure>
+<p>双击就可启动frpc，可在资源管理器中看到frpc.exe已启动;</p>
+<h2 id="设置开机自启"><a href="#设置开机自启" class="headerlink" title="设置开机自启"></a>设置开机自启</h2><p>“win+r”输入shell:startup就会自动打开启动文件夹。<br>将文件放入即可（一般为：C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup）</p>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Win11</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu配置及优化</title>
+    <url>/2023/06/24/Ubuntu%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<p>关于ubuntu系统的优化与配置</p>
+<span id="more"></span>
+]]></content>
+      <categories>
+        <category>LINUX</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
       </tags>
   </entry>
   <entry>
@@ -942,40 +976,6 @@
       </categories>
       <tags>
         <tag>STM32</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu配置及优化</title>
-    <url>/2023/06/24/Ubuntu%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<p>关于ubuntu系统的优化与配置</p>
-<span id="more"></span>
-]]></content>
-      <categories>
-        <category>LINUX</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Windows</title>
-    <url>/2023/01/20/Windows/</url>
-    <content><![CDATA[<p>Windows常用设置<br><span id="more"></span></p>
-<h1 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h1><h2 id="查看系统版本"><a href="#查看系统版本" class="headerlink" title="查看系统版本"></a>查看系统版本</h2><p>cmd输入winver</p>
-<h2 id="查看文件MD5码"><a href="#查看文件MD5码" class="headerlink" title="查看文件MD5码"></a>查看文件MD5码</h2><p>certutil -hashfile 文件路径名称 MD5</p>
-<h2 id="win11安装系统应用"><a href="#win11安装系统应用" class="headerlink" title="win11安装系统应用"></a>win11安装系统应用</h2><p>1.以管理员运行powershell<br>2.输入Get-AppxPackage -allusers | Select Name, PackageFullName<br>3.找到需要安装的应用后面的应用版本<br>4输入Add-appxpackage -register “C:\Program Files\WindowsApps\【应用版本】\appxmanifest.xml” -disabledevelopmentmod即可</p>
-<h1 id="修复Win11更新的BUG"><a href="#修复Win11更新的BUG" class="headerlink" title="修复Win11更新的BUG"></a>修复Win11更新的BUG</h1><p>1.网站uupdump.net可以下载最新版本</p>
-<p>2.进入注册表<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\wuauserv\Parameters<br>找到ServiceDll<br>win11将数据改为%systemroot%\system32\wuauserv.dll，<br>win10将数据改为%systemroot%\system32\wuaueng.dll<br>如果还是找不到<br>进入”C:\WINDOWS\System32\wuauserv.dll”看是否存在wuauserv.dll或者wuaueng.dll，<br>如果不存在的话可能是其他软件删除了，需自行下载或者从别的电脑拷贝放进去就好了</p>
-<h1 id="配置FRPC服务"><a href="#配置FRPC服务" class="headerlink" title="配置FRPC服务"></a>配置FRPC服务</h1><h2 id="设置启动脚本"><a href="#设置启动脚本" class="headerlink" title="设置启动脚本"></a>设置启动脚本</h2><p>创建文件：<br>start_frpc.vbs<br>写入脚本</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CreateObject(&quot;WScript.Shell&quot;).Run &quot;&quot;&quot;D:\Program Files\frp_0.38.0_windows_amd64\frpc.exe&quot;&quot;&quot; &amp; &quot;-c&quot; &amp; &quot;&quot;&quot;D:\Program Files\frp_0.38.0_windows_amd64\frpc.ini&quot;&quot;&quot;,0</span><br></pre></td></tr></table></figure>
-<p>双击就可启动frpc，可在资源管理器中看到frpc.exe已启动;</p>
-<h2 id="设置开机自启"><a href="#设置开机自启" class="headerlink" title="设置开机自启"></a>设置开机自启</h2><p>“win+r”输入shell:startup就会自动打开启动文件夹。<br>将文件放入即可（一般为：C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup）</p>
-]]></content>
-      <categories>
-        <category>Windows</category>
-      </categories>
-      <tags>
-        <tag>Win11</tag>
       </tags>
   </entry>
   <entry>
