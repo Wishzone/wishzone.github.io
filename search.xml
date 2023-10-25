@@ -33,21 +33,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ESP_AT串口透传</title>
-    <url>/2023/06/24/ESP-AT%E4%B8%B2%E5%8F%A3%E9%80%8F%E4%BC%A0/</url>
-    <content><![CDATA[<p>配置ESP系列AT指令进行wifi串口穿透的教程</p>
-<span id="more"></span>
-<h1 id="初始配置命令"><a href="#初始配置命令" class="headerlink" title="初始配置命令"></a>初始配置命令</h1><p>ESP32（AT）：AT+CWJAP=”XXXX“,”XXXXXXX“ //热点的SSID和密码<br>ESP32（AT）：AT+CIPSTA? //查看ip<br>串口开启tcp的server模式输入esp的ip和80端口<br>设置自己的ip并随便指定一个端口打开监听</p>
-<h1 id="每次上电需要执行的命令"><a href="#每次上电需要执行的命令" class="headerlink" title="每次上电需要执行的命令"></a>每次上电需要执行的命令</h1><p>ESP32（AT）：AT+CIPSTART=”TCP”,”192.168.1.236”,11451（手机的ip和手机指定的端口）<br>此时手机发送的数据，esp32即可收到<br>收到格式为：+IPD,6:DATA     //+IPD,数据长度:数据<br>ESP32（AT）：AT+CIPMODE=1 //设置传输模式为透传模式,此方式不能写进flash<br>此时收到格式为：DATA     //数据，直接就是数据<br>ESP32（AT）：AT+CIPSEND //数据发送<br>此时esp32发送的数据，手机即可收到<br>ESP32（AT）：+++ //不带换行符，结束透传</p>
-]]></content>
-      <categories>
-        <category>单片机</category>
-      </categories>
-      <tags>
-        <tag>ESP32 AT</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Docker</title>
     <url>/2023/08/24/Docker/</url>
     <content><![CDATA[<p>docker的基本用法<br><span id="more"></span></p>
@@ -67,6 +52,34 @@
 <h1 id="推送操作"><a href="#推送操作" class="headerlink" title="推送操作"></a>推送操作</h1><p>docker push xxx //推送xxx到仓库</p>
 <p>注意docker镜像需要提前改名才能推送（name/xxx:v1.0）</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>FRP</title>
+    <url>/2023/06/24/FRP/</url>
+    <content><![CDATA[<p>关于FRP的配置</p>
+<span id="more"></span>
+]]></content>
+      <categories>
+        <category>LINUX</category>
+      </categories>
+      <tags>
+        <tag>FRP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ESP_AT串口透传</title>
+    <url>/2023/06/24/ESP-AT%E4%B8%B2%E5%8F%A3%E9%80%8F%E4%BC%A0/</url>
+    <content><![CDATA[<p>配置ESP系列AT指令进行wifi串口穿透的教程</p>
+<span id="more"></span>
+<h1 id="初始配置命令"><a href="#初始配置命令" class="headerlink" title="初始配置命令"></a>初始配置命令</h1><p>ESP32（AT）：AT+CWJAP=”XXXX“,”XXXXXXX“ //热点的SSID和密码<br>ESP32（AT）：AT+CIPSTA? //查看ip<br>串口开启tcp的server模式输入esp的ip和80端口<br>设置自己的ip并随便指定一个端口打开监听</p>
+<h1 id="每次上电需要执行的命令"><a href="#每次上电需要执行的命令" class="headerlink" title="每次上电需要执行的命令"></a>每次上电需要执行的命令</h1><p>ESP32（AT）：AT+CIPSTART=”TCP”,”192.168.1.236”,11451（手机的ip和手机指定的端口）<br>此时手机发送的数据，esp32即可收到<br>收到格式为：+IPD,6:DATA     //+IPD,数据长度:数据<br>ESP32（AT）：AT+CIPMODE=1 //设置传输模式为透传模式,此方式不能写进flash<br>此时收到格式为：DATA     //数据，直接就是数据<br>ESP32（AT）：AT+CIPSEND //数据发送<br>此时esp32发送的数据，手机即可收到<br>ESP32（AT）：+++ //不带换行符，结束透传</p>
+]]></content>
+      <categories>
+        <category>单片机</category>
+      </categories>
+      <tags>
+        <tag>ESP32 AT</tag>
+      </tags>
   </entry>
   <entry>
     <title>LINUX_Command</title>
@@ -273,19 +286,6 @@
       </categories>
       <tags>
         <tag>LINUX</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>FRP</title>
-    <url>/2023/06/24/FRP/</url>
-    <content><![CDATA[<p>关于FRP的配置</p>
-<span id="more"></span>
-]]></content>
-      <categories>
-        <category>LINUX</category>
-      </categories>
-      <tags>
-        <tag>FRP</tag>
       </tags>
   </entry>
   <entry>
@@ -979,39 +979,15 @@
       </tags>
   </entry>
   <entry>
-    <title>ZYNQ-in-7010</title>
-    <url>/2022/12/13/ZYNQ-in-7010/</url>
-    <content><![CDATA[<p>个人关于ZYNQ的一些开发学习文档，以小熊猫的ZYNQ7010和Smart 7020 SP为例，不断更新ing</p>
-<span id="more"></span>
-<h1 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h1><ol>
-<li>敏感信号表:所有的右边表达式中的变量以及if,case条件中的变量</li>
-<li>if/else要配对以避免latch（锁存器）的产生，同样的case语句加default语句</li>
-<li>状态机（fsm）：<ol>
-<li>使用独热码，每个状态只有一个寄存器置位，译码逻辑简单</li>
-<li>三段式可以在组合逻辑后再增加一级寄存器来实现时序逻辑输出:<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20220116144516055.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img" title="image-20220116144516055"></a><ul>
-<li>可以有效地滤去组合逻辑输出的毛刺</li>
-<li>可以有效地进行时序计算与约束</li>
-<li>另外对于总线形式的输出信号来说，容易使总线数据对齐,从而减小总线数据间的偏移，减小接收端数据采样出错的频率。</li>
-</ul>
-</li>
-</ol>
-</li>
-</ol>
-<h1 id="Petalinux"><a href="#Petalinux" class="headerlink" title="Petalinux"></a>Petalinux</h1><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><p>source /tools/petalinux/2023.1/settings.sh</p>
-<h3 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h3><p>petalinux-create —type project —template zynq —name Petalinux_TF</p>
-<h3 id="进入图形化配置界面"><a href="#进入图形化配置界面" class="headerlink" title="进入图形化配置界面"></a>进入图形化配置界面</h3><p>petalinux-config —get-hw-description=.</p>
-<h3 id="编译-1"><a href="#编译-1" class="headerlink" title="编译"></a>编译</h3><p>petalinux-build</p>
-<h3 id="打包镜像"><a href="#打包镜像" class="headerlink" title="打包镜像"></a>打包镜像</h3><p>petalinux-package —boot —fsbl ./images/linux/zynq_fsbl.elf —u-boot —fpga —kernel —force</p>
-<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><h3 id="启动出错显示找不到环境等问题"><a href="#启动出错显示找不到环境等问题" class="headerlink" title="启动出错显示找不到环境等问题"></a>启动出错显示找不到环境等问题</h3><p>在uboot界面输入：<br>env default -a<br>saveenv<br>boot</p>
-<h3 id="登陆"><a href="#登陆" class="headerlink" title="登陆"></a>登陆</h3><p>自从Petalinux 2022.1版本以后，取消了root登录。用户名改为petalinux，然后会引导你设置新密码。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://shjdgwj.github.io/d8298fbe5fcd/">ZYNQ学习笔记</a></p>
+    <title>数据管理</title>
+    <url>/2023/08/27/%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<p>mysql数据管理<br><span id="more"></span></p>
+<h1 id="Docker-WordPress搭建网站"><a href="#Docker-WordPress搭建网站" class="headerlink" title="Docker+WordPress搭建网站"></a>Docker+WordPress搭建网站</h1><p>1.本地安装好 Docker 软件<br>2.拉取 WordPress 镜像<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker pull wordpress</span><br></pre></td></tr></table></figure><br>3.启动 MySQL 容器<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d -p 3123:3306 --name wpmysql -e MYSQL_ROOT_PASSWORD=123456 mysql</span><br><span class="line"></span><br><span class="line"># run: 启动一个容器</span><br><span class="line"># -d: 启动的容器在后台运行</span><br><span class="line"># --name: 容器名 wpmysql</span><br><span class="line"># -e MYSQL_ROOT_PASSWORD:  设置 MySQL 的 root 密码</span><br><span class="line"># -p：映射端口，将容器的3306端口映射到主机的3123端口</span><br><span class="line"># mysql：启动的镜像，如果具体版本，这里也要加上具体版本号 mysql:5.2</span><br></pre></td></tr></table></figure><br>4.启动 WordPress 容器，并连接到 MySQL 容器上<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d -p 8088:80 --name wordpress --link wpmysql:mysql wordpress</span><br><span class="line"># -p：映射端口，本地访问路径：http://localhost:8088</span><br><span class="line"># --link：将 wpmysql 容器挂载到 mysql 上，这样 WordPress 才能访问</span><br><span class="line">不出意外的话，在浏览器打开后设置好数据库信息看到的是这样的：</span><br></pre></td></tr></table></figure><br>5.配置Mysql<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 1.进入mysql容器</span><br><span class="line">docker exec -it wpmysql bash</span><br><span class="line"># 2.登录mysql</span><br><span class="line">mysql -uroot -p</span><br><span class="line"># 3.授权root用户在其他机器上运行：host为 % 表示不限制ip，默认的localhost表示本机使用</span><br><span class="line">grant all on *.* to &#x27;root&#x27;@&#x27;%&#x27;;</span><br><span class="line"># 4.如果是 mysql8 版本，由于不支持动态修改密码验证，还需要更新root用户密码</span><br><span class="line">alter user &#x27;root&#x27;@&#x27;%&#x27; identified with mysql_native_password by &#x27;123456&#x27;;</span><br><span class="line"># 5.自己创建一个名字为 wordpress 的数据库(要跟wordpress安装是让配置的名字一致)</span><br><span class="line">create database wordpress;</span><br><span class="line"># 6.刷新权限</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Docker-Phpmyadmin"><a href="#Docker-Phpmyadmin" class="headerlink" title="Docker+Phpmyadmin"></a>Docker+Phpmyadmin</h1><p>1.本地安装好 Docker 软件<br>2.拉取 Phpmyadmin 镜像<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker pull phpmyadmin</span><br></pre></td></tr></table></figure><br>3.启动 Phpmyadmin 容器<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run --restart always --name myadmin -d -e PMA_ARBITRARY=1 -p 8080:80 phpmyadmin</span><br><span class="line"></span><br><span class="line">参数介绍：</span><br><span class="line">PMA_ARBITRARY -设置为1时，将允许连接到任意服务器</span><br><span class="line">PMA_HOST -定义MySQL服务器的地址/主机名</span><br><span class="line">PMA_VERBOSE -定义MySQL服务器的详细名称</span><br><span class="line">PMA_PORT -定义MySQL服务器的端口</span><br><span class="line">PMA_HOSTS -定义逗号分隔的MySQL服务器的地址/主机名列表</span><br><span class="line">PMA_VERBOSES -定义以逗号分隔的MySQL服务器详细名称列表</span><br><span class="line">PMA_PORTS -定义以逗号分隔的MySQL服务器端口列表</span><br><span class="line">PMA_USER和PMA_PASSWORD-定义用于配置身份验证方法的用户名</span><br><span class="line">PMA_ABSOLUTE_URI -定义面向用户的URI</span><br><span class="line">HIDE_PHP_VERSION-如果定义，则将隐藏php版本（expose_php = Off）。设置为任何值（例如HIDE_PHP_VERSION = true）。</span><br><span class="line">UPLOAD_LIMIT -如果设置，将覆盖apache和php-fpm的默认值（默认值为2048 kb）</span><br><span class="line">PMA_CONFIG_BASE64 -如果设置，将使用变量的base64解码内容覆盖默认的config.inc.php</span><br><span class="line">PMA_USER_CONFIG_BASE64 -如果设置，将使用变量的base64解码内容覆盖默认的config.user.inc.php</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h1 id="phpmyadmin外链数据库或切换端口"><a href="#phpmyadmin外链数据库或切换端口" class="headerlink" title="phpmyadmin外链数据库或切换端口"></a>phpmyadmin外链数据库或切换端口</h1><p>1.修改phpmyadmin目录中libraries文件夹下的config.default.php文件<br>2.查找[‘Servers’][$i][‘host’]= xxx，改成所需的地址；<br>查找[‘Servers’][$i][‘port’]= xxx，改成所需的端口；<br>查找[‘Servers’][$i][‘user’]= xxx，改成所需的用户；<br>查找[‘Servers’][$i][‘password’]= xxx，改成所需的用户；</p>
+<h1 id="wordpress配置文件"><a href="#wordpress配置文件" class="headerlink" title="wordpress配置文件"></a>wordpress配置文件</h1><p>wp-config.php</p>
+<h1 id="修改最大上传文件大小限制"><a href="#修改最大上传文件大小限制" class="headerlink" title="修改最大上传文件大小限制"></a>修改最大上传文件大小限制</h1><p>可通过修改.htaccess文件完成<br>1、wordpress根目录下（/var/www/html）找到.htaccess文件<br>2、打开.htaccess文件并在module中间添加以下代码：<br>php_value upload_max_filesize 100M<br>php_value post_max_size 100M<br>将“100M”替换为您需要的大小。<br>3、保存并关闭.htaccess文件。</p>
 ]]></content>
-      <categories>
-        <category>ZYNQ</category>
-      </categories>
-      <tags>
-        <tag>7010</tag>
-      </tags>
   </entry>
   <entry>
     <title>网络基础</title>
@@ -1057,14 +1033,38 @@
       </tags>
   </entry>
   <entry>
-    <title>数据管理</title>
-    <url>/2023/08/27/%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<p>mysql数据管理<br><span id="more"></span></p>
-<h1 id="Docker-WordPress搭建网站"><a href="#Docker-WordPress搭建网站" class="headerlink" title="Docker+WordPress搭建网站"></a>Docker+WordPress搭建网站</h1><p>1.本地安装好 Docker 软件<br>2.拉取 WordPress 镜像<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker pull wordpress</span><br></pre></td></tr></table></figure><br>3.启动 MySQL 容器<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d -p 3123:3306 --name wpmysql -e MYSQL_ROOT_PASSWORD=123456 mysql</span><br><span class="line"></span><br><span class="line"># run: 启动一个容器</span><br><span class="line"># -d: 启动的容器在后台运行</span><br><span class="line"># --name: 容器名 wpmysql</span><br><span class="line"># -e MYSQL_ROOT_PASSWORD:  设置 MySQL 的 root 密码</span><br><span class="line"># -p：映射端口，将容器的3306端口映射到主机的3123端口</span><br><span class="line"># mysql：启动的镜像，如果具体版本，这里也要加上具体版本号 mysql:5.2</span><br></pre></td></tr></table></figure><br>4.启动 WordPress 容器，并连接到 MySQL 容器上<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d -p 8088:80 --name wordpress --link wpmysql:mysql wordpress</span><br><span class="line"># -p：映射端口，本地访问路径：http://localhost:8088</span><br><span class="line"># --link：将 wpmysql 容器挂载到 mysql 上，这样 WordPress 才能访问</span><br><span class="line">不出意外的话，在浏览器打开后设置好数据库信息看到的是这样的：</span><br></pre></td></tr></table></figure><br>5.配置Mysql<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 1.进入mysql容器</span><br><span class="line">docker exec -it wpmysql bash</span><br><span class="line"># 2.登录mysql</span><br><span class="line">mysql -uroot -p</span><br><span class="line"># 3.授权root用户在其他机器上运行：host为 % 表示不限制ip，默认的localhost表示本机使用</span><br><span class="line">grant all on *.* to &#x27;root&#x27;@&#x27;%&#x27;;</span><br><span class="line"># 4.如果是 mysql8 版本，由于不支持动态修改密码验证，还需要更新root用户密码</span><br><span class="line">alter user &#x27;root&#x27;@&#x27;%&#x27; identified with mysql_native_password by &#x27;123456&#x27;;</span><br><span class="line"># 5.自己创建一个名字为 wordpress 的数据库(要跟wordpress安装是让配置的名字一致)</span><br><span class="line">create database wordpress;</span><br><span class="line"># 6.刷新权限</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure></p>
-<h1 id="Docker-Phpmyadmin"><a href="#Docker-Phpmyadmin" class="headerlink" title="Docker+Phpmyadmin"></a>Docker+Phpmyadmin</h1><p>1.本地安装好 Docker 软件<br>2.拉取 Phpmyadmin 镜像<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker pull phpmyadmin</span><br></pre></td></tr></table></figure><br>3.启动 Phpmyadmin 容器<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run --restart always --name myadmin -d -e PMA_ARBITRARY=1 -p 8080:80 phpmyadmin</span><br><span class="line"></span><br><span class="line">参数介绍：</span><br><span class="line">PMA_ARBITRARY -设置为1时，将允许连接到任意服务器</span><br><span class="line">PMA_HOST -定义MySQL服务器的地址/主机名</span><br><span class="line">PMA_VERBOSE -定义MySQL服务器的详细名称</span><br><span class="line">PMA_PORT -定义MySQL服务器的端口</span><br><span class="line">PMA_HOSTS -定义逗号分隔的MySQL服务器的地址/主机名列表</span><br><span class="line">PMA_VERBOSES -定义以逗号分隔的MySQL服务器详细名称列表</span><br><span class="line">PMA_PORTS -定义以逗号分隔的MySQL服务器端口列表</span><br><span class="line">PMA_USER和PMA_PASSWORD-定义用于配置身份验证方法的用户名</span><br><span class="line">PMA_ABSOLUTE_URI -定义面向用户的URI</span><br><span class="line">HIDE_PHP_VERSION-如果定义，则将隐藏php版本（expose_php = Off）。设置为任何值（例如HIDE_PHP_VERSION = true）。</span><br><span class="line">UPLOAD_LIMIT -如果设置，将覆盖apache和php-fpm的默认值（默认值为2048 kb）</span><br><span class="line">PMA_CONFIG_BASE64 -如果设置，将使用变量的base64解码内容覆盖默认的config.inc.php</span><br><span class="line">PMA_USER_CONFIG_BASE64 -如果设置，将使用变量的base64解码内容覆盖默认的config.user.inc.php</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<h1 id="phpmyadmin外链数据库或切换端口"><a href="#phpmyadmin外链数据库或切换端口" class="headerlink" title="phpmyadmin外链数据库或切换端口"></a>phpmyadmin外链数据库或切换端口</h1><p>1.修改phpmyadmin目录中libraries文件夹下的config.default.php文件<br>2.查找[‘Servers’][$i][‘host’]= xxx，改成所需的地址；<br>查找[‘Servers’][$i][‘port’]= xxx，改成所需的端口；<br>查找[‘Servers’][$i][‘user’]= xxx，改成所需的用户；<br>查找[‘Servers’][$i][‘password’]= xxx，改成所需的用户；</p>
-<h1 id="wordpress配置文件"><a href="#wordpress配置文件" class="headerlink" title="wordpress配置文件"></a>wordpress配置文件</h1><p>wp-config.php</p>
-<h1 id="修改最大上传文件大小限制"><a href="#修改最大上传文件大小限制" class="headerlink" title="修改最大上传文件大小限制"></a>修改最大上传文件大小限制</h1><p>可通过修改.htaccess文件完成<br>1、wordpress根目录下（/var/www/html）找到.htaccess文件<br>2、打开.htaccess文件并在module中间添加以下代码：<br>php_value upload_max_filesize 100M<br>php_value post_max_size 100M<br>将“100M”替换为您需要的大小。<br>3、保存并关闭.htaccess文件。</p>
+    <title>ZYNQ-in-7010</title>
+    <url>/2022/12/13/ZYNQ-in-7010/</url>
+    <content><![CDATA[<p>个人关于ZYNQ的一些开发学习文档，以小熊猫的ZYNQ7010和Smart 7020 SP为例，不断更新ing</p>
+<span id="more"></span>
+<h1 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h1><ol>
+<li>敏感信号表:所有的右边表达式中的变量以及if,case条件中的变量</li>
+<li>if/else要配对以避免latch（锁存器）的产生，同样的case语句加default语句</li>
+<li>状态机（fsm）：<ol>
+<li>使用独热码，每个状态只有一个寄存器置位，译码逻辑简单</li>
+<li>三段式可以在组合逻辑后再增加一级寄存器来实现时序逻辑输出:<br><a href="https://shjdgwj.github.io/d8298fbe5fcd/image-20220116144516055.png"><img src="https://shjdgwj.github.io/d8298fbe5fcd/images/loading.gif" alt="img" title="image-20220116144516055"></a><ul>
+<li>可以有效地滤去组合逻辑输出的毛刺</li>
+<li>可以有效地进行时序计算与约束</li>
+<li>另外对于总线形式的输出信号来说，容易使总线数据对齐,从而减小总线数据间的偏移，减小接收端数据采样出错的频率。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="Petalinux"><a href="#Petalinux" class="headerlink" title="Petalinux"></a>Petalinux</h1><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><p>source /tools/petalinux/2023.1/settings.sh</p>
+<h3 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h3><p>petalinux-create —type project —template zynq —name Petalinux_TF</p>
+<h3 id="进入图形化配置界面"><a href="#进入图形化配置界面" class="headerlink" title="进入图形化配置界面"></a>进入图形化配置界面</h3><p>petalinux-config —get-hw-description=.</p>
+<h3 id="编译-1"><a href="#编译-1" class="headerlink" title="编译"></a>编译</h3><p>petalinux-build</p>
+<h3 id="打包镜像"><a href="#打包镜像" class="headerlink" title="打包镜像"></a>打包镜像</h3><p>petalinux-package —boot —fsbl ./images/linux/zynq_fsbl.elf —u-boot —fpga —kernel —force</p>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><h3 id="启动出错显示找不到环境等问题"><a href="#启动出错显示找不到环境等问题" class="headerlink" title="启动出错显示找不到环境等问题"></a>启动出错显示找不到环境等问题</h3><p>在uboot界面输入：<br>env default -a<br>saveenv<br>boot</p>
+<h3 id="登陆"><a href="#登陆" class="headerlink" title="登陆"></a>登陆</h3><p>自从Petalinux 2022.1版本以后，取消了root登录。用户名改为petalinux，然后会引导你设置新密码。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://shjdgwj.github.io/d8298fbe5fcd/">ZYNQ学习笔记</a></p>
 ]]></content>
+      <categories>
+        <category>ZYNQ</category>
+      </categories>
+      <tags>
+        <tag>7010</tag>
+      </tags>
   </entry>
 </search>

@@ -6,7 +6,7 @@
     <title>Wishzone</title>
     <link>http://example.com/</link>
     
-    <atom:link href="http://example.com/rss2.xml" rel="self" type="application/rss+xml"/>
+    <atom:link href="http://example.com/atom.xml" rel="self" type="application/rss+xml"/>
     
     <description>留点热情给旁边人</description>
     <pubDate>Mon, 28 Aug 2023 09:46:43 GMT</pubDate>
